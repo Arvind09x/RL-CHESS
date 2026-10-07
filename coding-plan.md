@@ -1,6 +1,6 @@
 # Coding plan: small tasks from interface to playable agent
 
-Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 has passed numerical acceptance and awaits review. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
+Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 has passed automated acceptance and awaits review. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
 
 This is the execution companion to [plan1.md](plan1.md), not a replacement strategy. [interface.md](interface.md) defines the shared behavior. The intended agent is a Chessformer network with Leela-inspired MCTS and self-play, based on AlphaZero's learning principle and initialized with Stockfish supervision.
 
@@ -104,7 +104,7 @@ After Gate A, the data, model and search tracks can proceed independently. They 
 | Done | ID / owner | Prerequisites | Build | Acceptance check |
 |---|---|---|---|---|
 | [x] | M01 / P1 | F02, F03 | Port compact GAB and its shared template bank. | Match the pinned reference operations numerically on synthetic nontrivial inputs. Confirm d1=8, d2=32, d3=32 and that the template parameter is shared, not copied per layer. |
-| [ ] | M02 / P1 | M01, A07 | Assemble the projection, additive square embeddings and specified Post-LayerNorm encoder blocks. | Correct `[B,64,256]` outputs, finite forward/backward values and working train/eval dropout behavior for several batch sizes. Record resolved normalization/bias/initialization settings. |
+| [x] | M02 / P1 | M01, A07 | Assemble the projection, additive square embeddings and specified Post-LayerNorm encoder blocks. | Correct `[B,64,256]` outputs, finite forward/backward values and working train/eval dropout behavior for several batch sizes. Record resolved normalization/bias/initialization settings. |
 | [ ] | M03 / P1 | M02 | Implement the pair policy head, `d_policy=128`, promotion adjustment and exact flattening order. | Compare selected ordinary/promotion logits to an independent scalar calculation/reference. Output is `[B,4352]`; queen and underpromotions occupy their own correct slots. |
 | [ ] | M04 / P1 | M02 | Implement mean pooling and the specified WDL head. | Output is `[B,3]` logits in WDL order. Pool across squares; one known synthetic case independently checks the head path. |
 | [ ] | M05 / Both | M03, M04 | Assemble the backbone and heads with GAB as an intermediate correctness stage, before adding relative terms in M06. | End-to-end adapter batches produce finite policy/WDL logits and gradients. Record intermediate parameters/memory; this stage is not the architecture for supervised or RL runs. |
@@ -197,7 +197,7 @@ Already locked: 128-channel encoding, eight-snapshot padding, Black rank reflect
 
 Environment/types → adapter Gate A → data + combined network (including verified relative port) + dummy search → tiny overfit and real batched evaluator → local cycle Gate I → combined-model/GPU pilot and P-versus-R assessment Gate P → main run → reserved evaluation → report and playable agent.
 
-F01, F02 and A01–A06 are complete in this implementation. A07 automation is complete; obtain the second-person review before marking A07/Gate A accepted. The next implementation task is **F03**. F03 can proceed while adapter coding continues. After Gate A, P1 works on the D/M tracks and P2 on S; integrate at T04/R04. Complete E01 after S05 and before P03 so checkpoint evaluation is available for the pilot. Z02 can be developed once a selected checkpoint is available, alongside the report.
+**Historical pre-review sequencing (superseded by the dated acceptance entries below):** F01, F02 and A01–A06 are complete in this implementation. A07 automation is complete; obtain the second-person review before marking A07/Gate A accepted. The next implementation task is **F03**. F03 can proceed while adapter coding continues. After Gate A, P1 works on the D/M tracks and P2 on S; integrate at T04/R04. Complete E01 after S05 and before P03 so checkpoint evaluation is available for the pilot. Z02 can be developed once a selected checkpoint is available, alongside the report.
 
 Keep the relative schedule in `plan1.md`: foundations in days 1–3, pilot in days 4–7, main self-play in days 8–14, final evaluation in days 15–17, and report/demo in days 18–21. These are planning windows, not promises that all tasks take equal time. If measurements make them unrealistic, reduce optional scale and comparisons while preserving correctness gates and final deliverables.
 
@@ -303,3 +303,58 @@ to later tasks. M02, attention integration, heads, relative terms, data
 annotation, training and search remain unstarted. No subagents or paid compute.
 Stop for review of the focused M01 commit; this completion is numerical
 acceptance, not a new claim of independent reviewer sign-off on M01.
+
+
+### M01 review acceptance — 2026-10-07
+
+The user supplied independent **AI review acceptance** of M01 commit
+`66eea36ba74ba811298ce8347a5153f562c474be`. The reviewer inspected the
+implementation and reran 139 model tests, 119 adapter-only tests with one
+expected skip, all 12 numerical cases, sharing checks, both 13-fixture adapter
+replays, pinned-source checks and dependency checks. Original planning hashes
+and the clean working tree were verified. No blocking findings were identified.
+This is AI review acceptance, not human teammate review. The historical M01
+completion and `runs/m01/` remain intact; this entry supersedes their pending
+review status. Structured record: `runs/m02/m01-review-acceptance.json`.
+
+### M02 completion — 2026-10-07
+
+M02 only is implemented and passes automated acceptance; **stop for review**.
+Changed files: `src/chess_rl/model/{attention,backbone,__init__}.py`,
+`tests/{backbone_checks,test_backbone}.py`, `scripts/check_m02.py`,
+`docs/m02-backbone.md`, appended M01 review record, README/port map/this status
+log and `runs/m02/`. `EncoderBackbone` returns `[B,64,256]` from the full
+`[B,64,128]` adapter input, retaining zero-initialized additive square embeddings,
+eight independent 256-wide Post-LayerNorm blocks, packed biased Q/K/V,
+eight heads, FFN width 256, existing M01 GAB and one shared template bank,
+training dropout 0.1 at all four required sites and encoder-final LayerNorm.
+No input/position dropout or Elo/time conditioning is present.
+
+Actual commands and raw results are saved in `runs/m02/commands.json`; staging
+paths and the verification runner are archived there. All passed: six
+independent reference cases (batches 1/2/5 × float32/float64, zero dropout,
+nonzero parameters/position embeddings, asymmetric noncontiguous inputs), all
+182 parameter tensors plus input gradients, train/eval and each isolated
+dropout site, sharing/gradient accumulation/optimizer deduplication across eight
+blocks, all 13 real adapter fixtures with full history/state preservation,
+M01's 12 numerical cases and sharing/source-byte audit, **157 full model tests**,
+**119 adapter-only tests with two expected optional-model module skips**, both
+13-fixture adapter replays, import boundary, dependency checks and pinned
+source checks. Preservation checks confirm 45 protected files and the three
+original planning hashes. The M01 extra skip count remains historically one.
+
+Backbone only: **3,567,168** parameter elements, 182 unique tensors. Constructor
+epsilon is 1e-5 with affine LayerNorm biases; all retained projection/FFN
+biases enabled. Packed `[768,256]` Q/K/V is Xavier uniform; attention output
+weight retains Linear constructor reset, and MHA zeros its biases. Other
+Linears retain their constructors; norms initialize weight=1/bias=0.
+`docs/m02-backbone.md` and the report resolve settings from the pinned source
+and installed PyTorch 2.8.0. No final combined-model count is claimed.
+
+Current execution status: F01/F02, A01–A07/Gate A, F03 and M01 accepted; M02
+automated acceptance complete, independent review pending. M03 onward, heads,
+relative terms, data, training and search remain unimplemented. CPU macOS arm64
+only; CUDA/MPS, reduced precision, other platform builds, upstream framework
+RNG/checkpoint compatibility and playing strength are unvalidated. No subagents
+or paid compute. Original planning directory, adapter semantics, source
+pins/notices and all earlier run evidence are preserved.

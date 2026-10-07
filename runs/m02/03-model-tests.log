@@ -1,0 +1,21 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/arvindsrinivass/Desktop/RL-Chess
+configfile: pyproject.toml
+testpaths: tests
+collected 157 items
+
+tests/test_backbone.py ..................                                [ 11%]
+tests/test_encoding.py ..................                                [ 22%]
+tests/test_foundation.py .                                               [ 23%]
+tests/test_gab.py ....................                                   [ 36%]
+tests/test_history.py .....                                              [ 39%]
+tests/test_legality.py .........                                         [ 45%]
+tests/test_moves.py ................................                     [ 65%]
+tests/test_outcomes.py ...................                               [ 77%]
+tests/test_regression.py ...........                                     [ 84%]
+tests/test_state.py .................                                    [ 95%]
+tests/test_types.py .......                                              [100%]
+
+- generated xml file: /private/tmp/rl-chess-m02-stage/runs/m02/pytest-model.xml -
+============================= 157 passed in 5.81s ==============================

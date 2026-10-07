@@ -123,3 +123,18 @@ attention integration, policy/WDL heads, relative terms, data annotation,
 training and search remain unimplemented. CUDA, MPS, reduced precision and
 other platform builds are unvalidated. No pretrained checkpoint compatibility
 or full-model count is claimed. No subagents were launched.
+
+
+## Independent AI review acceptance — 7 October 2026
+
+The user supplied acceptance of M01 commit
+`66eea36ba74ba811298ce8347a5153f562c474be` following independent AI review.
+The reviewer inspected the implementation and reran 139 model tests, 119
+adapter-only tests with one expected skip, all 12 numerical cases, sharing
+checks, both 13-fixture adapter replays, pinned-source checks and dependency
+checks. Original planning hashes and the clean working tree were verified;
+no blocking findings were identified. This is AI review acceptance, not a
+human teammate's review. It supersedes the historical pending-review status
+above without changing its evidence. `runs/m01/` is preserved byte-for-byte.
+See [structured review record](../runs/m02/m01-review-acceptance.json) and
+[M02 backbone acceptance](m02-backbone.md). Only M02 was authorized next.

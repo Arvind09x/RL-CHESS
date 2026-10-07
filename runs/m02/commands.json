@@ -1,0 +1,154 @@
+[
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_m02.py",
+      "--maia3-checkout",
+      "/private/tmp/rl-chess-f03-maia3",
+      "--output",
+      "/private/tmp/rl-chess-m02-stage/runs/m02/backbone-acceptance.json"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {},
+    "exit_code": 0,
+    "output": "runs/m02/01-m02-check.log",
+    "duration_seconds": 4.127
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_m01.py",
+      "--maia3-checkout",
+      "/private/tmp/rl-chess-f03-maia3",
+      "--output",
+      "/private/tmp/rl-chess-m02-stage/runs/m02/m01-rerun.json"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {},
+    "exit_code": 0,
+    "output": "runs/m02/02-m01-check.log",
+    "duration_seconds": 2.836
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=/private/tmp/rl-chess-m02-stage/runs/m02/pytest-model.xml"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {},
+    "exit_code": 0,
+    "output": "runs/m02/03-model-tests.log",
+    "duration_seconds": 6.172
+  },
+  {
+    "command": [
+      ".venv-acceptance/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=/private/tmp/rl-chess-m02-stage/runs/m02/pytest-adapter-only.xml"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {},
+    "exit_code": 0,
+    "output": "runs/m02/04-adapter-only-tests.log",
+    "duration_seconds": 1.92
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_adapter.py"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {},
+    "exit_code": 0,
+    "output": "runs/m02/05-adapter-replay-model.json",
+    "duration_seconds": 0.076
+  },
+  {
+    "command": [
+      ".venv-acceptance/bin/python",
+      "scripts/check_adapter.py"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {},
+    "exit_code": 0,
+    "output": "runs/m02/06-adapter-replay-only.json",
+    "duration_seconds": 0.076
+  },
+  {
+    "command": [
+      ".venv-acceptance/bin/python",
+      "-c",
+      "import importlib.util, sys; assert importlib.util.find_spec('torch') is None; import chess_rl.adapter; assert 'torch' not in sys.modules; print('Adapter-only environment: no installed or imported torch')"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {},
+    "exit_code": 0,
+    "output": "runs/m02/07-adapter-import.log",
+    "duration_seconds": 0.059
+  },
+  {
+    "command": [
+      "uv",
+      "pip",
+      "check",
+      "--python",
+      ".venv/bin/python"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "UV_CACHE_DIR": "/private/tmp/rl-chess-m02-uv-cache"
+    },
+    "exit_code": 0,
+    "output": "runs/m02/08-model-dependencies.log",
+    "duration_seconds": 0.061
+  },
+  {
+    "command": [
+      "uv",
+      "pip",
+      "check",
+      "--python",
+      ".venv-acceptance/bin/python"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "UV_CACHE_DIR": "/private/tmp/rl-chess-m02-uv-cache"
+    },
+    "exit_code": 0,
+    "output": "runs/m02/09-adapter-dependencies.log",
+    "duration_seconds": 0.029
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_upstream.py",
+      "--maia3-checkout",
+      "/private/tmp/rl-chess-f03-maia3",
+      "--lczero-checkout",
+      "/private/tmp/rl-chess-f03-lczero"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {},
+    "exit_code": 0,
+    "output": "runs/m02/10-upstream-check.log",
+    "duration_seconds": 0.206
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "/private/tmp/rl-chess-m02-stage/runs/m02/final-audit.py"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {},
+    "exit_code": 0,
+    "output": "runs/m02/11-final-audit.log",
+    "duration_seconds": 0.068
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "initial_head": "0d0359a",
+  "initial_working_tree_status": "clean (git status --short returned no output)",
+  "target_repository": "/Users/arvindsrinivass/Desktop/RL-Chess",
+  "staging_directory": "/private/tmp/rl-chess-m02-stage",
+  "verification_runner_command": [
+    ".venv/bin/python",
+    "/private/tmp/rl-chess-m02-run.py"
+  ],
+  "verification_runner_archive": "runs/m02/verification-runner.py",
+  "evidence_archive_command": [
+    "cp",
+    "-R",
+    "/private/tmp/rl-chess-m02-stage/.",
+    "/Users/arvindsrinivass/Desktop/RL-Chess/"
+  ],
+  "artifact_paths": "Exact verification commands emitted temporary files under the staging runs/m02 directory; those bytes were archived under repository runs/m02. No historical run files were overwritten.",
+  "preliminary_test_command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_backbone.py"
+  ],
+  "preliminary_test_result": "18 passed in 4.67s; exit 0",
+  "applicable_repository_instructions": "No AGENTS.md found in repository or checked ancestor paths; coding-plan.md/interface.md and pinned-source documentation read.",
+  "no_subagents": true,
+  "no_paid_compute": true
+}

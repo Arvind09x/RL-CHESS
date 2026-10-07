@@ -2,8 +2,9 @@
 
 Recorded 7 October 2026. The original F03 audit covered the operations planned
 in M01–M06, plus vocabulary/history reference behavior, without executing them.
-M01 is now ported and numerically accepted; see [M01 evidence](m01-gab.md).
-M02–M06 remain unimplemented. No full upstream module is imported.
+M01 is ported and accepted through independent AI review; see [M01 evidence](m01-gab.md).
+M02 backbone is ported and passes automated acceptance, awaiting review; see
+[M02 evidence](m02-backbone.md). M03–M06 remain unimplemented. No full upstream module is imported.
 `interface.md` remains the contract. The original planning files in
 `/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2` are preserved.
 
@@ -219,10 +220,10 @@ actual Git-object and independent HTTPS checks and original-plan preservation.
 Source availability is network-dependent; any retrieval/hash/coverage failure
 fails the check. These checks establish F03 provenance, not numerical ports.
 
-Remaining: M01 GAB initialization is resolved in the recorded PyTorch 2.8.0
-CPU environment; later model constructors still require their milestone checks.
+Remaining: M01 GAB and M02 backbone initialization are resolved in the recorded
+PyTorch 2.8.0 CPU environment; M03–M06 constructors require their milestone checks.
 The GPL full-text omission upstream is documented;
-WDL/history/preset adaptations must be respected by later ports. M02–M06
+WDL/history/preset adaptations must be respected by later ports. M03–M06
 numerical operations/gradients and all learning/search work remain unstarted.
 
 Review acceptance — 7 October 2026: the user's decisions accept A07/Gate A
@@ -244,3 +245,22 @@ functional path. `runs/m01/numerical-acceptance.json` saves actual errors,
 tolerances, environment and sharing results. See `m01-gab.md` for constructor
 defaults, commands and remaining limitations. Existing source notices and the
 F03 historical evidence remain intact.
+
+
+M02 automated acceptance — 7 October 2026: the pinned MHA/AbsolutePE/
+EncoderOnlyBlock/CustomTransformerEncoder operations are adapted in
+`model/attention.py` and `model/backbone.py`. Existing M01 generator and bank
+are unchanged. Packed biased PyTorch MHA receives GAB as additive square-pair
+logits; independent functional math checks every backbone stage and all
+gradients. Resolved PyTorch 2.8.0 constructor source/hashes and CPU limitations
+are in `runs/m02/backbone-acceptance.json`; see `m02-backbone.md`. One shared
+bank and eight independently constructed blocks are retained. No Elo/time
+conditioning, heads, relative operations or later work are implemented.
+
+The user-supplied M01 review acceptance covers commit
+`66eea36ba74ba811298ce8347a5153f562c474be`, implementation inspection, 139
+model tests, 119 adapter-only tests with one expected skip, all 12 numerical
+cases, sharing, both 13-fixture replays, source/dependency checks, original
+planning hashes and clean tree; no blocking findings. This is independent AI
+review, not human teammate review. Historical lock/notices and `runs/f03/`,
+`runs/milestone-1/`, `runs/m01/` remain unchanged. M02 stops for review.

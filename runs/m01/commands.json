@@ -1,0 +1,148 @@
+[
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_m01.py",
+      "--maia3-checkout",
+      "/private/tmp/rl-chess-f03-maia3",
+      "--output",
+      "runs/m01/numerical-acceptance.json"
+    ],
+    "exit_code": 0,
+    "output": "runs/m01/01-check.log"
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "--junitxml=runs/m01/pytest-model.xml"
+    ],
+    "exit_code": 0,
+    "output": "runs/m01/02-check.log"
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_adapter.py"
+    ],
+    "exit_code": 0,
+    "output": "runs/m01/03-adapter-replay-model.json"
+  },
+  {
+    "command": [
+      ".venv-acceptance/bin/python",
+      "-m",
+      "pytest",
+      "--junitxml=runs/m01/pytest-adapter-only.xml"
+    ],
+    "exit_code": 0,
+    "output": "runs/m01/04-check.log"
+  },
+  {
+    "command": [
+      ".venv-acceptance/bin/python",
+      "scripts/check_adapter.py"
+    ],
+    "exit_code": 0,
+    "output": "runs/m01/05-adapter-replay-only.json"
+  },
+  {
+    "command": [
+      ".venv-acceptance/bin/python",
+      "-c",
+      "import importlib.util, sys; assert importlib.util.find_spec('torch') is None; import chess_rl.adapter; assert 'torch' not in sys.modules; print('Adapter-only environment: no installed or imported torch')"
+    ],
+    "exit_code": 0,
+    "output": "runs/m01/06-check.log"
+  },
+  {
+    "command": [
+      "uv",
+      "pip",
+      "check",
+      "--python",
+      ".venv/bin/python"
+    ],
+    "exit_code": 0,
+    "output": "runs/m01/07-check.log"
+  },
+  {
+    "command": [
+      "uv",
+      "pip",
+      "check",
+      "--python",
+      ".venv-acceptance/bin/python"
+    ],
+    "exit_code": 0,
+    "output": "runs/m01/08-check.log"
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_upstream.py",
+      "--maia3-checkout",
+      "/private/tmp/rl-chess-f03-maia3",
+      "--lczero-checkout",
+      "/private/tmp/rl-chess-f03-lczero"
+    ],
+    "exit_code": 0,
+    "output": "runs/m01/09-check.log"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "output": "runs/m01/10-check.log"
+  },
+  {
+    "command": [
+      "uv",
+      "run",
+      "--locked",
+      "--offline",
+      "--extra",
+      "model",
+      "python",
+      "scripts/check_m01.py"
+    ],
+    "exit_code": 0,
+    "output": "runs/m01/11-offline-numerical.log"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "output": "runs/m01/12-final-diff-check.log"
+  },
+  {
+    "command": [
+      "uv",
+      "sync",
+      "--locked",
+      "--offline"
+    ],
+    "environment_overrides": {
+      "UV_PROJECT_ENVIRONMENT": ".venv-acceptance"
+    },
+    "exit_code": 0,
+    "output": "runs/m01/13-adapter-setup.log"
+  },
+  {
+    "command": [
+      ".venv-acceptance/bin/python",
+      "-c",
+      "import importlib.util, sys; assert importlib.util.find_spec('torch') is None; import chess_rl.adapter; assert 'torch' not in sys.modules; print('Locked adapter setup: no installed or imported torch')"
+    ],
+    "environment_overrides": {},
+    "exit_code": 0,
+    "output": "runs/m01/14-adapter-setup-import.log"
+  }
+]

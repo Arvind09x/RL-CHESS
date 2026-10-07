@@ -12,6 +12,9 @@ dependencies = [
     "python-chess==1.999",
 ]
 
+[project.optional-dependencies]
+model = ["torch==2.8.0"]
+
 [dependency-groups]
 dev = [
     "pytest==9.1.1",
@@ -23,3 +26,12 @@ packages = ["src/chess_rl"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+
+# Keep optional model installs CPU-only on Linux/Windows; macOS arm64 uses PyPI.
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux' or sys_platform == 'win32'" }]

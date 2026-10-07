@@ -10,7 +10,7 @@ Python; `pyproject.toml` pins direct dependencies and the build backend;
 `uv.lock` pins the resolved dependency graph with artifact hashes. Runtime:
 NumPy 2.5.3, python-chess 1.999 (the importable chess package is 1.11.2).
 Tests use pytest 9.1.1. The supported Python range is 3.12.x; other OSes have
-not been tested. Model/device dependencies are deferred to their milestone.
+not been tested. The optional model extra pins PyTorch 2.8.0; adapter setup omits it.
 
 ```sh
 cd /Users/arvindsrinivass/Desktop/RL-Chess
@@ -89,10 +89,10 @@ F03 commit `5958fd638fce0b6cf98a6631bacf743ce89551b8` (source checker and five
 corruption cases). This is not a claim of human teammate review. The dated
 completion-log entry supersedes the preserved historical pending statuses.
 
-There is no model, search, teacher annotation or training implementation yet.
-Policy normalization and evaluator batching belong to S01/T04 and later model
-helpers. M01 only (compact GAB) is the authorized next implementation. No paid
-compute has been used.
+M01 compact GAB and its shared template bank have passed numerical acceptance.
+M02 onward, attention integration, policy/WDL heads, relative terms, data
+annotation, training and search remain pending. No paid compute has been used.
+The M01 commit stops for review; no later milestone has started.
 
 
 ## Pinned upstream sources (F03)
@@ -144,6 +144,51 @@ Documented differences: Maia-3 raw WDL is `[loss,draw,win]`; our contract is
 `[win,draw,loss]`. Its oldest-first 12-channel history/per-snapshot orientation
 and release presets differ from our locked input/backbone. The earlier source
 has a GPL-3.0-or-later file notice but no standalone license file; Maia-3 has
-AGPL-3.0 text. Constructor-delegated initialization depends on an unpinned
-upstream PyTorch version and must be resolved in the later model environment.
-All numerical port/gradient validation belongs to M01–M06 and remains pending.
+AGPL-3.0 text. Upstream leaves PyTorch unpinned. M01 resolves its GAB
+constructor defaults under the environment below; upstream framework/RNG-stream equivalence is not
+claimed. Numerical validation of M02–M06 remains pending.
+
+
+## Compact GAB (M01)
+
+Install the optional model environment with `uv sync --locked --extra model`.
+Plain `uv sync --locked` preserves CPU/NumPy adapter-only installation. The lock
+contains PyTorch 2.8.0 macOS arm64 wheel hashes and 2.8.0+cpu Linux/Windows
+artifacts; only macOS 14.5 arm64, Python 3.12.12, CPU execution is tested here.
+[Environment, defaults and acceptance](docs/m01-gab.md) records the dependencies,
+constructor resets, reference checks and limitations.
+
+```sh
+uv sync --locked --extra model
+uv run --locked --offline --extra model pytest
+uv run --locked --offline --extra model python scripts/check_m01.py
+uv run --locked --offline --extra model python scripts/check_adapter.py
+```
+
+Ordinary numerical tests and `check_m01.py` use a frozen pinned operation plus
+an independent functional calculation, with no network or full Maia import.
+For an optional source comparison against the F03 checkout, use:
+
+```sh
+.venv/bin/python scripts/check_m01.py \
+  --maia3-checkout /private/tmp/rl-chess-f03-maia3 \
+  --output runs/m01/numerical-acceptance.json
+```
+
+```python
+import torch
+from chess_rl.model import CompactGAB, SharedTemplateBank
+
+bank = SharedTemplateBank()  # [4096,32], Xavier normal, CPU float32
+layers = torch.nn.ModuleList([CompactGAB(bank), CompactGAB(bank)])
+assert layers[0].bank.weight is layers[1].bank.weight
+bias = layers[0](torch.randn(2, 64, 256))
+assert bias.shape == (2, 8, 64, 64)
+optimizer = torch.optim.SGD(layers.parameters(), lr=0.01)
+```
+
+Construct the optimizer from the enclosing module's `parameters()` to
+deduplicate the shared bank. Generator projections/norms are separate. Move
+the enclosing collection to a new device/dtype as a unit. Shared modules may
+have multiple state-dictionary paths; reconstruct with the same supplied bank
+when loading. No checkpoint format or attention integration is implemented yet.

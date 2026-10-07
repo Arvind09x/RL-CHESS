@@ -1,9 +1,10 @@
 # F03: pinned source and port map
 
-Recorded 7 October 2026. This is a source audit for the operations planned in
-M01–M06, plus vocabulary/history reference behavior. No upstream modules are
-imported, no model is implemented, and no numerical outputs/gradients have been
-validated. `interface.md` remains the contract. The original planning files in
+Recorded 7 October 2026. The original F03 audit covered the operations planned
+in M01–M06, plus vocabulary/history reference behavior, without executing them.
+M01 is now ported and numerically accepted; see [M01 evidence](m01-gab.md).
+M02–M06 remain unimplemented. No full upstream module is imported.
+`interface.md` remains the contract. The original planning files in
 `/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2` are preserved.
 
 ## Repository identity and attribution
@@ -218,9 +219,10 @@ actual Git-object and independent HTTPS checks and original-plan preservation.
 Source availability is network-dependent; any retrieval/hash/coverage failure
 fails the check. These checks establish F03 provenance, not numerical ports.
 
-Remaining: delegated framework initialization must be resolved under the
-recorded model environment; the GPL full-text omission upstream is documented;
-WDL/history/preset adaptations must be respected by later ports. M01–M06
+Remaining: M01 GAB initialization is resolved in the recorded PyTorch 2.8.0
+CPU environment; later model constructors still require their milestone checks.
+The GPL full-text omission upstream is documented;
+WDL/history/preset adaptations must be respected by later ports. M02–M06
 numerical operations/gradients and all learning/search work remain unstarted.
 
 Review acceptance — 7 October 2026: the user's decisions accept A07/Gate A
@@ -231,3 +233,14 @@ five corruption cases. No human teammate review is claimed. This dated entry
 supersedes the prior pending-review status; historical evidence in
 `runs/f03/source-check.json` and the completion log is preserved. M01 only,
 compact GAB with its shared bank and numerical validation, is authorized next.
+
+
+M01 acceptance — 7 October 2026: `src/chess_rl/model/gab.py` adapts only the
+compact generator and shared-bank initializer. The verbatim `_sq_bias` test
+method is in `tests/fixtures/gab_reference.py` with retained attribution; its
+bytes were checked against the full-file checksum and pinned Git object.
+Output/input/parameter gradients passed against that method and an independent
+functional path. `runs/m01/numerical-acceptance.json` saves actual errors,
+tolerances, environment and sharing results. See `m01-gab.md` for constructor
+defaults, commands and remaining limitations. Existing source notices and the
+F03 historical evidence remain intact.

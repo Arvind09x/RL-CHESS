@@ -1,6 +1,6 @@
 # Coding plan: small tasks from interface to playable agent
 
-Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; see the dated acceptance entry below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
+Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 has passed numerical acceptance and awaits review. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
 
 This is the execution companion to [plan1.md](plan1.md), not a replacement strategy. [interface.md](interface.md) defines the shared behavior. The intended agent is a Chessformer network with Leela-inspired MCTS and self-play, based on AlphaZero's learning principle and initialized with Stockfish supervision.
 
@@ -103,7 +103,7 @@ After Gate A, the data, model and search tracks can proceed independently. They 
 
 | Done | ID / owner | Prerequisites | Build | Acceptance check |
 |---|---|---|---|---|
-| [ ] | M01 / P1 | F02, F03 | Port compact GAB and its shared template bank. | Match the pinned reference operations numerically on synthetic nontrivial inputs. Confirm d1=8, d2=32, d3=32 and that the template parameter is shared, not copied per layer. |
+| [x] | M01 / P1 | F02, F03 | Port compact GAB and its shared template bank. | Match the pinned reference operations numerically on synthetic nontrivial inputs. Confirm d1=8, d2=32, d3=32 and that the template parameter is shared, not copied per layer. |
 | [ ] | M02 / P1 | M01, A07 | Assemble the projection, additive square embeddings and specified Post-LayerNorm encoder blocks. | Correct `[B,64,256]` outputs, finite forward/backward values and working train/eval dropout behavior for several batch sizes. Record resolved normalization/bias/initialization settings. |
 | [ ] | M03 / P1 | M02 | Implement the pair policy head, `d_policy=128`, promotion adjustment and exact flattening order. | Compare selected ordinary/promotion logits to an independent scalar calculation/reference. Output is `[B,4352]`; queen and underpromotions occupy their own correct slots. |
 | [ ] | M04 / P1 | M02 | Implement mean pooling and the specified WDL head. | Output is `[B,3]` logits in WDL order. Pool across squares; one known synthetic case independently checks the head path. |
@@ -261,3 +261,45 @@ checked; Gate A is accepted. M01 only is authorized next. No later implementatio
 or paid compute is authorized by this entry. Changed files: `coding-plan.md`,
 `README.md`, `docs/upstream-sources.md`; documentation-only correction checked
 with `git diff --check`. The original planning directory remains untouched.
+
+
+### M01 completion — 2026-10-07
+
+Compact GAB only is complete after numerical acceptance. Changed files:
+`pyproject.toml`, `uv.lock`, `src/chess_rl/model/{__init__,gab}.py`,
+`tests/{gab_checks,test_gab}.py`, `tests/fixtures/gab_reference.py`,
+`scripts/check_m01.py`, `docs/m01-gab.md`, README/port map/this log and
+`runs/m01/` evidence. PyTorch 2.8.0 is an optional pinned dependency; its resolved
+dependencies/artifact hashes are locked. Adapter imports and default installation
+remain independent of PyTorch. CPU macOS 14.5 arm64 / Python 3.12.12 was tested.
+
+Actual checks: `.venv/bin/python scripts/check_m01.py --maia3-checkout
+/private/tmp/rl-chess-f03-maia3 --output runs/m01/numerical-acceptance.json`;
+`.venv/bin/python -m pytest --junitxml=runs/m01/pytest-model.xml`;
+`.venv-acceptance/bin/python -m pytest --junitxml=runs/m01/pytest-adapter-only.xml`;
+`scripts/check_adapter.py` in both environments; `uv pip check --python` against
+each environment; F03's offline Git-object source check; `git diff --check`.
+All passed: 139 model-environment tests; 119 adapter-only tests and one optional
+model-module skip; all 13 replay fixtures matched in both environments.
+The adapter-only environment has no installed PyTorch; its import boundary passed.
+Exact commands/outputs and original-planning-file hashes are in `runs/m01/`.
+
+Numerical acceptance used batches 1/2/5, float32 and float64, nonzero weights
+and biases (including both norms), asymmetric noncontiguous inputs, all input
+and parameter gradients, and a nonuniform scalar objective. The frozen pinned
+method matched exactly. Independent functional maximum output/gradient errors:
+float32 `1.0728836059570312e-6` / `9.238719940185547e-7` at
+`atol=2e-5, rtol=2e-4`; float64 `1.5543122344752192e-15` /
+`1.7763568394002505e-15` at `atol=1e-11, rtol=1e-10`.
+Two generators retain identical bank parameter identity, have disjoint sets of
+10 private parameter tensors each, accumulate both nonzero bank gradients with
+zero error, and put the bank into the optimizer once (21 unique tensors,
+186,064 elements total). A single SGD update also matched the expected update.
+
+Limitations: CPU only; CUDA/MPS/reduced precision and other platforms are
+unvalidated. Upstream did not pin PyTorch, so no original random-stream or
+checkpoint compatibility is asserted. Full model counts/configuration belong
+to later tasks. M02, attention integration, heads, relative terms, data
+annotation, training and search remain unstarted. No subagents or paid compute.
+Stop for review of the focused M01 commit; this completion is numerical
+acceptance, not a new claim of independent reviewer sign-off on M01.

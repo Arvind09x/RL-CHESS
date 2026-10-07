@@ -1,6 +1,6 @@
 # Coding plan: small tasks from interface to playable agent
 
-Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 has passed automated acceptance and awaits review. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
+Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 has passed automated acceptance and awaits review. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
 
 This is the execution companion to [plan1.md](plan1.md), not a replacement strategy. [interface.md](interface.md) defines the shared behavior. The intended agent is a Chessformer network with Leela-inspired MCTS and self-play, based on AlphaZero's learning principle and initialized with Stockfish supervision.
 
@@ -106,7 +106,7 @@ After Gate A, the data, model and search tracks can proceed independently. They 
 | [x] | M01 / P1 | F02, F03 | Port compact GAB and its shared template bank. | Match the pinned reference operations numerically on synthetic nontrivial inputs. Confirm d1=8, d2=32, d3=32 and that the template parameter is shared, not copied per layer. |
 | [x] | M02 / P1 | M01, A07 | Assemble the projection, additive square embeddings and specified Post-LayerNorm encoder blocks. | Correct `[B,64,256]` outputs, finite forward/backward values and working train/eval dropout behavior for several batch sizes. Record resolved normalization/bias/initialization settings. |
 | [x] | M03 / P1 | M02 | Implement the pair policy head, `d_policy=128`, promotion adjustment and exact flattening order. | Compare selected ordinary/promotion logits to an independent scalar calculation/reference. Output is `[B,4352]`; queen and underpromotions occupy their own correct slots. |
-| [ ] | M04 / P1 | M02 | Implement mean pooling and the specified WDL head. | Output is `[B,3]` logits in WDL order. Pool across squares; one known synthetic case independently checks the head path. |
+| [x] | M04 / P1 | M02 | Implement mean pooling and the specified WDL head. | Output is `[B,3]` logits in WDL order. Pool across squares; one known synthetic case independently checks the head path. |
 | [ ] | M05 / Both | M03, M04 | Assemble the backbone and heads with GAB as an intermediate correctness stage, before adding relative terms in M06. | End-to-end adapter batches produce finite policy/WDL logits and gradients. Record intermediate parameters/memory; this stage is not the architecture for supervised or RL runs. |
 | [ ] | M06 / P1 | M05, F03 | Port all implemented Q/K/V relative terms and finalize the fixed combined architecture. Keep operations inspectable and a diagnostic disable path for correctness checks. | Match reference outputs and gradients with nonzero relative tables and asymmetric inputs. Disabling terms recovers GAB-only behavior; all three tables receive gradients when enabled. No omitted position-only cross term is added. Check finite combined-model forward/backward results and count full parameters/memory; resolve a material mismatch with the provisional 6–8M target before freezing a full run. |
 
@@ -415,3 +415,59 @@ independent review pending. CPU macOS arm64 float32/float64 only; CUDA/MPS,
 reduced precision, other builds, upstream framework/RNG/checkpoint equivalence,
 performance and playing strength are unvalidated. No M04 onward, WDL, assembled
 network, relative terms, data, training, search, subagents or paid compute.
+
+
+### M03 review acceptance — 2026-10-08
+
+The user supplied independent **AI review acceptance** of M03 commit
+`83d8ac1bbaffe54bbf5cf3d02daf542982c03736`. The reviewer reproduced 187 model
+tests, 119 adapter-only tests/three expected skips, all 12 M03 numerical cases,
+M01/M02 acceptance, both 13-fixture replays, source/dependency checks and
+preservation audits. The 66,048 head parameter count and clean working tree
+were verified; no blocking findings. This is AI review acceptance, not human
+teammate review. Historical evidence remains unchanged; this entry supersedes
+M03's pending status. Record: `runs/m04/m03-review-acceptance.json`.
+
+### M04 completion — 2026-10-08
+
+M04 standalone WDL only passes automated acceptance; **stop for review**.
+Changed files: `src/chess_rl/model/{wdl,__init__}.py`,
+`tests/{wdl_checks,test_wdl}.py`, `tests/fixtures/wdl_reference.py`,
+`scripts/check_m04.py`, `docs/m04-wdl.md`, appended M03 AI acceptance,
+README/port map/this execution record and `runs/m04/` evidence.
+`WDLHead(d_value=128)` consumes encoder-final `[B,64,256]` tokens, averages
+64 squares, applies separate biased affine LayerNorm(256, eps=1e-5), biased
+Linear(256,128), ReLU and biased Linear(128,3). Returns raw `[B,3]` in shared
+WDL_ORDER `[win,draw,loss]`, from the input position's side to move. Newly
+trained rows/targets follow our contract; upstream loss/draw/win interpretation
+is not imported. No checkpoint compatibility is claimed. `d_value` is
+independently named from `d_policy`; PyTorch 2.8.0 constructor resets remain.
+Head-only count: **33,795 elements, six tensors** (`515+260*d_value`).
+
+Twelve independent NumPy float64 forward/manual-backward cases cover batches
+1/2/5, CPU float32/float64, widths 7/128, asymmetric noncontiguous inputs,
+nontrivial weights/biases, active/inactive ReLU, output/input/all-parameter
+gradients, square permutation, finite values and input/parameter preservation.
+The known closed-form case checks pooling, affine normalization, ReLU and
+three distinct contract rows. Seeded constructor parity, constant inputs and
+13 real adapter fixtures through the accepted backbone also pass, preserving
+board identity, every retained prefix, provenance, features and tokens.
+At float32 atol/rtol 2e-5/2e-4, maximum output/gradient/permutation errors are
+5.960464477539062e-7 / 1.6689300537109375e-6 / 7.152557373046875e-7.
+At float64 2e-12/2e-11, maxima are 1.3322676295501878e-15 /
+6.217248937900877e-15 / 8.881784197001252e-16. Pinned body errors are zero.
+Regressions passed: **216 model tests**, **119 adapter-only tests/four expected
+skips**, M01–M03 acceptance, both 13-fixture replays, adapter import boundary,
+dependency/source checks and preservation of 118 baseline files plus three
+original plans. Exact commands, raw results, constructor sources/hashes,
+tolerances and preservation evidence are saved under `runs/m04/`; see `docs/m04-wdl.md`.
+
+Current status: M01–M03 AI review accepted; M04 automated acceptance complete,
+independent review pending. Softmax, value conversion, terminal handling and
+outcome labels remain consumers. M05 onward, assembled network, relative
+terms, data, training, evaluator and search remain unimplemented. CPU macOS
+arm64 float32/float64 only; CUDA/MPS, reduced precision, other builds,
+checkpoint/RNG equivalence, throughput and strength are unvalidated.
+No ponder/auxiliary heads, subagents or paid compute. Original planning files,
+shared contracts, accepted implementations, source pins/notices and all prior
+run evidence remain unchanged.

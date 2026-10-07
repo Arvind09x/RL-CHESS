@@ -3,5 +3,6 @@
 from .backbone import EncoderBackbone
 from .gab import CompactGAB, SharedTemplateBank
 from .policy import PairPolicyHead
+from .wdl import WDLHead
 
-__all__ = ["CompactGAB", "SharedTemplateBank", "EncoderBackbone", "PairPolicyHead"]
+__all__ = ["CompactGAB", "SharedTemplateBank", "EncoderBackbone", "PairPolicyHead", "WDLHead"]

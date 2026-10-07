@@ -4,8 +4,9 @@ Recorded 7 October 2026. The original F03 audit covered the operations planned
 in M01–M06, plus vocabulary/history reference behavior, without executing them.
 M01 is ported and accepted through independent AI review; see [M01 evidence](m01-gab.md).
 M02 backbone is ported and accepted through independent AI review; see
-[M02 evidence](m02-backbone.md). M03 pair policy passes automated acceptance,
-awaiting review; see [M03 evidence](m03-policy.md). M04–M06 remain unimplemented.
+[M02 evidence](m02-backbone.md). M03 pair policy is accepted through independent AI review; see
+[M03 evidence](m03-policy.md). M04 standalone WDL passes automated acceptance,
+awaiting review; see [M04 evidence](m04-wdl.md). M05–M06 remain unimplemented.
 No full upstream module is imported.
 `interface.md` remains the contract. The original planning files in
 `/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2` are preserved.
@@ -286,3 +287,22 @@ Independent scalar and component-wise gradient references, exact slot/dependence
 checks and diagnostic backbone output pass. See `m03-policy.md` and
 `runs/m03/policy-acceptance.json`. Source pins and notices remain unchanged.
 M03 stops for review; M04 onward remains unimplemented.
+
+
+M03 independent AI review acceptance — 8 October 2026: user-supplied review
+of `83d8ac1bbaffe54bbf5cf3d02daf542982c03736` reproduced the numerical and
+regression acceptance, replays, source/dependency and preservation checks;
+66,048 head elements and clean tree verified, no blocking findings. No human
+teammate review claimed. `runs/m04/m03-review-acceptance.json` records it.
+
+M04 automated acceptance — 8 October 2026: `model/wdl.py` ports only the
+mean/last_ln/biased Linear/ReLU/biased Linear computation (models.py:323–326,
+396–397). Installed PyTorch 2.8.0 resolves LayerNorm eps=1e-5, affine weight and
+bias enabled. Constructors retain resets. Independent `d_value=128` replaces
+upstream coupled head width; newly trained output rows use shared WDL_ORDER,
+not the upstream UCI interpreter's loss/draw/win order. No checkpoint equivalence.
+The two-line value body is retained verbatim in `tests/fixtures/wdl_reference.py`
+and checked against the pinned Git object; uci.py's interpretation is also
+hash-verified. See `m04-wdl.md` and `runs/m04/wdl-acceptance.json` for independent
+outputs/manual gradients, synthetic stages, permutation and diagnostics.
+Pins/notices remain unchanged. M04 stops for review; M05 onward unimplemented.

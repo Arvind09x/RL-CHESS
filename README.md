@@ -104,16 +104,19 @@ replays, source/dependency and preservation checks; verified 3,567,168 backbone
 parameters and a clean tree; no blocking findings. [M02 acceptance](docs/m02-backbone.md)
 and [structured record](runs/m03/m02-review-acceptance.json) preserve the evidence.
 
-M03 pair policy passes automated acceptance and stops for independent review.
-Results: **187 model tests**, **119 adapter-only tests with three expected skips**,
-12 head output/scalar/gradient cases, exact slot/order/scaling/dependence checks,
-constructor/adapter-ID checks, accepted-backbone diagnostic, M01/M02 reruns,
-both 13-fixture replays, source/dependency and preservation checks.
-[M03 settings, results and limitations](docs/m03-policy.md) and
-[exact commands](runs/m03/commands.json) provide the evidence. All historical
-runs remain unchanged. M04 onward, WDL, assembled network, relative terms,
-data, training and search remain unimplemented. No human teammate review,
-subagents or paid compute is claimed.
+M03 commit `83d8ac1bbaffe54bbf5cf3d02daf542982c03736` is accepted through
+independent AI review supplied by the user on 8 October 2026: 187 model tests,
+119 adapter-only tests/three expected skips, all 12 numerical cases, M01/M02
+acceptance, both 13-fixture replays, source/dependency and preservation audits;
+66,048 head elements and clean tree verified, no blocking findings.
+[M03 acceptance](docs/m03-policy.md) and [record](runs/m04/m03-review-acceptance.json).
+
+M04 standalone WDL passes automated acceptance and stops for review.
+[Focused settings/results/limitations](docs/m04-wdl.md) and
+[exact commands](runs/m04/commands.json) record the evidence. All prior runs
+remain unchanged. M05 onward, assembled network, relative terms, data, training,
+evaluator and search remain unimplemented. No human teammate review, subagents
+or paid compute is claimed.
 
 
 ## Pinned upstream sources (F03)
@@ -167,8 +170,7 @@ and release presets differ from our locked input/backbone. The earlier source
 has a GPL-3.0-or-later file notice but no standalone license file; Maia-3 has
 AGPL-3.0 text. Upstream leaves PyTorch unpinned. M01 resolves its GAB
 constructor defaults under the environment below; upstream framework/RNG-stream equivalence is not
-claimed. M02 and M03 numerical acceptance is recorded below; M04–M06 remain
-pending.
+claimed. M02–M04 numerical acceptance is recorded below; M05–M06 remain pending.
 
 
 ## Compact GAB (M01)
@@ -265,7 +267,7 @@ Ordinary scores divide by sqrt(d_policy); promotion adjustments multiply by
 sqrt(d_policy) and use projected destination keys on rank 8. IDs remain
 `64*i+j` and `4096+4*(8*f+g)+p`, with queen/rook/bishop/knight order. All slots
 are raw logits; legality and move conversion remain owned by the adapter.
-This standalone head adds no WDL, assembled network or later milestone.
+The policy module remains standalone; the separate M04 WDL head is below.
 
 Recheck without overwriting historical evidence:
 
@@ -278,4 +280,35 @@ Recheck without overwriting historical evidence:
 
 The checkout argument is optional. [Focused M03 documentation](docs/m03-policy.md)
 records independent references, tolerances, constructor resolution, exact results
-and CPU limitations. M03 stops for review.
+and CPU limitations. M03 is accepted through independent AI review.
+
+
+## Standalone WDL head (M04)
+
+```python
+import torch
+from chess_rl.model import WDLHead
+from chess_rl.contracts import WDL_ORDER
+
+head = WDLHead(d_value=128)  # independent of d_policy; CPU float32
+logits = head(torch.randn(2, 64, 256))  # encoder-final square tokens
+assert logits.shape == (2, 3)
+assert head.wdl_order is WDL_ORDER  # win, draw, loss; input side to move
+```
+
+Mean across squares → separate affine LayerNorm(256, eps=1e-5, bias=True) →
+biased Linear(256,128) → ReLU → biased Linear(128,3). All six tensors retain
+PyTorch 2.8.0 constructor initialization: **33,795 parameter elements**.
+Returns raw logits; softmax/value conversion, terminal handling and outcome
+labels remain consumers. Upstream's interpreter uses loss/draw/win; our newly
+trained rows use the shared contract. No upstream checkpoint compatibility.
+
+```sh
+.venv/bin/python scripts/check_m04.py
+.venv/bin/python scripts/check_m04.py --maia3-checkout /private/tmp/rl-chess-f03-maia3
+```
+
+[Focused M04 documentation](docs/m04-wdl.md) and [run evidence](runs/m04/commands.json)
+cover the independent NumPy/manual-gradient reference, known synthetic stages,
+square permutation, constructors and real adapter/backbone diagnostic.
+No assembled network or later milestone is added. M04 stops for review.

@@ -149,3 +149,17 @@ precision and other platform builds remain unvalidated. No checkpoint compatibil
 throughput benchmark or playing-strength claim. M03 awaits independent review;
 M04 onward, WDL, assembled network, relative terms, data, training and search
 remain unimplemented. No subagents or paid compute.
+
+
+## M03 independent AI review acceptance — 8 October 2026
+
+The user supplied independent **AI review acceptance** of commit
+`83d8ac1bbaffe54bbf5cf3d02daf542982c03736`. The reviewer reproduced 187 model
+tests, 119 adapter-only tests with three expected skips, all 12 M03 numerical
+cases, M01/M02 acceptance, both 13-fixture replays, source/dependency checks
+and preservation audits. The 66,048 policy-head parameter count and clean
+working tree were verified. No blocking findings were identified. This is AI
+review acceptance; no human teammate review is claimed. This entry supersedes
+the historical pending status above. All prior evidence is byte-identical.
+[Structured acceptance](../runs/m04/m03-review-acceptance.json). M04 only was
+authorized next; its automated acceptance stops for independent review.

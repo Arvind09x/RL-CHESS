@@ -1,0 +1,617 @@
+{
+  "adapter_ids": {
+    "checked": [
+      {
+        "id": 796,
+        "uci": "e2e4"
+      },
+      {
+        "id": 796,
+        "uci": "e7e5"
+      },
+      {
+        "id": 4240,
+        "uci": "e7e8q"
+      },
+      {
+        "id": 4241,
+        "uci": "e7e8r"
+      },
+      {
+        "id": 4242,
+        "uci": "e7e8b"
+      },
+      {
+        "id": 4243,
+        "uci": "e7e8n"
+      },
+      {
+        "id": 4240,
+        "uci": "e2e1q"
+      },
+      {
+        "id": 4241,
+        "uci": "e2e1r"
+      },
+      {
+        "id": 4242,
+        "uci": "e2e1b"
+      },
+      {
+        "id": 4243,
+        "uci": "e2e1n"
+      }
+    ],
+    "ordinary_promotion_pair_and_impossible_slot_retained": true
+  },
+  "backbone_diagnostic": {
+    "assembled_network_added": false,
+    "backbone_parameter_elements": 3567168,
+    "contextual_shape": [
+      13,
+      64,
+      256
+    ],
+    "finite_nonzero_gradients_through_head_and_backbone": true,
+    "fixture_count": 13,
+    "head_parameter_elements": 66048,
+    "logit_shape": [
+      13,
+      4352
+    ],
+    "states_and_features_unchanged": true,
+    "terminal_fixtures_are_tensor_probes_only": true
+  },
+  "cases": [
+    {
+      "all_gradients_nonzero_and_finite": true,
+      "batch_size": 1,
+      "d_policy": 7,
+      "dtype": "torch.float32",
+      "gradient_max_abs_errors": {
+        "input": 1.1175870895385742e-08,
+        "proj_sq_from.weight": 9.5367431640625e-07,
+        "proj_sq_to.weight": 4.76837158203125e-07,
+        "promo_bias_proj.weight": 1.4901161193847656e-08
+      },
+      "input_contiguous": false,
+      "input_unchanged": true,
+      "output_max_abs_error": 3.5762786865234375e-07,
+      "parameter_elements": 3612,
+      "pinned_max_abs_error": 0.0,
+      "scalar_max_abs_error": 7.152557373046875e-07,
+      "scalar_ordinary_ids": [
+        0,
+        63,
+        64,
+        796,
+        1804,
+        3135,
+        3388,
+        4095
+      ],
+      "scalar_promotion_slots": 256,
+      "tolerance": {
+        "atol": 2e-05,
+        "rtol": 0.0002
+      }
+    },
+    {
+      "all_gradients_nonzero_and_finite": true,
+      "batch_size": 2,
+      "d_policy": 7,
+      "dtype": "torch.float32",
+      "gradient_max_abs_errors": {
+        "input": 1.1175870895385742e-08,
+        "proj_sq_from.weight": 7.152557373046875e-07,
+        "proj_sq_to.weight": 3.5762786865234375e-07,
+        "promo_bias_proj.weight": 1.1920928955078125e-07
+      },
+      "input_contiguous": false,
+      "input_unchanged": true,
+      "output_max_abs_error": 4.76837158203125e-07,
+      "parameter_elements": 3612,
+      "pinned_max_abs_error": 0.0,
+      "scalar_max_abs_error": 7.152557373046875e-07,
+      "scalar_ordinary_ids": [
+        0,
+        63,
+        64,
+        796,
+        1804,
+        3135,
+        3388,
+        4095
+      ],
+      "scalar_promotion_slots": 256,
+      "tolerance": {
+        "atol": 2e-05,
+        "rtol": 0.0002
+      }
+    },
+    {
+      "all_gradients_nonzero_and_finite": true,
+      "batch_size": 5,
+      "d_policy": 7,
+      "dtype": "torch.float32",
+      "gradient_max_abs_errors": {
+        "input": 7.450580596923828e-09,
+        "proj_sq_from.weight": 1.430511474609375e-06,
+        "proj_sq_to.weight": 5.960464477539062e-07,
+        "promo_bias_proj.weight": 2.384185791015625e-07
+      },
+      "input_contiguous": false,
+      "input_unchanged": true,
+      "output_max_abs_error": 4.76837158203125e-07,
+      "parameter_elements": 3612,
+      "pinned_max_abs_error": 0.0,
+      "scalar_max_abs_error": 1.0728836059570312e-06,
+      "scalar_ordinary_ids": [
+        0,
+        63,
+        64,
+        796,
+        1804,
+        3135,
+        3388,
+        4095
+      ],
+      "scalar_promotion_slots": 256,
+      "tolerance": {
+        "atol": 2e-05,
+        "rtol": 0.0002
+      }
+    },
+    {
+      "all_gradients_nonzero_and_finite": true,
+      "batch_size": 1,
+      "d_policy": 7,
+      "dtype": "torch.float64",
+      "gradient_max_abs_errors": {
+        "input": 2.0816681711721685e-17,
+        "proj_sq_from.weight": 8.881784197001252e-16,
+        "proj_sq_to.weight": 2.220446049250313e-16,
+        "promo_bias_proj.weight": 2.7755575615628914e-17
+      },
+      "input_contiguous": false,
+      "input_unchanged": true,
+      "output_max_abs_error": 4.440892098500626e-16,
+      "parameter_elements": 3612,
+      "pinned_max_abs_error": 0.0,
+      "scalar_max_abs_error": 6.661338147750939e-16,
+      "scalar_ordinary_ids": [
+        0,
+        63,
+        64,
+        796,
+        1804,
+        3135,
+        3388,
+        4095
+      ],
+      "scalar_promotion_slots": 256,
+      "tolerance": {
+        "atol": 2e-12,
+        "rtol": 2e-11
+      }
+    },
+    {
+      "all_gradients_nonzero_and_finite": true,
+      "batch_size": 2,
+      "d_policy": 7,
+      "dtype": "torch.float64",
+      "gradient_max_abs_errors": {
+        "input": 1.3877787807814457e-17,
+        "proj_sq_from.weight": 9.992007221626409e-16,
+        "proj_sq_to.weight": 4.440892098500626e-16,
+        "promo_bias_proj.weight": 5.551115123125783e-17
+      },
+      "input_contiguous": false,
+      "input_unchanged": true,
+      "output_max_abs_error": 4.440892098500626e-16,
+      "parameter_elements": 3612,
+      "pinned_max_abs_error": 0.0,
+      "scalar_max_abs_error": 7.771561172376096e-16,
+      "scalar_ordinary_ids": [
+        0,
+        63,
+        64,
+        796,
+        1804,
+        3135,
+        3388,
+        4095
+      ],
+      "scalar_promotion_slots": 256,
+      "tolerance": {
+        "atol": 2e-12,
+        "rtol": 2e-11
+      }
+    },
+    {
+      "all_gradients_nonzero_and_finite": true,
+      "batch_size": 5,
+      "d_policy": 7,
+      "dtype": "torch.float64",
+      "gradient_max_abs_errors": {
+        "input": 6.938893903907228e-18,
+        "proj_sq_from.weight": 1.2212453270876722e-15,
+        "proj_sq_to.weight": 3.885780586188048e-16,
+        "promo_bias_proj.weight": 1.1102230246251565e-16
+      },
+      "input_contiguous": false,
+      "input_unchanged": true,
+      "output_max_abs_error": 4.440892098500626e-16,
+      "parameter_elements": 3612,
+      "pinned_max_abs_error": 0.0,
+      "scalar_max_abs_error": 1.7763568394002505e-15,
+      "scalar_ordinary_ids": [
+        0,
+        63,
+        64,
+        796,
+        1804,
+        3135,
+        3388,
+        4095
+      ],
+      "scalar_promotion_slots": 256,
+      "tolerance": {
+        "atol": 2e-12,
+        "rtol": 2e-11
+      }
+    },
+    {
+      "all_gradients_nonzero_and_finite": true,
+      "batch_size": 1,
+      "d_policy": 128,
+      "dtype": "torch.float32",
+      "gradient_max_abs_errors": {
+        "input": 2.9802322387695312e-08,
+        "proj_sq_from.weight": 3.5762786865234375e-07,
+        "proj_sq_to.weight": 4.76837158203125e-07,
+        "promo_bias_proj.weight": 1.9073486328125e-06
+      },
+      "input_contiguous": false,
+      "input_unchanged": true,
+      "output_max_abs_error": 2.86102294921875e-06,
+      "parameter_elements": 66048,
+      "pinned_max_abs_error": 0.0,
+      "scalar_max_abs_error": 4.76837158203125e-06,
+      "scalar_ordinary_ids": [
+        0,
+        63,
+        64,
+        796,
+        1804,
+        3135,
+        3388,
+        4095
+      ],
+      "scalar_promotion_slots": 256,
+      "tolerance": {
+        "atol": 2e-05,
+        "rtol": 0.0002
+      }
+    },
+    {
+      "all_gradients_nonzero_and_finite": true,
+      "batch_size": 2,
+      "d_policy": 128,
+      "dtype": "torch.float32",
+      "gradient_max_abs_errors": {
+        "input": 1.862645149230957e-08,
+        "proj_sq_from.weight": 3.5762786865234375e-07,
+        "proj_sq_to.weight": 3.5762786865234375e-07,
+        "promo_bias_proj.weight": 2.86102294921875e-06
+      },
+      "input_contiguous": false,
+      "input_unchanged": true,
+      "output_max_abs_error": 2.86102294921875e-06,
+      "parameter_elements": 66048,
+      "pinned_max_abs_error": 0.0,
+      "scalar_max_abs_error": 4.76837158203125e-06,
+      "scalar_ordinary_ids": [
+        0,
+        63,
+        64,
+        796,
+        1804,
+        3135,
+        3388,
+        4095
+      ],
+      "scalar_promotion_slots": 256,
+      "tolerance": {
+        "atol": 2e-05,
+        "rtol": 0.0002
+      }
+    },
+    {
+      "all_gradients_nonzero_and_finite": true,
+      "batch_size": 5,
+      "d_policy": 128,
+      "dtype": "torch.float32",
+      "gradient_max_abs_errors": {
+        "input": 1.4901161193847656e-08,
+        "proj_sq_from.weight": 4.76837158203125e-07,
+        "proj_sq_to.weight": 4.76837158203125e-07,
+        "promo_bias_proj.weight": 5.7220458984375e-06
+      },
+      "input_contiguous": false,
+      "input_unchanged": true,
+      "output_max_abs_error": 3.814697265625e-06,
+      "parameter_elements": 66048,
+      "pinned_max_abs_error": 0.0,
+      "scalar_max_abs_error": 4.76837158203125e-06,
+      "scalar_ordinary_ids": [
+        0,
+        63,
+        64,
+        796,
+        1804,
+        3135,
+        3388,
+        4095
+      ],
+      "scalar_promotion_slots": 256,
+      "tolerance": {
+        "atol": 2e-05,
+        "rtol": 0.0002
+      }
+    },
+    {
+      "all_gradients_nonzero_and_finite": true,
+      "batch_size": 1,
+      "d_policy": 128,
+      "dtype": "torch.float64",
+      "gradient_max_abs_errors": {
+        "input": 4.163336342344337e-17,
+        "proj_sq_from.weight": 8.881784197001252e-16,
+        "proj_sq_to.weight": 8.881784197001252e-16,
+        "promo_bias_proj.weight": 3.552713678800501e-15
+      },
+      "input_contiguous": false,
+      "input_unchanged": true,
+      "output_max_abs_error": 3.552713678800501e-15,
+      "parameter_elements": 66048,
+      "pinned_max_abs_error": 0.0,
+      "scalar_max_abs_error": 7.105427357601002e-15,
+      "scalar_ordinary_ids": [
+        0,
+        63,
+        64,
+        796,
+        1804,
+        3135,
+        3388,
+        4095
+      ],
+      "scalar_promotion_slots": 256,
+      "tolerance": {
+        "atol": 2e-12,
+        "rtol": 2e-11
+      }
+    },
+    {
+      "all_gradients_nonzero_and_finite": true,
+      "batch_size": 2,
+      "d_policy": 128,
+      "dtype": "torch.float64",
+      "gradient_max_abs_errors": {
+        "input": 3.469446951953614e-17,
+        "proj_sq_from.weight": 6.661338147750939e-16,
+        "proj_sq_to.weight": 8.881784197001252e-16,
+        "promo_bias_proj.weight": 3.552713678800501e-15
+      },
+      "input_contiguous": false,
+      "input_unchanged": true,
+      "output_max_abs_error": 3.552713678800501e-15,
+      "parameter_elements": 66048,
+      "pinned_max_abs_error": 0.0,
+      "scalar_max_abs_error": 7.105427357601002e-15,
+      "scalar_ordinary_ids": [
+        0,
+        63,
+        64,
+        796,
+        1804,
+        3135,
+        3388,
+        4095
+      ],
+      "scalar_promotion_slots": 256,
+      "tolerance": {
+        "atol": 2e-12,
+        "rtol": 2e-11
+      }
+    },
+    {
+      "all_gradients_nonzero_and_finite": true,
+      "batch_size": 5,
+      "d_policy": 128,
+      "dtype": "torch.float64",
+      "gradient_max_abs_errors": {
+        "input": 2.168404344971009e-17,
+        "proj_sq_from.weight": 8.881784197001252e-16,
+        "proj_sq_to.weight": 8.881784197001252e-16,
+        "promo_bias_proj.weight": 7.105427357601002e-15
+      },
+      "input_contiguous": false,
+      "input_unchanged": true,
+      "output_max_abs_error": 3.552713678800501e-15,
+      "parameter_elements": 66048,
+      "pinned_max_abs_error": 0.0,
+      "scalar_max_abs_error": 1.0658141036401503e-14,
+      "scalar_ordinary_ids": [
+        0,
+        63,
+        64,
+        796,
+        1804,
+        3135,
+        3388,
+        4095
+      ],
+      "scalar_promotion_slots": 256,
+      "tolerance": {
+        "atol": 2e-12,
+        "rtol": 2e-11
+      }
+    }
+  ],
+  "constructors": {
+    "biases_absent": true,
+    "cases": [
+      {
+        "d_policy": 1,
+        "dtype": "torch.float32",
+        "parameter_elements": 516
+      },
+      {
+        "d_policy": 7,
+        "dtype": "torch.float32",
+        "parameter_elements": 3612
+      },
+      {
+        "d_policy": 128,
+        "dtype": "torch.float32",
+        "parameter_elements": 66048
+      },
+      {
+        "d_policy": 1,
+        "dtype": "torch.float64",
+        "parameter_elements": 516
+      },
+      {
+        "d_policy": 7,
+        "dtype": "torch.float64",
+        "parameter_elements": 3612
+      },
+      {
+        "d_policy": 128,
+        "dtype": "torch.float64",
+        "parameter_elements": 66048
+      }
+    ],
+    "constructors_match_seeded_linears_exactly": true,
+    "default_d_policy": 128,
+    "default_parameter_elements": 66048,
+    "train_eval_identical": true,
+    "unique_parameter_tensors": 3,
+    "zero_input_zero_logits": true
+  },
+  "date": "2026-10-08",
+  "environment": {
+    "deterministic_algorithms": true,
+    "device": "cpu",
+    "installed_distributions": {
+      "Jinja2": "3.1.6",
+      "MarkupSafe": "3.0.4",
+      "Pygments": "2.21.0",
+      "chess": "1.11.2",
+      "chess-rl": "0.1.0",
+      "filelock": "4.0.12",
+      "fsspec": "2026.9.0",
+      "iniconfig": "2.3.1",
+      "mpmath": "1.3.0",
+      "networkx": "3.7",
+      "numpy": "2.5.3",
+      "packaging": "26.3",
+      "pluggy": "1.6.0",
+      "pytest": "9.1.1",
+      "python-chess": "1.999",
+      "setuptools": "84.0.0",
+      "sympy": "1.14.0",
+      "torch": "2.8.0",
+      "typing_extensions": "4.16.0"
+    },
+    "machine": "arm64",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "python": "3.12.12",
+    "threads": 1,
+    "torch": "2.8.0",
+    "torch_git_version": "a1cb3cc05d46d198467bebbb6e8fba50a325d4e7"
+  },
+  "exact_order_scaling_dependence": {
+    "adjustment_multiplier": 2,
+    "base_divisor": 2,
+    "batch_size": 2,
+    "destination_fastest": true,
+    "exact_ordinary_slots_per_batch": 4096,
+    "exact_promotion_slots_per_batch": 256,
+    "impossible_geometry_retained": true,
+    "only_selected_destination_file_changes": true,
+    "origin_and_unprojected_extra_features_do_not_change_adjustment": true,
+    "piece_order": [
+      "queen",
+      "rook",
+      "bishop",
+      "knight"
+    ]
+  },
+  "installed_framework_source": {
+    "Linear.__init__": {
+      "sha256": "6d322f370b004d7def8ac8db919597ee6717251cb3aad7c509f126474b3dea42",
+      "source": "    def __init__(\n        self,\n        in_features: int,\n        out_features: int,\n        bias: bool = True,\n        device=None,\n        dtype=None,\n    ) -> None:\n        factory_kwargs = {\"device\": device, \"dtype\": dtype}\n        super().__init__()\n        self.in_features = in_features\n        self.out_features = out_features\n        self.weight = Parameter(\n            torch.empty((out_features, in_features), **factory_kwargs)\n        )\n        if bias:\n            self.bias = Parameter(torch.empty(out_features, **factory_kwargs))\n        else:\n            self.register_parameter(\"bias\", None)\n        self.reset_parameters()\n"
+    },
+    "Linear.reset_parameters": {
+      "sha256": "69e4a8abec312ccc3a2a976be4afa2d72e427b9e8ae3fe8f9d52b33774f7bc93",
+      "source": "    def reset_parameters(self) -> None:\n        # Setting a=sqrt(5) in kaiming_uniform is the same as initializing with\n        # uniform(-1/sqrt(in_features), 1/sqrt(in_features)). For details, see\n        # https://github.com/pytorch/pytorch/issues/57109\n        init.kaiming_uniform_(self.weight, a=math.sqrt(5))\n        if self.bias is not None:\n            fan_in, _ = init._calculate_fan_in_and_fan_out(self.weight)\n            bound = 1 / math.sqrt(fan_in) if fan_in > 0 else 0\n            init.uniform_(self.bias, -bound, bound)\n"
+    }
+  },
+  "limitations": [
+    "Local CPU macOS arm64 float32/float64 only; CUDA/MPS/reduced precision and other platforms unvalidated",
+    "Upstream pins only torch; no upstream framework/RNG-stream or checkpoint equivalence claimed",
+    "66,048 elements is this policy head only; no final combined-model count or performance/strength claim",
+    "No M04 onward, WDL, assembled network, relative terms, data, training or search",
+    "Backbone composition and terminal fixtures are diagnostic tensor probes only",
+    "No subagents or paid compute"
+  ],
+  "pinned_source_check": {
+    "commit": "1e13597c42d4858b7cfd7cfdae01e297263364b2",
+    "full_file_sha256": "9172bfd41e770baef734f472c6506e7615aa3f4b3f4227f41e9cf35e6ef0be0c",
+    "full_upstream_module_imported": false,
+    "policy_body_lines": [
+      373,
+      394
+    ],
+    "read_from_pinned_git_object": true,
+    "verbatim_fixture": true
+  },
+  "resolved_settings": {
+    "biases": false,
+    "configuration": "validated positive integer keyword d_policy on PairPolicyHead",
+    "d_policy": 128,
+    "initializer": "Linear constructor kaiming_uniform_(a=sqrt(5)); uniform +/-1/sqrt(fan_in)",
+    "input": [
+      "B",
+      64,
+      256
+    ],
+    "mask_softmax_terminal_handling": false,
+    "model_wide_reset": false,
+    "ordinary": "q dot k / sqrt(d_policy)",
+    "ordinary_id": "64*i+j",
+    "origin_destination_weight_bound": 0.0625,
+    "output": [
+      "B",
+      4352
+    ],
+    "parameter_count_formula": "516*d_policy",
+    "parameter_elements": 66048,
+    "piece_order": [
+      "queen",
+      "rook",
+      "bishop",
+      "knight"
+    ],
+    "promotion": "S[48+f,56+g] + sqrt(d_policy)*promo_bias_proj(k[56+g])[p]",
+    "promotion_id": "4096+4*(8*f+g)+p",
+    "promotion_weight_bound": 0.08838834764831845,
+    "unique_parameter_tensors": 3
+  },
+  "review_status": "automated acceptance only; awaiting independent review",
+  "status": "passed",
+  "task": "M03"
+}

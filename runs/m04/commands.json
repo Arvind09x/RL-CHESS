@@ -1,0 +1,237 @@
+[
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_m04.py",
+      "--maia3-checkout",
+      "/private/tmp/rl-chess-f03-maia3",
+      "--output",
+      "/private/tmp/rl-chess-m04-change/runs/m04/wdl-acceptance.json"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_at_utc": "2026-10-07T19:02:32.796661+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/01-m04-check.log",
+    "duration_seconds": 1.87
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_m03.py",
+      "--maia3-checkout",
+      "/private/tmp/rl-chess-f03-maia3",
+      "--output",
+      "/private/tmp/rl-chess-m04-change/runs/m04/m03-rerun.json"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_at_utc": "2026-10-07T19:02:34.666807+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/02-m03-check.log",
+    "duration_seconds": 6.0
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_m02.py",
+      "--maia3-checkout",
+      "/private/tmp/rl-chess-f03-maia3",
+      "--output",
+      "/private/tmp/rl-chess-m04-change/runs/m04/m02-rerun.json"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_at_utc": "2026-10-07T19:02:40.666999+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/03-m02-check.log",
+    "duration_seconds": 4.194
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_m01.py",
+      "--maia3-checkout",
+      "/private/tmp/rl-chess-f03-maia3",
+      "--output",
+      "/private/tmp/rl-chess-m04-change/runs/m04/m01-rerun.json"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_at_utc": "2026-10-07T19:02:44.861753+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/04-m01-check.log",
+    "duration_seconds": 2.781
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=/private/tmp/rl-chess-m04-change/runs/m04/pytest-model.xml"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_at_utc": "2026-10-07T19:02:47.643402+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/05-model-tests.log",
+    "duration_seconds": 10.997
+  },
+  {
+    "command": [
+      ".venv-acceptance/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=/private/tmp/rl-chess-m04-change/runs/m04/pytest-adapter-only.xml"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_at_utc": "2026-10-07T19:02:58.640370+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/06-adapter-only-tests.log",
+    "duration_seconds": 1.942
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_adapter.py"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_at_utc": "2026-10-07T19:03:00.582092+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/07-adapter-replay-model.json",
+    "duration_seconds": 0.08
+  },
+  {
+    "command": [
+      ".venv-acceptance/bin/python",
+      "scripts/check_adapter.py"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_at_utc": "2026-10-07T19:03:00.662185+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/08-adapter-replay-only.json",
+    "duration_seconds": 0.078
+  },
+  {
+    "command": [
+      ".venv-acceptance/bin/python",
+      "-c",
+      "import importlib.util, sys; assert importlib.util.find_spec('torch') is None; import chess_rl.adapter; assert 'torch' not in sys.modules; print('Adapter-only: no installed or imported torch')"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_at_utc": "2026-10-07T19:03:00.740310+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/09-adapter-import.log",
+    "duration_seconds": 0.061
+  },
+  {
+    "command": [
+      "uv",
+      "pip",
+      "check",
+      "--python",
+      ".venv/bin/python"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "UV_CACHE_DIR": "/private/tmp/rl-chess-m04-uv-cache"
+    },
+    "started_at_utc": "2026-10-07T19:03:00.801872+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/10-model-dependencies.log",
+    "duration_seconds": 0.065
+  },
+  {
+    "command": [
+      "uv",
+      "pip",
+      "check",
+      "--python",
+      ".venv-acceptance/bin/python"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "UV_CACHE_DIR": "/private/tmp/rl-chess-m04-uv-cache"
+    },
+    "started_at_utc": "2026-10-07T19:03:00.867071+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/11-adapter-dependencies.log",
+    "duration_seconds": 0.03
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_upstream.py",
+      "--maia3-checkout",
+      "/private/tmp/rl-chess-f03-maia3",
+      "--lczero-checkout",
+      "/private/tmp/rl-chess-f03-lczero"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_at_utc": "2026-10-07T19:03:00.896827+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/12-upstream-check.log",
+    "duration_seconds": 0.211
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_at_utc": "2026-10-07T19:03:01.107950+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/13-diff-check.log",
+    "duration_seconds": 0.009
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_at_utc": "2026-10-07T19:06:01.893624+00:00",
+    "exit_code": 0,
+    "output": "runs/m04/14-final-diff-check.log",
+    "duration_seconds": 0.021
+  }
+]

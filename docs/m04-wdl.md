@@ -163,3 +163,18 @@ precision and other builds remain unvalidated. No checkpoint compatibility,
 throughput or playing-strength claim. No assembled network or M05 onward work;
 relative terms, data, training, evaluator, search and consumer WDL operations
 remain future scope. Stop for review of the focused M04 commit.
+
+
+## M04 independent AI review acceptance — 8 October 2026
+
+The user supplied independent **AI review acceptance** of commit
+`0fdbd1eaf5e4d1701a2627d55f87b2150a4f252a`. The reviewer reproduced 216
+model tests, 119 adapter-only tests with four expected skips, all 12 WDL
+numerical cases, synthetic/permutation/constructor checks, M01–M03 acceptance,
+both 13-fixture replays, source/dependency checks and preservation audits.
+The 33,795 head parameter count, WDL order, change manifest and clean working
+tree were verified. No blocking findings were identified. This is independent
+AI review acceptance; no human teammate review is claimed. This appended entry
+supersedes the historical pending status above without altering prior evidence.
+[Structured record](../runs/m05/m04-review-acceptance.json). M05 only is the
+next authorized scope, ending with a focused commit for independent review.

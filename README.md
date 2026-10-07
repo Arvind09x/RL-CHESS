@@ -111,12 +111,20 @@ acceptance, both 13-fixture replays, source/dependency and preservation audits;
 66,048 head elements and clean tree verified, no blocking findings.
 [M03 acceptance](docs/m03-policy.md) and [record](runs/m04/m03-review-acceptance.json).
 
-M04 standalone WDL passes automated acceptance and stops for review.
-[Focused settings/results/limitations](docs/m04-wdl.md) and
-[exact commands](runs/m04/commands.json) record the evidence. All prior runs
-remain unchanged. M05 onward, assembled network, relative terms, data, training,
-evaluator and search remain unimplemented. No human teammate review, subagents
-or paid compute is claimed.
+M04 commit `0fdbd1eaf5e4d1701a2627d55f87b2150a4f252a` is accepted through
+independent AI review supplied by the user on 8 October 2026: 216 model tests,
+119 adapter-only tests/four expected skips, all 12 WDL numerical cases,
+synthetic/permutation/constructor checks, M01–M03 acceptance, both 13-fixture
+replays, source/dependency and preservation audits. The 33,795 head elements,
+WDL order, change manifest and clean tree were verified; no blocking findings.
+[Appended acceptance](docs/m04-wdl.md) and [record](runs/m05/m04-review-acceptance.json).
+
+M05 intermediate GAB network passes automated acceptance and stops for review.
+[Focused settings/results/limitations](docs/m05-network.md) and
+[exact commands](runs/m05/commands.json) record the evidence. All prior runs
+and planning files remain unchanged; dated M05 documentation supersedes their
+historical pending status. M06 remains required before supervised/RL training
+or the real evaluator. No human teammate review, subagents or paid compute is claimed.
 
 
 ## Pinned upstream sources (F03)
@@ -170,7 +178,7 @@ and release presets differ from our locked input/backbone. The earlier source
 has a GPL-3.0-or-later file notice but no standalone license file; Maia-3 has
 AGPL-3.0 text. Upstream leaves PyTorch unpinned. M01 resolves its GAB
 constructor defaults under the environment below; upstream framework/RNG-stream equivalence is not
-claimed. M02–M04 numerical acceptance is recorded below; M05–M06 remain pending.
+claimed. M02–M05 numerical acceptance is recorded below; M06 remains pending.
 
 
 ## Compact GAB (M01)
@@ -311,4 +319,39 @@ trained rows use the shared contract. No upstream checkpoint compatibility.
 [Focused M04 documentation](docs/m04-wdl.md) and [run evidence](runs/m04/commands.json)
 cover the independent NumPy/manual-gradient reference, known synthetic stages,
 square permutation, constructors and real adapter/backbone diagnostic.
-No assembled network or later milestone is added. M04 stops for review.
+M04 has independent AI review acceptance; its operations are reused unchanged in M05 below.
+
+
+## Intermediate GAB network (M05)
+
+```python
+from chess_rl.model import ChessNetwork
+
+network = ChessNetwork(d_policy=128, d_value=128, dropout=0.1)
+policy_logits, wdl_logits = network(features)  # [B,4352], [B,3]; B >= 1
+```
+
+`features` is a device/dtype-compatible `[B,64,128]` tensor. The accepted
+backbone runs once; both heads receive the same encoder-final tokens. Returns
+raw logits in pair4352-v1 and shared win/draw/loss order. The pooled WDL norm
+remains separate. Pass `device`/`dtype` to construct all components together;
+use `.eval()` to disable backbone dropout and `network.parameters()` for a
+deduplicated optimizer iterator. There is one GAB bank and eight independent
+generators. Accepted components and their initialization remain unchanged.
+
+**3,667,011 intermediate parameters / 191 unique tensors**, independently
+verified. Parameter and gradient payloads are each 14,668,044 bytes for float32
+or 29,336,088 bytes for float64; these exclude activations/process overhead.
+[Focused documentation](docs/m05-network.md) distinguishes the separate
+checker-process peak RSS measurement. [Acceptance checker](scripts/check_m05.py)
+and [results](runs/m05/network-acceptance.json) cover combined independent
+outputs/gradients, routing, dropout, both branches, sharing and adapter preservation.
+
+```sh
+.venv/bin/python scripts/check_m05.py
+```
+
+M05 stops for independent review. M06 relative terms remain required before
+supervised/RL training, the real evaluator and combined-model pilot. Empty
+tensor batches are rejected clearly because the accepted backbone does not
+support them. CUDA/MPS/reduced precision and other builds remain unvalidated.

@@ -3,3 +3,47 @@ __pycache__/
 .pytest_cache/
 *.egg-info/
 dist/
+
+# Local files and secrets
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Generated datasets
+/data/raw/
+/data/processed/
+/data/cache/
+/data/labels/
+/data/annotations/
+/datasets/
+
+# Model artifacts
+/checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+
+# Local files and secrets
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Generated datasets
+/data/raw/
+/data/processed/
+/data/cache/
+/data/labels/
+/data/annotations/
+/datasets/
+
+# Model artifacts
+/checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx

@@ -216,8 +216,19 @@ Append evidence here as tasks finish. Do not prefill commands as if they have al
 | A05 | 2026-10-07 | `adapter/encoding.py`, `tests/test_encoding.py` | `.venv/bin/python -m pytest tests/test_encoding.py` | 18 passed: every channel group, both perspectives, finite float32 shape, castling order, unclipped scales/promoted counts, bishop condition with other material, checkers, legal/pinned EP and returned-array isolation. |
 | A06 | 2026-10-07 | `adapter/outcomes.py`, `tests/test_outcomes.py` | `.venv/bin/python -m pytest tests/test_outcomes.py` | 19 passed: mate/stalemate/material, actual threefold/fifty, automatic fivefold/75, precedence, repetition-before-fifty tie, intended-move-only nontermination, clocks, exact WDL and atomic failures. Incomplete provenance retained. |
 | A07 — automated portion only | 2026-10-07 | `tests/test_regression.py`, 13 frozen replay records, `scripts/check_adapter.py`, `runs/milestone-1/` | `uv run --locked pytest --junitxml=runs/milestone-1/pytest.xml`; same command in fresh `.venv-acceptance`; `uv run --locked python scripts/check_adapter.py`; `uv pip check` | Final 119 passed in both environments (1.92s / 2.33s); 11 assembled regression tests include 3 seeded legal playouts, 16-ply repetition beyond input window, rule-equivalence EP/castling/counters, every-prefix preservation and CPU-only imports. All 13 records agree in separate processes/both environments. JSON tuple/list normalization in the review command was fixed before these passes. Second-person Both-owner review is outstanding; A07 checkbox intentionally remains open. |
+| F03 — complete | 2026-10-07 | `docs/upstream-sources.md`, `docs/upstream-lock.json`, `docs/notices/`, `scripts/check_upstream.py`, `runs/f03/source-check.json`, README guidance | `python3 /private/tmp/rl-chess-f03-change/scripts/check_upstream.py --maia3-checkout /private/tmp/rl-chess-f03-maia3 --lczero-checkout /private/tmp/rl-chess-f03-lczero`; `python3 /private/tmp/rl-chess-f03-change/scripts/check_upstream.py` (HTTPS); `.venv/bin/python scripts/check_upstream.py --maia3-checkout /private/tmp/rl-chess-f03-maia3 --lczero-checkout /private/tmp/rl-chess-f03-lczero` (repository copy) | Acceptance passed: 2 verified full commit objects/repository identities, 10 full-file SHA-256 hashes, 18 required entries, 43 immutable symbol/range references, 2 verbatim notices. Independent HTTPS and Git bytes agree; five isolated corruptions rejected. WDL/history/preset differences, depth-before-head relative tables, promotion scaling and constructor-delegated initialization recorded. No numerical port validation, model dependency or model implementation. Original planning files preserved. A07/Gate A still awaits the other member's replay/sign-off. |
 
-All commands above actually ran in RL-Chess. Final XML reports have 119 tests,
+F03 source retrieval was prepared in temporary directories and repeated against
+the repository copy using the command above. `runs/f03/source-check.json` saves
+the exact discovery/retrieval commands and passing Git/HTTPS reports. Initial
+network access failed in the sandbox and the HTTPS check passed with approved
+network access. No source operation was executed. The five corruption checks
+used isolated temporary copies of the source lock/notices; all were rejected.
+The original planning hashes still match the saved foundation hashes, and
+repository `plan1.md`/`interface.md` remain byte-identical. Only this completion
+log is updated in the repository planning files; the task roadmap is preserved.
+
+All milestone-1 commands above actually ran in RL-Chess. Final XML reports have 119 tests,
 zero failures and zero errors. `runs/milestone-1/environment.json` records installed
 versions; `replay-check.json` records feature/mask fingerprints, legal IDs and
 terminal results; `source-plan-checksums.json` verifies originals were preserved
@@ -228,5 +239,9 @@ teacher engine, GPU or paid compute were launched.
 **Outstanding review:** the other project member should independently run the
 README acceptance commands, inspect the contract fixtures and confirm identical
 results. The automation establishes reproducibility, not second-person approval.
-After that sign-off, mark A07 and Gate A accepted. F03 is the next coding task;
-D01/S01 and model work remain pending. No upstream operation has been ported yet.
+After that sign-off, mark A07 and Gate A accepted. The reviewer independently
+verified commit `868371c`, 119 tests in both existing environments and all 13
+replay records; this does not supply the other member's acceptance. F03 is now
+complete. Proposed next implementation task after this commit's reviewer
+assessment: M01, compact GAB with numerical reference checks. D01/S01 and all
+model work remain pending. No upstream operation has been ported yet.

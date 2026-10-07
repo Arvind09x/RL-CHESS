@@ -87,10 +87,68 @@ and automated regression/replay checks pass; its Both-owner human review is
 pending. A07 stays unchecked in the coding plan until that review occurs.
 The reviewer can run the setup/check commands above and inspect the 13 replay
 records, independent channel fixtures, draw precedence and preservation checks.
-No second person's execution or approval is claimed.
+The reviewer independently verified commit `868371c`, 119 tests in each
+existing environment and all 13 replay records. The other project member's
+replay/sign-off is still outstanding; reviewer verification does not accept
+A07/Gate A.
 
 There is no model, search, teacher annotation or training implementation yet.
 Policy normalization and evaluator batching belong to S01/T04 and later model
-helpers. Next is second-person A07/Gate A sign-off; the next implementation task
-is F03, pinning and attributing upstream sources before model ports. F03 can
-proceed independently of human sign-off. No paid compute has been used.
+helpers. F03 source pinning/attribution has passed its acceptance check; see
+the completion-log entry and source guidance below. After reviewer assessment,
+the proposed next implementation task is M01 (compact GAB), while the other
+member's A07/Gate A sign-off remains pending. No paid compute has been used.
+
+
+## Pinned upstream sources (F03)
+
+[Port map and attribution](docs/upstream-sources.md) explains the exact source
+operations and their mapping to `interface.md`.
+[Source lock](docs/upstream-lock.json) records full commit SHAs, immutable URLs,
+10 file SHA-256 checksums and 18 operation/reference entries. Verbatim license
+text/header copies are under `docs/notices/`. Use this lock for model ports;
+the planning files' moving links are background references. The repository
+completion log records F03's completion; the original task roadmap is preserved.
+
+The standard-library acceptance command retrieves only pinned source text and
+commit/tree metadata (no packages, weights or data):
+
+```sh
+cd /Users/arvindsrinivass/Desktop/RL-Chess
+.venv/bin/python scripts/check_upstream.py
+```
+
+It requires GitHub network access. For an offline check against already
+retrieved repositories, supply both checkout paths. It reads the pinned Git
+objects even if the working trees have other contents:
+
+```sh
+.venv/bin/python scripts/check_upstream.py \
+  --maia3-checkout /private/tmp/rl-chess-f03-maia3 \
+  --lczero-checkout /private/tmp/rl-chess-f03-lczero
+```
+
+Those temporary checkouts were created for this audit and are not required
+runtime dependencies. To recreate them without relying on moving branches:
+
+```sh
+git clone --no-checkout https://github.com/CSSLab/maia3.git /private/tmp/rl-chess-f03-maia3
+git -C /private/tmp/rl-chess-f03-maia3 cat-file -t 1e13597c42d4858b7cfd7cfdae01e297263364b2
+git clone --no-checkout https://github.com/daniel-monroe/lczero-training.git /private/tmp/rl-chess-f03-lczero
+git -C /private/tmp/rl-chess-f03-lczero cat-file -t 7b3ee3fcdb49d8abeb034718935b099134c11882
+```
+
+Use unused directories when recreating checkouts. Both Git-object and
+independent HTTPS verification passed: 10 files, 18 entries, 43 symbol/range
+references and 2 retained notices. [Saved evidence](runs/f03/source-check.json)
+contains the actual commands, results and original-plan preservation hashes.
+The checker failed closed for five isolated corruptions (coverage, moving URL,
+checksum, symbol and notice); it never imports or executes upstream models.
+
+Documented differences: Maia-3 raw WDL is `[loss,draw,win]`; our contract is
+`[win,draw,loss]`. Its oldest-first 12-channel history/per-snapshot orientation
+and release presets differ from our locked input/backbone. The earlier source
+has a GPL-3.0-or-later file notice but no standalone license file; Maia-3 has
+AGPL-3.0 text. Constructor-delegated initialization depends on an unpinned
+upstream PyTorch version and must be resolved in the later model environment.
+All numerical port/gradient validation belongs to M01–M06 and remains pending.

@@ -1,0 +1,698 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-10-07",
+  "scope": "F03 provenance only; no model operations executed or ported",
+  "repositories": {
+    "maia3": {
+      "identity": "CSSLab/maia3",
+      "git_url": "https://github.com/CSSLab/maia3.git",
+      "commit": "1e13597c42d4858b7cfd7cfdae01e297263364b2",
+      "commit_url": "https://github.com/CSSLab/maia3/commit/1e13597c42d4858b7cfd7cfdae01e297263364b2",
+      "commit_author": "ashtonanderson",
+      "commit_committer": "GitHub",
+      "commit_date": "2026-05-25T16:33:11-04:00",
+      "commit_subject": "Merge pull request #4 from CSSLab/codex/gui-uci-nibbler-wdl",
+      "authorship": [
+        "UofT CSSLab (package author)",
+        "Daniel Monroe",
+        "George Eilender",
+        "Philip Chalmers",
+        "Zhenwei Tang",
+        "Ashton Anderson"
+      ],
+      "license": {
+        "identifier": "AGPL-3.0",
+        "path": "LICENSE",
+        "notice": "docs/notices/maia3-AGPL-3.0.txt",
+        "note": "Version 3 text; no project-specific or-later grant or copyright holder in selected source headers. Do not infer one from the license application example."
+      },
+      "files": {
+        "maia3/models.py": {
+          "sha256": "9172bfd41e770baef734f472c6506e7615aa3f4b3f4227f41e9cf35e6ef0be0c",
+          "blob_url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py",
+          "raw_url": "https://raw.githubusercontent.com/CSSLab/maia3/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py"
+        },
+        "maia3/utils.py": {
+          "sha256": "17fa2c9ccd5a46e52446422aebbedcb5d67353353166ecaa7c40d4cb68417388",
+          "blob_url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/utils.py",
+          "raw_url": "https://raw.githubusercontent.com/CSSLab/maia3/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/utils.py"
+        },
+        "maia3/dataset.py": {
+          "sha256": "86259e2d11c2f68f3f6faac446906f311ef78a8dd18396bc286736be768806b3",
+          "blob_url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/dataset.py",
+          "raw_url": "https://raw.githubusercontent.com/CSSLab/maia3/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/dataset.py"
+        },
+        "maia3/uci.py": {
+          "sha256": "38dc83f6c74ce1e0bce7ad9f0769e474e41c674051cf3a4ca586334106e4c4a2",
+          "blob_url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/uci.py",
+          "raw_url": "https://raw.githubusercontent.com/CSSLab/maia3/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/uci.py"
+        },
+        "maia3/model_registry.py": {
+          "sha256": "50b555088586afeef167e996c6b686b6285a8aee7c86154ef8effa3d30950f58",
+          "blob_url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/model_registry.py",
+          "raw_url": "https://raw.githubusercontent.com/CSSLab/maia3/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/model_registry.py"
+        },
+        "README.md": {
+          "sha256": "19bd869b7fd591559620f86129b43582692445443193f88004796e90a4db8779",
+          "blob_url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/README.md",
+          "raw_url": "https://raw.githubusercontent.com/CSSLab/maia3/1e13597c42d4858b7cfd7cfdae01e297263364b2/README.md"
+        },
+        "pyproject.toml": {
+          "sha256": "6981ff3b29833538b4a8018501b703fc657e4081ecc1094042a6dbb7aaa716e6",
+          "blob_url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/pyproject.toml",
+          "raw_url": "https://raw.githubusercontent.com/CSSLab/maia3/1e13597c42d4858b7cfd7cfdae01e297263364b2/pyproject.toml"
+        },
+        "LICENSE": {
+          "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
+          "blob_url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/LICENSE",
+          "raw_url": "https://raw.githubusercontent.com/CSSLab/maia3/1e13597c42d4858b7cfd7cfdae01e297263364b2/LICENSE"
+        }
+      }
+    },
+    "lczero": {
+      "identity": "daniel-monroe/lczero-training",
+      "git_url": "https://github.com/daniel-monroe/lczero-training.git",
+      "commit": "7b3ee3fcdb49d8abeb034718935b099134c11882",
+      "commit_url": "https://github.com/daniel-monroe/lczero-training/commit/7b3ee3fcdb49d8abeb034718935b099134c11882",
+      "commit_author": "Daniel Monroe",
+      "commit_committer": "Daniel Monroe",
+      "commit_date": "2024-09-23T16:52:58-07:00",
+      "commit_subject": "accept activation",
+      "authorship": [
+        "Daniel Monroe (fork / pinned commit author)",
+        "Gian-Carlo Pascutto (inherited file copyright, 2017\u20132018)",
+        "Leela Zero / Leela Chess Zero contributors (base project)"
+      ],
+      "license": {
+        "identifier": "GPL-3.0-or-later",
+        "path": null,
+        "notice_source": "tf/tfprocess.py",
+        "notice_lines": [
+          1,
+          17
+        ],
+        "notice": "docs/notices/lczero-tfprocess-header.txt",
+        "note": "No standalone LICENSE/COPYING/NOTICE file in pinned repository tree. File header supplies the explicit grant and disclaimer; not an absent-license inference."
+      },
+      "files": {
+        "tf/tfprocess.py": {
+          "sha256": "487c998809d49e753d98f7d19ca09ac904dfdaf18b9dbac318bce6bac0733a24",
+          "blob_url": "https://github.com/daniel-monroe/lczero-training/blob/7b3ee3fcdb49d8abeb034718935b099134c11882/tf/tfprocess.py",
+          "raw_url": "https://raw.githubusercontent.com/daniel-monroe/lczero-training/7b3ee3fcdb49d8abeb034718935b099134c11882/tf/tfprocess.py"
+        },
+        "README.md": {
+          "sha256": "2fddceea3a01fba614902327d255c6d29996754cc54d668fcbf0ecf0b973903b",
+          "blob_url": "https://github.com/daniel-monroe/lczero-training/blob/7b3ee3fcdb49d8abeb034718935b099134c11882/README.md",
+          "raw_url": "https://raw.githubusercontent.com/daniel-monroe/lczero-training/7b3ee3fcdb49d8abeb034718935b099134c11882/README.md"
+        }
+      }
+    }
+  },
+  "operations": [
+    {
+      "id": "compact_gab",
+      "task": "M01",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MHA.__init__",
+          "lines": [
+            73,
+            90
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L73-L90"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MHA._sq_bias",
+          "lines": [
+            95,
+            118
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L95-L118"
+        }
+      ]
+    },
+    {
+      "id": "board_compression",
+      "task": "M01",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MHA._sq_bias",
+          "lines": [
+            100,
+            114
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L100-L114"
+        }
+      ]
+    },
+    {
+      "id": "shared_template_bank",
+      "task": "M01",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.__init__",
+          "lines": [
+            304,
+            308
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L304-L308"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "CustomTransformerEncoder.__init__",
+          "lines": [
+            253,
+            271
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L253-L271"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MHA._sq_bias",
+          "lines": [
+            116,
+            118
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L116-L118"
+        }
+      ]
+    },
+    {
+      "id": "input_projection",
+      "task": "M02",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.__init__",
+          "lines": [
+            295,
+            302
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L295-L302"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.forward",
+          "lines": [
+            351,
+            369
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L351-L369"
+        }
+      ]
+    },
+    {
+      "id": "absolute_pe",
+      "task": "M02",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "AbsolutePE",
+          "lines": [
+            36,
+            42
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L36-L42"
+        }
+      ]
+    },
+    {
+      "id": "post_layernorm",
+      "task": "M02",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "EncoderOnlyBlock.__init__",
+          "lines": [
+            193,
+            210
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L193-L210"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "EncoderOnlyBlock.forward",
+          "lines": [
+            212,
+            236
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L212-L236"
+        }
+      ]
+    },
+    {
+      "id": "dropout",
+      "task": "M02/M06",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MHA.__init__",
+          "lines": [
+            65,
+            71
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L65-L71"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "EncoderOnlyBlock.__init__",
+          "lines": [
+            193,
+            202
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L193-L202"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "EncoderOnlyBlock.forward",
+          "lines": [
+            212,
+            236
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L212-L236"
+        }
+      ]
+    },
+    {
+      "id": "final_normalization",
+      "task": "M02/M04",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "CustomTransformerEncoder.__init__",
+          "lines": [
+            267,
+            271
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L267-L271"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "CustomTransformerEncoder.forward",
+          "lines": [
+            281,
+            283
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L281-L283"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.__init__",
+          "lines": [
+            323,
+            326
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L323-L326"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.forward",
+          "lines": [
+            396,
+            398
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L396-L398"
+        }
+      ]
+    },
+    {
+      "id": "initialization",
+      "task": "M01/M02/M03/M04/M06",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "AbsolutePE.__init__",
+          "lines": [
+            37,
+            39
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L37-L39"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.__init__",
+          "lines": [
+            288,
+            334
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L288-L334"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MHA.__init__",
+          "lines": [
+            47,
+            92
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L47-L92"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "EncoderOnlyBlock.__init__",
+          "lines": [
+            170,
+            210
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L170-L210"
+        },
+        {
+          "repository": "lczero",
+          "path": "tf/tfprocess.py",
+          "symbol": "RPELogits.build",
+          "lines": [
+            293,
+            301
+          ],
+          "url": "https://github.com/daniel-monroe/lczero-training/blob/7b3ee3fcdb49d8abeb034718935b099134c11882/tf/tfprocess.py#L293-L301"
+        },
+        {
+          "repository": "lczero",
+          "path": "tf/tfprocess.py",
+          "symbol": "RPEValue.build",
+          "lines": [
+            326,
+            333
+          ],
+          "url": "https://github.com/daniel-monroe/lczero-training/blob/7b3ee3fcdb49d8abeb034718935b099134c11882/tf/tfprocess.py#L326-L333"
+        }
+      ]
+    },
+    {
+      "id": "pair_policy",
+      "task": "M03",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.__init__",
+          "lines": [
+            331,
+            334
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L331-L334"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.forward",
+          "lines": [
+            373,
+            376
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L373-L376"
+        }
+      ]
+    },
+    {
+      "id": "promotion_adjustment",
+      "task": "M03",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.__init__",
+          "lines": [
+            331,
+            334
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L331-L334"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.forward",
+          "lines": [
+            378,
+            394
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L378-L394"
+        }
+      ]
+    },
+    {
+      "id": "vocabulary_ordering",
+      "task": "M03",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/utils.py",
+          "symbol": "get_all_possible_moves",
+          "lines": [
+            23,
+            46
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/utils.py#L23-L46"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.forward",
+          "lines": [
+            375,
+            394
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L375-L394"
+        }
+      ]
+    },
+    {
+      "id": "wdl_head",
+      "task": "M04",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.__init__",
+          "lines": [
+            323,
+            326
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L323-L326"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MAIA3Model.forward",
+          "lines": [
+            396,
+            400
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L396-L400"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/uci.py",
+          "symbol": "wdl_from_value_logits",
+          "lines": [
+            196,
+            200
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/uci.py#L196-L200"
+        }
+      ]
+    },
+    {
+      "id": "make_rpe_map",
+      "task": "M06",
+      "references": [
+        {
+          "repository": "lczero",
+          "path": "tf/tfprocess.py",
+          "symbol": "make_rpe_map",
+          "lines": [
+            83,
+            91
+          ],
+          "url": "https://github.com/daniel-monroe/lczero-training/blob/7b3ee3fcdb49d8abeb034718935b099134c11882/tf/tfprocess.py#L83-L91"
+        }
+      ]
+    },
+    {
+      "id": "rpe_logits",
+      "task": "M06",
+      "references": [
+        {
+          "repository": "lczero",
+          "path": "tf/tfprocess.py",
+          "symbol": "RPELogits",
+          "lines": [
+            285,
+            317
+          ],
+          "url": "https://github.com/daniel-monroe/lczero-training/blob/7b3ee3fcdb49d8abeb034718935b099134c11882/tf/tfprocess.py#L285-L317"
+        }
+      ]
+    },
+    {
+      "id": "rpe_value",
+      "task": "M06",
+      "references": [
+        {
+          "repository": "lczero",
+          "path": "tf/tfprocess.py",
+          "symbol": "RPEValue",
+          "lines": [
+            319,
+            341
+          ],
+          "url": "https://github.com/daniel-monroe/lczero-training/blob/7b3ee3fcdb49d8abeb034718935b099134c11882/tf/tfprocess.py#L319-L341"
+        }
+      ]
+    },
+    {
+      "id": "qkv_contractions",
+      "task": "M06",
+      "references": [
+        {
+          "repository": "lczero",
+          "path": "tf/tfprocess.py",
+          "symbol": "TFProcess.split_heads",
+          "lines": [
+            1956,
+            1961
+          ],
+          "url": "https://github.com/daniel-monroe/lczero-training/blob/7b3ee3fcdb49d8abeb034718935b099134c11882/tf/tfprocess.py#L1956-L1961"
+        },
+        {
+          "repository": "lczero",
+          "path": "tf/tfprocess.py",
+          "symbol": "TFProcess.scaled_dot_product_attention",
+          "lines": [
+            1963,
+            2007
+          ],
+          "url": "https://github.com/daniel-monroe/lczero-training/blob/7b3ee3fcdb49d8abeb034718935b099134c11882/tf/tfprocess.py#L1963-L2007"
+        },
+        {
+          "repository": "lczero",
+          "path": "tf/tfprocess.py",
+          "symbol": "TFProcess.mha",
+          "lines": [
+            2047,
+            2063
+          ],
+          "url": "https://github.com/daniel-monroe/lczero-training/blob/7b3ee3fcdb49d8abeb034718935b099134c11882/tf/tfprocess.py#L2047-L2063"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/models.py",
+          "symbol": "MHA.forward",
+          "lines": [
+            143,
+            165
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/models.py#L143-L165"
+        }
+      ]
+    },
+    {
+      "id": "history_padding",
+      "task": "reference only; A04 already implemented",
+      "references": [
+        {
+          "repository": "maia3",
+          "path": "maia3/dataset.py",
+          "symbol": "get_historical_tokens",
+          "lines": [
+            44,
+            66
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/dataset.py#L44-L66"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/dataset.py",
+          "symbol": "tokenize_board",
+          "lines": [
+            16,
+            30
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/dataset.py#L16-L30"
+        },
+        {
+          "repository": "maia3",
+          "path": "maia3/uci.py",
+          "symbol": "Maia3UCIEngine.cmd_position",
+          "lines": [
+            436,
+            450
+          ],
+          "url": "https://github.com/CSSLab/maia3/blob/1e13597c42d4858b7cfd7cfdae01e297263364b2/maia3/uci.py#L436-L450"
+        }
+      ]
+    }
+  ],
+  "contract": {
+    "encoding_version": "chess128-v2",
+    "move_vocab_version": "pair4352-v1",
+    "input_shape": [
+      "B",
+      64,
+      128
+    ],
+    "width": 256,
+    "layers": 8,
+    "heads": 8,
+    "head_dim": 32,
+    "feedforward_width": 256,
+    "dropout": 0.1,
+    "normalization": "LayerNorm",
+    "activation": "GELU",
+    "absolute_pe": true,
+    "use_gab": true,
+    "gab_per_square_dim": 8,
+    "gab_intermediate_dim": 32,
+    "gab_gen_size": 32,
+    "gab_bank_shape": [
+      4096,
+      32
+    ],
+    "gab_bank_shared_across_layers_and_heads": true,
+    "qkv_projection_biases": true,
+    "policy_dim": 128,
+    "wdl_hidden_dim": 128,
+    "wdl_order": [
+      "win",
+      "draw",
+      "loss"
+    ],
+    "use_rpe_q": true,
+    "use_rpe_k": true,
+    "use_rpe_v": true,
+    "relative_table_logical_shape": [
+      8,
+      225,
+      32
+    ],
+    "static_relative_bias": false,
+    "position_only_cross_term": false,
+    "elo_time_conditioning": false,
+    "ponder_head": false
+  }
+}

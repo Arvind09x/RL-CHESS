@@ -222,7 +222,12 @@ Remaining: delegated framework initialization must be resolved under the
 recorded model environment; the GPL full-text omission upstream is documented;
 WDL/history/preset adaptations must be respected by later ports. M01–M06
 numerical operations/gradients and all learning/search work remain unstarted.
-A07/Gate A still requires the other project member's replay/sign-off; reviewer
-verification of 119 tests and 13 records is not that human acceptance.
-Proposed next implementation task after reviewer assessment: M01 only, compact
-GAB numerical port with the shared bank. F03 does not authorize starting it.
+
+Review acceptance — 7 October 2026: the user's decisions accept A07/Gate A
+through independent AI review of `868371c` (119 tests in both existing
+environments, 13 matching replay fixtures), and independently accept F03
+`5958fd638fce0b6cf98a6631bacf743ce89551b8`, including the source checker and
+five corruption cases. No human teammate review is claimed. This dated entry
+supersedes the prior pending-review status; historical evidence in
+`runs/f03/source-check.json` and the completion log is preserved. M01 only,
+compact GAB with its shared bank and numerical validation, is authorized next.

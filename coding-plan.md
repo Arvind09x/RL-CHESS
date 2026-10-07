@@ -1,6 +1,6 @@
 # Coding plan: small tasks from interface to playable agent
 
-Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07 implementation and automated checks pass; second-person review is pending. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
+Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; see the dated acceptance entry below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
 
 This is the execution companion to [plan1.md](plan1.md), not a replacement strategy. [interface.md](interface.md) defines the shared behavior. The intended agent is a Chessformer network with Leela-inspired MCTS and self-play, based on AlphaZero's learning principle and initialized with Stockfish supervision.
 
@@ -68,7 +68,7 @@ At each task review, check that its imports follow these boundaries, that no sec
 |---|---|---|---|---|
 | [x] | F01 / Both | None | Create a minimal package skeleton, dependency environment, test entry point and a short README with real setup commands. Pin the resolved Python/dependency versions; defer modules until their tasks need them. | A fresh environment can import the package and run one smoke check. No dataset/engine download is required for unit checks. |
 | [x] | F02 / Both | F01 | Define only the adapter state/result types and version constants needed next, plus minimal configuration validation. Add domain record/configuration types in their later tasks rather than designing every future schema now. | Invalid configurations fail clearly; a sample typed adapter result survives serialization with versions and array shapes preserved. |
-| [ ] | F03 / P1 | F01 | Record exact upstream commits, source files and attribution for Maia-3 and the earlier relative-attention implementation. | Every operation to be ported points to immutable source. No reference to a moving branch substitutes for the recorded commit. |
+| [x] | F03 / P1 | F01 | Record exact upstream commits, source files and attribution for Maia-3 and the earlier relative-attention implementation. | Every operation to be ported points to immutable source. No reference to a moving branch substitutes for the recorded commit. |
 
 ## 2. Implement the shared adapter first
 
@@ -80,9 +80,9 @@ At each task review, check that its imports follow these boundaries, that no sec
 | [x] | A04 / P2 | A01 | Collect eight newest-first real snapshots, compute prefix repetition and earliest-position padding with provenance. | Check start, two plies, eight or more positions, isolated FEN and FEN plus moves. Later moves never change an earlier flag; padding never creates a repetition. Inspection restores the original state. |
 | [x] | A05 / P2 | A04 | Fill the complete 128 channels, including current metadata and engineered features. | Hand-checked fixtures verify every channel group, ownership and scales for both colors. Include promoted material, legal/pinned en passant, checkers and opposite-colored bishops. Features are finite `float32 [64,128]`. |
 | [x] | A06 / P2 | A02 | Implement ending policy `actual-occurrence-v1`, perspective-correct WDL/value and `apply_move` with atomic failure. First use `outcome(claim_draw=False)`, then actual third repetition or reached fifty-move condition as specified in `interface.md`. | Checkmate, stalemate, insufficient material, actual repetition/halfmove draws and terminal precedence pass. Intended-move-only repetition/fifty-move claims remain nonterminal; reached draw conditions with legal moves terminate. Failed application leaves state/history unchanged. |
-| [ ] | A07 / Both | A03, A05, A06 | Review the assembled adapter and add deterministic replay/regression fixtures, including legal sequences longer than the network history window. | All adapter checks pass. Each member can replay the same record and obtain identical features, mask, move IDs and terminal result. No GPU or teacher engine is needed. |
+| [x] | A07 / Both | A03, A05, A06 | Review the assembled adapter and add deterministic replay/regression fixtures, including legal sequences longer than the network history window. | All adapter checks pass. Each member can replay the same record and obtain identical features, mask, move IDs and terminal result. No GPU or teacher engine is needed. |
 
-**Gate A — automated checks passed; second-person review pending:** A07 must pass before another component depends on real encoded states. This is the first coding milestone. Freeze the accepted behavior, not the internals of its implementation.
+**Gate A — accepted 2026-10-07 through independent AI review:** A07 must pass before another component depends on real encoded states. This is the first coding milestone. Freeze the accepted behavior, not the internals of its implementation.
 
 ## 3. Prepare supervised data
 
@@ -236,7 +236,7 @@ and copies matched before editing this log. No applicable AGENTS.md was found in
 either project or the checked ancestor paths. No subagents, annotation, training,
 teacher engine, GPU or paid compute were launched.
 
-**Outstanding review:** the other project member should independently run the
+**Historical pending-review status (superseded by the 2026-10-07 acceptance below):** the other project member should independently run the
 README acceptance commands, inspect the contract fixtures and confirm identical
 results. The automation establishes reproducibility, not second-person approval.
 After that sign-off, mark A07 and Gate A accepted. The reviewer independently
@@ -245,3 +245,19 @@ replay records; this does not supply the other member's acceptance. F03 is now
 complete. Proposed next implementation task after this commit's reviewer
 assessment: M01, compact GAB with numerical reference checks. D01/S01 and all
 model work remain pending. No upstream operation has been ported yet.
+
+
+### Review acceptance — 2026-10-07
+
+The user's reviewer decisions supersede the historical pending statuses above.
+A07/Gate A is accepted through independent AI review of
+`868371c278e8d96d73ea1d6f00e8e5c1736281b8`: 119 tests passed in each of the two
+existing environments and all 13 replay fixtures matched. This was AI review,
+not a human teammate's replay/sign-off. The original check results remain intact.
+
+F03 commit `5958fd638fce0b6cf98a6631bacf743ce89551b8` passes independent review,
+including the source checker and all five corruption cases. F03 and A07 are now
+checked; Gate A is accepted. M01 only is authorized next. No later implementation
+or paid compute is authorized by this entry. Changed files: `coding-plan.md`,
+`README.md`, `docs/upstream-sources.md`; documentation-only correction checked
+with `git diff --check`. The original planning directory remains untouched.

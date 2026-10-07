@@ -82,22 +82,17 @@ castling aliases; standard king-destination UCI is required.
 
 ## Review and next work
 
-F01, F02 and A01–A06 have passed their acceptance checks. A07 implementation
-and automated regression/replay checks pass; its Both-owner human review is
-pending. A07 stays unchecked in the coding plan until that review occurs.
-The reviewer can run the setup/check commands above and inspect the 13 replay
-records, independent channel fixtures, draw precedence and preservation checks.
-The reviewer independently verified commit `868371c`, 119 tests in each
-existing environment and all 13 replay records. The other project member's
-replay/sign-off is still outstanding; reviewer verification does not accept
-A07/Gate A.
+F01, F02, A01–A07/Gate A and F03 are accepted. On 7 October 2026, the
+user supplied independent AI review acceptance of adapter commit `868371c`
+(119 tests in both existing environments; all 13 replay fixtures matched) and
+F03 commit `5958fd638fce0b6cf98a6631bacf743ce89551b8` (source checker and five
+corruption cases). This is not a claim of human teammate review. The dated
+completion-log entry supersedes the preserved historical pending statuses.
 
 There is no model, search, teacher annotation or training implementation yet.
 Policy normalization and evaluator batching belong to S01/T04 and later model
-helpers. F03 source pinning/attribution has passed its acceptance check; see
-the completion-log entry and source guidance below. After reviewer assessment,
-the proposed next implementation task is M01 (compact GAB), while the other
-member's A07/Gate A sign-off remains pending. No paid compute has been used.
+helpers. M01 only (compact GAB) is the authorized next implementation. No paid
+compute has been used.
 
 
 ## Pinned upstream sources (F03)

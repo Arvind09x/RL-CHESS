@@ -3,8 +3,10 @@
 Recorded 7 October 2026. The original F03 audit covered the operations planned
 in M01–M06, plus vocabulary/history reference behavior, without executing them.
 M01 is ported and accepted through independent AI review; see [M01 evidence](m01-gab.md).
-M02 backbone is ported and passes automated acceptance, awaiting review; see
-[M02 evidence](m02-backbone.md). M03–M06 remain unimplemented. No full upstream module is imported.
+M02 backbone is ported and accepted through independent AI review; see
+[M02 evidence](m02-backbone.md). M03 pair policy passes automated acceptance,
+awaiting review; see [M03 evidence](m03-policy.md). M04–M06 remain unimplemented.
+No full upstream module is imported.
 `interface.md` remains the contract. The original planning files in
 `/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2` are preserved.
 
@@ -221,9 +223,10 @@ Source availability is network-dependent; any retrieval/hash/coverage failure
 fails the check. These checks establish F03 provenance, not numerical ports.
 
 Remaining: M01 GAB and M02 backbone initialization are resolved in the recorded
-PyTorch 2.8.0 CPU environment; M03–M06 constructors require their milestone checks.
+PyTorch 2.8.0 CPU environment; M03 policy constructors are resolved in the
+same environment; M04–M06 require their milestone checks.
 The GPL full-text omission upstream is documented;
-WDL/history/preset adaptations must be respected by later ports. M03–M06
+WDL/history/preset adaptations must be respected by later ports. M04–M06
 numerical operations/gradients and all learning/search work remain unstarted.
 
 Review acceptance — 7 October 2026: the user's decisions accept A07/Gate A
@@ -264,3 +267,22 @@ cases, sharing, both 13-fixture replays, source/dependency checks, original
 planning hashes and clean tree; no blocking findings. This is independent AI
 review, not human teammate review. Historical lock/notices and `runs/f03/`,
 `runs/milestone-1/`, `runs/m01/` remain unchanged. M02 stops for review.
+
+
+M02 independent AI review acceptance — 7 October 2026: user-supplied review
+of `bc2066d57203459be18d60013eb874c88f4bc5c3` found no blocking findings after
+implementation inspection, 157 model tests, 119 adapter-only tests/two expected
+skips, six backbone numerical cases, dropout/sharing, 12 M01 cases, both
+13-fixture replays, source/dependency and preservation checks. Backbone count
+3,567,168 and clean tree verified. No human teammate review is claimed.
+`runs/m03/m02-review-acceptance.json` records this acceptance; historical
+M02 evidence above and under `runs/m02/` remains intact.
+
+M03 automated acceptance — 8 October 2026: `model/policy.py` adapts only
+bias-free pair projections, both scaling factors, destination-key promotion
+adjustment and pair4352-v1 flattening from lines 331–334 and 373–394. The
+pinned forward body is retained verbatim in `tests/fixtures/policy_reference.py`.
+Independent scalar and component-wise gradient references, exact slot/dependence
+checks and diagnostic backbone output pass. See `m03-policy.md` and
+`runs/m03/policy-acceptance.json`. Source pins and notices remain unchanged.
+M03 stops for review; M04 onward remains unimplemented.

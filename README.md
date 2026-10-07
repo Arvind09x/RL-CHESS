@@ -96,14 +96,24 @@ inspection, 139 model tests, 119 adapter-only tests with one expected skip,
 original planning hashes and clean working tree; no blocking findings.
 [Historical M01 evidence and acceptance](docs/m01-gab.md) are preserved.
 
-M02 backbone passes automated acceptance and stops for independent review.
-Results: 157 full model tests, 119 adapter-only tests with two expected skips,
-six independent backbone reference cases, dropout/sharing/real-adapter checks,
-M01 rerun, source/dependency and preservation checks.
-[M02 settings, results and limitations](docs/m02-backbone.md) and
-[exact commands](runs/m02/commands.json) provide the evidence. M03 onward,
-policy/WDL heads, relative terms, data, training and search remain unimplemented.
-No human teammate review, subagents or paid compute is claimed.
+M02 commit `bc2066d57203459be18d60013eb874c88f4bc5c3` is accepted through
+independent AI review supplied by the user on 7 October 2026. The reviewer
+reproduced 157 model tests, 119 adapter-only tests with two expected skips,
+six backbone numerical cases, dropout/sharing, 12 M01 cases, both 13-fixture
+replays, source/dependency and preservation checks; verified 3,567,168 backbone
+parameters and a clean tree; no blocking findings. [M02 acceptance](docs/m02-backbone.md)
+and [structured record](runs/m03/m02-review-acceptance.json) preserve the evidence.
+
+M03 pair policy passes automated acceptance and stops for independent review.
+Results: **187 model tests**, **119 adapter-only tests with three expected skips**,
+12 head output/scalar/gradient cases, exact slot/order/scaling/dependence checks,
+constructor/adapter-ID checks, accepted-backbone diagnostic, M01/M02 reruns,
+both 13-fixture replays, source/dependency and preservation checks.
+[M03 settings, results and limitations](docs/m03-policy.md) and
+[exact commands](runs/m03/commands.json) provide the evidence. All historical
+runs remain unchanged. M04 onward, WDL, assembled network, relative terms,
+data, training and search remain unimplemented. No human teammate review,
+subagents or paid compute is claimed.
 
 
 ## Pinned upstream sources (F03)
@@ -157,7 +167,8 @@ and release presets differ from our locked input/backbone. The earlier source
 has a GPL-3.0-or-later file notice but no standalone license file; Maia-3 has
 AGPL-3.0 text. Upstream leaves PyTorch unpinned. M01 resolves its GAB
 constructor defaults under the environment below; upstream framework/RNG-stream equivalence is not
-claimed. M02 numerical acceptance is recorded below; M03–M06 remain pending.
+claimed. M02 and M03 numerical acceptance is recorded below; M04–M06 remain
+pending.
 
 
 ## Compact GAB (M01)
@@ -236,3 +247,35 @@ The checkout argument is optional; numerical checks run offline.
 [Focused M02 documentation](docs/m02-backbone.md) resolves constructor resets,
 epsilon, bias settings and dropout placement. CPU macOS arm64 float32/float64
 only is validated; no GPU/reduced-precision or checkpoint compatibility claim.
+
+
+## Pair policy head (M03)
+
+```python
+import torch
+from chess_rl.model import PairPolicyHead
+
+head = PairPolicyHead(d_policy=128)  # validated positive integer; CPU float32
+logits = head(torch.randn(2, 64, 256))  # contextual square tokens
+assert logits.shape == (2, 4352)
+```
+
+The three bias-free projections have **66,048 parameters** at width 128.
+Ordinary scores divide by sqrt(d_policy); promotion adjustments multiply by
+sqrt(d_policy) and use projected destination keys on rank 8. IDs remain
+`64*i+j` and `4096+4*(8*f+g)+p`, with queen/rook/bishop/knight order. All slots
+are raw logits; legality and move conversion remain owned by the adapter.
+This standalone head adds no WDL, assembled network or later milestone.
+
+Recheck without overwriting historical evidence:
+
+```sh
+.venv/bin/python scripts/check_m03.py
+.venv/bin/python scripts/check_m03.py --maia3-checkout /private/tmp/rl-chess-f03-maia3
+.venv/bin/python -m pytest -p no:cacheprovider
+.venv-acceptance/bin/python -m pytest -p no:cacheprovider
+```
+
+The checkout argument is optional. [Focused M03 documentation](docs/m03-policy.md)
+records independent references, tolerances, constructor resolution, exact results
+and CPU limitations. M03 stops for review.

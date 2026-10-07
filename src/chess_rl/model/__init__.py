@@ -2,5 +2,6 @@
 
 from .backbone import EncoderBackbone
 from .gab import CompactGAB, SharedTemplateBank
+from .policy import PairPolicyHead
 
-__all__ = ["CompactGAB", "SharedTemplateBank", "EncoderBackbone"]
+__all__ = ["CompactGAB", "SharedTemplateBank", "EncoderBackbone", "PairPolicyHead"]

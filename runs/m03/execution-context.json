@@ -1,0 +1,24 @@
+{
+  "working_repository": "/Users/arvindsrinivass/Desktop/RL-Chess",
+  "baseline_commit": "bc2066d57203459be18d60013eb874c88f4bc5c3",
+  "original_execution_output_directory": "/private/tmp/rl-chess-m03-stage/runs/m03",
+  "archive_directory": "/Users/arvindsrinivass/Desktop/RL-Chess/runs/m03",
+  "archive_command": [
+    "cp",
+    "-R",
+    "/private/tmp/rl-chess-m03-stage/.",
+    "/Users/arvindsrinivass/Desktop/RL-Chess/"
+  ],
+  "runner_invocation": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "/private/tmp/rl-chess-m03-stage/runs/m03/verification-runner.py"
+  ],
+  "runner_environment_override": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "output_bytes_copied_unchanged": true,
+  "client_timezone": "Asia/Kolkata",
+  "completion_date": "2026-10-08",
+  "m02_review_acceptance_date": "2026-10-07",
+  "no_subagents_or_paid_compute": true
+}

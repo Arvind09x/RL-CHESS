@@ -1,6 +1,6 @@
 # Coding plan: small tasks from interface to playable agent
 
-Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 has passed automated acceptance and awaits review. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
+Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 has passed automated acceptance and awaits review. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
 
 This is the execution companion to [plan1.md](plan1.md), not a replacement strategy. [interface.md](interface.md) defines the shared behavior. The intended agent is a Chessformer network with Leela-inspired MCTS and self-play, based on AlphaZero's learning principle and initialized with Stockfish supervision.
 
@@ -105,7 +105,7 @@ After Gate A, the data, model and search tracks can proceed independently. They 
 |---|---|---|---|---|
 | [x] | M01 / P1 | F02, F03 | Port compact GAB and its shared template bank. | Match the pinned reference operations numerically on synthetic nontrivial inputs. Confirm d1=8, d2=32, d3=32 and that the template parameter is shared, not copied per layer. |
 | [x] | M02 / P1 | M01, A07 | Assemble the projection, additive square embeddings and specified Post-LayerNorm encoder blocks. | Correct `[B,64,256]` outputs, finite forward/backward values and working train/eval dropout behavior for several batch sizes. Record resolved normalization/bias/initialization settings. |
-| [ ] | M03 / P1 | M02 | Implement the pair policy head, `d_policy=128`, promotion adjustment and exact flattening order. | Compare selected ordinary/promotion logits to an independent scalar calculation/reference. Output is `[B,4352]`; queen and underpromotions occupy their own correct slots. |
+| [x] | M03 / P1 | M02 | Implement the pair policy head, `d_policy=128`, promotion adjustment and exact flattening order. | Compare selected ordinary/promotion logits to an independent scalar calculation/reference. Output is `[B,4352]`; queen and underpromotions occupy their own correct slots. |
 | [ ] | M04 / P1 | M02 | Implement mean pooling and the specified WDL head. | Output is `[B,3]` logits in WDL order. Pool across squares; one known synthetic case independently checks the head path. |
 | [ ] | M05 / Both | M03, M04 | Assemble the backbone and heads with GAB as an intermediate correctness stage, before adding relative terms in M06. | End-to-end adapter batches produce finite policy/WDL logits and gradients. Record intermediate parameters/memory; this stage is not the architecture for supervised or RL runs. |
 | [ ] | M06 / P1 | M05, F03 | Port all implemented Q/K/V relative terms and finalize the fixed combined architecture. Keep operations inspectable and a diagnostic disable path for correctness checks. | Match reference outputs and gradients with nonzero relative tables and asymmetric inputs. Disabling terms recovers GAB-only behavior; all three tables receive gradients when enabled. No omitted position-only cross term is added. Check finite combined-model forward/backward results and count full parameters/memory; resolve a material mismatch with the provisional 6–8M target before freezing a full run. |
@@ -358,3 +358,60 @@ only; CUDA/MPS, reduced precision, other platform builds, upstream framework
 RNG/checkpoint compatibility and playing strength are unvalidated. No subagents
 or paid compute. Original planning directory, adapter semantics, source
 pins/notices and all earlier run evidence are preserved.
+
+
+### M02 review acceptance — 2026-10-07
+
+The user supplied independent **AI review acceptance** of M02 commit
+`bc2066d57203459be18d60013eb874c88f4bc5c3`. The reviewer inspected the
+implementation and reproduced 157 model tests, 119 adapter-only tests with
+two expected skips, six backbone output/gradient cases, dropout/sharing checks,
+all 12 M01 numerical cases, both 13-fixture replays, source/dependency checks
+and preservation audits. The 3,567,168 backbone parameter count and clean
+working tree were verified. No blocking findings were identified. This is AI
+review acceptance, not human teammate review. Historical M02 evidence is
+unchanged; this entry supersedes its pending status. Structured record:
+`runs/m03/m02-review-acceptance.json`.
+
+
+### M03 completion — 2026-10-08
+
+M03 only passes automated acceptance; **stop for independent review**.
+Changed files: `src/chess_rl/model/{policy,__init__}.py`,
+`tests/{policy_checks,test_policy}.py`, `tests/fixtures/policy_reference.py`,
+`scripts/check_m03.py`, `docs/m03-policy.md`, appended M02 AI acceptance,
+README/port-map/this execution status, and `runs/m03/` evidence.
+`PairPolicyHead` validates the public positive-integer `d_policy=128` field,
+consumes `[B,64,256]` contextual tokens and returns raw `[B,4352]` logits.
+Three bias-free Linears retain constructor initialization, ordinary
+`q dot k / sqrt(d_policy)`, rank8 projected destination-key adjustments times
+`sqrt(d_policy)`, and exact ordinary/promotion IDs and q/r/b/n order.
+All slots remain; no legality, softmax or terminal handling is added.
+Head count: **66,048 elements in three tensors** (`516*d_policy`).
+
+Actual commands/outputs/tolerances are under `runs/m03/`; the verification
+runner saves cwd, argv, environment, UTC start times, exit codes and durations.
+All passed: 12 independent numerical cases (batches 1/2/5 × float32/float64 ×
+widths 7/128), scalar checks of eight ordinary pairs and all 256 promotion
+slots, all input/parameter gradients, exact full-slot flattening and piece
+order, destination-key dependence, both scaling factors, constructor parity,
+known IDs through adapter APIs and 13-fixture accepted-backbone diagnostic.
+At atol/rtol 2e-5/2e-4 (float32), maximum output/scalar/gradient errors were
+3.814697265625e-6 / 4.76837158203125e-6 / 5.7220458984375e-6;
+float64 2e-12/2e-11 gave 3.552713678800501e-15 / 1.0658141036401503e-14 /
+7.105427357601002e-15. Pinned policy-body output errors were zero.
+
+Regressions: **187 model tests**, **119 adapter-only tests/three expected skips**,
+M01's 12 cases, M02's six cases/dropout/sharing/constructors, both 13-fixture
+replays, adapter import boundary, dependency and pinned-source checks passed.
+Preservation matched 90 protected repository files and three original plans;
+all prior runs, adapter, M01/M02 implementation/tests, source pins/notices,
+interface/plan1 and dependency pins are unchanged. M02 historical document
+is retained as an exact prefix with appended acceptance. Original planning
+directory remains untouched. The prior one/two-skip reports are historical.
+
+Current status: M01/M02 AI review accepted; M03 automated acceptance complete,
+independent review pending. CPU macOS arm64 float32/float64 only; CUDA/MPS,
+reduced precision, other builds, upstream framework/RNG/checkpoint equivalence,
+performance and playing strength are unvalidated. No M04 onward, WDL, assembled
+network, relative terms, data, training, search, subagents or paid compute.

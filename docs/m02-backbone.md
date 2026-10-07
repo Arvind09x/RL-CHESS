@@ -181,3 +181,18 @@ reduced precision and other platform builds are unvalidated. There is no
 upstream framework/RNG-stream equivalence, pretrained checkpoint compatibility,
 performance benchmark or playing-strength claim. No subagents, paid compute,
 heads, relative terms, data preparation, learning runs or search were used.
+
+
+## M02 review acceptance — 7 October 2026
+
+The user supplied independent **AI review acceptance** of commit
+`bc2066d57203459be18d60013eb874c88f4bc5c3`. The reviewer inspected the
+implementation and reproduced 157 model tests, 119 adapter-only tests with
+two expected skips, six backbone output/gradient cases, dropout/sharing checks,
+all 12 M01 numerical cases, both 13-fixture replays, source/dependency checks
+and preservation audits. The 3,567,168 backbone parameter count and clean
+working tree were verified. No blocking findings were identified. This is AI
+review acceptance, not human teammate review. This appended entry supersedes
+the pending review statements above; all historical evidence is retained.
+[Structured record](../runs/m03/m02-review-acceptance.json). M03 only is the
+next authorized scope, ending with a focused commit for review.

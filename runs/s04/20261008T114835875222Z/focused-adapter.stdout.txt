@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/s04-root-policy
+configfile: pyproject.toml
+collected 360 items
+
+tests/test_search_runner.py ............................................ [ 12%]
+.....................................................................    [ 31%]
+tests/test_backup.py ................................................... [ 45%]
+....................................................................     [ 64%]
+tests/test_puct.py ..................................................... [ 79%]
+..........................................                               [ 90%]
+tests/test_evaluator.py .................................                [100%]
+
+- generated xml file: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/s04-root-policy/runs/s04/20261008T114835875222Z/focused-adapter.xml -
+============================= 360 passed in 9.51s ==============================

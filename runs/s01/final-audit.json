@@ -1,0 +1,109 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "cwd": "/private/tmp/rl-chess-s01",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--name-status"
+      ],
+      "cwd": "/private/tmp/rl-chess-s01",
+      "exit_code": 0,
+      "stdout": "A\tdocs/s01-evaluator.md\nA\truns/s01/20261008T070959324954Z/adapter-only-regressions.stderr.txt\nA\truns/s01/20261008T070959324954Z/adapter-only-regressions.stdout.txt\nA\truns/s01/20261008T070959324954Z/adapter-only-regressions.xml\nA\truns/s01/20261008T070959324954Z/baseline-file-list.stderr.txt\nA\truns/s01/20261008T070959324954Z/baseline-file-list.stdout.txt\nA\truns/s01/20261008T070959324954Z/commands.json\nA\truns/s01/20261008T070959324954Z/diff-check.stderr.txt\nA\truns/s01/20261008T070959324954Z/diff-check.stdout.txt\nA\truns/s01/20261008T070959324954Z/environment-adapter.stderr.txt\nA\truns/s01/20261008T070959324954Z/environment-adapter.stdout.txt\nA\truns/s01/20261008T070959324954Z/environment-model.stderr.txt\nA\truns/s01/20261008T070959324954Z/environment-model.stdout.txt\nA\truns/s01/20261008T070959324954Z/focused-adapter.stderr.txt\nA\truns/s01/20261008T070959324954Z/focused-adapter.stdout.txt\nA\truns/s01/20261008T070959324954Z/focused-adapter.xml\nA\truns/s01/20261008T070959324954Z/focused-model.stderr.txt\nA\truns/s01/20261008T070959324954Z/focused-model.stdout.txt\nA\truns/s01/20261008T070959324954Z/focused-model.xml\nA\truns/s01/20261008T070959324954Z/preservation.json\nA\truns/s01/20261008T070959324954Z/replay-adapter.stderr.txt\nA\truns/s01/20261008T070959324954Z/replay-adapter.stdout.txt\nA\truns/s01/20261008T070959324954Z/replay-model.stderr.txt\nA\truns/s01/20261008T070959324954Z/replay-model.stdout.txt\nA\truns/s01/20261008T070959324954Z/summary.json\nA\truns/s01/preparation.json\nA\truns/s01/verify.py\nA\tsrc/chess_rl/search/__init__.py\nA\tsrc/chess_rl/search/evaluator.py\nA\ttests/test_evaluator.py\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "-c",
+        "from chess_rl.adapter import Evaluation, TerminalResult, make_state\nfrom chess_rl.search.evaluator import evaluate\n\nassert evaluate([]) == []\nstate = make_state()\nresult, = evaluate([state])\nassert isinstance(result, Evaluation)\nassert result.priors.shape == (4352,)  # NumPy float32, 20 legal entries at 1/20\nassert result.value == 0.0\nassert result.wdl.tolist() == [0.25, 0.5, 0.25]\n\nmate = make_state(\"7k/6Q1/5K2/8/8/8/8/8 b - - 0 1\")\nresults = evaluate([state, mate, state])\nassert isinstance(results[1], TerminalResult)\nassert results[1].ending_reason == \"CHECKMATE\"\nassert results[1].priors is None\n\nprint(\"Documented public usage passed\")"
+      ],
+      "cwd": "/private/tmp/rl-chess-s01",
+      "exit_code": 0,
+      "stdout": "Documented public usage passed\n",
+      "stderr": ""
+    }
+  ],
+  "checks": [
+    "All staged files are S01-only additions",
+    "All added Python sources parse",
+    "Documented public usage passed"
+  ],
+  "changed_files_before_this_audit": [
+    "docs/s01-evaluator.md",
+    "runs/s01/20261008T070959324954Z/adapter-only-regressions.stderr.txt",
+    "runs/s01/20261008T070959324954Z/adapter-only-regressions.stdout.txt",
+    "runs/s01/20261008T070959324954Z/adapter-only-regressions.xml",
+    "runs/s01/20261008T070959324954Z/baseline-file-list.stderr.txt",
+    "runs/s01/20261008T070959324954Z/baseline-file-list.stdout.txt",
+    "runs/s01/20261008T070959324954Z/commands.json",
+    "runs/s01/20261008T070959324954Z/diff-check.stderr.txt",
+    "runs/s01/20261008T070959324954Z/diff-check.stdout.txt",
+    "runs/s01/20261008T070959324954Z/environment-adapter.stderr.txt",
+    "runs/s01/20261008T070959324954Z/environment-adapter.stdout.txt",
+    "runs/s01/20261008T070959324954Z/environment-model.stderr.txt",
+    "runs/s01/20261008T070959324954Z/environment-model.stdout.txt",
+    "runs/s01/20261008T070959324954Z/focused-adapter.stderr.txt",
+    "runs/s01/20261008T070959324954Z/focused-adapter.stdout.txt",
+    "runs/s01/20261008T070959324954Z/focused-adapter.xml",
+    "runs/s01/20261008T070959324954Z/focused-model.stderr.txt",
+    "runs/s01/20261008T070959324954Z/focused-model.stdout.txt",
+    "runs/s01/20261008T070959324954Z/focused-model.xml",
+    "runs/s01/20261008T070959324954Z/preservation.json",
+    "runs/s01/20261008T070959324954Z/replay-adapter.stderr.txt",
+    "runs/s01/20261008T070959324954Z/replay-adapter.stdout.txt",
+    "runs/s01/20261008T070959324954Z/replay-model.stderr.txt",
+    "runs/s01/20261008T070959324954Z/replay-model.stdout.txt",
+    "runs/s01/20261008T070959324954Z/summary.json",
+    "runs/s01/preparation.json",
+    "runs/s01/verify.py",
+    "src/chess_rl/search/__init__.py",
+    "src/chess_rl/search/evaluator.py",
+    "tests/test_evaluator.py"
+  ],
+  "audit_file": "runs/s01/final-audit.json",
+  "added_file_sha256": {
+    "docs/s01-evaluator.md": "429364febb946b934a74387d11d966c71d09c55c8c19f8a5059cbffc1934ae0b",
+    "runs/s01/20261008T070959324954Z/adapter-only-regressions.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs/s01/20261008T070959324954Z/adapter-only-regressions.stdout.txt": "b761474bbae4e049efd07700a750a9fba7e92adb8cafac24040a8fef844ebb04",
+    "runs/s01/20261008T070959324954Z/adapter-only-regressions.xml": "df4792ce8d43febc4c61ce3d53a89375a68cf019b3015303c368dda2cca4b164",
+    "runs/s01/20261008T070959324954Z/baseline-file-list.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs/s01/20261008T070959324954Z/baseline-file-list.stdout.txt": "34ab0ba027d6de907f25e1e3b20ac11d01990409ada2f41744117c228617a4c1",
+    "runs/s01/20261008T070959324954Z/commands.json": "781a28f3eadff104d72800f55ddc34bedc430b2dc6c8a6fdbedec4f1cb66af60",
+    "runs/s01/20261008T070959324954Z/diff-check.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs/s01/20261008T070959324954Z/diff-check.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs/s01/20261008T070959324954Z/environment-adapter.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs/s01/20261008T070959324954Z/environment-adapter.stdout.txt": "3b4488fd7706c26297ed1bb0835b42e62844933df70e5285b8385fcebb7c9c48",
+    "runs/s01/20261008T070959324954Z/environment-model.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs/s01/20261008T070959324954Z/environment-model.stdout.txt": "1890b4f9eecb30d131679394ab4d03a0713777ca998d4b8335c22e20c2d3a7b7",
+    "runs/s01/20261008T070959324954Z/focused-adapter.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs/s01/20261008T070959324954Z/focused-adapter.stdout.txt": "a7394686235be98953fac040cf64478a6ef6371c6ce4fe00fcf69bc932e2ea00",
+    "runs/s01/20261008T070959324954Z/focused-adapter.xml": "a17a568d1756d636d979285d77c9b4534e4068650408b70196ec17cfe3ea89b3",
+    "runs/s01/20261008T070959324954Z/focused-model.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs/s01/20261008T070959324954Z/focused-model.stdout.txt": "0694a95ecf881c73419afa3eacb9000bd80a664fe2c74f5cb5be8a523b6bf02f",
+    "runs/s01/20261008T070959324954Z/focused-model.xml": "08c51929014f69daf910921877d82015593d8323105870c9ed5d557f5a3a2a7d",
+    "runs/s01/20261008T070959324954Z/preservation.json": "b349c08b6caa1cea2a4f62a686398ab8d0d333e4923b8a954a9a5f836f17bad0",
+    "runs/s01/20261008T070959324954Z/replay-adapter.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs/s01/20261008T070959324954Z/replay-adapter.stdout.txt": "32c8da66c132f9ce87bbdb8b772b02acf3318e6d235538553c904556d6da3737",
+    "runs/s01/20261008T070959324954Z/replay-model.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs/s01/20261008T070959324954Z/replay-model.stdout.txt": "32c8da66c132f9ce87bbdb8b772b02acf3318e6d235538553c904556d6da3737",
+    "runs/s01/20261008T070959324954Z/summary.json": "2fc225db049a6ad4d4fc505ac96a18079aebc8819b50ff3f688dd3ef5a3b0666",
+    "runs/s01/preparation.json": "1e3f2c7ce89859b60d64614d87aa7aebc65e3fcbf5268c24f567f2dcba33fac2",
+    "runs/s01/verify.py": "339148c34aabe5f0531393864fe6b5e4409dd1c8fc3d55da5e3f34c63e4839f7",
+    "src/chess_rl/search/__init__.py": "8f200d82a3327e449031a9b6ec1530400e882747b111327a26bff54ef3fb2a7c",
+    "src/chess_rl/search/evaluator.py": "d1920c64a4b4a318967dc4126b87273c09cd10a597cdc85d2d43dd6cecabec65",
+    "tests/test_evaluator.py": "b7d0413e3e181d429a89a6a36b0dd72e7ce0907d308937a4c9304b917b6df8e4"
+  }
+}

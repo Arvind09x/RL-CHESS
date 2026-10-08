@@ -834,3 +834,30 @@ failed audit/check commands and preservation evidence remain under runs/d06.
 Accepted implementations, pins, teacher, historical evidence, original inputs
 and protected registries are preserved. D06 remains unchecked pending independent
 review. No D07, D08, training, search integration or GPU experiments ran.
+
+### D07 implementation — 2026-10-08; independent review pending
+
+Implemented supervised record loading, shared-adapter encoding and batching from
+exact accepted base `4184387c7e4b67559355d6b212a2a300c86c5ce6` in the isolated
+`/private/tmp/rl-chess-d07` clone on `codex/d07-record-loader`.
+[API, validation and limits](docs/d07-record-loader.md) and
+[execution evidence](runs/d07/completion.json) document this D07-only work.
+The API requires an explicit split, verifies completed D05 bundle/audit/teacher
+provenance and attempt accounting, joins audited compact game/ply references,
+replays complete prefixes and derives all features/legal masks through the
+accepted adapter. Policy remains int64 classes and WDL remains soft float32
+`[win,draw,loss]`; Torch conversion is optional and explicit. No cache is added.
+
+Final checks: 127 D07 cases in the model environment; 126 passes and one expected
+Torch skip in the adapter environment; 1,111 full model passes; 942 full adapter
+passes/seven expected optional-Torch skips; 84 accepted reviewer probes in each
+environment; both identical 13-fixture frozen adapter replays. All 12 existing
+D05 final roots match independent board/history/target calculations and frozen
+feature/mask fingerprints. Tests cover separate nonempty controlled splits,
+provenance/unfinished-record failures, both-color special moves, long history,
+retries/exclusions, order/partial batches and independent tensor storage.
+Main, accepted artifacts/manifests and protected membership are preserved.
+Commands, source hashes, checks and lossless outputs are saved under `runs/d07/`.
+D07 remains pending independent review and integration. No D06 benchmark, new
+annotation, loss implementation, training or D08 work ran; CPU correctness and
+plumbing only, with no scale/GPU/performance claim.

@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "runs/d07/verify_sample.py",
+    "runs/d07/sample-adapter.json"
+  ],
+  "cwd": "/private/tmp/rl-chess-d07",
+  "started_at_utc": "2026-10-08T15:02:54.924580+00:00",
+  "finished_at_utc": "2026-10-08T15:03:29.393459+00:00",
+  "duration_seconds": 34.46870954200858,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d07/src:/private/tmp/rl-chess-d07",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "sample-adapter.stdout.txt",
+    "bytes": 479,
+    "sha256": "baaa843c8c14de7f9b8f7b1a4ece554f101f1e1d52728e88c68cc9cde8e29715"
+  },
+  "stderr": {
+    "path": "sample-adapter.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

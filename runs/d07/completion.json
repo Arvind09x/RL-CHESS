@@ -1,0 +1,521 @@
+{
+  "artifact_identities": {
+    "adapter-final.command.json": {
+      "bytes": 869,
+      "sha256": "075156ca1897c9bfbcae6ed1bb4ccc030290b16ed164d6498425a70bafb00136"
+    },
+    "adapter-final.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "adapter-final.stdout.txt": {
+      "bytes": 3426,
+      "sha256": "0aeb2c36e0efe204a43376b7bb5ed47e965487da416f3c4896f267c2e9f798c5"
+    },
+    "adapter-final.xml": {
+      "bytes": 119091,
+      "sha256": "6f814368b45d84d5334618ee05e225665363881b3bd99ce37f1de12af7cee376"
+    },
+    "adapter-regression.command.json": {
+      "bytes": 883,
+      "sha256": "1b3a63f1ee14386a2b096537de157460051718a8bf6c05891514b567380e3002"
+    },
+    "adapter-regression.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "adapter-regression.stdout.txt": {
+      "bytes": 3347,
+      "sha256": "8b4affd4b2d39bf3dbc7e85ecdfeff5163e9f1549f502bd14ddf138ffe479a70"
+    },
+    "adapter-regression.xml": {
+      "bytes": 118491,
+      "sha256": "83ac475ac8b7f7acfb57e909af56fa3e232609389bb4681ed4e509d64e6d8860"
+    },
+    "adapter-release.command.json": {
+      "bytes": 1260,
+      "sha256": "d670e00fc43faa5bdc718768473dc18ab3c7beaaea3efd1c0ecc923d1dd02de5"
+    },
+    "adapter-release.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "adapter-release.stdout.txt": {
+      "bytes": 3426,
+      "sha256": "4f22766011b00bfdf0a654e0272baf221ce8986b2e42f2ce5900c8f8ded555bc"
+    },
+    "adapter-release.xml": {
+      "bytes": 119697,
+      "sha256": "10c999a3c6f174da2aadbeb0477052b0dbbc801435db79b34cdaaca66716f80c"
+    },
+    "audit_preservation.py": {
+      "bytes": 2913,
+      "sha256": "1e81d03d11a85c7069fca7a662f69761cba8f98ec91d45d155892fa23f22443a"
+    },
+    "commands.json": {
+      "bytes": 25401,
+      "sha256": "b14ebbbb45dcf37c15ecb9822325a5e9e968c43ad70139c574d76a065ee79606"
+    },
+    "focused-adapter.xml": {
+      "bytes": 13559,
+      "sha256": "82b9ea1ef0789c079a9fa582bea4d092fad22b40015a1089724f8d5e2bfd4967"
+    },
+    "focused-expanded.command.json": {
+      "bytes": 908,
+      "sha256": "9239e510815b39a8956c53775fbc78a3f49bc4503cffad154e7201eb2fee727a"
+    },
+    "focused-expanded.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "focused-expanded.stdout.txt": {
+      "bytes": 722,
+      "sha256": "d7a4ee66ccd0a6a35a002f34e4ee053ff9b60aa054ac7654d5b1d7bb865ef599"
+    },
+    "focused-final.command.json": {
+      "bytes": 900,
+      "sha256": "9918ab9ba68a2c972492f1ff949173b308388961dd546a03bb691dace18cec35"
+    },
+    "focused-final.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "focused-final.stdout.txt": {
+      "bytes": 802,
+      "sha256": "53349e017580c498b8bb82699e7b0b87659ec13a0a12328b0019625af2cecd7c"
+    },
+    "focused-final.xml": {
+      "bytes": 14159,
+      "sha256": "fb2477715fbc5f5e3b93e387c5b6b115215c9a60ec581e68b16d6f825bd2eb21"
+    },
+    "focused-initial.command.json": {
+      "bytes": 859,
+      "sha256": "72856c520eaed4e737ad603701265b7a84350daaaacba3619951ad8a9af890bf"
+    },
+    "focused-initial.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "focused-initial.stdout.txt": {
+      "bytes": 640,
+      "sha256": "f3e85bbd12aa3ae4e7dbe936fa42082dc177adf10670e6a80e77eb855e14f789"
+    },
+    "frozen-adapter.command.json": {
+      "bytes": 1187,
+      "sha256": "ce6a8e0427a22c4834a0f9a6b9cc3a73eca8ac9d1dd654e99b6f7bd076c9bbc1"
+    },
+    "frozen-adapter.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "frozen-adapter.stdout.txt": {
+      "bytes": 14637,
+      "sha256": "32c8da66c132f9ce87bbdb8b772b02acf3318e6d235538553c904556d6da3737"
+    },
+    "frozen-model.command.json": {
+      "bytes": 1172,
+      "sha256": "ea916f6b2fc4fe9b5c16422d38a5e4832ac21e9aa412b4284a56ac698dd8078d"
+    },
+    "frozen-model.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "frozen-model.stdout.txt": {
+      "bytes": 14637,
+      "sha256": "32c8da66c132f9ce87bbdb8b772b02acf3318e6d235538553c904556d6da3737"
+    },
+    "initial-sample.command.json": {
+      "bytes": 1334,
+      "sha256": "89f18fb6f152fb02f56bd7809d579f2ca9d2e6bd95b898947e17a13fd50db139"
+    },
+    "initial-sample.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "initial-sample.stdout.txt": {
+      "bytes": 100,
+      "sha256": "215d4ab1ea9466de16b97f6e2544ffd6f8f0fe68d2f8a8f625e699514405033c"
+    },
+    "malformed-final.command.json": {
+      "bytes": 904,
+      "sha256": "df309e6383cab6771fa9175132c4b48a1b12413046186beea0b777c9c6e0ec7b"
+    },
+    "malformed-final.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "malformed-final.stdout.txt": {
+      "bytes": 802,
+      "sha256": "e84aa215b69b8ddf92a6f1a244088214b8566f133851cfb407396a7dcf1fb0ea"
+    },
+    "malformed-final.xml": {
+      "bytes": 14765,
+      "sha256": "0cac2414c82d0757d9e95a417d6de597c8f2af45edae93fa486bb05317c957b3"
+    },
+    "model-final.command.json": {
+      "bytes": 895,
+      "sha256": "96a04b42e89b53b58e9b313697a7fe080696745c589c6e7f35b6bda6c4577c42"
+    },
+    "model-final.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "model-final.stdout.txt": {
+      "bytes": 3207,
+      "sha256": "7ef6149914be39b4e5f7001bc2569d828ab9d350dc8ee4781a2dd3753b0d7391"
+    },
+    "model-final.xml": {
+      "bytes": 137246,
+      "sha256": "d418f05e336a326f2c7e280ed5be1f73b0b10df5ab4e3dad5f45556a8c0c4d9c"
+    },
+    "model-regression.command.json": {
+      "bytes": 911,
+      "sha256": "d208a1db7114e9253744ddfc015a3597c88cd19de66aac9d10ad23602690efb9"
+    },
+    "model-regression.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "model-regression.stdout.txt": {
+      "bytes": 3127,
+      "sha256": "327b67f00a9fd59964399b525b1cf1e3169ccfb538b40a56e9c266e4839d06f8"
+    },
+    "model-regression.xml": {
+      "bytes": 136646,
+      "sha256": "118ac083d4ee7402edeb422e77854043bb3f2d075f8467f53783a0bc6d697a06"
+    },
+    "model-release.command.json": {
+      "bytes": 1287,
+      "sha256": "82b8a76a46baa6b79d7f673e136136f4b3c863e959a494b9838adfdf16f88a1d"
+    },
+    "model-release.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "model-release.stdout.txt": {
+      "bytes": 3207,
+      "sha256": "12f175d6f456f7094c828f8e9475001b5fda815b1b1db2289f94fca58313f0b7"
+    },
+    "model-release.xml": {
+      "bytes": 137852,
+      "sha256": "646d9545a8eff589e2539b31c307914f7f8631baae417a10a68411b31c8916f8"
+    },
+    "preservation.command.json": {
+      "bytes": 1185,
+      "sha256": "46d53ddcd52a67eb23310678be91ca95bca0dde143f8ab96f112421730616766"
+    },
+    "preservation.json": {
+      "bytes": 417468,
+      "sha256": "90ffc6c9d17d985076ad5c4f6966cdf95e3bd7cce0e3e7c63107f2e0c137abc1"
+    },
+    "preservation.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "preservation.stdout.txt": {
+      "bytes": 334,
+      "sha256": "b49146c1789cded1b84940a7b1c46f6988cbd09abb2bc83f3f45e25add2f499d"
+    },
+    "reviewer-adapter.command.json": {
+      "bytes": 1485,
+      "sha256": "8d88cc4165b5824f1dae27e1c9d83dc3a9977a329265328facecad589bfdb0b8"
+    },
+    "reviewer-adapter.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "reviewer-adapter.stdout.txt": {
+      "bytes": 708,
+      "sha256": "1eadc64cd7eec0a84e7ed39a5c6a21ffb64bc49869fa5f3232c5ca6fc25247bc"
+    },
+    "reviewer-adapter.xml": {
+      "bytes": 12543,
+      "sha256": "cbd67119c1f0751c76ed21eab850dc1877a08544e02562a64e68d92c7fada66a"
+    },
+    "reviewer-model.command.json": {
+      "bytes": 1467,
+      "sha256": "4b2d75451daaec898e23253b02c7c91a12606e159652eb272b9ea538d4fd5f0c"
+    },
+    "reviewer-model.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "reviewer-model.stdout.txt": {
+      "bytes": 708,
+      "sha256": "e430dbdadee5300e4090acef12be0529243935769f8723b56425d677c2a4e354"
+    },
+    "reviewer-model.xml": {
+      "bytes": 12543,
+      "sha256": "abee710d97f4a97e053ad8587aec1a0f6d56c023fdfcae2c46145877c40050c8"
+    },
+    "run_command.py": {
+      "bytes": 1798,
+      "sha256": "f3d07cd2d49f11ad3431dc526167c2563c05a7ab5c479f72e1f6b0b7fc32aa01"
+    },
+    "sample-adapter.command.json": {
+      "bytes": 835,
+      "sha256": "cca12cd9b2ccdad3af6b2c38f59ec9f10bbc4552906ceac37449d9a84d9c5d4d"
+    },
+    "sample-adapter.json": {
+      "bytes": 11902,
+      "sha256": "853f8f1cfaea86fa571d6b48a38a16dfbe82f40eca6718bf6828ddf8a50829c5"
+    },
+    "sample-adapter.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sample-adapter.stdout.txt": {
+      "bytes": 479,
+      "sha256": "baaa843c8c14de7f9b8f7b1a4ece554f101f1e1d52728e88c68cc9cde8e29715"
+    },
+    "sample-final.command.json": {
+      "bytes": 830,
+      "sha256": "11a26b82b476259cc7f96d326d7d8321ae01cb07ad888db9d3d89aa4d97053bb"
+    },
+    "sample-final.json": {
+      "bytes": 11902,
+      "sha256": "853f8f1cfaea86fa571d6b48a38a16dfbe82f40eca6718bf6828ddf8a50829c5"
+    },
+    "sample-final.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sample-final.stdout.txt": {
+      "bytes": 479,
+      "sha256": "baaa843c8c14de7f9b8f7b1a4ece554f101f1e1d52728e88c68cc9cde8e29715"
+    },
+    "sample-model.command.json": {
+      "bytes": 819,
+      "sha256": "c2f7b5c9381a8ddc9e7c623d00a3ba2b77cce4e39510df91089cded0dccedcd7"
+    },
+    "sample-model.json": {
+      "bytes": 11902,
+      "sha256": "853f8f1cfaea86fa571d6b48a38a16dfbe82f40eca6718bf6828ddf8a50829c5"
+    },
+    "sample-model.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sample-model.stdout.txt": {
+      "bytes": 479,
+      "sha256": "baaa843c8c14de7f9b8f7b1a4ece554f101f1e1d52728e88c68cc9cde8e29715"
+    },
+    "sample-release.command.json": {
+      "bytes": 1221,
+      "sha256": "db8f0e5d00bdf57c5e206156bdc00dca3bbea7a24920e161d37701360bbe50d7"
+    },
+    "sample-release.json": {
+      "bytes": 11902,
+      "sha256": "853f8f1cfaea86fa571d6b48a38a16dfbe82f40eca6718bf6828ddf8a50829c5"
+    },
+    "sample-release.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sample-release.stdout.txt": {
+      "bytes": 479,
+      "sha256": "baaa843c8c14de7f9b8f7b1a4ece554f101f1e1d52728e88c68cc9cde8e29715"
+    },
+    "source-whitespace.command.json": {
+      "bytes": 1266,
+      "sha256": "a320414dfebebab174736a498ab10a0a63e9399f66ea87e657917db33ebb7196"
+    },
+    "source-whitespace.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source-whitespace.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "verify_sample.py": {
+      "bytes": 5606,
+      "sha256": "ff8501f27dda771c3f22a79fd06bf7077b822961cab2e09b7ae26fa472d0c81e"
+    },
+    "whitespace.command.json": {
+      "bytes": 1123,
+      "sha256": "66781e5248cfe11c264c11879141d135dde34f8dfe32ebb7ce93cc0fcf49d93b"
+    },
+    "whitespace.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "whitespace.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "base_commit": "4184387c7e4b67559355d6b212a2a300c86c5ce6",
+  "branch": "codex/d07-record-loader",
+  "changed_files": [
+    "coding-plan.md",
+    "docs/d07-record-loader.md",
+    "runs/d07/adapter-final.command.json",
+    "runs/d07/adapter-final.stderr.txt",
+    "runs/d07/adapter-final.stdout.txt",
+    "runs/d07/adapter-final.xml",
+    "runs/d07/adapter-regression.command.json",
+    "runs/d07/adapter-regression.stderr.txt",
+    "runs/d07/adapter-regression.stdout.txt",
+    "runs/d07/adapter-regression.xml",
+    "runs/d07/adapter-release.command.json",
+    "runs/d07/adapter-release.stderr.txt",
+    "runs/d07/adapter-release.stdout.txt",
+    "runs/d07/adapter-release.xml",
+    "runs/d07/audit_preservation.py",
+    "runs/d07/commands.json",
+    "runs/d07/completion.json",
+    "runs/d07/finalize_evidence.py",
+    "runs/d07/focused-adapter.xml",
+    "runs/d07/focused-expanded.command.json",
+    "runs/d07/focused-expanded.stderr.txt",
+    "runs/d07/focused-expanded.stdout.txt",
+    "runs/d07/focused-final.command.json",
+    "runs/d07/focused-final.stderr.txt",
+    "runs/d07/focused-final.stdout.txt",
+    "runs/d07/focused-final.xml",
+    "runs/d07/focused-initial.command.json",
+    "runs/d07/focused-initial.stderr.txt",
+    "runs/d07/focused-initial.stdout.txt",
+    "runs/d07/frozen-adapter.command.json",
+    "runs/d07/frozen-adapter.stderr.txt",
+    "runs/d07/frozen-adapter.stdout.txt",
+    "runs/d07/frozen-model.command.json",
+    "runs/d07/frozen-model.stderr.txt",
+    "runs/d07/frozen-model.stdout.txt",
+    "runs/d07/initial-sample.command.json",
+    "runs/d07/initial-sample.stderr.txt",
+    "runs/d07/initial-sample.stdout.txt",
+    "runs/d07/malformed-final.command.json",
+    "runs/d07/malformed-final.stderr.txt",
+    "runs/d07/malformed-final.stdout.txt",
+    "runs/d07/malformed-final.xml",
+    "runs/d07/model-final.command.json",
+    "runs/d07/model-final.stderr.txt",
+    "runs/d07/model-final.stdout.txt",
+    "runs/d07/model-final.xml",
+    "runs/d07/model-regression.command.json",
+    "runs/d07/model-regression.stderr.txt",
+    "runs/d07/model-regression.stdout.txt",
+    "runs/d07/model-regression.xml",
+    "runs/d07/model-release.command.json",
+    "runs/d07/model-release.stderr.txt",
+    "runs/d07/model-release.stdout.txt",
+    "runs/d07/model-release.xml",
+    "runs/d07/preservation.command.json",
+    "runs/d07/preservation.json",
+    "runs/d07/preservation.stderr.txt",
+    "runs/d07/preservation.stdout.txt",
+    "runs/d07/reviewer-adapter.command.json",
+    "runs/d07/reviewer-adapter.stderr.txt",
+    "runs/d07/reviewer-adapter.stdout.txt",
+    "runs/d07/reviewer-adapter.xml",
+    "runs/d07/reviewer-model.command.json",
+    "runs/d07/reviewer-model.stderr.txt",
+    "runs/d07/reviewer-model.stdout.txt",
+    "runs/d07/reviewer-model.xml",
+    "runs/d07/run_command.py",
+    "runs/d07/sample-adapter.command.json",
+    "runs/d07/sample-adapter.json",
+    "runs/d07/sample-adapter.stderr.txt",
+    "runs/d07/sample-adapter.stdout.txt",
+    "runs/d07/sample-final.command.json",
+    "runs/d07/sample-final.json",
+    "runs/d07/sample-final.stderr.txt",
+    "runs/d07/sample-final.stdout.txt",
+    "runs/d07/sample-model.command.json",
+    "runs/d07/sample-model.json",
+    "runs/d07/sample-model.stderr.txt",
+    "runs/d07/sample-model.stdout.txt",
+    "runs/d07/sample-release.command.json",
+    "runs/d07/sample-release.json",
+    "runs/d07/sample-release.stderr.txt",
+    "runs/d07/sample-release.stdout.txt",
+    "runs/d07/source-whitespace.command.json",
+    "runs/d07/source-whitespace.stderr.txt",
+    "runs/d07/source-whitespace.stdout.txt",
+    "runs/d07/verify_sample.py",
+    "runs/d07/whitespace.command.json",
+    "runs/d07/whitespace.stderr.txt",
+    "runs/d07/whitespace.stdout.txt",
+    "src/chess_rl/supervised.py",
+    "tests/test_supervised.py"
+  ],
+  "commands_index": "runs/d07/commands.json",
+  "coverage": {
+    "endgame:black": 2,
+    "endgame:white": 2,
+    "middlegame:black": 2,
+    "middlegame:white": 2,
+    "opening:black": 2,
+    "opening:white": 2
+  },
+  "d07_adapter_passes": 126,
+  "d07_adapter_torch_skips": 1,
+  "d07_model_cases": 127,
+  "finalization": {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "runs/d07/finalize_evidence.py"
+    ],
+    "cwd": "/private/tmp/rl-chess-d07",
+    "recorded_at_utc": "2026-10-08T15:12:14.735734+00:00"
+  },
+  "frozen_adapter_replays_equal": true,
+  "independent_review": "pending",
+  "isolated_checkout": "/private/tmp/rl-chess-d07",
+  "limitations": [
+    "CPU macOS arm64 / Python 3.12.12 only",
+    "12 existing roots, not a new labeled dataset",
+    "Eager label validation and full audited-table scans; no cache or scale claim",
+    "No GPU, concurrent mutation or training/playing-strength claim"
+  ],
+  "main_integrated": false,
+  "preservation_report": "runs/d07/preservation.json",
+  "primary_main_preserved": true,
+  "prohibited_later_work_performed": false,
+  "protected_heldout_membership_preserved": true,
+  "sample_report": "runs/d07/sample-release.json",
+  "scope_exclusions": [
+    "D06 benchmark",
+    "new teacher annotation",
+    "loss implementation",
+    "training",
+    "D08",
+    "main integration"
+  ],
+  "source_sha256": {
+    "runs/d07/verify_sample.py": "ff8501f27dda771c3f22a79fd06bf7077b822961cab2e09b7ae26fa472d0c81e",
+    "src/chess_rl/supervised.py": "85e097e0013b9c78da5c9f0e2c99c05237d83b0ec2a23c0e3e74cc9641ac2ae5",
+    "tests/test_supervised.py": "044f43735b02f6b5bca533ab43b85bf436eb94d8099ada33f8f53bd19dbe30f8"
+  },
+  "status": "implemented; stop for independent review",
+  "successful_existing_roots_reloaded": 12,
+  "task": "D07 only",
+  "tests": {
+    "adapter-release": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 7,
+      "tests": 949
+    },
+    "model-release": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 1111
+    },
+    "reviewer-adapter": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 84
+    },
+    "reviewer-model": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 84
+    }
+  }
+}

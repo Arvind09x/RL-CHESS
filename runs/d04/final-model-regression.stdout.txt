@@ -1,0 +1,36 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d04
+configfile: pyproject.toml
+testpaths: tests
+collected 767 items
+
+tests/test_backbone.py ..................                                [  2%]
+tests/test_backup.py ................................................... [  8%]
+....................................................................     [ 17%]
+tests/test_canonical_games.py .........................................  [ 23%]
+tests/test_data_manifest.py ............................................ [ 28%]
+.......................................                                  [ 34%]
+tests/test_encoding.py ..................                                [ 36%]
+tests/test_evaluator.py .................................                [ 40%]
+tests/test_foundation.py .                                               [ 40%]
+tests/test_gab.py ....................                                   [ 43%]
+tests/test_history.py .....                                              [ 44%]
+tests/test_legality.py .........                                         [ 45%]
+tests/test_moves.py ................................                     [ 49%]
+tests/test_network.py ...................................                [ 53%]
+tests/test_outcomes.py ...................                               [ 56%]
+tests/test_pgn_replay.py ............................................... [ 62%]
+.........................                                                [ 65%]
+tests/test_policy.py ..............................                      [ 69%]
+tests/test_position_sampling.py .....................................    [ 74%]
+tests/test_puct.py ..................................................... [ 81%]
+..........................................                               [ 86%]
+tests/test_regression.py ...........                                     [ 88%]
+tests/test_relative.py ....................................              [ 93%]
+tests/test_state.py .................                                    [ 95%]
+tests/test_types.py .......                                              [ 96%]
+tests/test_wdl.py .............................                          [100%]
+
+- generated xml file: /private/tmp/rl-chess-d04/runs/d04/final-model-regression.xml -
+============================= 767 passed in 36.53s =============================

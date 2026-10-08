@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "scripts/check_d01.py",
+    "--manifest",
+    "data/manifests/elite-2025-01-d04-v1.json",
+    "--require-annotation-ready",
+    "--output",
+    "runs/d04/metadata-check.json"
+  ],
+  "cwd": "/private/tmp/rl-chess-d04",
+  "started_at_utc": "2026-10-08T12:14:50.980003+00:00",
+  "finished_at_utc": "2026-10-08T12:14:51.011631+00:00",
+  "duration_seconds": 0.03159279201645404,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d04/src:/private/tmp/rl-chess-d04",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "d04-metadata-gate.stdout.txt",
+    "bytes": 366,
+    "sha256": "f854d2344b299072f2398907b8ccef95ae41381c270432480f074bdc7fb87bc3"
+  },
+  "stderr": {
+    "path": "d04-metadata-gate.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

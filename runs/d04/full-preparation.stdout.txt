@@ -1,0 +1,207 @@
+5120
+10240
+15360
+20480
+25600
+30720
+35840
+40960
+46080
+51200
+56320
+61440
+66560
+71680
+76800
+81920
+87040
+92160
+97280
+102400
+107520
+112640
+117760
+122880
+128000
+133120
+138240
+143360
+148480
+153600
+158720
+163840
+168960
+174080
+179200
+184320
+189440
+194560
+199680
+204800
+209920
+215040
+220160
+225280
+230400
+235520
+240640
+245760
+250880
+256000
+261120
+266240
+271360
+276480
+281600
+286720
+selected test: 115416
+selected validation: 115710
+selected train: 2079961
+{
+  "assigned_games": {
+    "test": 14430,
+    "train": 260517,
+    "validation": 14480
+  },
+  "assignments_sha256": "8f3e2e5fd07fa40318267992783d05ce55f15e7891bab353bf64176566122228",
+  "audit_version": "position-overlap-audit-v1",
+  "capacity_records": 2311087,
+  "complete": true,
+  "cross_split_overlaps_after": 0,
+  "dataset_id": "lichess-elite-2025-01-pilot-v1",
+  "frozen_registry_version": "protected-heldout-v1",
+  "initial_10000_quota": {
+    "test": 500,
+    "train": 9000,
+    "validation": 500
+  },
+  "inputs": {
+    "games.jsonl": {
+      "bytes": 638770177,
+      "sha256": "f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5"
+    },
+    "split-audit.json": {
+      "bytes": 2191,
+      "sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36"
+    }
+  },
+  "labels_produced": 0,
+  "outputs": {
+    "exclusions.jsonl": {
+      "bytes": 105285659,
+      "sha256": "72e45e4f89d15a596090ad940218867aedcb53275a3eddb6f50674502dd02b32"
+    },
+    "heldout-games.jsonl": {
+      "bytes": 2862240,
+      "sha256": "73202bd1b255fb89958da1be043e219f192b33a06da05ceb669eb1984d60fc18"
+    },
+    "protected-heldout.jsonl": {
+      "bytes": 57171328,
+      "sha256": "813d40ec52f3058996ddf6d7586dea23ee568c3bcff995cd92879e306a1f8ed3"
+    },
+    "samples.jsonl": {
+      "bytes": 567767218,
+      "sha256": "f3dc3410321e46c5e424912f8ae1d4aa26bd5c97267df944cbf8e7e3d1e3581e"
+    }
+  },
+  "overlap_identity": "rule-position-disjoint-v1",
+  "phase_boundaries": "material-ply-v1: endgame first when combined nonpawn/nonking material (N=3,B=3,R=5,Q=9) <=14; otherwise opening at sample_ply<20 from declared start; otherwise middlegame; counters and source results do not set phase",
+  "protected_rule_positions": 203908,
+  "replay_counts": {
+    "post_terminal_roots": 7506,
+    "repeated_roots": 189554,
+    "roots": 25712214,
+    "terminal_roots": 70437
+  },
+  "sampling_algorithm": "phase-spread-sha256-v1: seed=20261009; eligible roots 0..mainline length strictly before first actual-occurrence-v1 terminal; earliest occurrence per four-field legal-EP rule position per game; missing phases in opening/middlegame/endgame order choose nearest phase ply midpoint; then maximize minimum ply distance from retained roots; ties by SHA256 compact sorted ASCII JSON {game_id,sample_ply,sampling_version,seed}, then ply; limit eight; test>validation>train ownership of selected positions; remove lower-split overlaps then refill using same selector with survivors locked; freeze heldout game assignments and sample registry; expansion preserves all existing samples and adds training only, never protected rule positions",
+  "sampling_seed": 20261009,
+  "sampling_version": "phase-spread-sha256-v1",
+  "splits": {
+    "test": {
+      "blocked_candidate_positions": 0,
+      "candidate_positions": 1264674,
+      "distinct_rule_positions": 98179,
+      "exclusions_by_owner": {},
+      "games_covered": 14430,
+      "games_empty": 0,
+      "initial_samples": 115416,
+      "phase_after": {
+        "endgame": 15122,
+        "middlegame": 66909,
+        "opening": 33385
+      },
+      "phase_before": {
+        "endgame": 15122,
+        "middlegame": 66909,
+        "opening": 33385
+      },
+      "phase_candidates": {
+        "endgame": 219187,
+        "middlegame": 757365,
+        "opening": 288122
+      },
+      "refilled": 0,
+      "removed": 0,
+      "retained": 115416
+    },
+    "train": {
+      "blocked_candidate_positions": 2556856,
+      "candidate_positions": 22911825,
+      "distinct_rule_positions": 1851150,
+      "exclusions_by_owner": {
+        "test": 348469,
+        "validation": 32846
+      },
+      "games_covered": 260379,
+      "games_empty": 138,
+      "initial_samples": 2083595,
+      "phase_after": {
+        "endgame": 278228,
+        "middlegame": 1352841,
+        "opening": 448892
+      },
+      "phase_before": {
+        "endgame": 271978,
+        "middlegame": 1212005,
+        "opening": 599612
+      },
+      "phase_candidates": {
+        "endgame": 3958062,
+        "middlegame": 13753074,
+        "opening": 5200689
+      },
+      "refilled": 377681,
+      "removed": 381315,
+      "retained": 2079961
+    },
+    "validation": {
+      "blocked_candidate_positions": 98885,
+      "candidate_positions": 1268218,
+      "distinct_rule_positions": 105729,
+      "exclusions_by_owner": {
+        "test": 19564
+      },
+      "games_covered": 14479,
+      "games_empty": 1,
+      "initial_samples": 115810,
+      "phase_after": {
+        "endgame": 15165,
+        "middlegame": 71968,
+        "opening": 28577
+      },
+      "phase_before": {
+        "endgame": 14899,
+        "middlegame": 67425,
+        "opening": 33486
+      },
+      "phase_candidates": {
+        "endgame": 216218,
+        "middlegame": 762993,
+        "opening": 289007
+      },
+      "refilled": 19464,
+      "removed": 19564,
+      "retained": 115710
+    }
+  }
+}

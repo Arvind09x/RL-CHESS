@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "scripts/check_adapter.py"
+  ],
+  "cwd": "/private/tmp/rl-chess-d04",
+  "started_at_utc": "2026-10-08T11:49:05.269663+00:00",
+  "finished_at_utc": "2026-10-08T11:49:05.430834+00:00",
+  "duration_seconds": 0.16106549999676645,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d04/src:/private/tmp/rl-chess-d04",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "replay-model.stdout.txt",
+    "bytes": 14637,
+    "sha256": "32c8da66c132f9ce87bbdb8b772b02acf3318e6d235538553c904556d6da3737"
+  },
+  "stderr": {
+    "path": "replay-model.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

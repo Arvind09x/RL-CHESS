@@ -1,0 +1,231 @@
+{
+  "assignments_sha256": "8f3e2e5fd07fa40318267992783d05ce55f15e7891bab353bf64176566122228",
+  "available_reference_capacity": {
+    "test": 115416,
+    "train": 2079961,
+    "validation": 115710
+  },
+  "base_commit": "37f286618642150b0ffa904abee0cfaac3ad75e8",
+  "branch": "codex/d04-position-sampling",
+  "bulk_output": "/private/tmp/rl-chess-d04-prepared",
+  "capacity_total": 2311087,
+  "checkout": "/private/tmp/rl-chess-d04",
+  "completed_at_utc": "2026-10-08T12:14:55.088426+00:00",
+  "cross_split_overlap_after": 0,
+  "cross_split_overlap_before": {
+    "train-test": 8583,
+    "train-validation": 8666,
+    "validation-test": 3139
+  },
+  "distinct_rule_capacity": {
+    "test": 98179,
+    "train": 1851150,
+    "validation": 105729
+  },
+  "labels_produced": 0,
+  "limitations": [
+    "CPU macOS arm64/Python 3.12.12 only",
+    "One full legal replay and terminal-policy preparation; complete selection repeated from replayed pools",
+    "Independent audit checks every pool/selection/reference; adapter root replay repeated on every 997th game only",
+    "Input reorder/worker reproducibility and protected expansion are fixture tested; no real-corpus expansion run",
+    "Candidate SQLite bytes are a cache, not stable output or trusted expansion evidence",
+    "Reference counts allow same-split occurrences across games; unique rule capacity is reported separately",
+    "No annotation, benchmark, training, GPU, cost, throughput or learning adequacy measurement",
+    "New manifest metadata is complete; D04 review acceptance and D05 work remain pending"
+  ],
+  "merged": false,
+  "new_manifest": "data/manifests/elite-2025-01-d04-v1.json",
+  "output_identities": {
+    "exclusions.jsonl": {
+      "bytes": 105285659,
+      "sha256": "72e45e4f89d15a596090ad940218867aedcb53275a3eddb6f50674502dd02b32"
+    },
+    "heldout-games.jsonl": {
+      "bytes": 2862240,
+      "sha256": "73202bd1b255fb89958da1be043e219f192b33a06da05ceb669eb1984d60fc18"
+    },
+    "protected-heldout.jsonl": {
+      "bytes": 57171328,
+      "sha256": "813d40ec52f3058996ddf6d7586dea23ee568c3bcff995cd92879e306a1f8ed3"
+    },
+    "samples.jsonl": {
+      "bytes": 567767218,
+      "sha256": "f3dc3410321e46c5e424912f8ae1d4aa26bd5c97267df944cbf8e7e3d1e3581e"
+    }
+  },
+  "overlap_audit_sha256": "feb20d4e38fa46ff6e5fcc77b4c4b8d1b36b985f3dcf6a3785a412a2fbb91f5e",
+  "protected_registry_sha256": "813d40ec52f3058996ddf6d7586dea23ee568c3bcff995cd92879e306a1f8ed3",
+  "pushed": false,
+  "repeated_selection_output": "/private/tmp/rl-chess-d04-reselected",
+  "replay_counts": {
+    "post_terminal_roots": 7506,
+    "repeated_roots": 189554,
+    "roots": 25712214,
+    "terminal_roots": 70437
+  },
+  "review_accepted": false,
+  "scale_capacity": {
+    "10000": {
+      "fits_current_reference_capacity": true,
+      "later_actual_label_cost_and_learning_evidence_required": true,
+      "proposed_success_allocation": {
+        "test": 500,
+        "train": 9000,
+        "validation": 500
+      }
+    },
+    "100000": {
+      "fits_current_reference_capacity": true,
+      "later_actual_label_cost_and_learning_evidence_required": true,
+      "proposed_success_allocation": {
+        "test": 5000,
+        "train": 90000,
+        "validation": 5000
+      }
+    },
+    "1000000": {
+      "fits_current_reference_capacity": true,
+      "later_actual_label_cost_and_learning_evidence_required": true,
+      "proposed_success_allocation": {
+        "test": 50000,
+        "train": 900000,
+        "validation": 50000
+      }
+    },
+    "500000": {
+      "fits_current_reference_capacity": true,
+      "later_actual_label_cost_and_learning_evidence_required": true,
+      "proposed_success_allocation": {
+        "test": 25000,
+        "train": 450000,
+        "validation": 25000
+      }
+    }
+  },
+  "splits": {
+    "test": {
+      "blocked_candidate_positions": 0,
+      "candidate_positions": 1264674,
+      "distinct_rule_positions": 98179,
+      "exclusions_by_owner": {},
+      "games_covered": 14430,
+      "games_empty": 0,
+      "initial_samples": 115416,
+      "phase_after": {
+        "endgame": 15122,
+        "middlegame": 66909,
+        "opening": 33385
+      },
+      "phase_before": {
+        "endgame": 15122,
+        "middlegame": 66909,
+        "opening": 33385
+      },
+      "phase_candidates": {
+        "endgame": 219187,
+        "middlegame": 757365,
+        "opening": 288122
+      },
+      "refilled": 0,
+      "removed": 0,
+      "retained": 115416
+    },
+    "train": {
+      "blocked_candidate_positions": 2556856,
+      "candidate_positions": 22911825,
+      "distinct_rule_positions": 1851150,
+      "exclusions_by_owner": {
+        "test": 348469,
+        "validation": 32846
+      },
+      "games_covered": 260379,
+      "games_empty": 138,
+      "initial_samples": 2083595,
+      "phase_after": {
+        "endgame": 278228,
+        "middlegame": 1352841,
+        "opening": 448892
+      },
+      "phase_before": {
+        "endgame": 271978,
+        "middlegame": 1212005,
+        "opening": 599612
+      },
+      "phase_candidates": {
+        "endgame": 3958062,
+        "middlegame": 13753074,
+        "opening": 5200689
+      },
+      "refilled": 377681,
+      "removed": 381315,
+      "retained": 2079961
+    },
+    "validation": {
+      "blocked_candidate_positions": 98885,
+      "candidate_positions": 1268218,
+      "distinct_rule_positions": 105729,
+      "exclusions_by_owner": {
+        "test": 19564
+      },
+      "games_covered": 14479,
+      "games_empty": 1,
+      "initial_samples": 115810,
+      "phase_after": {
+        "endgame": 15165,
+        "middlegame": 71968,
+        "opening": 28577
+      },
+      "phase_before": {
+        "endgame": 14899,
+        "middlegame": 67425,
+        "opening": 33486
+      },
+      "phase_candidates": {
+        "endgame": 216218,
+        "middlegame": 762993,
+        "opening": 289007
+      },
+      "refilled": 19464,
+      "removed": 19564,
+      "retained": 115710
+    }
+  },
+  "status": "implemented; stop for independent review",
+  "test_results": {
+    "final-adapter-regression": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 599,
+      "skipped": 6,
+      "tests": 605
+    },
+    "final-model-regression": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 767,
+      "skipped": 0,
+      "tests": 767
+    },
+    "focused-final": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 37,
+      "skipped": 0,
+      "tests": 37
+    },
+    "reviewer-adapter": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 53,
+      "skipped": 0,
+      "tests": 53
+    },
+    "reviewer-model": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 53,
+      "skipped": 0,
+      "tests": 53
+    }
+  }
+}

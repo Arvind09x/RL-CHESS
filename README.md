@@ -526,3 +526,18 @@ through fresh independent AI review in the isolated combined review checkout.
 [Review and evidence](docs/d03-s03-review.md) supersede historical pending
 statements. D04 sampling/overlap and S04 root policies/actions are next.
 Annotation remains blocked and Gate S is not accepted.
+
+### D04 position sampling — implemented, pending independent review
+
+D04's deterministic phase/progress sampling, cross-split overlap removal/refill
+and frozen held-out expansion are implemented in the isolated
+`codex/d04-position-sampling` checkout at `/private/tmp/rl-chess-d04`, from
+accepted base `37f286618642150b0ffa904abee0cfaac3ad75e8`. The
+[D04 decision and execution record](docs/d04-position-sampling.md) documents
+rule-position identity, full-history terminal exclusions, ownership, coverage
+and capacity. Bulk outputs remain under `/private/tmp/rl-chess-d04-prepared/`;
+[execution evidence](runs/d04/) stays compact in Git. The new
+[D04 manifest](data/manifests/elite-2025-01-d04-v1.json) resolves only D04's
+four preparation fields; the accepted original manifest remains unchanged.
+D04 has no review acceptance yet. No annotations, benchmark, training, teacher
+changes or merge into main are part of this task. D05 waits for D04 acceptance.

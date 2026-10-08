@@ -710,3 +710,33 @@ historical pending-review statements without modifying their evidence.
 D04 and S04 are the next independent tasks. Annotation remains blocked by
 four D04 decisions; S05 is pending and Gate S is not accepted. The combined
 review checkout supplies the next base; primary main has not been changed.
+
+### D04 position sampling completion — 2026-10-08
+
+D04 is implemented and stops for independent review on
+`codex/d04-position-sampling` in `/private/tmp/rl-chess-d04`, from exact accepted
+base `37f286618642150b0ffa904abee0cfaac3ad75e8`. D03/S03 are already independently
+AI review accepted and integrated into local main; earlier unchanged-primary
+statements describe their historical review boundary. D04 remains unchecked
+until independent acceptance; no other milestone or gate status changes.
+
+The [D04 record](docs/d04-position-sampling.md) defines versioned material/ply
+phases, seed 20261009, phase coverage followed by spread across progress,
+at-most-eight distinct eligible positions per game, and test>validation>train
+ownership/removal/refill. The shared adapter retains full actual history and
+excludes the first policy-terminal root and its suffix while legally validating
+all source moves. The overlap identity includes actual pieces/side/castling/
+legal en-passant, deliberately excluding counters and repetition/network-history
+differences. Protected validation/test samples and assignments freeze before
+labels. Verified expansion preserves existing games, sources and samples,
+quarantines new heldout games, and adds training candidates only when they avoid
+protected identities.
+
+The new `data/manifests/elite-2025-01-d04-v1.json` resolves only D04's four
+preparation fields; accepted code/tests/pins/teacher settings and the original
+manifest/historical evidence remain unchanged. Bulk outputs are external;
+`runs/d04/` records actual execution, complete selection/coverage audits,
+regressions, accepted reviewer probes, both adapter replays and limitations.
+The initial 10,000 labels and separate 1,000 benchmark remain future D05–D08
+work. No annotation, engine search/benchmark, training, teacher changes, D04
+review acceptance or main integration is claimed.

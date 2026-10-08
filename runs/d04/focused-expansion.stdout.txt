@@ -1,0 +1,27 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d04
+configfile: pyproject.toml
+collected 34 items
+
+tests/test_position_sampling.py ............................F.....       [100%]
+
+=================================== FAILURES ===================================
+_______ test_expansion_file_pipeline_frozen_bytes_reorder_and_no_targets _______
+
+tmp_path = PosixPath('/private/var/folders/9p/xv4lw78522j5crtyxlrflx9c0000gn/T/pytest-of-arvindsrinivass/pytest-86/test_expansion_file_pipeline_f0')
+
+    def test_expansion_file_pipeline_frozen_bytes_reorder_and_no_targets(tmp_path):
+        from chess_rl.position_expansion import expand_positions
+        old_inputs, prior, prior_hash, new_inputs, _, games = expansion_setup(tmp_path)
+        report = expand_positions(*new_inputs,prior,old_inputs[0],prior_hash,tmp_path/'expanded')
+        assert report['protected_registry_unchanged'] and report['existing_game_assignments_unchanged']
+        assert report['counts']['quarantined_new_heldout_games']==1
+>       assert report['counts']['new_training_samples'] > 0
+E       assert 0 > 0
+
+tests/test_position_sampling.py:247: AssertionError
+- generated xml file: /private/tmp/rl-chess-d04/runs/d04/focused-expansion.xml -
+=========================== short test summary info ============================
+FAILED tests/test_position_sampling.py::test_expansion_file_pipeline_frozen_bytes_reorder_and_no_targets
+========================= 1 failed, 33 passed in 2.30s =========================

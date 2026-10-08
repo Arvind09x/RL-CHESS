@@ -1,4 +1,4 @@
-"""History-preserving PUCT selection/expansion; backup belongs to S03."""
+"""History-preserving PUCT traversal and parent-perspective value backup."""
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field
 from math import isfinite, sqrt
@@ -37,7 +37,7 @@ class SearchConfig:
 class Edge:
     """P is parent policy; N/W/Q are completed backups in parent-player view.
 
-    S02 never updates N or W. S03 will update these mutable fields together.
+    Traversal never updates N or W. Backup updates these fields together.
     A child belongs exclusively to this edge, with no transposition cache.
     """
     move_id: int
@@ -130,7 +130,7 @@ class PathStep:
 
 @dataclass(frozen=True)
 class TraversalResult:
-    """Root-to-leaf references for S03; result.value is leaf side-to-move view.
+    """Root-to-leaf references; result.value is leaf side-to-move view.
 
     Returning this record means a leaf was resolved, not a simulation backed
     up. No visit has yet been completed. An expanded terminal root has path=().
@@ -138,6 +138,99 @@ class TraversalResult:
     path: tuple[PathStep, ...]
     leaf: Node
     result: LeafResult
+    _completion: "_Completion | None" = field(default=None, init=False, repr=False, compare=False)
+
+    @property
+    def completed(self) -> bool:
+        """True only after successful backup of this nonempty traversal."""
+        return self._completion is not None and self._completion.completed
+
+
+@dataclass(eq=False)
+class _Completion:
+    # Issued only by traverse. Shallow copies share the same completion ticket.
+    path: tuple[PathStep, ...]
+    leaf: Node
+    result: LeafResult
+    completed: bool = False
+
+
+def backup(resolved: TraversalResult) -> int:
+    """Complete one resolved traversal, returning 1, or 0 for a terminal root.
+
+    Negate the leaf-player value before every reverse-path parent-edge update.
+    Each edge gains one N and that value in W. Only records issued by traverse
+    are accepted; duplicates/invalid records raise ValueError without writes.
+    Validate and stage every update first, then publish N/W and completion
+    together, rolling back on a publication exception. Failed records remain
+    retryable after the cause is fixed. This API requires sequential access to
+    search-owned records; no evaluator, board mutation or node counter is used.
+    """
+    if not isinstance(resolved, TraversalResult) or resolved._completion is None:
+        raise ValueError("Backup requires a resolved record issued by traverse")
+    ticket = resolved._completion
+    if ticket.completed:
+        raise ValueError("Traversal has already completed backup")
+    if (resolved.path is not ticket.path or resolved.leaf is not ticket.leaf
+            or resolved.result is not ticket.result):
+        raise ValueError("Traversal record no longer matches its completion ticket")
+    if (not isinstance(resolved.leaf, Node)
+            or not isinstance(resolved.result, (Evaluation, TerminalResult))
+            or resolved.leaf.result is not resolved.result):
+        raise ValueError("Backup requires the leaf's resolved result")
+    value = resolved.result.value
+    if (isinstance(value, (bool, np.bool_)) or not isinstance(value, Real)
+            or not isfinite(value) or not -1 <= value <= 1):
+        raise ValueError("Leaf value must be finite and in [-1,1]")
+    value = float(value)
+    if not resolved.path:
+        if not isinstance(resolved.result, TerminalResult) or resolved.leaf.edges:
+            raise ValueError("Empty paths require a terminal root")
+        return 0
+
+    # Verify the entire path, including ownership and continuity, before writes.
+    node = resolved.path[0].parent
+    nodes, edges = {id(node)}, set()
+    for step in resolved.path:
+        if (not isinstance(step, PathStep) or not isinstance(step.parent, Node)
+                or not isinstance(step.edge, Edge) or not isinstance(step.child, Node)
+                or step.parent is not node or not isinstance(step.parent.result, Evaluation)
+                or step.parent.edges.get(step.edge.move_id) is not step.edge
+                or step.edge.child is not step.child or not step.child.expanded
+                or step.parent.state.board.turn == step.child.state.board.turn
+                or id(step.child) in nodes or id(step.edge) in edges):
+            raise ValueError("Backup path must be connected, resolved and owned by its edges")
+        nodes.add(id(step.child))
+        edges.add(id(step.edge))
+        node = step.child
+    if node is not resolved.leaf:
+        raise ValueError("Backup path must end at the resolved leaf")
+
+    updates = []
+    for step in reversed(resolved.path):
+        edge = step.edge
+        n, w = edge.visit_count, edge.value_sum
+        if (type(n) is not int or n < 0 or isinstance(w, (bool, np.bool_))
+                or not isinstance(w, Real) or not isfinite(w) or abs(w) > n):
+            raise ValueError("Edge statistics must have nonnegative integer N and finite abs(W)<=N")
+        value = -value
+        new_n, new_w = n + 1, float(w) + value
+        if not isfinite(new_w) or abs(new_w) > new_n:
+            raise ValueError("Backed-up statistics must remain finite with abs(W)<=N")
+        updates.append((edge, n, w, new_n, new_w))
+
+    try:
+        for edge, _, _, new_n, new_w in updates:
+            edge.visit_count = new_n
+            edge.value_sum = new_w
+        ticket.completed = True
+    except BaseException:
+        for edge, n, w, _, _ in updates:
+            object.__setattr__(edge, "visit_count", n)
+            object.__setattr__(edge, "value_sum", w)
+        object.__setattr__(ticket, "completed", False)
+        raise
+    return 1
 
 
 def traverse(root: Node, config: SearchConfig = SearchConfig(), evaluator: Evaluator = evaluate) -> TraversalResult:
@@ -164,4 +257,6 @@ def traverse(root: Node, config: SearchConfig = SearchConfig(), evaluator: Evalu
         if not node.expanded:
             break
     result = expand(node, evaluator)
-    return TraversalResult(tuple(path), node, result)
+    resolved = TraversalResult(tuple(path), node, result)
+    object.__setattr__(resolved, "_completion", _Completion(resolved.path, node, result))
+    return resolved

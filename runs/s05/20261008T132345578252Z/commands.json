@@ -1,0 +1,49 @@
+[
+  {
+    "name": "environment-adapter",
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-B",
+      "-c",
+      "import importlib.metadata as m, importlib.util as u, json, platform, sys; print(json.dumps(dict(python=sys.version, executable=sys.executable, platform=platform.platform(), machine=platform.machine(), versions={n:m.version(n) for n in ['numpy','python-chess','chess','pytest']}, torch_available=u.find_spec('torch') is not None), indent=2))"
+    ],
+    "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/s05-search-smoke",
+    "environment": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-10-08T13:23:45.578441+00:00",
+    "elapsed_seconds": 0.05802008300088346,
+    "exit_code": 0,
+    "stdout_sha256": "3b4488fd7706c26297ed1bb0835b42e62844933df70e5285b8385fcebb7c9c48",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "focused-adapter",
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-B",
+      "-m",
+      "pytest",
+      "tests/test_game_runner.py",
+      "tests/test_search_runner.py",
+      "tests/test_backup.py",
+      "tests/test_puct.py",
+      "tests/test_evaluator.py",
+      "--import-mode=importlib",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/s05-search-smoke/runs/s05/20261008T132345578252Z/focused-adapter.xml"
+    ],
+    "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/s05-search-smoke",
+    "environment": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-10-08T13:23:45.636814+00:00",
+    "elapsed_seconds": 7.541227499983506,
+    "exit_code": 1,
+    "stdout_sha256": "fa1fc6f7798d465ff1ffe3c8b6843018f960e8ecb58f593f3883da19fe2b87b8",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

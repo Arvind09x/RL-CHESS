@@ -119,12 +119,15 @@ replays, source/dependency and preservation audits. The 33,795 head elements,
 WDL order, change manifest and clean tree were verified; no blocking findings.
 [Appended acceptance](docs/m04-wdl.md) and [record](runs/m05/m04-review-acceptance.json).
 
-M05 intermediate GAB network passes automated acceptance and stops for review.
+M05 commit `2e6316dd0c49b0c22ff10ef72b55793856189a72` is accepted through
+independent AI review supplied by the user on 8 October 2026; no blocking findings.
+[Appended acceptance](docs/m05-network.md) records the reproduced checks.
+M06 combined GAB + Q/K/V relative network passes automated acceptance and stops for review.
 [Focused settings/results/limitations](docs/m05-network.md) and
 [exact commands](runs/m05/commands.json) record the evidence. All prior runs
 and planning files remain unchanged; dated M05 documentation supersedes their
-historical pending status. M06 remains required before supervised/RL training
-or the real evaluator. No human teammate review, subagents or paid compute is claimed.
+historical pending status. [M06 evidence](docs/m06-relative.md) records the
+finalized fixed architecture; its independent review is pending. No human teammate review, subagents or paid compute is claimed.
 
 
 ## Pinned upstream sources (F03)
@@ -178,7 +181,8 @@ and release presets differ from our locked input/backbone. The earlier source
 has a GPL-3.0-or-later file notice but no standalone license file; Maia-3 has
 AGPL-3.0 text. Upstream leaves PyTorch unpinned. M01 resolves its GAB
 constructor defaults under the environment below; upstream framework/RNG-stream equivalence is not
-claimed. M02–M05 numerical acceptance is recorded below; M06 remains pending.
+claimed. M02–M05 historical numerical acceptance is recorded below; current M06 acceptance
+is documented in [the focused M06 record](docs/m06-relative.md).
 
 
 ## Compact GAB (M01)
@@ -327,7 +331,7 @@ M04 has independent AI review acceptance; its operations are reused unchanged in
 ```python
 from chess_rl.model import ChessNetwork
 
-network = ChessNetwork(d_policy=128, d_value=128, dropout=0.1)
+network = ChessNetwork(d_policy=128, d_value=128, dropout=0.1, relative_enabled=False)
 policy_logits, wdl_logits = network(features)  # [B,4352], [B,3]; B >= 1
 ```
 
@@ -348,10 +352,42 @@ and [results](runs/m05/network-acceptance.json) cover combined independent
 outputs/gradients, routing, dropout, both branches, sharing and adapter preservation.
 
 ```sh
-.venv/bin/python scripts/check_m05.py
+.venv/bin/python runs/m06/diagnostic.py scripts/check_m05.py
 ```
 
-M05 stops for independent review. M06 relative terms remain required before
-supervised/RL training, the real evaluator and combined-model pilot. Empty
+M05 has independent AI review acceptance. This explicit diagnostic retains
+the intermediate count and common weights for regression checks. Empty
 tensor batches are rejected clearly because the accepted backbone does not
 support them. CUDA/MPS/reduced precision and other builds remain unvalidated.
+
+
+## Fixed combined network (M06)
+
+```python
+network = ChessNetwork()  # relative terms enabled; dropout=.1, CPU float32
+policy_logits, wdl_logits = network(features)
+gab_only_logits = network(features, relative_enabled=False)  # same common weights
+```
+
+Eight layers each own independent zero-initialized Q/K/V tables `[8,225,32]`.
+Packed projections, constructor initialization, norms/dropout and both heads
+retain accepted settings. One GAB template bank is shared across all layers.
+The finalized fixed network has **5,049,411 parameters in 215 unique tensors**.
+[Focused M06 documentation](docs/m06-relative.md) explains the independent
+references, tolerances, accounting, provisional-estimate difference and limitations.
+
+Run current acceptance without overwriting historical evidence:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:. .venv/bin/python scripts/check_m06.py
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:. .venv/bin/python -m pytest -p no:cacheprovider -p runs.m06.diagnostic_plugin
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:. .venv-acceptance/bin/python -m pytest -p no:cacheprovider
+```
+
+The explicit pytest plugin adapts only the historical M05 helper's constructor
+to `relative_enabled=False`; M06 tests use the enabled default. M01–M04 standalone
+components retain their accepted diagnostic defaults. Historical snippets above
+describe their respective milestones; use these current suite commands after M06.
+**287 model tests**, **119 adapter tests with six expected skips**, M01–M05
+acceptance and both 13-fixture replays pass. M06 stops for independent review.
+No data, training, checkpoints, evaluator, search, GPU runs, paid compute or subagents.

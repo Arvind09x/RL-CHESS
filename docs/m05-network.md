@@ -155,3 +155,16 @@ compatibility or playing-strength claim. M06 relative terms remain unimplemented
 and required before supervised/RL training, the real evaluator and combined-model
 pilot. No masking/softmax/value conversion, checkpoints, data, training, evaluator,
 search, subagents or paid compute. Stop for review of the focused M05 commit.
+
+
+## M05 independent AI review acceptance — 8 October 2026
+
+The user supplied independent **AI review acceptance** of commit
+`2e6316dd0c49b0c22ff10ef72b55793856189a72`. The reviewer reproduced 251
+model tests, 119 adapter-only tests with five expected skips, M01–M05
+acceptance, both 13-fixture replays, source/dependency checks, exact
+manifest/preservation checks, parameter/memory accounting and a clean tree.
+No blocking findings were identified. This is independent AI review; no human
+teammate review is claimed. The entry supersedes historical pending statuses
+without changing prior evidence. [Structured acceptance](../runs/m06/m05-review-acceptance.json).
+M06 only is the authorized implementation scope and stops for independent review.

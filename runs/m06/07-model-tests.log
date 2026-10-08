@@ -1,0 +1,25 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-m06-change
+configfile: pyproject.toml
+testpaths: tests
+collected 287 items
+
+tests/test_backbone.py ..................                                [  6%]
+tests/test_encoding.py ..................                                [ 12%]
+tests/test_foundation.py .                                               [ 12%]
+tests/test_gab.py ....................                                   [ 19%]
+tests/test_history.py .....                                              [ 21%]
+tests/test_legality.py .........                                         [ 24%]
+tests/test_moves.py ................................                     [ 35%]
+tests/test_network.py ...................................                [ 48%]
+tests/test_outcomes.py ...................                               [ 54%]
+tests/test_policy.py ..............................                      [ 65%]
+tests/test_regression.py ...........                                     [ 68%]
+tests/test_relative.py ....................................              [ 81%]
+tests/test_state.py .................                                    [ 87%]
+tests/test_types.py .......                                              [ 89%]
+tests/test_wdl.py .............................                          [100%]
+
+- generated xml file: /private/tmp/rl-chess-m06-change/runs/m06/pytest-model.xml -
+======================= 287 passed in 103.96s (0:01:43) ========================

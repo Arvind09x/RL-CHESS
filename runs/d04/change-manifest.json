@@ -1,0 +1,38 @@
+{
+  "README.md": {
+    "bytes": 28376,
+    "sha256": "732bf77b8b83343b5eb2974617c4fb050b26a15c0c4721fada5a2f2492bd0586"
+  },
+  "coding-plan.md": {
+    "bytes": 74409,
+    "sha256": "41580ef564b0db58abdcfe919d7492ff734c72a0830f97bb15312f0523b8ba84"
+  },
+  "data/manifests/elite-2025-01-d04-v1.json": {
+    "bytes": 6058,
+    "sha256": "5867fb9c09bf7d0c29d9a09d59d7196b145636d4abe6b38faf9c70d899e5879d"
+  },
+  "docs/d04-position-sampling.md": {
+    "bytes": 14784,
+    "sha256": "e8d32d8a69cf1cc751062a0426a797152fd8871c3234fe3d09d269a202b049e3"
+  },
+  "scripts/expand_d04.py": {
+    "bytes": 863,
+    "sha256": "b69e4138757c86e2654d4787474c7baadf2544d8c0eadfaa8b343a233ac8834e"
+  },
+  "scripts/prepare_d04.py": {
+    "bytes": 1069,
+    "sha256": "6220ad6cad62488e84b834b9a455b5af50b6228583d00eadb601e9d053d872b6"
+  },
+  "src/chess_rl/position_expansion.py": {
+    "bytes": 9836,
+    "sha256": "0de7d94c259028c6fd7dc13dd8e4622339ad4690296cfea01f1c27569b58560b"
+  },
+  "src/chess_rl/position_sampling.py": {
+    "bytes": 18057,
+    "sha256": "8c11f082354b19dc9f7afbc884be57df3a6b9b0949dc28e3e27c3416cecc2321"
+  },
+  "tests/test_position_sampling.py": {
+    "bytes": 15484,
+    "sha256": "530c9476cc67800a72515e4599411d969e6c7aa535d719752da298ba2a523174"
+  }
+}

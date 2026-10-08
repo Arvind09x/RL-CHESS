@@ -1,0 +1,28 @@
+selected test: 115416
+selected validation: 115710
+selected train: 2079961
+{
+  "full_corpus_selection_repeated": true,
+  "full_replay_repeated": false,
+  "insertion_order": "reverse game_id",
+  "outputs_byte_identical": true,
+  "splits_identical": true,
+  "outputs": {
+    "exclusions.jsonl": {
+      "sha256": "72e45e4f89d15a596090ad940218867aedcb53275a3eddb6f50674502dd02b32",
+      "bytes": 105285659
+    },
+    "heldout-games.jsonl": {
+      "sha256": "73202bd1b255fb89958da1be043e219f192b33a06da05ceb669eb1984d60fc18",
+      "bytes": 2862240
+    },
+    "protected-heldout.jsonl": {
+      "sha256": "813d40ec52f3058996ddf6d7586dea23ee568c3bcff995cd92879e306a1f8ed3",
+      "bytes": 57171328
+    },
+    "samples.jsonl": {
+      "sha256": "f3dc3410321e46c5e424912f8ae1d4aa26bd5c97267df944cbf8e7e3d1e3581e",
+      "bytes": 567767218
+    }
+  }
+}

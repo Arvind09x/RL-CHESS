@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "scripts/check_m06.py",
+    "--output",
+    "runs/d04/m06-check.json"
+  ],
+  "cwd": "/private/tmp/rl-chess-d04",
+  "started_at_utc": "2026-10-08T11:49:05.287622+00:00",
+  "finished_at_utc": "2026-10-08T11:49:34.028856+00:00",
+  "duration_seconds": 28.741315666004084,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d04/src:/private/tmp/rl-chess-d04",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "m06-check.stdout.txt",
+    "bytes": 152315,
+    "sha256": "afbf38c5308096973f42f83c82bd14c078d212c9e96abd647cbdf1a7ac03343f"
+  },
+  "stderr": {
+    "path": "m06-check.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

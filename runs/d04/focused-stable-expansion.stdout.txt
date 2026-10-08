@@ -1,0 +1,10 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d04
+configfile: pyproject.toml
+collected 34 items
+
+tests/test_position_sampling.py ..................................       [100%]
+
+- generated xml file: /private/tmp/rl-chess-d04/runs/d04/focused-stable-expansion.xml -
+============================== 34 passed in 2.37s ==============================

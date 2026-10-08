@@ -1,0 +1,30 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d02
+configfile: pyproject.toml
+testpaths: tests
+collected 459 items
+
+tests/test_backbone.py ..................                                [  3%]
+tests/test_data_manifest.py ............................................ [ 13%]
+.......................................                                  [ 22%]
+tests/test_encoding.py ..................                                [ 25%]
+tests/test_evaluator.py .................................                [ 33%]
+tests/test_foundation.py .                                               [ 33%]
+tests/test_gab.py ....................                                   [ 37%]
+tests/test_history.py .....                                              [ 38%]
+tests/test_legality.py .........                                         [ 40%]
+tests/test_moves.py ................................                     [ 47%]
+tests/test_network.py ...................................                [ 55%]
+tests/test_outcomes.py ...................                               [ 59%]
+tests/test_pgn_replay.py ............................................... [ 69%]
+.........                                                                [ 71%]
+tests/test_policy.py ..............................                      [ 78%]
+tests/test_regression.py ...........                                     [ 80%]
+tests/test_relative.py ....................................              [ 88%]
+tests/test_state.py .................                                    [ 92%]
+tests/test_types.py .......                                              [ 93%]
+tests/test_wdl.py .............................                          [100%]
+
+--- generated xml file: /private/tmp/rl-chess-d02/runs/d02/pytest-model.xml ----
+============================= 459 passed in 33.35s =============================

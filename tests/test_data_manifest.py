@@ -65,7 +65,7 @@ def test_teacher_contract_rejected(name, value):
 @pytest.mark.parametrize("group,name,value", [
     ("archive", "month", "2025-13"), ("archive", "url", "https://example.com/month.zip"),
     ("archive", "downloaded_sha256", "pending D02"),
-    ("archive", "downloaded_sha256", "a" * 64),  # partial retrieval record
+    ("archive", "downloaded_bytes", None),  # partial retrieval record
     ("archive", "verified_at_utc", "2026-10-08"),
     ("archive", "verification_evidence", ""), ("engine", "executable_sha256", None),
     ("engine", "package_sha256", "A" * 64), ("engine", "source_commit", "main"),
@@ -91,10 +91,10 @@ def complete_metadata(manifest):
 
 
 def test_selected_is_preparation_only(manifest):
-    assert manifest.archive.downloaded_sha256 is None
-    assert "archive.downloaded_sha256" in manifest.annotation_blockers()
-    assert len(manifest.annotation_blockers()) == 9
-    with pytest.raises(ValueError, match="preparation-ready only.*archive.downloaded_sha256"):
+    assert manifest.archive.downloaded_sha256 is not None
+    assert "archive.downloaded_sha256" not in manifest.annotation_blockers()
+    assert len(manifest.annotation_blockers()) == 6
+    with pytest.raises(ValueError, match="preparation-ready only.*preparation.split_algorithm"):
         manifest.require_annotation_ready()
     complete_metadata(manifest).require_annotation_ready()
 
@@ -108,7 +108,8 @@ def test_every_required_preparation_field_blocks_annotation(manifest, name):
 
 
 def test_archive_checksum_remains_required_after_algorithms_resolved(manifest):
-    pending = replace(complete_metadata(manifest), archive=manifest.archive)
+    pending = replace(complete_metadata(manifest), archive=replace(manifest.archive,
+                      downloaded_sha256=None, downloaded_bytes=None, retrieved_at_utc=None))
     with pytest.raises(ValueError, match="archive.downloaded_sha256"):
         pending.require_annotation_ready()
 

@@ -1,0 +1,72 @@
+{
+  "annotation_blockers": [
+    "preparation.split_algorithm",
+    "preparation.sampling_algorithm",
+    "preparation.phase_boundaries",
+    "preparation.split_audit_sha256",
+    "preparation.overlap_audit_sha256",
+    "preparation.protected_heldout_registry_sha256"
+  ],
+  "archive": {
+    "bytes": 82724777,
+    "sha256": "f2fa14565bcdaba7ad6de6a4f8f2348d0f9f8f262935c46e61925c5acce6f7b7"
+  },
+  "archive_count": 1,
+  "complete": true,
+  "counts": {
+    "accepted": 289776,
+    "declared_setups": 0,
+    "games": 289776,
+    "plies": 25429063,
+    "rejected": 0,
+    "result_discrepancies": 0,
+    "unfinished": 0
+  },
+  "dataset_id": "lichess-elite-2025-01-pilot-v1",
+  "measurement_scope": "source frames and legal mainline replays before D03 duplicate consolidation or split assignment",
+  "member_count": 1,
+  "members": [
+    {
+      "bytes": 274106096,
+      "compressed_bytes": 82724577,
+      "compression": 8,
+      "counts": {
+        "accepted": 289776,
+        "declared_setups": 0,
+        "games": 289776,
+        "plies": 25429063,
+        "rejected": 0,
+        "result_discrepancies": 0,
+        "unfinished": 0
+      },
+      "crc32": "5e3f587e",
+      "header_offset": 0,
+      "member_index": 1,
+      "name": "lichess_elite_2025-01.pgn",
+      "pgn": true,
+      "sha256": "44162cdc6bf4611cff64e3a0f741d5cf524cc50100e09c56bd566ba3dabce83d",
+      "zip_timestamp": [
+        2025,
+        2,
+        4,
+        18,
+        3,
+        14
+      ]
+    }
+  ],
+  "outputs": {
+    "rejections.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "replays.jsonl": {
+      "bytes": 541174538,
+      "sha256": "69c10231f4d569a6b3cb4b26bc22a9535346d68f0a4753bd83c0c92981ea950b"
+    }
+  },
+  "pgn_member_count": 1,
+  "record_version": "pgn-mainline-presplit-v1",
+  "rejection_reasons": {},
+  "source_game_count_exact": true
+}

@@ -1,6 +1,6 @@
 # Coding plan: small tasks from interface to playable agent
 
-Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 and M05 are accepted through independent AI review; M06 is accepted for local CPU correctness through user-supplied independent AI review on 8 October 2026. D01 preparation passes automated checks and awaits independent review; D02–D08 and S01 remain unchecked. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
+Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 and M05 are accepted through independent AI review; M06 is accepted for local CPU correctness through user-supplied independent AI review on 8 October 2026. D01 manifest preparation and S01 CPU evaluator plumbing are independently AI review accepted and integrated in merged base 0347ceb. D02 source replay passes automated checks and awaits independent review; D03–D08 and S02 onward remain unchecked. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
 
 This is the execution companion to [plan1.md](plan1.md), not a replacement strategy. [interface.md](interface.md) defines the shared behavior. The intended agent is a Chessformer network with Leela-inspired MCTS and self-play, based on AlphaZero's learning principle and initialized with Stockfish supervision.
 
@@ -91,7 +91,7 @@ After Gate A, the data, model and search tracks can proceed independently. They 
 | Done | ID / owner | Prerequisites | Build | Acceptance check |
 |---|---|---|---|---|
 | [x] | D01 / P1 | F02 | Create the dataset manifest and decide the archive, sampling/split seeds, game-ID convention, storage format and ending-policy ID. Plan an initial 10,000 labels and measurement-based expansion to 100,000, several hundred thousand and potentially 1 million. Record the fixed teacher configuration and resolve the binary/version/checksum. | Required provenance fields are explicit; pending archive checksum is filled in D02. Archive coverage is audited before fixing the main scale. No annotation starts with an incomplete manifest; 1 million labels is not a mandatory allocation. |
-| [ ] | D02 / P1 | D01, A07 | Fetch the selected monthly archive, record its exact URL/checksum, and implement standard PGN parsing/replay with rejected-game accounting. | Valid games replay with full history; corrupted, variant and unreplayable games are rejected with counts/reasons. A small fixture requires no network access. |
+| [x] | D02 / P1 | D01, A07 | Fetch the selected monthly archive, record its exact URL/checksum, and implement standard PGN parsing/replay with rejected-game accounting. | Valid games replay with full history; corrupted, variant and unreplayable games are rejected with counts/reasons. A small fixture requires no network access. |
 | [ ] | D03 / P1 | D02 | Canonicalize duplicate games and assign deterministic 90/5/5 splits by game, before position sampling. | Repeated preparation produces the same assignments. Duplicate games cannot land in separate splits. |
 | [ ] | D04 / P1 | D03 | Record phase boundaries and sampling algorithm; select at most eight distinct nonterminal positions per game and remove position overlap across splits. Define expansion with stable game assignments and protected held-out sets. | A split/coverage audit passes. Identity includes rule-relevant board state and legal en-passant availability, independent of network-history differences. Report phase counts per split before/after removal. Protected held-out splits remain separate; removals, expansion and refill rules are deterministic. |
 | [ ] | D05 / P1 | D04 | Implement the Stockfish worker and annotate a tiny valid sample with the locked settings, hash resets, failure/retry records and root-perspective targets. | Every retained best move is legal and matches its ID; WDL counts/probabilities are valid. Missing WDL/interrupted analyses are never accepted as targets. Replaying a saved record reproduces its root. |
@@ -118,7 +118,7 @@ Leela is the practical chess-search/self-play reference; AlphaZero supplies the 
 
 | Done | ID / owner | Prerequisites | Build | Acceptance check |
 |---|---|---|---|---|
-| [ ] | S01 / P2 | A07, F02 | Implement a uniform-legal-prior, zero-value dummy evaluator with `evaluate(states) -> list[Evaluation \| TerminalResult]` in input order. Use a batch-of-one call from search initially. | Empty, batch-of-one and mixed-terminal batches preserve order/input histories. Priors sum to one over legal moves only. Terminal states return exact outcomes and never enter policy normalization. |
+| [x] | S01 / P2 | A07, F02 | Implement a uniform-legal-prior, zero-value dummy evaluator with `evaluate(states) -> list[Evaluation \| TerminalResult]` in input order. Use a batch-of-one call from search initially. | Empty, batch-of-one and mixed-terminal batches preserve order/input histories. Priors sum to one over legal moves only. Terminal states return exact outcomes and never enter policy normalization. |
 | [ ] | S02 / P2 | S01 | Define search configuration and implement tree edges, selection, expansion and legal traversal. Record the PUCT formula/constants, tie handling and simulation-count convention. | Fixed seed/config yields repeatable traversals; input state/history is unchanged. Distinct histories are not merged by FEN-only identity. Root expansion versus counted edge visits is explicit. |
 | [ ] | S03 / P2 | S02 | Implement backup with values stored from each parent player's perspective. | Tiny controlled trees independently verify one-ply and two-ply signs, visit totals and terminal scores. A terminal child is handled without evaluator invocation. |
 | [ ] | S04 / P2 | S03 | Return raw root visits, normalized training policy and a legal selected move; separate training exploration from evaluation selection. | Positive training visit count is required. Returned policy has legal support and unit sum. Terminal roots return no action. Budget exhaustion cannot fabricate a policy. |
@@ -545,3 +545,81 @@ checker, both 13-fixture replays, pinned-source audit, Torch-free imports and
 raw/python-chess idle UCI probes passed. Success checks exit 0; the incomplete
 manifest annotation gate exits 1 as required. Preservation evidence and focused
 file inventory: `runs/d01/preservation-check.json`, `runs/d01/change-manifest.json`.
+
+
+### D01/S01 AI review acceptance and integration — 2026-10-08
+
+The user reports independent planning-agent **AI review acceptance** of D01
+commit `df58f37de792cee248a89ff6644d77b144360a1f` for manifest preparation
+and S01 commit `834eab9317d96547333b4958c863b503f02ecba5` for CPU evaluator
+plumbing. S01 was accepted on its separate `codex/s01-dummy-evaluator` branch,
+which remains available. The updated repository context confirms that **both
+accepted tracks are now integrated** in `main` merge commit
+`0347ceb7e6efd867e1f1253b3bf5a57d4fd6e48f`, the common D02 starting point.
+The reported combined checks passed: 403 model tests, 235 adapter tests with
+six expected skips and both 13-fixture replays; pinned teacher executable,
+source-package and embedded-NNUE hashes plus a fresh idle UCI check passed.
+There were no blocking findings. This is user-supplied independent AI review
+attribution, not human teammate review or a new reviewer run by the D02
+implementer. Historical evidence and pending-status entries remain intact;
+this dated entry supersedes their D01/S01 status. Structured attribution:
+`runs/d02/review-integration.json`. D02 has no independent review acceptance.
+
+
+### D02 PGN source replay completion — 2026-10-08
+
+D02 only passes automated acceptance and **stops for independent review**.
+It has no independent review acceptance. It is on `codex/d02-pgn-replay` in
+`/private/tmp/rl-chess-d02`, from merged base
+`0347ceb7e6efd867e1f1253b3bf5a57d4fd6e48f`, with both accepted D01/S01 tracks.
+Shared README/status ownership records both AI review acceptances as integrated
+work; S01's separate accepted branch remains available. S02 is not implemented.
+
+Changed core files: `src/chess_rl/pgn_replay.py`, `scripts/prepare_d02.py`,
+`tests/test_pgn_replay.py`, `tests/fixtures/d02_sources.json`, selected manifest
+and its test expectations, `docs/d02-pgn-replay.md`, README/this status, and
+focused `runs/d02/` evidence. Standard PGN mainlines are parsed with
+python-chess and validated/rebuilt by the shared adapter. Genuine initial
+boards, full actual UCI moves and complete-history/source provenance survive.
+Malformed/variant/setup/null/illegal/parser-error sources are rejected whole;
+partial parser prefixes never become accepted games. Legal replay can cross
+episode draw cutoffs. Explicit '*' sources remain unfinished source metadata;
+missing moves/results are never inferred or made into teacher labels.
+
+Exact selected ZIP retrieval: 82,724,777 bytes, SHA-256
+`f2fa14565bcdaba7ad6de6a4f8f2348d0f9f8f262935c46e61925c5acce6f7b7`,
+UTC `2026-10-08T07:45:09.776038+00:00`, HTTP 200, no redirects, final URL equal
+to the requested January 2025 URL. Manifest retrieval fields were resolved
+together. Full selected archive: **1 archive / 1 member / 1 PGN member**,
+**289,776 source games accepted / 0 rejected**, **25,429,063 actual plies**.
+No unfinished sources, result discrepancies or declared setups occurred in
+this member. ZIP/member hashes, identities, CRC and counts are saved. These
+are source/replay measurements before D03 deduplication, splits or D04 sampling;
+no sampling coverage or label success is claimed.
+
+The final strict full run exited 0. Three full passes produced byte-identical
+record files and summaries; the first two began before additional syntax
+hardening. The all-source output audit matched ordinals, byte/line intervals,
+source hashes, member/output identities and counts against the raw archive.
+Archive and bulk JSONL remain outside Git; authoritative output directory is
+`/private/tmp/rl-chess-d02-accepted-prepared`. Final records: 541,174,538 bytes,
+SHA-256 `69c10231f4d569a6b3cb4b26bc22a9535346d68f0a4753bd83c0c92981ea950b`.
+
+Actual final checks: **155 focused tests** (72 D02 + 83 D01), **475 model
+tests**, **307 adapter tests / six expected skips**, both 13-fixture replays,
+complete M06 checker, pinned-source/import-boundary checks, exact teacher/source/
+embedded-NNUE hashes and fresh idle UCI; all exit 0. Annotation gate exits 1
+as required. Preservation matched 305 protected baseline files. Exact argv,
+exit codes, UTC timestamps, development failures, checksum evidence and raw
+results are retained under `runs/d02/`; final inventory is
+`runs/d02/change-manifest.json`. The teacher executable remains the exact D01
+bytes at `/private/tmp/Stockfish-sf_17.1/src/stockfish`; no rebuild, substitution
+or search command was issued.
+
+D03 canonical IDs/duplicate consolidation/split assignment and D04 sampling/
+phase/overlap/heldout algorithms and audits remain unresolved. The six manifest
+blockers still prevent annotation. No splitting, sampling, annotation, benchmark,
+training or search is implemented. Plan1/interface semantics, dependency pins,
+accepted implementation and all historical evidence are preserved. CPU macOS
+arm64/Python 3.12.12 intake only; unsupported syntax is rejected rather than
+salvaged. Review the focused D02 commit before starting D03.

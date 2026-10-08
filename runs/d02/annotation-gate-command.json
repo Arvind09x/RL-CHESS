@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "scripts/check_d01.py",
+    "--require-annotation-ready"
+  ],
+  "cwd": "/private/tmp/rl-chess-d02",
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "started_at_utc": "2026-10-08T07:57:49.269160+00:00",
+  "finished_at_utc": "2026-10-08T07:57:49.321167+00:00",
+  "duration_seconds": 0.05195575000834651,
+  "exit_code": 1,
+  "output": "runs/d02/annotation-gate.log"
+}

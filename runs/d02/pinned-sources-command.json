@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "scripts/check_upstream.py",
+    "--maia3-checkout",
+    "/private/tmp/rl-chess-f03-maia3",
+    "--lczero-checkout",
+    "/private/tmp/rl-chess-f03-lczero"
+  ],
+  "cwd": "/private/tmp/rl-chess-d02",
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "started_at_utc": "2026-10-08T07:59:31.885126+00:00",
+  "finished_at_utc": "2026-10-08T07:59:32.275012+00:00",
+  "duration_seconds": 0.38976770799490623,
+  "exit_code": 0,
+  "output": "runs/d02/pinned-sources.log"
+}

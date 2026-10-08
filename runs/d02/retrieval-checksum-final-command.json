@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "runs/d02/record_retrieval.py"
+  ],
+  "cwd": "/private/tmp/rl-chess-d02",
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "started_at_utc": "2026-10-08T08:09:25.897616+00:00",
+  "finished_at_utc": "2026-10-08T08:09:26.673827+00:00",
+  "duration_seconds": 0.7761605000123382,
+  "exit_code": 0,
+  "output": "runs/d02/retrieval-checksum-final.log"
+}

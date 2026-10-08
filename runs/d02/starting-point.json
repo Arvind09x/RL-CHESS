@@ -1,0 +1,15 @@
+{
+  "base_commit": "0347ceb7e6efd867e1f1253b3bf5a57d4fd6e48f",
+  "base_parents": ["df58f37de792cee248a89ff6644d77b144360a1f", "834eab9317d96547333b4958c863b503f02ecba5"],
+  "branch": "codex/d02-pgn-replay",
+  "worktree": "/private/tmp/rl-chess-d02",
+  "source_worktree": "/private/tmp/rl-chess-d01",
+  "repository": "/Users/arvindsrinivass/Desktop/RL-Chess",
+  "creation_command": ["git", "worktree", "add", "-b", "codex/d02-pgn-replay", "/private/tmp/rl-chess-d02", "0347ceb7e6efd867e1f1253b3bf5a57d4fd6e48f"],
+  "creation_cwd": "/private/tmp/rl-chess-d01",
+  "creation_exit_code": 0,
+  "instruction_precedence": "User's updated repository context explicitly overrides the earlier separate D01/S01 starting commits. D02 only is implemented.",
+  "agents_instructions": "No AGENTS.md found in applicable ancestors or repository/worktree source directories, including hidden files outside Git and venv directories",
+  "no_subagents": true,
+  "D02_independent_review_accepted": false
+}

@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "scripts/prepare_d02.py",
+    "--manifest",
+    "data/manifests/elite-2025-01-v1.json",
+    "--archive",
+    "/private/tmp/lichess_elite_2025-01.zip",
+    "--output-dir",
+    "/private/tmp/rl-chess-d02-final-prepared"
+  ],
+  "cwd": "/private/tmp/rl-chess-d02",
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "started_at_utc": "2026-10-08T07:55:16.326614+00:00",
+  "finished_at_utc": "2026-10-08T08:19:09.353562+00:00",
+  "duration_seconds": 1433.0116038340202,
+  "exit_code": 0,
+  "output": "runs/d02/final-full-archive.log"
+}

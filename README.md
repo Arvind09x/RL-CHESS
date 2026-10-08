@@ -429,3 +429,45 @@ are unimplemented here; S01 remains unchecked. D01 has no independent review
 acceptance. Historical M04/M05 acceptance and all earlier evidence are retained;
 [the dated M06 review record](runs/d01/m06-review-acceptance.json) attributes
 acceptance to the user's planning-agent report, not the D01 implementer's checks.
+
+
+## D01/S01 AI review acceptance and integration — 2026-10-08
+
+The user reports independent planning-agent **AI review acceptance** of D01
+commit `df58f37de792cee248a89ff6644d77b144360a1f` for manifest preparation
+and S01 commit `834eab9317d96547333b4958c863b503f02ecba5` for CPU evaluator
+plumbing. S01 was accepted on its separate `codex/s01-dummy-evaluator` branch,
+which remains available. The updated repository context confirms that **both
+accepted tracks are now integrated** in `main` merge commit
+`0347ceb7e6efd867e1f1253b3bf5a57d4fd6e48f`, the common D02 starting point.
+The reported combined checks passed: 403 model tests, 235 adapter tests with
+six expected skips and both 13-fixture replays; pinned teacher executable,
+source-package and embedded-NNUE hashes plus a fresh idle UCI check passed.
+There were no blocking findings. This is user-supplied independent AI review
+attribution, not human teammate review or a new reviewer run by the D02
+implementer. Historical evidence and pending-status entries remain intact;
+this dated entry supersedes their D01/S01 status. Structured attribution:
+`runs/d02/review-integration.json`. D02 has no independent review acceptance.
+
+## PGN source preparation (D02)
+
+D02 implements strict standard-PGN mainline intake and full-history replay
+through python-chess and the accepted shared adapter. The selected January
+2025 ZIP is now downloaded and byte-pinned in the manifest. Pre-split records
+retain source member/ordinal/byte/line provenance, the genuine starting FEN,
+all actual UCI moves and separate PGN result metadata. Canonical IDs,
+duplicate consolidation and splitting remain D03 work. Annotation remains
+blocked by the six unresolved D03/D04 algorithm/phase/audit/heldout fields.
+[Focused behavior, reproduction and evidence](docs/d02-pgn-replay.md).
+Independent D02 review remains pending.
+
+The complete selected archive contains one PGN member: **289,776 source games
+accepted, zero rejected**, **25,429,063 replayed plies**. These are intake
+measurements before deduplication/split/sampling. Three full passes produced
+identical tables; all source locations and hashes passed the output audit.
+Automated checks passed: 155 focused tests, 475 model tests, 307 adapter tests
+with six expected skips, both 13-fixture replays and the M06/source/teacher/
+preservation checks. [Actual replay summary](runs/d02/replay-summary.json)
+and [commands/evidence](runs/d02/preparation-evidence.json) are retained.
+Bulk records remain at `/private/tmp/rl-chess-d02-accepted-prepared/`, outside
+Git. D02 stops for independent review; D03/D04 still block annotation.

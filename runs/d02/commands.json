@@ -1,0 +1,691 @@
+[
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "scripts/prepare_d02.py",
+      "--manifest",
+      "data/manifests/elite-2025-01-v1.json",
+      "--archive",
+      "/private/tmp/lichess_elite_2025-01.zip",
+      "--output-dir",
+      "/private/tmp/rl-chess-d02-prepared"
+    ],
+    "command_record": "runs/d02/full-archive-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 1381.350366958999,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:14:52.972289+00:00",
+    "output": "runs/d02/full-archive.log",
+    "started_at_utc": "2026-10-08T07:51:51.607114+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_pgn_replay.py",
+      "tests/test_data_manifest.py",
+      "-p",
+      "no:cacheprovider"
+    ],
+    "command_record": "runs/d02/focused-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.4694424170011189,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:52:22.889143+00:00",
+    "output": "runs/d02/focused.log",
+    "started_at_utc": "2026-10-08T07:52:22.419682+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "scripts/check_d01.py",
+      "--teacher-executable",
+      "/private/tmp/Stockfish-sf_17.1/src/stockfish",
+      "--output",
+      "runs/d02/teacher-idle.json"
+    ],
+    "command_record": "runs/d02/teacher-idle-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.49257416700129397,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:52:22.912291+00:00",
+    "output": "runs/d02/teacher-idle.log",
+    "raw_stdout_evidence": "runs/d02/stdout-raw.json",
+    "readable_log_normalization": "redundant trailing blank lines removed; exact original stdout retained in stdout-raw.json",
+    "started_at_utc": "2026-10-08T07:52:22.419692+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=runs/d02/pytest-adapter.xml"
+    ],
+    "command_record": "runs/d02/adapter-regression-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 2.752324041997781,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:52:39.740052+00:00",
+    "output": "runs/d02/adapter-regression.log",
+    "started_at_utc": "2026-10-08T07:52:36.987705+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "-p",
+      "runs.m06.diagnostic_plugin",
+      "--junitxml=runs/d02/pytest-model.xml"
+    ],
+    "command_record": "runs/d02/model-regression-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 33.82447566697374,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:53:11.962828+00:00",
+    "output": "runs/d02/model-regression.log",
+    "started_at_utc": "2026-10-08T07:52:38.138413+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_pgn_replay.py",
+      "tests/test_data_manifest.py",
+      "-p",
+      "no:cacheprovider"
+    ],
+    "command_record": "runs/d02/focused-number-validation-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.42780683300225064,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:55:16.279190+00:00",
+    "output": "runs/d02/focused-number-validation.log",
+    "started_at_utc": "2026-10-08T07:55:15.851340+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "scripts/prepare_d02.py",
+      "--manifest",
+      "data/manifests/elite-2025-01-v1.json",
+      "--archive",
+      "/private/tmp/lichess_elite_2025-01.zip",
+      "--output-dir",
+      "/private/tmp/rl-chess-d02-final-prepared"
+    ],
+    "command_record": "runs/d02/final-full-archive-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 1433.0116038340202,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:19:09.353562+00:00",
+    "output": "runs/d02/final-full-archive.log",
+    "started_at_utc": "2026-10-08T07:55:16.326614+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "runs/d02/record_retrieval.py"
+    ],
+    "command_record": "runs/d02/retrieval-checksum-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.5805184159835335,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:56:30.212528+00:00",
+    "output": "runs/d02/retrieval-checksum.log",
+    "started_at_utc": "2026-10-08T07:56:29.631597+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "runs/d02/teacher_bytes.py"
+    ],
+    "command_record": "runs/d02/teacher-bytes-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.20870124999783002,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:56:30.473099+00:00",
+    "output": "runs/d02/teacher-bytes.log",
+    "started_at_utc": "2026-10-08T07:56:30.264233+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_pgn_replay.py",
+      "tests/test_data_manifest.py",
+      "-p",
+      "no:cacheprovider"
+    ],
+    "command_record": "runs/d02/final-focused-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.4678921670129057,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:57:49.193390+00:00",
+    "output": "runs/d02/final-focused.log",
+    "started_at_utc": "2026-10-08T07:57:48.725472+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+      "scripts/check_adapter.py"
+    ],
+    "command_record": "runs/d02/model-replay-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.1442360410001129,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:57:49.399745+00:00",
+    "output": "runs/d02/model-replay.log",
+    "started_at_utc": "2026-10-08T07:57:49.255471+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "scripts/check_adapter.py"
+    ],
+    "command_record": "runs/d02/adapter-replay-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.11390391702298075,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:57:49.370885+00:00",
+    "output": "runs/d02/adapter-replay.log",
+    "started_at_utc": "2026-10-08T07:57:49.256952+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "scripts/check_d01.py",
+      "--require-annotation-ready"
+    ],
+    "command_record": "runs/d02/annotation-gate-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.05195575000834651,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 1,
+    "expected_exit_code": 1,
+    "finished_at_utc": "2026-10-08T07:57:49.321167+00:00",
+    "output": "runs/d02/annotation-gate.log",
+    "started_at_utc": "2026-10-08T07:57:49.269160+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+      "scripts/check_m06.py",
+      "--lczero-checkout",
+      "/private/tmp/rl-chess-f03-lczero",
+      "--output",
+      "runs/d02/m06-check.json"
+    ],
+    "command_record": "runs/d02/m06-check-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 24.28282245801529,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:58:13.553301+00:00",
+    "output": "runs/d02/m06-check.log",
+    "raw_stdout_evidence": "runs/d02/stdout-raw.json",
+    "readable_log_normalization": "redundant trailing blank lines removed; exact original stdout retained in stdout-raw.json",
+    "started_at_utc": "2026-10-08T07:57:49.270376+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=runs/d02/pytest-final-adapter.xml"
+    ],
+    "command_record": "runs/d02/final-adapter-regression-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 3.187420125002973,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:59:35.057367+00:00",
+    "output": "runs/d02/final-adapter-regression.log",
+    "started_at_utc": "2026-10-08T07:59:31.869913+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "-p",
+      "runs.m06.diagnostic_plugin",
+      "--junitxml=runs/d02/pytest-final-model.xml"
+    ],
+    "command_record": "runs/d02/final-model-regression-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 38.9855663330236,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:00:10.856269+00:00",
+    "output": "runs/d02/final-model-regression.log",
+    "started_at_utc": "2026-10-08T07:59:31.870667+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+      "scripts/check_upstream.py",
+      "--maia3-checkout",
+      "/private/tmp/rl-chess-f03-maia3",
+      "--lczero-checkout",
+      "/private/tmp/rl-chess-f03-lczero"
+    ],
+    "command_record": "runs/d02/pinned-sources-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.38976770799490623,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:59:32.275012+00:00",
+    "output": "runs/d02/pinned-sources.log",
+    "started_at_utc": "2026-10-08T07:59:31.885126+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-c",
+      "import sys,importlib.util; import chess_rl.pgn_replay; assert importlib.util.find_spec(\"torch\") is None; assert \"torch\" not in sys.modules; assert not any(n.startswith(\"chess_rl.model\") or n.startswith(\"chess_rl.search\") for n in sys.modules); print(\"Torch/model/search-free PGN preparation imports passed\")"
+    ],
+    "command_record": "runs/d02/import-boundary-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.24001504099578597,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T07:59:32.128998+00:00",
+    "output": "runs/d02/import-boundary.log",
+    "started_at_utc": "2026-10-08T07:59:31.888680+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_pgn_replay.py",
+      "tests/test_data_manifest.py",
+      "-p",
+      "no:cacheprovider"
+    ],
+    "command_record": "runs/d02/strict-focused-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.4943880829960108,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:01:20.123913+00:00",
+    "output": "runs/d02/strict-focused.log",
+    "started_at_utc": "2026-10-08T08:01:19.629474+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "scripts/prepare_d02.py",
+      "--manifest",
+      "data/manifests/elite-2025-01-v1.json",
+      "--archive",
+      "/private/tmp/lichess_elite_2025-01.zip",
+      "--output-dir",
+      "/private/tmp/rl-chess-d02-accepted-prepared"
+    ],
+    "command_record": "runs/d02/accepted-full-archive-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 1405.767752707994,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:24:45.946716+00:00",
+    "output": "runs/d02/accepted-full-archive.log",
+    "started_at_utc": "2026-10-08T08:01:20.176665+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "-p",
+      "runs.m06.diagnostic_plugin",
+      "--junitxml=runs/d02/pytest-complete-model.xml"
+    ],
+    "command_record": "runs/d02/complete-model-regression-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 48.46532941699843,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:03:12.621278+00:00",
+    "output": "runs/d02/complete-model-regression.log",
+    "started_at_utc": "2026-10-08T08:02:24.155891+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=runs/d02/pytest-complete-adapter.xml"
+    ],
+    "command_record": "runs/d02/complete-adapter-regression-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 3.750817832973553,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:02:27.906994+00:00",
+    "output": "runs/d02/complete-adapter-regression.log",
+    "started_at_utc": "2026-10-08T08:02:24.156151+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "runs/d02/preservation.py"
+    ],
+    "command_record": "runs/d02/preservation-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 2.677403166977456,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:05:13.256819+00:00",
+    "output": "runs/d02/preservation.log",
+    "started_at_utc": "2026-10-08T08:05:10.579283+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "runs/d02/source_census.py"
+    ],
+    "command_record": "runs/d02/source-census-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 9.523219416994834,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:06:38.024823+00:00",
+    "output": "runs/d02/source-census.log",
+    "started_at_utc": "2026-10-08T08:06:28.501547+00:00"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "command_record": "runs/d02/whitespace-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.04062625000369735,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:08:45.335749+00:00",
+    "output": "runs/d02/whitespace.log",
+    "started_at_utc": "2026-10-08T08:08:45.295054+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "runs/d02/record_retrieval.py"
+    ],
+    "command_record": "runs/d02/retrieval-checksum-final-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.7761605000123382,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:09:26.673827+00:00",
+    "output": "runs/d02/retrieval-checksum-final.log",
+    "started_at_utc": "2026-10-08T08:09:25.897616+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "runs/d02/audit_outputs.py",
+      "/private/tmp/rl-chess-d02-prepared"
+    ],
+    "command_record": "runs/d02/preliminary-output-audit-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 10.32791841699509,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:16:23.066671+00:00",
+    "output": "runs/d02/preliminary-output-audit.log",
+    "started_at_utc": "2026-10-08T08:16:12.738700+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "runs/d02/preservation.py"
+    ],
+    "command_record": "runs/d02/final-preservation-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 1.784605583990924,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:25:12.717628+00:00",
+    "output": "runs/d02/final-preservation.log",
+    "started_at_utc": "2026-10-08T08:25:10.932971+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "runs/d02/audit_outputs.py",
+      "/private/tmp/rl-chess-d02-accepted-prepared"
+    ],
+    "command_record": "runs/d02/final-output-audit-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 8.380292000016198,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:25:19.313312+00:00",
+    "output": "runs/d02/final-output-audit.log",
+    "started_at_utc": "2026-10-08T08:25:10.932973+00:00"
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "runs/d02/finalize_evidence.py"
+    ],
+    "command_record": "runs/d02/full-output-comparison-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.9308066249941476,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:25:11.863829+00:00",
+    "output": "runs/d02/full-output-comparison.log",
+    "started_at_utc": "2026-10-08T08:25:10.932973+00:00"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "command_record": "runs/d02/final-whitespace-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.011998958012554795,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:27:38.723495+00:00",
+    "output": "runs/d02/final-whitespace.log",
+    "started_at_utc": "2026-10-08T08:27:38.711302+00:00"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "command_record": "runs/d02/staged-whitespace-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.025196125003276393,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 2,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:28:09.968207+00:00",
+    "output": "runs/d02/staged-whitespace.log",
+    "resolution": "Extra EOF blank lines in two captured logs; exact stdout retained in stdout-raw.json; staged-whitespace-final passed",
+    "started_at_utc": "2026-10-08T08:28:09.942832+00:00"
+  },
+  {
+    "argv": [
+      "git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "command_record": "runs/d02/staged-whitespace-final-command.json",
+    "cwd": "/private/tmp/rl-chess-d02",
+    "duration_seconds": 0.02150629201787524,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02"
+    },
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "finished_at_utc": "2026-10-08T08:29:11.306202+00:00",
+    "output": "runs/d02/staged-whitespace-final.log",
+    "started_at_utc": "2026-10-08T08:29:11.284512+00:00"
+  }
+]

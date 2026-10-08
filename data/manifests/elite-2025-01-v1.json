@@ -1,12 +1,12 @@
 {
   "archive": {
-    "downloaded_bytes": null,
-    "downloaded_sha256": null,
+    "downloaded_bytes": 82724777,
+    "downloaded_sha256": "f2fa14565bcdaba7ad6de6a4f8f2348d0f9f8f262935c46e61925c5acce6f7b7",
     "index_url": "https://database.nikonoel.fr/",
     "month": "2025-01",
-    "retrieved_at_utc": null,
+    "retrieved_at_utc": "2026-10-08T07:45:09.776038+00:00",
     "url": "https://database.nikonoel.fr/lichess_elite_2025-01.zip",
-    "verification_evidence": "runs/d01/archive-provenance.json",
+    "verification_evidence": "runs/d02/archive-provenance.json",
     "verified_at_utc": "2026-10-08T07:09:21.833693+00:00"
   },
   "dataset_id": "lichess-elite-2025-01-pilot-v1",

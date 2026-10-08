@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "runs/d02/preservation.py"
+  ],
+  "cwd": "/private/tmp/rl-chess-d02",
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "started_at_utc": "2026-10-08T08:05:10.579283+00:00",
+  "finished_at_utc": "2026-10-08T08:05:13.256819+00:00",
+  "duration_seconds": 2.677403166977456,
+  "exit_code": 0,
+  "output": "runs/d02/preservation.log"
+}

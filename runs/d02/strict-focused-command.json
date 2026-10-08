@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_pgn_replay.py",
+    "tests/test_data_manifest.py",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "cwd": "/private/tmp/rl-chess-d02",
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "started_at_utc": "2026-10-08T08:01:19.629474+00:00",
+  "finished_at_utc": "2026-10-08T08:01:20.123913+00:00",
+  "duration_seconds": 0.4943880829960108,
+  "exit_code": 0,
+  "output": "runs/d02/strict-focused.log"
+}

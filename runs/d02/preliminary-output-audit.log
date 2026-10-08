@@ -1,0 +1,119 @@
+{
+  "all_source_locations_and_output_hashes_matched": true,
+  "annotation_blockers": [
+    "preparation.split_algorithm",
+    "preparation.sampling_algorithm",
+    "preparation.phase_boundaries",
+    "preparation.split_audit_sha256",
+    "preparation.overlap_audit_sha256",
+    "preparation.protected_heldout_registry_sha256"
+  ],
+  "bulk_path": "/private/tmp/rl-chess-d02-prepared",
+  "counts": {
+    "accepted": 289776,
+    "declared_setups": 0,
+    "games": 289776,
+    "plies": 25429063,
+    "result_discrepancies": 0,
+    "unfinished": 0
+  },
+  "member_identity_matches_retrieval": true,
+  "selected_record_roundtrips": [
+    {
+      "final_fen": "8/8/8/4R3/6K1/5Q2/5B2/5k2 b - - 2 74",
+      "history_complete": true,
+      "plies": 147,
+      "source": {
+        "archive_sha256": "f2fa14565bcdaba7ad6de6a4f8f2348d0f9f8f262935c46e61925c5acce6f7b7",
+        "byte_end": 1293,
+        "byte_start": 0,
+        "game_ordinal": 1,
+        "line_end": 31,
+        "line_start": 1,
+        "member": "lichess_elite_2025-01.pgn",
+        "member_index": 1,
+        "source_sha256": "25831636196871fe9677e193ba92eb711bdb51b5c1d747e99027cd8dc6ceda56"
+      }
+    },
+    {
+      "final_fen": "rnbqkbnr/pp3ppp/4p3/2p1P3/3p4/2P2N2/PP1P1PPP/RNBQKB1R w KQkq - 0 5",
+      "history_complete": true,
+      "plies": 8,
+      "source": {
+        "archive_sha256": "f2fa14565bcdaba7ad6de6a4f8f2348d0f9f8f262935c46e61925c5acce6f7b7",
+        "byte_end": 970384,
+        "byte_start": 969905,
+        "game_ordinal": 1000,
+        "line_end": 27556,
+        "line_start": 27537,
+        "member": "lichess_elite_2025-01.pgn",
+        "member_index": 1,
+        "source_sha256": "0da0cc3f146ac2bfdfc2e462dc7c39e8d163cccdc753abdc3f810facf394157e"
+      }
+    },
+    {
+      "final_fen": "2k5/2QR4/8/3pB3/p1p1b3/P1P5/1r4PK/8 b - - 2 50",
+      "history_complete": true,
+      "plies": 99,
+      "source": {
+        "archive_sha256": "f2fa14565bcdaba7ad6de6a4f8f2348d0f9f8f262935c46e61925c5acce6f7b7",
+        "byte_end": 9513182,
+        "byte_start": 9512160,
+        "game_ordinal": 10000,
+        "line_end": 272378,
+        "line_start": 272350,
+        "member": "lichess_elite_2025-01.pgn",
+        "member_index": 1,
+        "source_sha256": "f4e3a4a3075f7b863923d1e58b560006d4185f4c82aadd1d38904a9db4dcb650"
+      }
+    },
+    {
+      "final_fen": "5Rkr/2Q4N/p1ppq1p1/1p2p3/1P2P2p/P6P/6PK/8 b - - 12 48",
+      "history_complete": true,
+      "plies": 95,
+      "source": {
+        "archive_sha256": "f2fa14565bcdaba7ad6de6a4f8f2348d0f9f8f262935c46e61925c5acce6f7b7",
+        "byte_end": 95190132,
+        "byte_start": 95189123,
+        "game_ordinal": 100000,
+        "line_end": 2724290,
+        "line_start": 2724264,
+        "member": "lichess_elite_2025-01.pgn",
+        "member_index": 1,
+        "source_sha256": "230b4e3e3a7441318939c9fda05b0f038e88f2febc20ff581c3953c4b0c8bfdf"
+      }
+    },
+    {
+      "final_fen": "4r3/2p5/Pk2nQ2/3rp2P/1q2Np2/1R1B4/PP3P2/1K5R b - - 8 32",
+      "history_complete": true,
+      "plies": 63,
+      "source": {
+        "archive_sha256": "f2fa14565bcdaba7ad6de6a4f8f2348d0f9f8f262935c46e61925c5acce6f7b7",
+        "byte_end": 189384649,
+        "byte_start": 189383857,
+        "game_ordinal": 200000,
+        "line_end": 5433590,
+        "line_start": 5433565,
+        "member": "lichess_elite_2025-01.pgn",
+        "member_index": 1,
+        "source_sha256": "264a7884f1672a4dea6c2a8256bf3c10fb6cb882f3f0ce55ac3dfa6ab28d7767"
+      }
+    },
+    {
+      "final_fen": "5r2/6R1/8/1R6/4P1k1/6P1/6KP/8 b - - 0 51",
+      "history_complete": true,
+      "plies": 101,
+      "source": {
+        "archive_sha256": "f2fa14565bcdaba7ad6de6a4f8f2348d0f9f8f262935c46e61925c5acce6f7b7",
+        "byte_end": 274106095,
+        "byte_start": 274105046,
+        "game_ordinal": 289776,
+        "line_end": 7867281,
+        "line_start": 7867254,
+        "member": "lichess_elite_2025-01.pgn",
+        "member_index": 1,
+        "source_sha256": "677413c6cdd745dd5cf61159e66f483bc20be2d03a2d69bb698dce4a0eb1ada7"
+      }
+    }
+  ]
+}

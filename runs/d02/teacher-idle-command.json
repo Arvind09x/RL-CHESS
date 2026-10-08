@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "scripts/check_d01.py",
+    "--teacher-executable",
+    "/private/tmp/Stockfish-sf_17.1/src/stockfish",
+    "--output",
+    "runs/d02/teacher-idle.json"
+  ],
+  "cwd": "/private/tmp/rl-chess-d02",
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "started_at_utc": "2026-10-08T07:52:22.419692+00:00",
+  "finished_at_utc": "2026-10-08T07:52:22.912291+00:00",
+  "duration_seconds": 0.49257416700129397,
+  "exit_code": 0,
+  "output": "runs/d02/teacher-idle.log",
+  "raw_stdout_evidence": "runs/d02/stdout-raw.json",
+  "readable_log_normalization": "redundant trailing blank lines removed; exact original stdout retained in stdout-raw.json"
+}

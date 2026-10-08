@@ -1,0 +1,90 @@
+{
+  "archive_path": "/private/tmp/lichess_elite_2025-01.zip",
+  "attempts": [
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "240",
+        "--dump-header",
+        "/private/tmp/d02-download-headers.txt",
+        "--write-out",
+        "%{json}",
+        "https://database.nikonoel.fr/lichess_elite_2025-01.zip",
+        "--output",
+        "/private/tmp/lichess_elite_2025-01.zip"
+      ],
+      "cwd": "/private/tmp/rl-chess-d02",
+      "downloaded_bytes": 0,
+      "exit_code": 6,
+      "sandbox": "use_default",
+      "stderr": "curl: (6) Could not resolve host: database.nikonoel.fr"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "240",
+        "--dump-header",
+        "/private/tmp/d02-download-headers.txt",
+        "--write-out",
+        "%{json}",
+        "https://database.nikonoel.fr/lichess_elite_2025-01.zip",
+        "--output",
+        "/private/tmp/lichess_elite_2025-01.zip"
+      ],
+      "cwd": "/private/tmp/rl-chess-d02",
+      "downloaded_bytes": 82724777,
+      "exit_code": 0,
+      "sandbox": "require_escalated (user approved)"
+    }
+  ],
+  "curl_observations": {
+    "content_type": "application/zip",
+    "exitcode": 0,
+    "http_code": 200,
+    "num_redirects": 0,
+    "size_download": 82724777,
+    "ssl_verify_result": 0,
+    "time_total": 7.792317,
+    "url_effective": "https://database.nikonoel.fr/lichess_elite_2025-01.zip"
+  },
+  "downloaded_bytes": 82724777,
+  "downloaded_sha256": "f2fa14565bcdaba7ad6de6a4f8f2348d0f9f8f262935c46e61925c5acce6f7b7",
+  "final_url": "https://database.nikonoel.fr/lichess_elite_2025-01.zip",
+  "headers_evidence": "runs/d02/download-headers.txt",
+  "http_code": 200,
+  "member_count": 1,
+  "members": [
+    {
+      "bytes": 274106096,
+      "compressed_bytes": 82724577,
+      "compression": 8,
+      "crc32": "5e3f587e",
+      "header_offset": 0,
+      "member_index": 1,
+      "name": "lichess_elite_2025-01.pgn",
+      "sha256": "44162cdc6bf4611cff64e3a0f741d5cf524cc50100e09c56bd566ba3dabce83d",
+      "zip_timestamp": [
+        2025,
+        2,
+        4,
+        18,
+        3,
+        14
+      ]
+    }
+  ],
+  "observation_source": "actual functions.exec / exec_command curl response on 2026-10-08; selected fields transcribed, response headers retained verbatim",
+  "pgn_member_count": 1,
+  "previous_index_head_evidence": "runs/d01/archive-provenance.json",
+  "redirect_count": 0,
+  "redirects": [],
+  "requested_url": "https://database.nikonoel.fr/lichess_elite_2025-01.zip",
+  "retrieval_time_basis": "download output file mtime in UTC, observed after curl completed; not server Last-Modified",
+  "retrieved_at_utc": "2026-10-08T07:45:09.776038+00:00"
+}

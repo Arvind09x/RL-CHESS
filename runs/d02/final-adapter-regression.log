@@ -1,0 +1,31 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d02
+configfile: pyproject.toml
+testpaths: tests
+collected 304 items / 6 skipped
+
+tests/test_data_manifest.py ............................................ [ 14%]
+.......................................                                  [ 27%]
+tests/test_encoding.py ..................                                [ 33%]
+tests/test_evaluator.py .................................                [ 44%]
+tests/test_foundation.py .                                               [ 44%]
+tests/test_history.py .....                                              [ 46%]
+tests/test_legality.py .........                                         [ 49%]
+tests/test_moves.py ................................                     [ 59%]
+tests/test_outcomes.py ...................                               [ 65%]
+tests/test_pgn_replay.py ............................................... [ 81%]
+......................                                                   [ 88%]
+tests/test_regression.py ...........                                     [ 92%]
+tests/test_state.py .................                                    [ 97%]
+tests/test_types.py .......                                              [100%]
+
+- generated xml file: /private/tmp/rl-chess-d02/runs/d02/pytest-final-adapter.xml -
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_backbone.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_gab.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_network.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_policy.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_relative.py:3: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_wdl.py:4: could not import 'torch': No module named 'torch'
+======================== 304 passed, 6 skipped in 3.00s ========================

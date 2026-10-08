@@ -1,0 +1,579 @@
+[
+  {
+    "name": "ordinary_both_colors",
+    "pgn": "[Result \"1-0\"]\n[LichessURL \"https://lichess.org/example\"]\n1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 1-0\n",
+    "moves_uci": [
+      "e2e4",
+      "e7e5",
+      "g1f3",
+      "b8c6",
+      "f1b5",
+      "a7a6"
+    ],
+    "reason": null,
+    "start_fen": null
+  },
+  {
+    "name": "castling_both_colors",
+    "pgn": "\n1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. O-O Nf6 5. d3 O-O *\n",
+    "moves_uci": [
+      "e2e4",
+      "e7e5",
+      "g1f3",
+      "b8c6",
+      "f1c4",
+      "f8c5",
+      "e1g1",
+      "g8f6",
+      "d2d3",
+      "e8g8"
+    ],
+    "reason": null,
+    "start_fen": null
+  },
+  {
+    "name": "en_passant_white",
+    "pgn": "\n1. e4 a6 2. e5 d5 3. exd6 *\n",
+    "moves_uci": [
+      "e2e4",
+      "a7a6",
+      "e4e5",
+      "d7d5",
+      "e5d6"
+    ],
+    "reason": null,
+    "start_fen": null
+  },
+  {
+    "name": "en_passant_black",
+    "pgn": "\n1. a3 e5 2. a4 e4 3. d4 exd3 *\n",
+    "moves_uci": [
+      "a2a3",
+      "e7e5",
+      "a3a4",
+      "e5e4",
+      "d2d4",
+      "e4d3"
+    ],
+    "reason": null,
+    "start_fen": null
+  },
+  {
+    "name": "setup_white_promotion_Q",
+    "pgn": "[Variant \"Standard\"]\n[SetUp \"1\"]\n[FEN \"7k/P7/8/8/8/8/8/7K w - - 0 1\"]\n1. a8=Q *\n",
+    "moves_uci": [
+      "a7a8q"
+    ],
+    "reason": null,
+    "start_fen": "7k/P7/8/8/8/8/8/7K w - - 0 1"
+  },
+  {
+    "name": "setup_white_promotion_R",
+    "pgn": "[Variant \"Standard\"]\n[SetUp \"1\"]\n[FEN \"7k/P7/8/8/8/8/8/7K w - - 0 1\"]\n1. a8=R *\n",
+    "moves_uci": [
+      "a7a8r"
+    ],
+    "reason": null,
+    "start_fen": "7k/P7/8/8/8/8/8/7K w - - 0 1"
+  },
+  {
+    "name": "setup_white_promotion_B",
+    "pgn": "[Variant \"Standard\"]\n[SetUp \"1\"]\n[FEN \"7k/P7/8/8/8/8/8/7K w - - 0 1\"]\n1. a8=B *\n",
+    "moves_uci": [
+      "a7a8b"
+    ],
+    "reason": null,
+    "start_fen": "7k/P7/8/8/8/8/8/7K w - - 0 1"
+  },
+  {
+    "name": "setup_white_promotion_N",
+    "pgn": "[Variant \"Standard\"]\n[SetUp \"1\"]\n[FEN \"7k/P7/8/8/8/8/8/7K w - - 0 1\"]\n1. a8=N *\n",
+    "moves_uci": [
+      "a7a8n"
+    ],
+    "reason": null,
+    "start_fen": "7k/P7/8/8/8/8/8/7K w - - 0 1"
+  },
+  {
+    "name": "setup_black_promotion_Q",
+    "pgn": "[Variant \"Standard\"]\n[SetUp \"1\"]\n[FEN \"7k/8/8/8/8/8/p7/7K b - - 0 9\"]\n9... a1=Q *\n",
+    "moves_uci": [
+      "a2a1q"
+    ],
+    "reason": null,
+    "start_fen": "7k/8/8/8/8/8/p7/7K b - - 0 9"
+  },
+  {
+    "name": "setup_black_promotion_R",
+    "pgn": "[Variant \"Standard\"]\n[SetUp \"1\"]\n[FEN \"7k/8/8/8/8/8/p7/7K b - - 0 9\"]\n9... a1=R *\n",
+    "moves_uci": [
+      "a2a1r"
+    ],
+    "reason": null,
+    "start_fen": "7k/8/8/8/8/8/p7/7K b - - 0 9"
+  },
+  {
+    "name": "setup_black_promotion_B",
+    "pgn": "[Variant \"Standard\"]\n[SetUp \"1\"]\n[FEN \"7k/8/8/8/8/8/p7/7K b - - 0 9\"]\n9... a1=B *\n",
+    "moves_uci": [
+      "a2a1b"
+    ],
+    "reason": null,
+    "start_fen": "7k/8/8/8/8/8/p7/7K b - - 0 9"
+  },
+  {
+    "name": "setup_black_promotion_N",
+    "pgn": "[Variant \"Standard\"]\n[SetUp \"1\"]\n[FEN \"7k/8/8/8/8/8/p7/7K b - - 0 9\"]\n9... a1=N *\n",
+    "moves_uci": [
+      "a2a1n"
+    ],
+    "reason": null,
+    "start_fen": "7k/8/8/8/8/8/p7/7K b - - 0 9"
+  },
+  {
+    "name": "setup_black_castle",
+    "pgn": "[SetUp \"1\"]\n[FEN \"r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 99 12\"]\n12... O-O *\n",
+    "moves_uci": [
+      "e8g8"
+    ],
+    "reason": null,
+    "start_fen": "r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 99 12"
+  },
+  {
+    "name": "setup_retains_raw_ep",
+    "pgn": "[SetUp \"1\"]\n[FEN \"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1\"]\n1... Nf6 *\n",
+    "moves_uci": [
+      "g8f6"
+    ],
+    "reason": null,
+    "start_fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1"
+  },
+  {
+    "name": "long_repetition_beyond_episode_draw",
+    "pgn": "\n1. Nf3 Nf6 2. Ng1 Ng8 3. Nf3 Nf6 4. Ng1 Ng8 5. Nf3 Nf6 6. Ng1 Ng8 7. Nf3 Nf6 8. Ng1 Ng8 9. Nf3 Nf6 10. Ng1 Ng8 11. Nf3 Nf6 12. Ng1 Ng8 13. Nf3 Nf6 14. Ng1 Ng8 15. Nf3 Nf6 16. Ng1 Ng8 17. Nf3 Nf6 18. Ng1 Ng8 19. Nf3 Nf6 20. Ng1 Ng8 21. Nf3 Nf6 22. Ng1 Ng8 23. Nf3 Nf6 24. Ng1 Ng8 25. e4 *\n",
+    "moves_uci": [
+      "g1f3",
+      "g8f6",
+      "f3g1",
+      "f6g8",
+      "g1f3",
+      "g8f6",
+      "f3g1",
+      "f6g8",
+      "g1f3",
+      "g8f6",
+      "f3g1",
+      "f6g8",
+      "g1f3",
+      "g8f6",
+      "f3g1",
+      "f6g8",
+      "g1f3",
+      "g8f6",
+      "f3g1",
+      "f6g8",
+      "g1f3",
+      "g8f6",
+      "f3g1",
+      "f6g8",
+      "g1f3",
+      "g8f6",
+      "f3g1",
+      "f6g8",
+      "g1f3",
+      "g8f6",
+      "f3g1",
+      "f6g8",
+      "g1f3",
+      "g8f6",
+      "f3g1",
+      "f6g8",
+      "g1f3",
+      "g8f6",
+      "f3g1",
+      "f6g8",
+      "g1f3",
+      "g8f6",
+      "f3g1",
+      "f6g8",
+      "g1f3",
+      "g8f6",
+      "f3g1",
+      "f6g8",
+      "e2e4"
+    ],
+    "reason": null,
+    "start_fen": null
+  },
+  {
+    "name": "comments_variations",
+    "pgn": "\n1. e4 {two lines\n\nwith text} (1. d4 d5) e5 $1 2. Nf3!? Nc6 ; note\n*\n",
+    "moves_uci": [
+      "e2e4",
+      "e7e5",
+      "g1f3",
+      "b8c6"
+    ],
+    "reason": null,
+    "start_fen": null
+  },
+  {
+    "name": "result_discrepancy",
+    "pgn": "[Result \"1-0\"]\n1. e4 e5 0-1\n",
+    "moves_uci": [
+      "e2e4",
+      "e7e5"
+    ],
+    "reason": null,
+    "start_fen": null
+  },
+  {
+    "name": "zero_moves_unfinished",
+    "pgn": "\n*\n",
+    "moves_uci": [],
+    "reason": null,
+    "start_fen": null
+  },
+  {
+    "name": "variant_Chess960",
+    "pgn": "[Variant \"Chess960\"]\n1. e4 *\n",
+    "moves_uci": null,
+    "reason": "variant",
+    "start_fen": null
+  },
+  {
+    "name": "variant_Fischerandom",
+    "pgn": "[Variant \"Fischerandom\"]\n1. e4 *\n",
+    "moves_uci": null,
+    "reason": "variant",
+    "start_fen": null
+  },
+  {
+    "name": "variant_Atomic",
+    "pgn": "[Variant \"Atomic\"]\n1. e4 *\n",
+    "moves_uci": null,
+    "reason": "variant",
+    "start_fen": null
+  },
+  {
+    "name": "variant_Crazyhouse",
+    "pgn": "[Variant \"Crazyhouse\"]\n1. e4 *\n",
+    "moves_uci": null,
+    "reason": "variant",
+    "start_fen": null
+  },
+  {
+    "name": "variant_From Position",
+    "pgn": "[Variant \"From Position\"]\n1. e4 *\n",
+    "moves_uci": null,
+    "reason": "variant",
+    "start_fen": null
+  },
+  {
+    "name": "variant_unknown",
+    "pgn": "[Variant \"unknown\"]\n1. e4 *\n",
+    "moves_uci": null,
+    "reason": "variant",
+    "start_fen": null
+  },
+  {
+    "name": "missing_fen",
+    "pgn": "[SetUp \"1\"]\n*\n",
+    "moves_uci": null,
+    "reason": "setup",
+    "start_fen": null
+  },
+  {
+    "name": "undeclared_fen",
+    "pgn": "[FEN \"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1\"]\n*\n",
+    "moves_uci": null,
+    "reason": "setup",
+    "start_fen": null
+  },
+  {
+    "name": "setup_zero_fen",
+    "pgn": "[SetUp \"0\"]\n[FEN \"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1\"]\n*\n",
+    "moves_uci": null,
+    "reason": "setup",
+    "start_fen": null
+  },
+  {
+    "name": "bad_setup",
+    "pgn": "[SetUp \"yes\"]\n*\n",
+    "moves_uci": null,
+    "reason": "setup",
+    "start_fen": null
+  },
+  {
+    "name": "malformed_fen",
+    "pgn": "[SetUp \"1\"]\n[FEN \"broken\"]\n*\n",
+    "moves_uci": null,
+    "reason": "setup",
+    "start_fen": null
+  },
+  {
+    "name": "invalid_board",
+    "pgn": "[SetUp \"1\"]\n[FEN \"8/8/8/8/8/8/8/K7 w - - 0 1\"]\n*\n",
+    "moves_uci": null,
+    "reason": "setup",
+    "start_fen": null
+  },
+  {
+    "name": "chess960_rights",
+    "pgn": "[SetUp \"1\"]\n[FEN \"r3k2r/8/8/8/8/8/8/R3K2R w HAha - 0 1\"]\n*\n",
+    "moves_uci": null,
+    "reason": "setup",
+    "start_fen": null
+  },
+  {
+    "name": "illegal_san",
+    "pgn": "\n1. e4 e5 2. Bh6 *\n",
+    "moves_uci": null,
+    "reason": "parser_error",
+    "start_fen": null
+  },
+  {
+    "name": "bad_text",
+    "pgn": "\n1. e4 THIS_IS_CORRUPT e5 *\n",
+    "moves_uci": null,
+    "reason": "syntax",
+    "start_fen": null
+  },
+  {
+    "name": "partial_parser_error",
+    "pgn": "\n1. e4 e5 2. Nf3 Nc6 3. Qh8 *\n",
+    "moves_uci": null,
+    "reason": "parser_error",
+    "start_fen": null
+  },
+  {
+    "name": "unmatched_close",
+    "pgn": "\n1. e4 ) *\n",
+    "moves_uci": null,
+    "reason": "syntax",
+    "start_fen": null
+  },
+  {
+    "name": "unclosed_variation",
+    "pgn": "\n1. e4 (1. d4 *\n",
+    "moves_uci": null,
+    "reason": "syntax",
+    "start_fen": null
+  },
+  {
+    "name": "bad_variation",
+    "pgn": "\n1. e4 (1. e5) e5 *\n",
+    "moves_uci": null,
+    "reason": "parser_error",
+    "start_fen": null
+  },
+  {
+    "name": "unclosed_comment",
+    "pgn": "\n1. e4 {lost\n",
+    "moves_uci": null,
+    "reason": "unclosed_comment",
+    "start_fen": null
+  },
+  {
+    "name": "missing_marker",
+    "pgn": "\n1. e4 e5\n",
+    "moves_uci": null,
+    "reason": "missing_result_marker",
+    "start_fen": null
+  },
+  {
+    "name": "moves_after_result",
+    "pgn": "\n1. e4 1-0 e5\n",
+    "moves_uci": null,
+    "reason": "syntax",
+    "start_fen": null
+  },
+  {
+    "name": "two_results",
+    "pgn": "\n1. e4 1-0 0-1\n",
+    "moves_uci": null,
+    "reason": "syntax",
+    "start_fen": null
+  },
+  {
+    "name": "null_--",
+    "pgn": "\n1. e4 -- *\n",
+    "moves_uci": null,
+    "reason": "null_move",
+    "start_fen": null
+  },
+  {
+    "name": "null_Z0",
+    "pgn": "\n1. e4 Z0 *\n",
+    "moves_uci": null,
+    "reason": "null_move",
+    "start_fen": null
+  },
+  {
+    "name": "null_0000",
+    "pgn": "\n1. e4 0000 *\n",
+    "moves_uci": null,
+    "reason": "null_move",
+    "start_fen": null
+  },
+  {
+    "name": "null_@@@@",
+    "pgn": "\n1. e4 @@@@ *\n",
+    "moves_uci": null,
+    "reason": "null_move",
+    "start_fen": null
+  },
+  {
+    "name": "duplicate_header",
+    "pgn": "[Event \"a\"]\n[Event \"b\"]\n*\n",
+    "moves_uci": null,
+    "reason": "headers",
+    "start_fen": null
+  },
+  {
+    "name": "malformed_header",
+    "pgn": "[Event broken]\n*\n",
+    "moves_uci": null,
+    "reason": "headers",
+    "start_fen": null
+  },
+  {
+    "name": "invalid_result",
+    "pgn": "[Result \"aborted\"]\n1. e4 *\n",
+    "moves_uci": null,
+    "reason": "result",
+    "start_fen": null
+  },
+  {
+    "name": "missing_initial_plies",
+    "pgn": "42. e4 e5 *",
+    "moves_uci": null,
+    "reason": "move_number",
+    "start_fen": null
+  },
+  {
+    "name": "wrong_side_number",
+    "pgn": "1... e4 *",
+    "moves_uci": null,
+    "reason": "move_number",
+    "start_fen": null
+  },
+  {
+    "name": "wrong_later_number",
+    "pgn": "1. e4 e5 4. Nf3 *",
+    "moves_uci": null,
+    "reason": "move_number",
+    "start_fen": null
+  },
+  {
+    "name": "queenside_castle_white",
+    "pgn": "[SetUp \"1\"]\n[FEN \"r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 12\"]\n\n12. O-O-O *\n",
+    "moves_uci": [
+      "e1c1"
+    ],
+    "reason": null,
+    "start_fen": "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 12"
+  },
+  {
+    "name": "capture_promotion_white_Q",
+    "pgn": "[SetUp \"1\"]\n[FEN \"1r5k/P7/8/8/8/8/8/7K w - - 0 1\"]\n\n1. axb8=Q *\n",
+    "moves_uci": [
+      "a7b8q"
+    ],
+    "reason": null,
+    "start_fen": "1r5k/P7/8/8/8/8/8/7K w - - 0 1"
+  },
+  {
+    "name": "capture_promotion_white_R",
+    "pgn": "[SetUp \"1\"]\n[FEN \"1r5k/P7/8/8/8/8/8/7K w - - 0 1\"]\n\n1. axb8=R *\n",
+    "moves_uci": [
+      "a7b8r"
+    ],
+    "reason": null,
+    "start_fen": "1r5k/P7/8/8/8/8/8/7K w - - 0 1"
+  },
+  {
+    "name": "capture_promotion_white_B",
+    "pgn": "[SetUp \"1\"]\n[FEN \"1r5k/P7/8/8/8/8/8/7K w - - 0 1\"]\n\n1. axb8=B *\n",
+    "moves_uci": [
+      "a7b8b"
+    ],
+    "reason": null,
+    "start_fen": "1r5k/P7/8/8/8/8/8/7K w - - 0 1"
+  },
+  {
+    "name": "capture_promotion_white_N",
+    "pgn": "[SetUp \"1\"]\n[FEN \"1r5k/P7/8/8/8/8/8/7K w - - 0 1\"]\n\n1. axb8=N *\n",
+    "moves_uci": [
+      "a7b8n"
+    ],
+    "reason": null,
+    "start_fen": "1r5k/P7/8/8/8/8/8/7K w - - 0 1"
+  },
+  {
+    "name": "queenside_castle_black",
+    "pgn": "[SetUp \"1\"]\n[FEN \"r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 12\"]\n\n12... O-O-O *\n",
+    "moves_uci": [
+      "e8c8"
+    ],
+    "reason": null,
+    "start_fen": "r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 12"
+  },
+  {
+    "name": "capture_promotion_black_Q",
+    "pgn": "[SetUp \"1\"]\n[FEN \"7k/8/8/8/8/8/p7/1R5K b - - 0 9\"]\n\n9... axb1=Q *\n",
+    "moves_uci": [
+      "a2b1q"
+    ],
+    "reason": null,
+    "start_fen": "7k/8/8/8/8/8/p7/1R5K b - - 0 9"
+  },
+  {
+    "name": "capture_promotion_black_R",
+    "pgn": "[SetUp \"1\"]\n[FEN \"7k/8/8/8/8/8/p7/1R5K b - - 0 9\"]\n\n9... axb1=R *\n",
+    "moves_uci": [
+      "a2b1r"
+    ],
+    "reason": null,
+    "start_fen": "7k/8/8/8/8/8/p7/1R5K b - - 0 9"
+  },
+  {
+    "name": "capture_promotion_black_B",
+    "pgn": "[SetUp \"1\"]\n[FEN \"7k/8/8/8/8/8/p7/1R5K b - - 0 9\"]\n\n9... axb1=B *\n",
+    "moves_uci": [
+      "a2b1b"
+    ],
+    "reason": null,
+    "start_fen": "7k/8/8/8/8/8/p7/1R5K b - - 0 9"
+  },
+  {
+    "name": "capture_promotion_black_N",
+    "pgn": "[SetUp \"1\"]\n[FEN \"7k/8/8/8/8/8/p7/1R5K b - - 0 9\"]\n\n9... axb1=N *\n",
+    "moves_uci": [
+      "a2b1n"
+    ],
+    "reason": null,
+    "start_fen": "7k/8/8/8/8/8/p7/1R5K b - - 0 9"
+  },
+  {
+    "name": "orphan_variation",
+    "pgn": "(1. e4 e5) *",
+    "moves_uci": null,
+    "reason": "syntax",
+    "start_fen": null
+  },
+  {
+    "name": "empty_variation",
+    "pgn": "1. e4 () e5 *",
+    "moves_uci": null,
+    "reason": "syntax",
+    "start_fen": null
+  },
+  {
+    "name": "orphan_glyph",
+    "pgn": "$1 *",
+    "moves_uci": null,
+    "reason": "syntax",
+    "start_fen": null
+  }
+]

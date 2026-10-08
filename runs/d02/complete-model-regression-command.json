@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "-p",
+    "runs.m06.diagnostic_plugin",
+    "--junitxml=runs/d02/pytest-complete-model.xml"
+  ],
+  "cwd": "/private/tmp/rl-chess-d02",
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d02/src:/private/tmp/rl-chess-d02",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "started_at_utc": "2026-10-08T08:02:24.155891+00:00",
+  "finished_at_utc": "2026-10-08T08:03:12.621278+00:00",
+  "duration_seconds": 48.46532941699843,
+  "exit_code": 0,
+  "output": "runs/d02/complete-model-regression.log"
+}

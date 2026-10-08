@@ -1,6 +1,6 @@
 # Coding plan: small tasks from interface to playable agent
 
-Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 and M05 are accepted through independent AI review; M06 is accepted for local CPU correctness through user-supplied independent AI review on 8 October 2026. D01 manifest preparation and S01 CPU evaluator plumbing are independently AI review accepted and integrated in merged base 0347ceb. D02 source replay and S02 CPU PUCT selection/expansion/traversal are accepted through fresh independent AI review on 8 October 2026 and integrated together; D03–D08 and S03 onward remain unchecked. Annotation remains blocked and Gate S is not accepted. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
+Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 and M05 are accepted through independent AI review; M06 is accepted for local CPU correctness through user-supplied independent AI review on 8 October 2026. D01 manifest preparation and S01 CPU evaluator plumbing are independently AI review accepted and integrated in merged base 0347ceb. D02 source replay and S02 CPU PUCT selection/expansion/traversal are accepted through fresh independent AI review on 8 October 2026 and integrated together; D03 automated consolidation/split checks are complete and independent review is pending; D04–D08 and S03 onward remain unchecked. Annotation remains blocked and Gate S is not accepted. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
 
 This is the execution companion to [plan1.md](plan1.md), not a replacement strategy. [interface.md](interface.md) defines the shared behavior. The intended agent is a Chessformer network with Leela-inspired MCTS and self-play, based on AlphaZero's learning principle and initialized with Stockfish supervision.
 
@@ -92,7 +92,7 @@ After Gate A, the data, model and search tracks can proceed independently. They 
 |---|---|---|---|---|
 | [x] | D01 / P1 | F02 | Create the dataset manifest and decide the archive, sampling/split seeds, game-ID convention, storage format and ending-policy ID. Plan an initial 10,000 labels and measurement-based expansion to 100,000, several hundred thousand and potentially 1 million. Record the fixed teacher configuration and resolve the binary/version/checksum. | Required provenance fields are explicit; pending archive checksum is filled in D02. Archive coverage is audited before fixing the main scale. No annotation starts with an incomplete manifest; 1 million labels is not a mandatory allocation. |
 | [x] | D02 / P1 | D01, A07 | Fetch the selected monthly archive, record its exact URL/checksum, and implement standard PGN parsing/replay with rejected-game accounting. | Valid games replay with full history; corrupted, variant and unreplayable games are rejected with counts/reasons. A small fixture requires no network access. |
-| [ ] | D03 / P1 | D02 | Canonicalize duplicate games and assign deterministic 90/5/5 splits by game, before position sampling. | Repeated preparation produces the same assignments. Duplicate games cannot land in separate splits. |
+| [x] | D03 / P1 | D02 | Canonicalize duplicate games and assign deterministic 90/5/5 splits by game, before position sampling. | Repeated preparation produces the same assignments. Duplicate games cannot land in separate splits. |
 | [ ] | D04 / P1 | D03 | Record phase boundaries and sampling algorithm; select at most eight distinct nonterminal positions per game and remove position overlap across splits. Define expansion with stable game assignments and protected held-out sets. | A split/coverage audit passes. Identity includes rule-relevant board state and legal en-passant availability, independent of network-history differences. Report phase counts per split before/after removal. Protected held-out splits remain separate; removals, expansion and refill rules are deterministic. |
 | [ ] | D05 / P1 | D04 | Implement the Stockfish worker and annotate a tiny valid sample with the locked settings, hash resets, failure/retry records and root-perspective targets. | Every retained best move is legal and matches its ID; WDL counts/probabilities are valid. Missing WDL/interrupted analyses are never accepted as targets. Replaying a saved record reproduces its root. |
 | [ ] | D06 / P1 | D05 | Run the 1,000-position annotation benchmark separately from worker implementation. | Save actual throughput, failures, settings and returned search information. Project annotation/replay/encoding/storage costs for 10,000, 100,000, several hundred thousand and 1 million labels, identifying measured rates and scaling assumptions. Choose expansion using these costs and subsequent learning curves. |
@@ -648,3 +648,51 @@ remain available. This entry supersedes historical pending-review statements.
 D03 canonicalization/splitting and S03 backup are the next scoped tasks.
 D04 sampling/phase/overlap decisions still follow D03; annotation remains
 blocked. S04/S05 remain pending and **Gate S is not accepted**.
+
+### D03 canonical games and split completion — 2026-10-08
+
+D03 automated checks are complete and **stop for independent review**. No D03
+AI or human acceptance is claimed. Exact independently accepted D02/S02 base:
+`1301d033b81ca88e51c66ba27c1035a80c50fe54`; isolated branch/worktree:
+`codex/d03-canonical-splits`, `/private/tmp/rl-chess-d03-canonical-splits`.
+
+Changed deliverables: `src/chess_rl/canonical_games.py`, `scripts/prepare_d03.py`,
+`tests/test_canonical_games.py`, selected manifest's two D03 preparation fields
+and selected-manifest test expectations, `docs/d03-canonical-splits.md`, appended
+README/this execution status, and `runs/d03/` command/hash/audit evidence.
+Identity uses the accepted six-field legal-en-passant root FEN including
+counters and full actual UCI mainline, exactly serialized under
+`start-moves-sha256-v1`. All source occurrences, original roots, headers,
+locations/hashes and result metadata survive consolidation; hash/payload
+conflicts abort. Source results never become labels.
+
+`game-sha256-threshold-v1`, seed 20261008, hashes canonical game IDs and assigns
+integer-threshold 90/5/5 targets independently of corpus order/expansion. Complete
+accepted D02 intake identities were verified before processing. **289,776 sources
+/ 25,429,063 source plies** yield **289,427 canonical games / 25,422,787 canonical
+plies**. Actual assignments: **260,517 train / 14,480 validation / 14,430 test**.
+There are **349 additional duplicate sources / 112 groups**, with **13 groups
+of conflicting completed source results**. Bulk output remains outside Git at
+`/private/tmp/rl-chess-d03-prepared`; games SHA-256:
+`f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5`.
+The small committed split audit SHA-256 is
+`029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36`.
+
+Actual checks: 41 D03 fixtures; 196 focused tests; 611 model tests; 443 adapter
+tests/six expected skips; both identical 13-fixture adapter replays; pinned
+source/notice and teacher-byte/idle-UCI checks; all success exits 0. Two full
+preparations produced identical games/audit bytes. A separately spelled audit
+matched every identity, assignment and source provenance occurrence, and 290
+sampled games replayed through the adapter. Full 25-million-ply legal replay
+relies on accepted D02 evidence; it was not rerun. Tests cover legal/irrelevant/
+pinned en-passant, starting counters, full histories, source/result differences,
+input reordering, repeated runs, collision rejection and stable expansion across
+all three splits. Initial malformed test-fixture evidence remains saved.
+
+Only D03's split algorithm and split-audit checksum are resolved. The annotation
+gate exits 1 with four D04 blockers. Sampling, phase boundaries, cross-split
+rule-position overlap, protected-sample registries and removal/refill/expansion
+rules remain unresolved. Assignments alone establish no sample coverage or
+position separation. Accepted code, dependencies, teacher and historical evidence
+are preserved. CPU macOS arm64/Python 3.12.12 only; no annotation, training,
+benchmark, GPU or search experiment. D04 remains unchecked.

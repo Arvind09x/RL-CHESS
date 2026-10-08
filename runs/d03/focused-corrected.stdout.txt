@@ -1,0 +1,10 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d03-canonical-splits
+configfile: pyproject.toml
+collected 41 items
+
+tests/test_canonical_games.py .........................................  [100%]
+
+- generated xml file: /private/tmp/rl-chess-d03-canonical-splits/runs/d03/focused-corrected.xml -
+============================== 41 passed in 0.45s ==============================

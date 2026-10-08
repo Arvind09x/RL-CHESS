@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d07
+configfile: pyproject.toml
+collected 122 items
+
+tests/test_supervised.py ............................................... [ 38%]
+.................................................s...................... [ 97%]
+...                                                                      [100%]
+
+--- generated xml file: /private/tmp/rl-chess-d07/runs/d07/focused-final.xml ---
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_supervised.py:346: could not import 'torch': No module named 'torch'
+======================== 121 passed, 1 skipped in 3.30s ========================

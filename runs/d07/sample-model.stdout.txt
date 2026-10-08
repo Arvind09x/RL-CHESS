@@ -1,0 +1,16 @@
+{
+  "coverage": {
+    "opening:black": 2,
+    "opening:white": 2,
+    "middlegame:white": 2,
+    "middlegame:black": 2,
+    "endgame:white": 2,
+    "endgame:black": 2
+  },
+  "split_selection_verified": true,
+  "direct_board_and_history_agree": true,
+  "frozen_D05_feature_mask_hashes_agree": true,
+  "independent_move_ids_and_soft_targets_agree": true,
+  "torch_imported": false,
+  "limitations": "12 existing training roots, CPU only; no new annotation/training/scale claims"
+}

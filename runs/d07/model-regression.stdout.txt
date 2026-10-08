@@ -1,0 +1,44 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d07
+configfile: pyproject.toml
+testpaths: tests
+collected 1100 items
+
+tests/test_backbone.py ..................                                [  1%]
+tests/test_backup.py ................................................... [  6%]
+....................................................................     [ 12%]
+tests/test_canonical_games.py .........................................  [ 16%]
+tests/test_data_manifest.py ............................................ [ 20%]
+.......................................                                  [ 23%]
+tests/test_encoding.py ..................                                [ 25%]
+tests/test_evaluator.py .................................                [ 28%]
+tests/test_foundation.py .                                               [ 28%]
+tests/test_gab.py ....................                                   [ 30%]
+tests/test_game_runner.py .............................................. [ 34%]
+                                                                         [ 34%]
+tests/test_history.py .....                                              [ 34%]
+tests/test_legality.py .........                                         [ 35%]
+tests/test_moves.py ................................                     [ 38%]
+tests/test_network.py ...................................                [ 41%]
+tests/test_outcomes.py ...................                               [ 43%]
+tests/test_pgn_replay.py ............................................... [ 47%]
+.........................                                                [ 50%]
+tests/test_policy.py ..............................                      [ 52%]
+tests/test_position_sampling.py .....................................    [ 56%]
+tests/test_puct.py ..................................................... [ 61%]
+..........................................                               [ 64%]
+tests/test_regression.py ...........                                     [ 65%]
+tests/test_relative.py ....................................              [ 69%]
+tests/test_search_runner.py ............................................ [ 73%]
+.....................................................................    [ 79%]
+tests/test_state.py .................                                    [ 80%]
+tests/test_stockfish_worker.py ......................................... [ 84%]
+.................                                                        [ 86%]
+tests/test_supervised.py ............................................... [ 90%]
+.....................................................................    [ 96%]
+tests/test_types.py .......                                              [ 97%]
+tests/test_wdl.py .............................                          [100%]
+
+- generated xml file: /private/tmp/rl-chess-d07/runs/d07/model-regression.xml --
+============================ 1100 passed in 50.63s =============================

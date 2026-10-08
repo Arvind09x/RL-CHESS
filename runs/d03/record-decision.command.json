@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "runs/d03/record_decision.py"
+  ],
+  "cwd": "/private/tmp/rl-chess-d03-canonical-splits",
+  "started_at_utc": "2026-10-08T11:16:19.087605+00:00",
+  "finished_at_utc": "2026-10-08T11:16:19.111859+00:00",
+  "duration_seconds": 0.023412292008288205,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d03-canonical-splits/src:/private/tmp/rl-chess-d03-canonical-splits",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "record-decision.stdout.txt",
+    "bytes": 424,
+    "sha256": "e6555cce00258a0bc33d6d6031bc50d6adf92945e92f0b6eb21bc6a49ae7a524"
+  },
+  "stderr": {
+    "path": "record-decision.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

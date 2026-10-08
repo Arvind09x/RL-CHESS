@@ -1,0 +1,15 @@
+{
+  "base_commit": "1301d033b81ca88e51c66ba27c1035a80c50fe54",
+  "branch": "codex/d03-canonical-splits",
+  "worktree": "/private/tmp/rl-chess-d03-canonical-splits",
+  "byte_identical_files": 514,
+  "allowed_existing_changes": [
+    "README.md",
+    "coding-plan.md",
+    "data/manifests/elite-2025-01-v1.json",
+    "tests/test_data_manifest.py"
+  ],
+  "manifest_changes_only_d03_split_fields": true,
+  "adapter_reports_byte_identical": true,
+  "accepted_code_dependencies_and_historical_evidence_preserved": true
+}

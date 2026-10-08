@@ -488,3 +488,32 @@ and `traverse`; explicit root expansion consumes zero visits.
 [Exact formula, signs and simulation-count conventions](docs/s02-puct.md)
 remain binding for S03. D03 canonicalization/splitting and S03 backup are next.
 Annotation remains blocked by D03/D04, and Gate S is not accepted.
+
+### D03 canonical consolidation and splits — 8 October 2026
+
+D03 automated checks are complete and **independent review is pending**. From
+accepted base `1301d033b81ca88e51c66ba27c1035a80c50fe54`, the isolated
+`codex/d03-canonical-splits` worktree at `/private/tmp/rl-chess-d03-canonical-splits`
+implements the exact `start-moves-sha256-v1` identity, retains all source/result
+metadata and rejects hash/payload conflicts. Versioned
+`game-sha256-threshold-v1` assigns by identity with seed 20261008 and 90/5/5
+targets, independently of ordering or corpus expansion.
+
+All 289,776 accepted source records consolidate into **289,427 canonical games**:
+**260,517 train / 14,480 validation / 14,430 test**. There are 349 additional
+duplicate source occurrences in 112 groups; 13 groups have conflicting source
+results, retained as metadata. Bulk `replay-jsonl-v1` games remain outside Git
+at `/private/tmp/rl-chess-d03-prepared`. Two complete runs produced byte-identical
+tables and audits. A separate all-source provenance/identity/split audit matched
+every game and source occurrence and replayed 290 output games via the adapter.
+
+Checks: 196 focused tests, 611 full model tests, 443 adapter tests with six
+expected skips, both identical 13-fixture adapter reports, pinned upstream
+sources, teacher bytes/idle UCI and preservation checks. Actual commands,
+exits/output hashes and the small split audit are in `runs/d03/`;
+[D03 decisions, reproduction and limits](docs/d03-canonical-splits.md) describe
+the output schema and exact hashes. Only the D03 split procedure/audit manifest
+fields are resolved. Four D04 blockers still prevent annotation. Sampling,
+phases, position overlap and protected sample registries remain unresolved;
+these game counts establish no usable sample coverage. No D03 independent
+review acceptance is claimed.

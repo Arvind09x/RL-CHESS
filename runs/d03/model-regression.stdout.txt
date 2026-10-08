@@ -1,0 +1,33 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d03-canonical-splits
+configfile: pyproject.toml
+testpaths: tests
+collected 611 items
+
+tests/test_backbone.py ..................                                [  2%]
+tests/test_canonical_games.py .........................................  [  9%]
+tests/test_data_manifest.py ............................................ [ 16%]
+.......................................                                  [ 23%]
+tests/test_encoding.py ..................                                [ 26%]
+tests/test_evaluator.py .................................                [ 31%]
+tests/test_foundation.py .                                               [ 31%]
+tests/test_gab.py ....................                                   [ 35%]
+tests/test_history.py .....                                              [ 35%]
+tests/test_legality.py .........                                         [ 37%]
+tests/test_moves.py ................................                     [ 42%]
+tests/test_network.py ...................................                [ 48%]
+tests/test_outcomes.py ...................                               [ 51%]
+tests/test_pgn_replay.py ............................................... [ 59%]
+.........................                                                [ 63%]
+tests/test_policy.py ..............................                      [ 68%]
+tests/test_puct.py ..................................................... [ 76%]
+..........................................                               [ 83%]
+tests/test_regression.py ...........                                     [ 85%]
+tests/test_relative.py ....................................              [ 91%]
+tests/test_state.py .................                                    [ 94%]
+tests/test_types.py .......                                              [ 95%]
+tests/test_wdl.py .............................                          [100%]
+
+- generated xml file: /private/tmp/rl-chess-d03-canonical-splits/runs/d03/model-regression.xml -
+============================= 611 passed in 35.56s =============================

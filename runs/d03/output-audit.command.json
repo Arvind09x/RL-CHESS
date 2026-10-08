@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "runs/d03/audit_output.py",
+    "/private/tmp/rl-chess-d03-prepared"
+  ],
+  "cwd": "/private/tmp/rl-chess-d03-canonical-splits",
+  "started_at_utc": "2026-10-08T11:15:39.357984+00:00",
+  "finished_at_utc": "2026-10-08T11:16:44.345465+00:00",
+  "duration_seconds": 64.98766275000526,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d03-canonical-splits/src:/private/tmp/rl-chess-d03-canonical-splits",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "output-audit.stdout.txt",
+    "bytes": 1039,
+    "sha256": "bb748ecfc86b0fc4522b3a1a4b1d826de0ba791a5a66575f782c4327ba984c60"
+  },
+  "stderr": {
+    "path": "output-audit.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

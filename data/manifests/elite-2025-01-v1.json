@@ -59,8 +59,8 @@
     "phase_boundaries": null,
     "protected_heldout_registry_sha256": null,
     "sampling_algorithm": null,
-    "split_algorithm": null,
-    "split_audit_sha256": null
+    "split_algorithm": "game-sha256-threshold-v1: SHA256 of UTF-8 JSON {game_id,seed,split_version}; sorted keys, compact separators, ensure_ascii=true, no newline; full digest as unsigned big-endian integer x; train if 100*x < 90*2**256, validation if 100*x < 95*2**256, otherwise test; seed=20261008; assignment targets 90/5/5",
+    "split_audit_sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36"
   },
   "sampling_seed": 20261009,
   "schema_version": "dataset-manifest-v1",

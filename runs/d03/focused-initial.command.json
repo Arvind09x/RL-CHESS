@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_canonical_games.py",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=runs/d03/focused-initial.xml"
+  ],
+  "cwd": "/private/tmp/rl-chess-d03-canonical-splits",
+  "started_at_utc": "2026-10-08T11:12:29.436299+00:00",
+  "finished_at_utc": "2026-10-08T11:12:29.990775+00:00",
+  "duration_seconds": 0.5541858749929816,
+  "exit_code": 1,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d03-canonical-splits/src:/private/tmp/rl-chess-d03-canonical-splits",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "focused-initial.stdout.txt",
+    "bytes": 14749,
+    "sha256": "4f02a82c06f365d4528eacca12a050e6d341652586e416e5a9f8cc3d8b000bca"
+  },
+  "stderr": {
+    "path": "focused-initial.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

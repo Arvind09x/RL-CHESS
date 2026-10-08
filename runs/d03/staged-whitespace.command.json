@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "cwd": "/private/tmp/rl-chess-d03-canonical-splits",
+  "started_at_utc": "2026-10-08T11:20:48.745939+00:00",
+  "finished_at_utc": "2026-10-08T11:20:48.757328+00:00",
+  "duration_seconds": 0.01119666700833477,
+  "exit_code": 2,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d03-canonical-splits/src:/private/tmp/rl-chess-d03-canonical-splits",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "staged-whitespace.stdout.txt",
+    "bytes": 1271,
+    "sha256": "bf1b4fb9e7a1e36b717d8bac75c1fcbd12fef623e74fd149e44ad8ce3ae3698d"
+  },
+  "stderr": {
+    "path": "staged-whitespace.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

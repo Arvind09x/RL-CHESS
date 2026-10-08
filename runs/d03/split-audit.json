@@ -1,0 +1,65 @@
+{
+  "actual_split_counts": {
+    "test": {
+      "games": 14430,
+      "plies": 1263664,
+      "sources": 14440
+    },
+    "train": {
+      "games": 260517,
+      "plies": 22891358,
+      "sources": 260836
+    },
+    "validation": {
+      "games": 14480,
+      "plies": 1267765,
+      "sources": 14500
+    }
+  },
+  "archive": {
+    "bytes": 82724777,
+    "sha256": "f2fa14565bcdaba7ad6de6a4f8f2348d0f9f8f262935c46e61925c5acce6f7b7"
+  },
+  "assignment_target_percent": {
+    "test": 5,
+    "train": 90,
+    "validation": 5
+  },
+  "assignments_serialization": "game_id-sorted compact JSONL objects {game_id,split}; sorted keys, ensure_ascii=true",
+  "assignments_sha256": "8f3e2e5fd07fa40318267992783d05ce55f15e7891bab353bf64176566122228",
+  "audit_version": "canonical-split-audit-v1",
+  "complete": true,
+  "counts": {
+    "canonical_games": 289427,
+    "canonical_plies": 25422787,
+    "d02_rejected_sources": 0,
+    "duplicate_game_groups": 112,
+    "duplicate_sources": 349,
+    "games_with_conflicting_results": 13,
+    "source_plies": 25429063,
+    "source_records": 289776
+  },
+  "dataset_id": "lichess-elite-2025-01-pilot-v1",
+  "identity_version": "start-moves-sha256-v1",
+  "inputs": {
+    "replays.jsonl": {
+      "bytes": 541174538,
+      "sha256": "69c10231f4d569a6b3cb4b26bc22a9535346d68f0a4753bd83c0c92981ea950b"
+    },
+    "summary.json": {
+      "bytes": 1907,
+      "sha256": "494407e29f64046585151b91698778bb6ce3a0cfe849da0a252c200f85c2444b"
+    }
+  },
+  "measurement_scope": "canonical games and assignments before position sampling; no position-overlap or coverage audit",
+  "outputs": {
+    "games.jsonl": {
+      "bytes": 638770177,
+      "sha256": "f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5"
+    }
+  },
+  "record_version": "replay-jsonl-v1",
+  "split_algorithm": "game-sha256-threshold-v1: SHA256 of UTF-8 JSON {game_id,seed,split_version}; sorted keys, compact separators, ensure_ascii=true, no newline; full digest as unsigned big-endian integer x; train if 100*x < 90*2**256, validation if 100*x < 95*2**256, otherwise test; seed=20261008; assignment targets 90/5/5",
+  "split_seed": 20261008,
+  "split_version": "game-sha256-threshold-v1"
+}

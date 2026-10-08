@@ -1,0 +1,160 @@
+{
+  "actual_split_counts": {
+    "test": {
+      "games": 14430,
+      "plies": 1263664,
+      "sources": 14440
+    },
+    "train": {
+      "games": 260517,
+      "plies": 22891358,
+      "sources": 260836
+    },
+    "validation": {
+      "games": 14480,
+      "plies": 1267765,
+      "sources": 14500
+    }
+  },
+  "authoritative_bulk_output": "/private/tmp/rl-chess-d03-prepared",
+  "automated_checks_complete": true,
+  "branch": "codex/d03-canonical-splits",
+  "commands": {
+    "adapter-regression": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "adapter-regression.command.json"
+    },
+    "annotation-gate": {
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "record": "annotation-gate.command.json"
+    },
+    "base-identity": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "base-identity.command.json"
+    },
+    "compare-runs": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "compare-runs.command.json"
+    },
+    "focused-corrected": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "focused-corrected.command.json"
+    },
+    "focused-expansion": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "focused-expansion.command.json"
+    },
+    "focused-final": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "focused-final.command.json"
+    },
+    "focused-initial": {
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "record": "focused-initial.command.json"
+    },
+    "full-preparation": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "full-preparation.command.json"
+    },
+    "model-regression": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "model-regression.command.json"
+    },
+    "output-audit": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "output-audit.command.json"
+    },
+    "pinned-sources": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "pinned-sources.command.json"
+    },
+    "preservation": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "preservation.command.json"
+    },
+    "record-decision": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "record-decision.command.json"
+    },
+    "repeated-preparation": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "repeated-preparation.command.json"
+    },
+    "replay-adapter": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "replay-adapter.command.json"
+    },
+    "replay-model": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "replay-model.command.json"
+    },
+    "staged-whitespace": {
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "record": "staged-whitespace.command.json"
+    },
+    "staged-whitespace-corrected": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "staged-whitespace-corrected.command.json"
+    },
+    "teacher-bytes": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "teacher-bytes.command.json"
+    },
+    "teacher-idle": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "teacher-idle.command.json"
+    },
+    "whitespace": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "whitespace.command.json"
+    },
+    "worktree-identity": {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "record": "worktree-identity.command.json"
+    }
+  },
+  "counts": {
+    "canonical_games": 289427,
+    "canonical_plies": 25422787,
+    "d02_rejected_sources": 0,
+    "duplicate_game_groups": 112,
+    "duplicate_sources": 349,
+    "games_with_conflicting_results": 13,
+    "source_plies": 25429063,
+    "source_records": 289776
+  },
+  "implementation_base": "1301d033b81ca88e51c66ba27c1035a80c50fe54",
+  "independent_review_status": "pending; no acceptance claimed",
+  "limitations": [
+    "D04 sampling/phases/position overlap/protected registries unresolved",
+    "full legal replay relies on accepted D02; fresh D03 audit replays 290 sampled games",
+    "reordering and expansion tested on fixtures; full corpus prepared twice in original order",
+    "CPU macOS arm64 Python 3.12.12 only; no annotation or GPU validation"
+  ],
+  "repeated_bulk_output": "/private/tmp/rl-chess-d03-reproduced",
+  "split_audit_sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36",
+  "worktree": "/private/tmp/rl-chess-d03-canonical-splits"
+}

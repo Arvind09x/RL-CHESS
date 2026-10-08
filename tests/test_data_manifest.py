@@ -93,8 +93,10 @@ def complete_metadata(manifest):
 def test_selected_is_preparation_only(manifest):
     assert manifest.archive.downloaded_sha256 is not None
     assert "archive.downloaded_sha256" not in manifest.annotation_blockers()
-    assert len(manifest.annotation_blockers()) == 6
-    with pytest.raises(ValueError, match="preparation-ready only.*preparation.split_algorithm"):
+    assert len(manifest.annotation_blockers()) == 4
+    assert manifest.preparation.split_algorithm.startswith("game-sha256-threshold-v1:")
+    assert manifest.preparation.split_audit_sha256 is not None
+    with pytest.raises(ValueError, match="preparation-ready only.*preparation.sampling_algorithm"):
         manifest.require_annotation_ready()
     complete_metadata(manifest).require_annotation_ready()
 

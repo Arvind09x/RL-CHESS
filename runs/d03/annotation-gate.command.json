@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "scripts/check_d01.py",
+    "--require-annotation-ready"
+  ],
+  "cwd": "/private/tmp/rl-chess-d03-canonical-splits",
+  "started_at_utc": "2026-10-08T11:16:19.216274+00:00",
+  "finished_at_utc": "2026-10-08T11:16:19.279833+00:00",
+  "duration_seconds": 0.06352804199559614,
+  "exit_code": 1,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d03-canonical-splits/src:/private/tmp/rl-chess-d03-canonical-splits",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "annotation-gate.stdout.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "annotation-gate.stderr.txt",
+    "bytes": 711,
+    "sha256": "5830bb6367a6fda2d704b3fab3de24681317d2489953bcf9e38ad45d98a79248"
+  }
+}

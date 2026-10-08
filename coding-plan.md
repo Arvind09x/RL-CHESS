@@ -861,3 +861,36 @@ Commands, source hashes, checks and lossless outputs are saved under `runs/d07/`
 D07 remains pending independent review and integration. No D06 benchmark, new
 annotation, loss implementation, training or D08 work ran; CPU correctness and
 plumbing only, with no scale/GPU/performance claim.
+
+
+### Independent D06/D07/E01 review acceptance and integration — 2026-10-08
+
+D06's separate 1,000-position annotation benchmark, D07's supervised record
+loading/batching and E01's paired-match protocols are accepted within their
+scoped CPU milestones through independent review supplied by the user. No
+blocking findings or implementation fixes were reported. Exact accepted commits
+are `ac424ecfafc3770023fba196b6158e65d943f199`,
+`b6e3d0eec171aa52e8fbc3ddedda9ec128daf330` and
+`ccea776af7ee74814305e09a5df24578b18511e1`, respectively, each based on clean
+local main `4184387c7e4b67559355d6b212a2a300c86c5ce6`.
+Original histories are preserved through separate merges; both appended D06/D07
+completion entries survive the document conflict verbatim.
+
+[Scoped acceptance and limitations](docs/d06-d07-e01-review.md) and
+[structured acceptance](runs/d06-d07-e01-integration/acceptance.json) record fresh
+combined verification: 1,181 model passes; 1,012 adapter passes/seven expected
+Torch skips; 84 accepted reviewer probes in each environment; both frozen
+13-fixture reports matching the accepted replay. All 1,000 D06 labels replayed
+with independent membership/raw-teacher checks. All 12 D07 roots and batch
+checks pass in both environments; all 15 accepted S05 records and both E01
+48-game bundles replay in each environment. M06 and manifest/teacher checks pass.
+
+Accepted implementations, all historical evidence, manifests, teacher settings,
+original bulk identities and protected held-out artifacts remain preserved.
+The fresh combined snapshot was tested in the integration clone before local
+main adoption, with exact source-byte preservation checked. Only integration
+and acceptance records were added; bulk artifacts and the fresh per-label D06
+audit remain outside Git. This dated entry supersedes prior pending-review
+statuses for D06/D07/E01 while preserving the historical roadmap and evidence.
+No D08, T01 or later work began. CPU plumbing/conditional benchmark costs only;
+no training, GPU, scaling validation or playing-strength claim is made.

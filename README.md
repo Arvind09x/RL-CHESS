@@ -601,3 +601,19 @@ failed audit/check commands and preservation evidence remain under runs/d06.
 Accepted implementations, pins, teacher, historical evidence, original inputs
 and protected registries are preserved. D06 remains unchecked pending independent
 review. No D07, D08, training, search integration or GPU experiments ran.
+
+
+## Independent D06/D07/E01 review acceptance — 8 October 2026
+
+The user supplied independent review acceptance of D06, D07 and E01 with no
+blocking findings. Their exact original commits and historical evidence are
+merged together; the completion log retains both D06/D07 appended entries.
+[Scoped acceptance](docs/d06-d07-e01-review.md) and
+[verification record](runs/d06-d07-e01-integration/acceptance.json) record
+1,181 combined model passes, 1,012 adapter passes/seven expected Torch skips,
+84 accepted reviewer probes per environment, the frozen 13-fixture adapter
+replay, all 1,000 D06 labels, all 12 D07 roots, 15 S05 records and both E01
+48-game bundles. Accepted source bytes, manifests, teacher settings, historical
+evidence and protected held-out artifacts are preserved; bulk stays outside Git.
+Historical pending statuses above are superseded only within these milestone
+scopes. No D08, T01, later tasks, training or playing-strength evaluation ran.

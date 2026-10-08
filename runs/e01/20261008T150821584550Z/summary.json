@@ -1,0 +1,76 @@
+{
+  "base_commit": "4184387c7e4b67559355d6b212a2a300c86c5ce6",
+  "branch": "codex/e01-match-protocol",
+  "checkout": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/e01-match-protocol",
+  "checks": {
+    "focused-adapter": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "221",
+      "time": "7.249",
+      "timestamp": "2026-10-08T20:38:21.720109+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "regressions-adapter": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "6",
+      "tests": "884",
+      "time": "12.290",
+      "timestamp": "2026-10-08T20:38:29.068905+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "accepted-review-probes-adapter": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "84",
+      "time": "0.689",
+      "timestamp": "2026-10-08T20:38:41.579760+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "focused-model": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "221",
+      "time": "7.314",
+      "timestamp": "2026-10-08T20:38:44.758353+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "regressions-model": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1046",
+      "time": "41.288",
+      "timestamp": "2026-10-08T20:38:52.176403+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "accepted-review-probes-model": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "84",
+      "time": "0.701",
+      "timestamp": "2026-10-08T20:39:33.923470+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    }
+  },
+  "byte_identical_accepted_files": 1174,
+  "adapter_reports_equal": true,
+  "deterministic_nonengine_records_equal": true,
+  "matches_per_environment": 24,
+  "games_per_environment": 48,
+  "independent_review": "pending",
+  "real_checkpoints": false,
+  "training": false,
+  "t04": false
+}

@@ -1,0 +1,15 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/e01-match-protocol
+configfile: pyproject.toml
+collected 220 items
+
+tests/test_matches.py .................................................. [ 22%]
+...........                                                              [ 27%]
+tests/test_game_runner.py .............................................. [ 48%]
+                                                                         [ 48%]
+tests/test_search_runner.py ............................................ [ 68%]
+.....................................................................    [100%]
+
+- generated xml file: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/e01-match-protocol/runs/e01/20261008T150443860980Z/focused-adapter.xml -
+============================= 220 passed in 7.27s ==============================

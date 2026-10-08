@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/e01-match-protocol
+configfile: pyproject.toml
+collected 84 items
+
+runs/d02-s02-review/test_review_cases.py ..........................      [ 30%]
+runs/d03-s03-review/test_review_cases.py ...........................     [ 63%]
+runs/d04-s04-review/test_review_cases.py .................               [ 83%]
+runs/d05-s05-review/test_review_cases.py ..............                  [100%]
+
+- generated xml file: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/e01-match-protocol/runs/e01/20261008T150821584550Z/accepted-review-probes-adapter.xml -
+============================== 84 passed in 0.79s ==============================

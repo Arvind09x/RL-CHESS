@@ -1,0 +1,45 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/e01-match-protocol
+configfile: pyproject.toml
+testpaths: tests
+collected 878 items / 6 skipped
+
+tests/test_backup.py ................................................... [  5%]
+....................................................................     [ 13%]
+tests/test_canonical_games.py .........................................  [ 18%]
+tests/test_data_manifest.py ............................................ [ 23%]
+.......................................                                  [ 27%]
+tests/test_encoding.py ..................                                [ 29%]
+tests/test_evaluator.py .................................                [ 33%]
+tests/test_foundation.py .                                               [ 33%]
+tests/test_game_runner.py .............................................. [ 38%]
+                                                                         [ 38%]
+tests/test_history.py .....                                              [ 39%]
+tests/test_legality.py .........                                         [ 40%]
+tests/test_matches.py .................................................. [ 46%]
+............                                                             [ 47%]
+tests/test_moves.py ................................                     [ 51%]
+tests/test_outcomes.py ...................                               [ 53%]
+tests/test_pgn_replay.py ............................................... [ 58%]
+.........................                                                [ 61%]
+tests/test_position_sampling.py .....................................    [ 65%]
+tests/test_puct.py ..................................................... [ 71%]
+..........................................                               [ 76%]
+tests/test_regression.py ...........                                     [ 77%]
+tests/test_search_runner.py ............................................ [ 82%]
+.....................................................................    [ 90%]
+tests/test_state.py .................                                    [ 92%]
+tests/test_stockfish_worker.py ......................................... [ 97%]
+.................                                                        [ 99%]
+tests/test_types.py .......                                              [100%]
+
+- generated xml file: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/e01-match-protocol/runs/e01/20261008T150821584550Z/regressions-adapter.xml -
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_backbone.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_gab.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_network.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_policy.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_relative.py:3: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_wdl.py:4: could not import 'torch': No module named 'torch'
+======================= 878 passed, 6 skipped in 12.40s ========================

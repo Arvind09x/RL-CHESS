@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="11" skipped="0" tests="33" time="0.544" timestamp="2026-10-08T20:30:49.162945+05:30" hostname="Arvinds-MacBook-Air.local"><testcase classname="tests.test_matches" name="test_pairing_routing_replay_and_reproducibility" time="0.050" /><testcase classname="tests.test_matches" name="test_pr_rejects_unequal_settings[settings0]" time="0.002" /><testcase classname="tests.test_matches" name="test_pr_rejects_unequal_settings[settings1]" time="0.002" /><testcase classname="tests.test_matches" name="test_pr_rejects_unequal_settings[settings2]" time="0.002" /><testcase classname="tests.test_matches" name="test_pr_explicit_roles_and_search_type[left0-right0]" time="0.002" /><testcase classname="tests.test_matches" name="test_pr_explicit_roles_and_search_type[left1-right1]" time="0.002" /><testcase classname="tests.test_matches" name="test_checkpoint_metadata_and_unavailable_guard" time="0.030" /><testcase classname="tests.test_matches" name="test_opening_separation_and_transpositions" time="0.008" /><testcase classname="tests.test_matches" name="test_opening_rejects_post_terminal_history" time="0.001" /><testcase classname="tests.test_matches" name="test_failure_pair_preservation_and_no_draw[failure0]" time="0.010" /><testcase classname="tests.test_matches" name="test_failure_pair_preservation_and_no_draw[failure1]" time="0.009" /><testcase classname="tests.test_matches" name="test_failure_pair_preservation_and_no_draw[failure2]" time="0.009" /><testcase classname="tests.test_matches" name="test_partial_search_completions_on_failure" time="0.012" /><testcase classname="tests.test_matches" name="test_completed_single_leg_and_pair_denominators" time="0.005" /><testcase classname="tests.test_matches" name="test_terminal_before_cap[7k/6Q1/5K2/8/8/8/8/8 b - - 0 1-CHECKMATE]" time="0.003" /><testcase classname="tests.test_matches" name="test_terminal_before_cap[7k/5K2/6Q1/8/8/8/8/8 b - - 0 1-STALEMATE]" time="0.003" /><testcase classname="tests.test_matches" name="test_terminal_before_cap[8/8/8/8/8/2k5/8/R3K3 w - - 100 1-FIFTY_MOVES]" time="0.003" /><testcase classname="tests.test_matches" name="test_actual_repetition_full_history_and_intended_claim" time="0.018" /><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1-e1g1]" time="0.004"><failure message="assert False&#10; +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2a76b0&gt;)">fen = 'r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1', uci = 'e1g1'
+
+    @pytest.mark.parametrize("fen,uci", SPECIAL)
+    def test_special_moves_both_player_routes(fen, uci):
+        state = make_state(fen)
+        record = fixed(Controlled(uci), state, left=search_player(evaluator=one_hot(uci)), ply_cap=1).to_dict()
+&gt;       assert all(g["moves_uci"] == [uci] and g["history_complete"] is False for g in record["games"])
+E       assert False
+E        +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2a76b0&gt;)
+
+tests/test_matches.py:233: AssertionError</failure></testcase><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1-e1c1]" time="0.004"><failure message="assert False&#10; +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2a7510&gt;)">fen = 'r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1', uci = 'e1c1'
+
+    @pytest.mark.parametrize("fen,uci", SPECIAL)
+    def test_special_moves_both_player_routes(fen, uci):
+        state = make_state(fen)
+        record = fixed(Controlled(uci), state, left=search_player(evaluator=one_hot(uci)), ply_cap=1).to_dict()
+&gt;       assert all(g["moves_uci"] == [uci] and g["history_complete"] is False for g in record["games"])
+E       assert False
+E        +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2a7510&gt;)
+
+tests/test_matches.py:233: AssertionError</failure></testcase><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1-e8g8]" time="0.004"><failure message="assert False&#10; +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2c0930&gt;)">fen = 'r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1', uci = 'e8g8'
+
+    @pytest.mark.parametrize("fen,uci", SPECIAL)
+    def test_special_moves_both_player_routes(fen, uci):
+        state = make_state(fen)
+        record = fixed(Controlled(uci), state, left=search_player(evaluator=one_hot(uci)), ply_cap=1).to_dict()
+&gt;       assert all(g["moves_uci"] == [uci] and g["history_complete"] is False for g in record["games"])
+E       assert False
+E        +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2c0930&gt;)
+
+tests/test_matches.py:233: AssertionError</failure></testcase><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1-e8c8]" time="0.004"><failure message="assert False&#10; +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2a5630&gt;)">fen = 'r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1', uci = 'e8c8'
+
+    @pytest.mark.parametrize("fen,uci", SPECIAL)
+    def test_special_moves_both_player_routes(fen, uci):
+        state = make_state(fen)
+        record = fixed(Controlled(uci), state, left=search_player(evaluator=one_hot(uci)), ply_cap=1).to_dict()
+&gt;       assert all(g["moves_uci"] == [uci] and g["history_complete"] is False for g in record["games"])
+E       assert False
+E        +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2a5630&gt;)
+
+tests/test_matches.py:233: AssertionError</failure></testcase><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[7k/8/8/3pP3/8/8/8/K7 w - d6 0 1-e5d6]" time="0.003"><failure message="assert False&#10; +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2c25a0&gt;)">fen = '7k/8/8/3pP3/8/8/8/K7 w - d6 0 1', uci = 'e5d6'
+
+    @pytest.mark.parametrize("fen,uci", SPECIAL)
+    def test_special_moves_both_player_routes(fen, uci):
+        state = make_state(fen)
+        record = fixed(Controlled(uci), state, left=search_player(evaluator=one_hot(uci)), ply_cap=1).to_dict()
+&gt;       assert all(g["moves_uci"] == [uci] and g["history_complete"] is False for g in record["games"])
+E       assert False
+E        +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2c25a0&gt;)
+
+tests/test_matches.py:233: AssertionError</failure></testcase><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[7k/8/8/8/3Pp3/8/8/K7 b - d3 0 1-e4d3]" time="0.003"><failure message="assert False&#10; +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2c24d0&gt;)">fen = '7k/8/8/8/3Pp3/8/8/K7 b - d3 0 1', uci = 'e4d3'
+
+    @pytest.mark.parametrize("fen,uci", SPECIAL)
+    def test_special_moves_both_player_routes(fen, uci):
+        state = make_state(fen)
+        record = fixed(Controlled(uci), state, left=search_player(evaluator=one_hot(uci)), ply_cap=1).to_dict()
+&gt;       assert all(g["moves_uci"] == [uci] and g["history_complete"] is False for g in record["games"])
+E       assert False
+E        +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2c24d0&gt;)
+
+tests/test_matches.py:233: AssertionError</failure></testcase><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[7k/P7/8/8/8/8/8/7K w - - 0 1-a7a8q]" time="0.003"><failure message="assert False&#10; +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a3298a0&gt;)">fen = '7k/P7/8/8/8/8/8/7K w - - 0 1', uci = 'a7a8q'
+
+    @pytest.mark.parametrize("fen,uci", SPECIAL)
+    def test_special_moves_both_player_routes(fen, uci):
+        state = make_state(fen)
+        record = fixed(Controlled(uci), state, left=search_player(evaluator=one_hot(uci)), ply_cap=1).to_dict()
+&gt;       assert all(g["moves_uci"] == [uci] and g["history_complete"] is False for g in record["games"])
+E       assert False
+E        +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a3298a0&gt;)
+
+tests/test_matches.py:233: AssertionError</failure></testcase><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[7k/P7/8/8/8/8/8/7K w - - 0 1-a7a8r]" time="0.003"><failure message="assert False&#10; +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a328e10&gt;)">fen = '7k/P7/8/8/8/8/8/7K w - - 0 1', uci = 'a7a8r'
+
+    @pytest.mark.parametrize("fen,uci", SPECIAL)
+    def test_special_moves_both_player_routes(fen, uci):
+        state = make_state(fen)
+        record = fixed(Controlled(uci), state, left=search_player(evaluator=one_hot(uci)), ply_cap=1).to_dict()
+&gt;       assert all(g["moves_uci"] == [uci] and g["history_complete"] is False for g in record["games"])
+E       assert False
+E        +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a328e10&gt;)
+
+tests/test_matches.py:233: AssertionError</failure></testcase><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[7k/P7/8/8/8/8/8/7K w - - 0 1-a7a8b]" time="0.005" /><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[7k/P7/8/8/8/8/8/7K w - - 0 1-a7a8n]" time="0.004" /><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[7k/8/8/8/8/8/p7/7K b - - 0 1-a2a1q]" time="0.002"><failure message="assert False&#10; +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2c2190&gt;)">fen = '7k/8/8/8/8/8/p7/7K b - - 0 1', uci = 'a2a1q'
+
+    @pytest.mark.parametrize("fen,uci", SPECIAL)
+    def test_special_moves_both_player_routes(fen, uci):
+        state = make_state(fen)
+        record = fixed(Controlled(uci), state, left=search_player(evaluator=one_hot(uci)), ply_cap=1).to_dict()
+&gt;       assert all(g["moves_uci"] == [uci] and g["history_complete"] is False for g in record["games"])
+E       assert False
+E        +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2c2190&gt;)
+
+tests/test_matches.py:233: AssertionError</failure></testcase><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[7k/8/8/8/8/8/p7/7K b - - 0 1-a2a1r]" time="0.003"><failure message="assert False&#10; +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2a5ff0&gt;)">fen = '7k/8/8/8/8/8/p7/7K b - - 0 1', uci = 'a2a1r'
+
+    @pytest.mark.parametrize("fen,uci", SPECIAL)
+    def test_special_moves_both_player_routes(fen, uci):
+        state = make_state(fen)
+        record = fixed(Controlled(uci), state, left=search_player(evaluator=one_hot(uci)), ply_cap=1).to_dict()
+&gt;       assert all(g["moves_uci"] == [uci] and g["history_complete"] is False for g in record["games"])
+E       assert False
+E        +  where False = all(&lt;generator object test_special_moves_both_player_routes.&lt;locals&gt;.&lt;genexpr&gt; at 0x10a2a5ff0&gt;)
+
+tests/test_matches.py:233: AssertionError</failure></testcase><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[7k/8/8/8/8/8/p7/7K b - - 0 1-a2a1b]" time="0.004" /><testcase classname="tests.test_matches" name="test_special_moves_both_player_routes[7k/8/8/8/8/8/p7/7K b - - 0 1-a2a1n]" time="0.004" /><testcase classname="tests.test_matches" name="test_candidate_application_atomic[error0]" time="0.012"><failure message="RuntimeError: apply">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x109cf6030&gt;
+error = RuntimeError('apply')
+
+    @pytest.mark.parametrize("error", [RuntimeError("apply"), KeyboardInterrupt("apply")])
+    def test_candidate_application_atomic(monkeypatch, error):
+        original = matches.apply_move
+        def bad(state, move_id):
+            original(state, move_id)
+            raise error
+        openings = book()  # Build before fault injection.
+        monkeypatch.setattr(matches, "apply_move", bad)
+        record = pr(openings).to_dict()
+        assert all(g["moves_uci"] == ["e2e4"] and g["attempts"][0]["applied"] is False for g in record["games"])
+&gt;       assert audit_match(record)["passed"]
+               ^^^^^^^^^^^^^^^^^^^
+
+tests/test_matches.py:249: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/chess_rl/evaluation/replay.py:28: in audit_match
+    sets = OpeningSets(raw["set_id"], tuple(map(opening, raw["validation"])), tuple(map(opening, raw["test"])))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/chess_rl/evaluation/replay.py:26: in opening
+    return Opening(**{k: value[k] for k in (
+&lt;string&gt;:8: in __init__
+    ???
+src/chess_rl/evaluation/matches.py:49: in __post_init__
+    apply_move(prefix, move_to_id(prefix, chess.Move.from_uci(move)))
+tests/test_matches.py:244: in bad
+    raise error
+src/chess_rl/evaluation/matches.py:151: in _run_game
+    apply_move(candidate, decision.move_id)
+tests/test_matches.py:244: in bad
+    raise error
+src/chess_rl/evaluation/matches.py:151: in _run_game
+    apply_move(candidate, decision.move_id)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+state = ChessState(board=Board('r1bqkbnr/pppppppp/n7/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 1 2'), initial_fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', history_complete=True)
+move_id = 80
+
+    def bad(state, move_id):
+        original(state, move_id)
+&gt;       raise error
+E       RuntimeError: apply
+
+tests/test_matches.py:244: RuntimeError</failure></testcase><testcase time="0.000" /></testsuite></testsuites>

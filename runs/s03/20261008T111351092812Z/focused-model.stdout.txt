@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-s03
+configfile: pyproject.toml
+collected 247 items
+
+tests/test_backup.py ................................................... [ 20%]
+....................................................................     [ 48%]
+tests/test_puct.py ..................................................... [ 69%]
+..........................................                               [ 86%]
+tests/test_evaluator.py .................................                [100%]
+
+- generated xml file: /private/tmp/rl-chess-s03/runs/s03/20261008T111351092812Z/focused-model.xml -
+============================= 247 passed in 1.23s ==============================

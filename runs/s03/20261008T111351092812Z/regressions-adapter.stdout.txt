@@ -1,0 +1,35 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-s03
+configfile: pyproject.toml
+testpaths: tests
+collected 521 items / 6 skipped
+
+tests/test_backup.py ................................................... [  9%]
+....................................................................     [ 22%]
+tests/test_data_manifest.py ............................................ [ 31%]
+.......................................                                  [ 38%]
+tests/test_encoding.py ..................                                [ 42%]
+tests/test_evaluator.py .................................                [ 48%]
+tests/test_foundation.py .                                               [ 48%]
+tests/test_history.py .....                                              [ 49%]
+tests/test_legality.py .........                                         [ 51%]
+tests/test_moves.py ................................                     [ 57%]
+tests/test_outcomes.py ...................                               [ 61%]
+tests/test_pgn_replay.py ............................................... [ 70%]
+.........................                                                [ 75%]
+tests/test_puct.py ..................................................... [ 85%]
+..........................................                               [ 93%]
+tests/test_regression.py ...........                                     [ 95%]
+tests/test_state.py .................                                    [ 98%]
+tests/test_types.py .......                                              [100%]
+
+- generated xml file: /private/tmp/rl-chess-s03/runs/s03/20261008T111351092812Z/regressions-adapter.xml -
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_backbone.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_gab.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_network.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_policy.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_relative.py:3: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_wdl.py:4: could not import 'torch': No module named 'torch'
+======================== 521 passed, 6 skipped in 3.28s ========================

@@ -1,0 +1,67 @@
+{
+  "base_commit": "0347ceb7e6efd867e1f1253b3bf5a57d4fd6e48f",
+  "branch": "codex/s02-puct-tree",
+  "worktree": "/private/tmp/rl-chess-s02",
+  "checks": {
+    "focused-adapter": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "95",
+      "time": "0.339",
+      "timestamp": "2026-10-08T13:21:31.738122+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "regressions-adapter": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "6",
+      "tests": "336",
+      "time": "2.607",
+      "timestamp": "2026-10-08T13:21:32.168979+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "focused-model": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "95",
+      "time": "0.356",
+      "timestamp": "2026-10-08T13:21:35.022032+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "regressions-model": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "498",
+      "time": "37.309",
+      "timestamp": "2026-10-08T13:21:35.467564+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    }
+  },
+  "replay_records": 13,
+  "replay_reports_equal": true,
+  "byte_identical_baseline_files": 308,
+  "appended_document": "docs/s01-evaluator.md",
+  "conventions": {
+    "formula": "Q + c_puct * P * sqrt(max(1, sum outgoing N)) / (1 + N)",
+    "c_puct": 1.5,
+    "unvisited_value": 0.0,
+    "tie": "smallest shared move ID; exact float equality",
+    "visits": "completed backups only; root preparation and S02 traversal never increment N/W",
+    "edge_value_perspective": "parent player",
+    "leaf_value_perspective": "leaf side to move"
+  },
+  "limitations": [
+    "CPU macOS arm64/Python 3.12 only",
+    "Dummy evaluator; no strength/performance claim",
+    "S03 backup and S04 policies/move selection remain unimplemented",
+    "No exploration, matches, self-play, real evaluator, training, GPU or paid compute",
+    "S02 independent review pending; Gate S not accepted"
+  ]
+}

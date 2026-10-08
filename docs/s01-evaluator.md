@@ -135,3 +135,21 @@ matches, self-play, real evaluator, dataset processing, training, engine,
 GPU work, subagents or paid compute was implemented or run. Full model
 regressions are outside S01; only its focused checks use the model environment.
 Independent review of the resulting S01 commit remains required.
+
+
+## S01 review acceptance — 8 October 2026
+
+The user reports that the planning agent independently accepts S01 commit
+`834eab9317d96547333b4958c863b503f02ecba5` for **CPU evaluator plumbing**.
+The combined D01/S01 copy passed **403 model tests**, **235 adapter tests with
+six expected skips**, and both **13-fixture replays**. All **243 S01 baseline
+files** were preserved; no blocking findings were reported. These are
+user-supplied independent **AI review** results, not human teammate sign-off
+or a new reviewer run by the S02 implementer.
+
+D01 and S01 are integrated into common base
+`0347ceb7e6efd867e1f1253b3bf5a57d4fd6e48f`. This dated attribution supersedes
+the historical pending S01 review status above and preserves the original
+evidence unchanged. S02 starts from this common base in a separate worktree;
+D02 owns shared README/coding-plan acceptance and status synchronization.
+Structured attribution: `runs/s02/s01-review-acceptance.json`.

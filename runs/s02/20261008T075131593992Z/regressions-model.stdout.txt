@@ -1,0 +1,30 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-s02
+configfile: pyproject.toml
+testpaths: tests
+collected 498 items
+
+tests/test_backbone.py ..................                                [  3%]
+tests/test_data_manifest.py ............................................ [ 12%]
+.......................................                                  [ 20%]
+tests/test_encoding.py ..................                                [ 23%]
+tests/test_evaluator.py .................................                [ 30%]
+tests/test_foundation.py .                                               [ 30%]
+tests/test_gab.py ....................                                   [ 34%]
+tests/test_history.py .....                                              [ 35%]
+tests/test_legality.py .........                                         [ 37%]
+tests/test_moves.py ................................                     [ 43%]
+tests/test_network.py ...................................                [ 51%]
+tests/test_outcomes.py ...................                               [ 54%]
+tests/test_policy.py ..............................                      [ 60%]
+tests/test_puct.py ..................................................... [ 71%]
+..........................................                               [ 79%]
+tests/test_regression.py ...........                                     [ 82%]
+tests/test_relative.py ....................................              [ 89%]
+tests/test_state.py .................                                    [ 92%]
+tests/test_types.py .......                                              [ 94%]
+tests/test_wdl.py .............................                          [100%]
+
+- generated xml file: /private/tmp/rl-chess-s02/runs/s02/20261008T075131593992Z/regressions-model.xml -
+============================= 498 passed in 37.31s =============================

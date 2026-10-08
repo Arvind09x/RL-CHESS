@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "scripts/check_d01.py",
+    "--require-annotation-ready"
+  ],
+  "cwd": "/private/tmp/rl-chess-d03-s03-review",
+  "started_at_utc": "2026-10-08T11:28:47.520543+00:00",
+  "finished_at_utc": "2026-10-08T11:28:47.562937+00:00",
+  "duration_seconds": 0.042360916995676234,
+  "exit_code": 1,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "annotation-gate.stdout.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "annotation-gate.stderr.txt",
+    "bytes": 693,
+    "sha256": "a83196ac7c6d3b6d8ecab48a6e94b0517bc8a04d96ef9e39724c48f344ebfe3c"
+  }
+}

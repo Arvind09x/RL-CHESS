@@ -1,0 +1,445 @@
+{
+  "reviewed_at_utc": "2026-10-08T11:32:04.722281+00:00",
+  "reviewer": "Coordinating Codex agent; independent AI review, not human review",
+  "base_commit": "1301d033b81ca88e51c66ba27c1035a80c50fe54",
+  "D03": {
+    "commit": "7eaba97d14d8e4d769b5db7e8a4e5a3931940d1f",
+    "status": "accepted for canonical game and split milestone"
+  },
+  "S03": {
+    "commit": "e4a1e8b8374d463b3389f503ba5bae29be85ef0e",
+    "status": "accepted for sequential CPU value backup milestone"
+  },
+  "blocking_findings": [],
+  "production_fixes_required": false,
+  "test_counts": {
+    "combined-adapter": {
+      "tests": 568,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 6,
+      "passed": 562
+    },
+    "combined-model": {
+      "tests": 730,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 730
+    },
+    "reviewer-adapter-corrected": {
+      "tests": 53,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 53
+    },
+    "reviewer-model": {
+      "tests": 53,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 53
+    }
+  },
+  "commands": [
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "scripts/check_d01.py",
+        "--require-annotation-ready"
+      ],
+      "cwd": "/private/tmp/rl-chess-d03-s03-review",
+      "started_at_utc": "2026-10-08T11:28:47.520543+00:00",
+      "finished_at_utc": "2026-10-08T11:28:47.562937+00:00",
+      "duration_seconds": 0.042360916995676234,
+      "exit_code": 1,
+      "environment_overrides": {
+        "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdout": {
+        "path": "annotation-gate.stdout.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "annotation-gate.stderr.txt",
+        "bytes": 693,
+        "sha256": "a83196ac7c6d3b6d8ecab48a6e94b0517bc8a04d96ef9e39724c48f344ebfe3c"
+      },
+      "record": "annotation-gate.command.json"
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml=runs/d03-s03-review/combined-adapter.xml"
+      ],
+      "cwd": "/private/tmp/rl-chess-d03-s03-review",
+      "started_at_utc": "2026-10-08T11:28:17.409165+00:00",
+      "finished_at_utc": "2026-10-08T11:28:21.314476+00:00",
+      "duration_seconds": 3.905290499998955,
+      "exit_code": 0,
+      "environment_overrides": {
+        "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdout": {
+        "path": "combined-adapter.stdout.txt",
+        "bytes": 2566,
+        "sha256": "7029225e851c069e5c73fba587304e5760d6f4ed0006e0876bc93f3a1b7d0be8"
+      },
+      "stderr": {
+        "path": "combined-adapter.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "record": "combined-adapter.command.json"
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-p",
+        "runs.m06.diagnostic_plugin",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml=runs/d03-s03-review/combined-model.xml"
+      ],
+      "cwd": "/private/tmp/rl-chess-d03-s03-review",
+      "started_at_utc": "2026-10-08T11:28:17.409162+00:00",
+      "finished_at_utc": "2026-10-08T11:28:53.589490+00:00",
+      "duration_seconds": 36.180331416020636,
+      "exit_code": 0,
+      "environment_overrides": {
+        "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdout": {
+        "path": "combined-model.stdout.txt",
+        "bytes": 2436,
+        "sha256": "6720859eb43cee351eef77aa062cfd0c50fa36d67fbcff745d016252e3cf869f"
+      },
+      "stderr": {
+        "path": "combined-model.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "record": "combined-model.command.json"
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "runs/d03-s03-review/audit_output.py",
+        "/private/tmp/rl-chess-d03-prepared"
+      ],
+      "cwd": "/private/tmp/rl-chess-d03-s03-review",
+      "started_at_utc": "2026-10-08T11:28:46.008195+00:00",
+      "finished_at_utc": "2026-10-08T11:29:38.584302+00:00",
+      "duration_seconds": 52.5761123339762,
+      "exit_code": 0,
+      "environment_overrides": {
+        "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdout": {
+        "path": "full-output-audit.stdout.txt",
+        "bytes": 1039,
+        "sha256": "bb748ecfc86b0fc4522b3a1a4b1d826de0ba791a5a66575f782c4327ba984c60"
+      },
+      "stderr": {
+        "path": "full-output-audit.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "record": "full-output-audit.command.json"
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "runs/d03-s03-review/audit_preservation.py"
+      ],
+      "cwd": "/private/tmp/rl-chess-d03-s03-review",
+      "started_at_utc": "2026-10-08T11:32:00.758487+00:00",
+      "finished_at_utc": "2026-10-08T11:32:04.672405+00:00",
+      "duration_seconds": 3.9137428750109393,
+      "exit_code": 0,
+      "environment_overrides": {
+        "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdout": {
+        "path": "preservation-final.stdout.txt",
+        "bytes": 620,
+        "sha256": "bb4afd5e26ca2752389ff3bbc3bdaf0e35eeb5f701e582d04ac219768d7a50ca"
+      },
+      "stderr": {
+        "path": "preservation-final.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "record": "preservation-final.command.json"
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "runs/d03-s03-review/audit_preservation.py"
+      ],
+      "cwd": "/private/tmp/rl-chess-d03-s03-review",
+      "started_at_utc": "2026-10-08T11:29:37.858306+00:00",
+      "finished_at_utc": "2026-10-08T11:29:42.433390+00:00",
+      "duration_seconds": 4.574877999984892,
+      "exit_code": 0,
+      "environment_overrides": {
+        "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdout": {
+        "path": "preservation.stdout.txt",
+        "bytes": 620,
+        "sha256": "bb4afd5e26ca2752389ff3bbc3bdaf0e35eeb5f701e582d04ac219768d7a50ca"
+      },
+      "stderr": {
+        "path": "preservation.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "record": "preservation.command.json"
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "scripts/check_adapter.py"
+      ],
+      "cwd": "/private/tmp/rl-chess-d03-s03-review",
+      "started_at_utc": "2026-10-08T11:28:47.221028+00:00",
+      "finished_at_utc": "2026-10-08T11:28:47.353319+00:00",
+      "duration_seconds": 0.13226633399608545,
+      "exit_code": 0,
+      "environment_overrides": {
+        "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdout": {
+        "path": "replay-adapter.stdout.txt",
+        "bytes": 14637,
+        "sha256": "32c8da66c132f9ce87bbdb8b772b02acf3318e6d235538553c904556d6da3737"
+      },
+      "stderr": {
+        "path": "replay-adapter.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "record": "replay-adapter.command.json"
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "scripts/check_adapter.py"
+      ],
+      "cwd": "/private/tmp/rl-chess-d03-s03-review",
+      "started_at_utc": "2026-10-08T11:28:47.384598+00:00",
+      "finished_at_utc": "2026-10-08T11:28:47.497176+00:00",
+      "duration_seconds": 0.11253766602021642,
+      "exit_code": 0,
+      "environment_overrides": {
+        "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdout": {
+        "path": "replay-model.stdout.txt",
+        "bytes": 14637,
+        "sha256": "32c8da66c132f9ce87bbdb8b772b02acf3318e6d235538553c904556d6da3737"
+      },
+      "stderr": {
+        "path": "replay-model.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "record": "replay-model.command.json"
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "-m",
+        "pytest",
+        "runs/d03-s03-review/test_review_cases.py",
+        "runs/d02-s02-review/test_review_cases.py",
+        "--import-mode=importlib",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml=runs/d03-s03-review/reviewer-adapter-corrected.xml"
+      ],
+      "cwd": "/private/tmp/rl-chess-d03-s03-review",
+      "started_at_utc": "2026-10-08T11:28:17.409152+00:00",
+      "finished_at_utc": "2026-10-08T11:28:18.024237+00:00",
+      "duration_seconds": 0.6150457920157351,
+      "exit_code": 0,
+      "environment_overrides": {
+        "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdout": {
+        "path": "reviewer-adapter-corrected.stdout.txt",
+        "bytes": 590,
+        "sha256": "e0be9d05d0b133a1976a3a007c3d5a135cbdd1117e03381d7f3b3184dd5064b5"
+      },
+      "stderr": {
+        "path": "reviewer-adapter-corrected.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "record": "reviewer-adapter-corrected.command.json"
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "-m",
+        "pytest",
+        "runs/d03-s03-review/test_review_cases.py",
+        "runs/d02-s02-review/test_review_cases.py",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml=runs/d03-s03-review/reviewer-adapter.xml"
+      ],
+      "cwd": "/private/tmp/rl-chess-d03-s03-review",
+      "started_at_utc": "2026-10-08T11:28:02.732293+00:00",
+      "finished_at_utc": "2026-10-08T11:28:03.045180+00:00",
+      "duration_seconds": 0.31285400001797825,
+      "exit_code": 2,
+      "environment_overrides": {
+        "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdout": {
+        "path": "reviewer-adapter.stdout.txt",
+        "bytes": 1200,
+        "sha256": "b768013d9f64f1bd5142f39e1948b64bdb6e72ff098825a2a67d53e72b09460a"
+      },
+      "stderr": {
+        "path": "reviewer-adapter.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "record": "reviewer-adapter.command.json"
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-m",
+        "pytest",
+        "runs/d03-s03-review/test_review_cases.py",
+        "runs/d02-s02-review/test_review_cases.py",
+        "--import-mode=importlib",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml=runs/d03-s03-review/reviewer-model.xml"
+      ],
+      "cwd": "/private/tmp/rl-chess-d03-s03-review",
+      "started_at_utc": "2026-10-08T11:28:47.218557+00:00",
+      "finished_at_utc": "2026-10-08T11:28:47.903235+00:00",
+      "duration_seconds": 0.6846327919920441,
+      "exit_code": 0,
+      "environment_overrides": {
+        "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdout": {
+        "path": "reviewer-model.stdout.txt",
+        "bytes": 578,
+        "sha256": "dc5ae1a9291cc0ad821317abd5ad97fcf5cfa6cba8bf295fef28b24075ca7fd6"
+      },
+      "stderr": {
+        "path": "reviewer-model.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "record": "reviewer-model.command.json"
+    },
+    {
+      "argv": [
+        "/usr/bin/git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/private/tmp/rl-chess-d03-s03-review",
+      "started_at_utc": "2026-10-08T11:32:00.758484+00:00",
+      "finished_at_utc": "2026-10-08T11:32:00.773741+00:00",
+      "duration_seconds": 0.01507545800996013,
+      "exit_code": 0,
+      "environment_overrides": {
+        "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdout": {
+        "path": "whitespace.stdout.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "whitespace.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "record": "whitespace.command.json"
+    }
+  ],
+  "output_audit": {
+    "actual_split_counts": {
+      "test": {
+        "games": 14430,
+        "plies": 1263664,
+        "sources": 14440
+      },
+      "train": {
+        "games": 260517,
+        "plies": 22891358,
+        "sources": 260836
+      },
+      "validation": {
+        "games": 14480,
+        "plies": 1267765,
+        "sources": 14500
+      }
+    },
+    "all_source_provenance_occurrences_matched": true,
+    "assignments_sha256": "8f3e2e5fd07fa40318267992783d05ce55f15e7891bab353bf64176566122228",
+    "counts": {
+      "canonical_games": 289427,
+      "canonical_plies": 25422787,
+      "duplicate_game_groups": 112,
+      "duplicate_sources": 349,
+      "games_with_conflicting_results": 13,
+      "source_plies": 25429063,
+      "source_records": 289776
+    },
+    "full_legal_replay_rerun": false,
+    "games_sha256": "f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5",
+    "identity_and_split_rules_matched": true,
+    "original_d02_bytes_preserved": true,
+    "sampled_adapter_replays": 290,
+    "split_audit_sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36"
+  },
+  "preservation_evidence": "preservation.json",
+  "branch": "codex/d03-s03-review",
+  "review_checkout": "/private/tmp/rl-chess-d03-s03-review",
+  "original_primary_updated": false,
+  "pushed": false,
+  "annotation_ready": false,
+  "gate_S_accepted": false,
+  "next_scoped_tasks": [
+    "D04",
+    "S04"
+  ],
+  "limitations": [
+    "CPU macOS arm64/Python 3.12.12 only",
+    "Full legal replay relies on accepted D02; full provenance audit and 290 sampled replays freshly rerun",
+    "No fresh full preparation or annotation, benchmark, training, GPU or strength validation",
+    "Sequential search-owned records; no concurrent writes or crash durability"
+  ]
+}

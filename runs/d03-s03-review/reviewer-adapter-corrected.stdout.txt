@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d03-s03-review
+configfile: pyproject.toml
+collected 53 items
+
+runs/d03-s03-review/test_review_cases.py ...........................     [ 50%]
+runs/d02-s02-review/test_review_cases.py ..........................      [100%]
+
+- generated xml file: /private/tmp/rl-chess-d03-s03-review/runs/d03-s03-review/reviewer-adapter-corrected.xml -
+============================== 53 passed in 0.46s ==============================

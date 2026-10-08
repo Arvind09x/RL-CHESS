@@ -517,3 +517,12 @@ fields are resolved. Four D04 blockers still prevent annotation. Sampling,
 phases, position overlap and protected sample registries remain unresolved;
 these game counts establish no usable sample coverage. No D03 independent
 review acceptance is claimed.
+
+
+## Independent D03/S03 acceptance — 8 October 2026
+
+D03 canonical game splits and S03 parent-perspective backup are accepted
+through fresh independent AI review in the isolated combined review checkout.
+[Review and evidence](docs/d03-s03-review.md) supersede historical pending
+statements. D04 sampling/overlap and S04 root policies/actions are next.
+Annotation remains blocked and Gate S is not accepted.

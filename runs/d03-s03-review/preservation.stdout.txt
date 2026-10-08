@@ -1,0 +1,19 @@
+{
+  "base_commit": "1301d033b81ca88e51c66ba27c1035a80c50fe54",
+  "base_files": 518,
+  "unchanged_base_files": 513,
+  "original_task_worktrees_clean": true,
+  "original_task_code_and_evidence_preserved": true,
+  "manifest_only_two_D03_decisions_changed": true,
+  "repeated_bulk_output_identities": {
+    "games.jsonl": {
+      "bytes": 638770177,
+      "sha256": "f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5"
+    },
+    "split-audit.json": {
+      "bytes": 2191,
+      "sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36"
+    }
+  },
+  "both_adapter_replays_identical": true
+}

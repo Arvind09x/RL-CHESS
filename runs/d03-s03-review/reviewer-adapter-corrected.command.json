@@ -1,0 +1,32 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "-m",
+    "pytest",
+    "runs/d03-s03-review/test_review_cases.py",
+    "runs/d02-s02-review/test_review_cases.py",
+    "--import-mode=importlib",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=runs/d03-s03-review/reviewer-adapter-corrected.xml"
+  ],
+  "cwd": "/private/tmp/rl-chess-d03-s03-review",
+  "started_at_utc": "2026-10-08T11:28:17.409152+00:00",
+  "finished_at_utc": "2026-10-08T11:28:18.024237+00:00",
+  "duration_seconds": 0.6150457920157351,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d03-s03-review/src:/private/tmp/rl-chess-d03-s03-review",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "reviewer-adapter-corrected.stdout.txt",
+    "bytes": 590,
+    "sha256": "e0be9d05d0b133a1976a3a007c3d5a135cbdd1117e03381d7f3b3184dd5064b5"
+  },
+  "stderr": {
+    "path": "reviewer-adapter-corrected.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

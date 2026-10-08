@@ -1,6 +1,6 @@
 # Coding plan: small tasks from interface to playable agent
 
-Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 and M05 are accepted through independent AI review; M06 is accepted for local CPU correctness through user-supplied independent AI review on 8 October 2026. D01 manifest preparation and S01 CPU evaluator plumbing are independently AI review accepted and integrated in merged base 0347ceb. D02 source replay and S02 CPU PUCT selection/expansion/traversal are accepted through fresh independent AI review on 8 October 2026 and integrated together; D03 automated consolidation/split checks are complete and independent review is pending; D04–D08 and S03 onward remain unchecked. Annotation remains blocked and Gate S is not accepted. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
+Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 and M05 are accepted through independent AI review; M06 is accepted for local CPU correctness through user-supplied independent AI review on 8 October 2026. D01 manifest preparation and S01 CPU evaluator plumbing are independently AI review accepted and integrated in merged base 0347ceb. D02 source replay and S02 CPU PUCT selection/expansion/traversal are accepted through fresh independent AI review on 8 October 2026 and integrated together; D03 canonical splits and S03 parent-perspective backup are independently AI review accepted on 8 October 2026 in the isolated combined review checkout; D04–D08 and S04 onward remain unchecked. Annotation remains blocked and Gate S is not accepted. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
 
 This is the execution companion to [plan1.md](plan1.md), not a replacement strategy. [interface.md](interface.md) defines the shared behavior. The intended agent is a Chessformer network with Leela-inspired MCTS and self-play, based on AlphaZero's learning principle and initialized with Stockfish supervision.
 
@@ -120,7 +120,7 @@ Leela is the practical chess-search/self-play reference; AlphaZero supplies the 
 |---|---|---|---|---|
 | [x] | S01 / P2 | A07, F02 | Implement a uniform-legal-prior, zero-value dummy evaluator with `evaluate(states) -> list[Evaluation \| TerminalResult]` in input order. Use a batch-of-one call from search initially. | Empty, batch-of-one and mixed-terminal batches preserve order/input histories. Priors sum to one over legal moves only. Terminal states return exact outcomes and never enter policy normalization. |
 | [x] | S02 / P2 | S01 | Define search configuration and implement tree edges, selection, expansion and legal traversal. Record the PUCT formula/constants, tie handling and simulation-count convention. | Fixed seed/config yields repeatable traversals; input state/history is unchanged. Distinct histories are not merged by FEN-only identity. Root expansion versus counted edge visits is explicit. |
-| [ ] | S03 / P2 | S02 | Implement backup with values stored from each parent player's perspective. | Tiny controlled trees independently verify one-ply and two-ply signs, visit totals and terminal scores. A terminal child is handled without evaluator invocation. |
+| [x] | S03 / P2 | S02 | Implement backup with values stored from each parent player's perspective. | Tiny controlled trees independently verify one-ply and two-ply signs, visit totals and terminal scores. A terminal child is handled without evaluator invocation. |
 | [ ] | S04 / P2 | S03 | Return raw root visits, normalized training policy and a legal selected move; separate training exploration from evaluation selection. | Positive training visit count is required. Returned policy has legal support and unit sum. Terminal roots return no action. Budget exhaustion cannot fabricate a policy. |
 | [ ] | S05 / P2 | S04 | Implement a minimal match runner and search smoke checks with known chess positions. | Dummy search completes legal games under the cap/ending policy; a sufficient recorded budget recognizes simple terminal wins. Truncated games are counted explicitly, not scored as draws. |
 
@@ -696,3 +696,17 @@ rules remain unresolved. Assignments alone establish no sample coverage or
 position separation. Accepted code, dependencies, teacher and historical evidence
 are preserved. CPU macOS arm64/Python 3.12.12 only; no annotation, training,
 benchmark, GPU or search experiment. D04 remains unchecked.
+
+
+### Independent D03/S03 review acceptance — 2026-10-08
+
+D03 and S03 are accepted for their scoped CPU milestones, with no blocking
+findings or production fixes. [Review and limitations](docs/d03-s03-review.md)
+and [actual command/hash evidence](runs/d03-s03-review/acceptance.json) record
+730 model passes, 562 adapter passes/six expected skips, 53 reviewer cases in
+each environment, both identical 13-fixture replays, the full D03 provenance
+and assignment audit, and 290 fresh sampled game replays. This supersedes
+historical pending-review statements without modifying their evidence.
+D04 and S04 are the next independent tasks. Annotation remains blocked by
+four D04 decisions; S05 is pending and Gate S is not accepted. The combined
+review checkout supplies the next base; primary main has not been changed.

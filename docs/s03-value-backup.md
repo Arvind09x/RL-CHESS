@@ -141,3 +141,12 @@ S04 policy/move selection, exploration/noise/temperature, match runners,
 self-play, real evaluation, training and GPU work remain outside this change.
 S03 has passed automated checks and awaits independent review; **Gate S is
 unaccepted**.
+
+
+## Independent AI review acceptance — 8 October 2026
+
+S03 is accepted for its scoped CPU milestone by the coordinating Codex
+agent at the user's request. No blocking findings or production fixes were
+required. [Review, fresh checks and limitations](d03-s03-review.md) supersede
+historical pending-review statements. D04/S04 are next; annotation remains
+blocked and Gate S remains unaccepted.

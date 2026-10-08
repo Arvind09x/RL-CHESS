@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/private/tmp/rl-chess-d06/scripts/audit_d06.py", line 214, in <module>
+    assert bool(info.get(bound)) == (bound in tokens)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

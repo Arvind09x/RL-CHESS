@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "scripts/report_d06.py",
+    "/private/tmp/rl-chess-d06-benchmark",
+    "--report",
+    "runs/d06/results.json"
+  ],
+  "cwd": "/private/tmp/rl-chess-d06",
+  "started_at_utc": "2026-10-08T15:05:57.008210+00:00",
+  "finished_at_utc": "2026-10-08T15:05:57.478342+00:00",
+  "duration_seconds": 0.4699432500055991,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d06/src:/private/tmp/rl-chess-d06",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "report.stdout.txt",
+    "bytes": 5619,
+    "sha256": "4e1e5c36068799de3080d3fd46c8de51ab16e8f03be7e5116ea22d2c92866237"
+  },
+  "stderr": {
+    "path": "report.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

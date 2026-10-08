@@ -1,0 +1,371 @@
+{
+  "attempts": 1000,
+  "coverage": {
+    "endgame:b": 73,
+    "endgame:w": 73,
+    "middlegame:b": 361,
+    "middlegame:w": 377,
+    "opening:b": 66,
+    "opening:w": 50
+  },
+  "excluded": 0,
+  "failed_attempts": 0,
+  "interrupted_attempts": 0,
+  "limitations": [
+    "One CPU macOS arm64 run, 1000 distinct training rule positions from 999 games",
+    "Uniform hash sampling of unique rule positions changes the phase mix relative to reference-weighted sampling",
+    "Engine reported time is quantized milliseconds; observed transport wall includes parser/diagnostic work and engine initialization after go",
+    "Startup/reset/teardown timings include host scheduling and transport observation; startup metric excludes executable rehash",
+    "Pinned python-chess can omit score bounds placed after WDL; all raw flags are retained in attempt transport and independently reported alongside parsed bounds",
+    "No hardware isolation, power/thermal measurement, sustained scale or concurrency validation",
+    "Hard-crash recovery/resume are unimplemented; partial bundles cannot be consumed as complete datasets",
+    "No final expansion size selected: require subsequent held-out learning curves and training/resource evidence",
+    "D07, D08, training, search integration and GPU experiments were not run"
+  ],
+  "measured": {
+    "annotation_loop_seconds": 432.0232782920066,
+    "annotation_successful_labels_per_second": 2.31469008788942,
+    "attempt_components_seconds": {
+      "bestmove_to_return_seconds": {
+        "count": 1000,
+        "max": 0.015602625004248694,
+        "mean": 0.0052639995389909015,
+        "min": 0.004301709006540477,
+        "p50": 0.004913042008411139,
+        "p90": 0.006453750014770776,
+        "p95": 0.007086291996529326,
+        "p99": 0.009491958015132695,
+        "sum": 5.263999538990902
+      },
+      "engine_attempt_seconds": {
+        "count": 1000,
+        "max": 0.7536767499987036,
+        "mean": 0.4286272695961525,
+        "min": 0.35129995801253244,
+        "p50": 0.424620292003965,
+        "p90": 0.4719257499964442,
+        "p95": 0.49370954200276174,
+        "p99": 0.5364746249979362,
+        "sum": 428.6272695961525
+      },
+      "executable_rehash_seconds": {
+        "count": 1000,
+        "max": 0.04709583299700171,
+        "mean": 0.032272896376263814,
+        "min": 0.030180375004420057,
+        "p50": 0.03209575000801124,
+        "p90": 0.03382104201591574,
+        "p95": 0.03494333298294805,
+        "p99": 0.036782250012038276,
+        "sum": 32.272896376263816
+      },
+      "explicit_reset_to_ready_seconds": {
+        "count": 1000,
+        "max": 0.13518004099023528,
+        "mean": 0.012969165200833232,
+        "min": 0.009213582990923896,
+        "p50": 0.011046666011679918,
+        "p90": 0.01832970799296163,
+        "p95": 0.027267375000519678,
+        "p99": 0.0400057919905521,
+        "sum": 12.969165200833231
+      },
+      "go_to_bestmove_seconds": {
+        "count": 1000,
+        "max": 0.14471983298426494,
+        "mean": 0.07838225824231632,
+        "min": 0.01587545798975043,
+        "p50": 0.08410137498867698,
+        "p90": 0.09610058399266563,
+        "p95": 0.10020487499423325,
+        "p99": 0.11282999999821186,
+        "sum": 78.38225824231631
+      },
+      "process_handshake_seconds": {
+        "count": 1000,
+        "max": 0.4968462090182584,
+        "mean": 0.2962574871747347,
+        "min": 0.28188758398755454,
+        "p50": 0.2893687509931624,
+        "p90": 0.31694079100270756,
+        "p95": 0.3248317920078989,
+        "p99": 0.35065099998610094,
+        "sum": 296.2574871747347
+      },
+      "quit_to_return_seconds": {
+        "count": 1000,
+        "max": 0.015068374981638044,
+        "mean": 0.00507284061590326,
+        "min": 0.0038735420093871653,
+        "p50": 0.0047318339929915965,
+        "p90": 0.0062354579858947545,
+        "p95": 0.006875834020320326,
+        "p99": 0.009293375012930483,
+        "sum": 5.07284061590326
+      },
+      "ready_to_go_seconds": {
+        "count": 1000,
+        "max": 0.04595733399037272,
+        "mean": 0.0028460622527927627,
+        "min": 0.0021386249864008278,
+        "p50": 0.002536208019591868,
+        "p90": 0.0035995419893879443,
+        "p95": 0.004531999991741031,
+        "p99": 0.006378707999829203,
+        "sum": 2.8460622527927626
+      },
+      "startup_to_uciok_seconds": {
+        "count": 1000,
+        "max": 0.5307590000156779,
+        "mean": 0.3285303835509985,
+        "min": 0.31241333397338167,
+        "p50": 0.3213281249918509,
+        "p90": 0.35050391699769534,
+        "p95": 0.36021241699927486,
+        "p99": 0.3895207500027027,
+        "sum": 328.5303835509985
+      }
+    },
+    "audit_inclusive_labels_per_second": 2.1080952646132864,
+    "complete_label_audit_seconds": 4.280553137563402,
+    "completed_searches_per_observed_search_wall_second": 12.757989147346727,
+    "encoding_seconds": 0.2517914918716997,
+    "engine_returned_seconds": 76.667,
+    "independent_audit_seconds": 24.616612666024594,
+    "independent_audit_setup_membership_join_seconds": 18.70526041602716,
+    "invocation_labels_per_second": 2.2234809510546394,
+    "invocation_seconds": 449.7452517079946,
+    "legal_mask_seconds": 0.49571894865948707,
+    "mate_scores": 42,
+    "position_latency_seconds": {
+      "count": 1000,
+      "max": 0.75555025000358,
+      "mean": 0.4319534883714223,
+      "min": 0.3555802080081776,
+      "p50": 0.4273399999947287,
+      "p90": 0.4747917090135161,
+      "p95": 0.4968820000067353,
+      "p99": 0.5406227499770466,
+      "sum": 431.9534883714223
+    },
+    "post_input_audit_seconds": 0.6773892089840956,
+    "raw_score_bounds": 498,
+    "replay_seconds": 2.204343557561515,
+    "returned_node_overshoot": {
+      "count": 1000,
+      "max": 186,
+      "mean": -2015.533,
+      "min": -99021,
+      "p50": 57,
+      "p90": 113,
+      "p95": 125,
+      "p99": 151,
+      "sum": -2015533
+    },
+    "returned_nodes": 97984467,
+    "returned_nodes_below_request": 34,
+    "returned_nodes_per_engine_returned_second": 1278052.708466485,
+    "returned_search": {
+      "depth": {
+        "count": 1000,
+        "max": 245,
+        "mean": 22.665,
+        "min": 11,
+        "p50": 17,
+        "p90": 19,
+        "p95": 27,
+        "p99": 245,
+        "sum": 22665
+      },
+      "hashfull": {
+        "count": 1000,
+        "max": 8,
+        "mean": 3.866,
+        "min": 0,
+        "p50": 4,
+        "p90": 6,
+        "p95": 6,
+        "p99": 7,
+        "sum": 3866
+      },
+      "nodes": {
+        "count": 1000,
+        "max": 100186,
+        "mean": 97984.467,
+        "min": 979,
+        "p50": 100057,
+        "p90": 100113,
+        "p95": 100125,
+        "p99": 100151,
+        "sum": 97984467
+      },
+      "nps": {
+        "count": 1000,
+        "max": 15066000,
+        "mean": 1607061.977,
+        "min": 694958,
+        "p50": 1191714,
+        "p90": 2500125,
+        "p95": 3572892,
+        "p99": 8790142,
+        "sum": 1607061977
+      },
+      "seldepth": {
+        "count": 1000,
+        "max": 54,
+        "mean": 24.028,
+        "min": 2,
+        "p50": 24,
+        "p90": 31,
+        "p95": 33,
+        "p99": 38,
+        "sum": 24028
+      },
+      "tbhits": {
+        "count": 1000,
+        "max": 0,
+        "mean": 0.0,
+        "min": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "p99": 0,
+        "sum": 0
+      },
+      "time": {
+        "count": 1000,
+        "max": 0.144,
+        "mean": 0.076667,
+        "min": 0.001,
+        "p50": 0.084,
+        "p90": 0.096,
+        "p95": 0.1,
+        "p99": 0.113,
+        "sum": 76.667
+      }
+    },
+    "score_bounds": 0,
+    "setup_seconds": 17.031275250017643,
+    "successful_searches_per_engine_returned_second": 13.043421550341085,
+    "worker_replay_validation_and_persistence_residual_seconds": 3.3262187752698082
+  },
+  "pending": 0,
+  "projections": [
+    {
+      "additional_encoding_hours": 0.0006994208107547214,
+      "additional_legal_mask_hours": 0.0013769970796096863,
+      "additional_replay_hours": 0.006123176548781986,
+      "annotation_worker_hours": 1.2000646619222408,
+      "compact_label_bytes": 25478970.0,
+      "complete_independent_label_audit_hours": 0.01189042538212056,
+      "engine_reported_search_hours": 0.21296388888888887,
+      "fixed_measured_independent_audit_setup_seconds": 18.70526041602716,
+      "fixed_measured_setup_and_post_input_audit_seconds": 17.70866445900174,
+      "full_evidence_bytes": 310733320.0,
+      "successful_labels": 10000
+    },
+    {
+      "additional_encoding_hours": 0.006994208107547213,
+      "additional_legal_mask_hours": 0.013769970796096863,
+      "additional_replay_hours": 0.06123176548781986,
+      "annotation_worker_hours": 12.000646619222405,
+      "compact_label_bytes": 254789700.0,
+      "complete_independent_label_audit_hours": 0.1189042538212056,
+      "engine_reported_search_hours": 2.1296388888888886,
+      "fixed_measured_independent_audit_setup_seconds": 18.70526041602716,
+      "fixed_measured_setup_and_post_input_audit_seconds": 17.70866445900174,
+      "full_evidence_bytes": 3107333200.0,
+      "successful_labels": 100000
+    },
+    {
+      "additional_encoding_hours": 0.02098262432264164,
+      "additional_legal_mask_hours": 0.04130991238829059,
+      "additional_replay_hours": 0.18369529646345958,
+      "annotation_worker_hours": 36.00193985766722,
+      "compact_label_bytes": 764369100.0,
+      "complete_independent_label_audit_hours": 0.3567127614636168,
+      "engine_reported_search_hours": 6.388916666666666,
+      "fixed_measured_independent_audit_setup_seconds": 18.70526041602716,
+      "fixed_measured_setup_and_post_input_audit_seconds": 17.70866445900174,
+      "full_evidence_bytes": 9321999600.0,
+      "successful_labels": 300000
+    },
+    {
+      "additional_encoding_hours": 0.034971040537736066,
+      "additional_legal_mask_hours": 0.06884985398048432,
+      "additional_replay_hours": 0.3061588274390993,
+      "annotation_worker_hours": 60.00323309611203,
+      "compact_label_bytes": 1273948500.0,
+      "complete_independent_label_audit_hours": 0.594521269106028,
+      "engine_reported_search_hours": 10.648194444444444,
+      "fixed_measured_independent_audit_setup_seconds": 18.70526041602716,
+      "fixed_measured_setup_and_post_input_audit_seconds": 17.70866445900174,
+      "full_evidence_bytes": 15536666000.0,
+      "successful_labels": 500000
+    },
+    {
+      "additional_encoding_hours": 0.06994208107547213,
+      "additional_legal_mask_hours": 0.13769970796096864,
+      "additional_replay_hours": 0.6123176548781986,
+      "annotation_worker_hours": 120.00646619222405,
+      "compact_label_bytes": 2547897000.0,
+      "complete_independent_label_audit_hours": 1.189042538212056,
+      "engine_reported_search_hours": 21.296388888888888,
+      "fixed_measured_independent_audit_setup_seconds": 18.70526041602716,
+      "fixed_measured_setup_and_post_input_audit_seconds": 17.70866445900174,
+      "full_evidence_bytes": 31073332000.0,
+      "successful_labels": 1000000
+    }
+  ],
+  "retries": 0,
+  "scaling_assumptions": [
+    "Same sequential fresh-process D05 worker, teacher settings, host and comparable phase/history distribution; no concurrency speedup assumed",
+    "Observed successful yield and retry rate continue; zero observed failures does not establish zero future failures",
+    "Linear mean cost and uncompressed bytes per successful label; full evidence includes transport and independent audit records",
+    "Fixed corpus scan/hash/join overhead shown separately; expansion audits or larger inputs can change it",
+    "Independent label audit contains replay/encoding/mask time; these component costs must not be added twice",
+    "Existing canonical games and audited reference tables are reused once, not serialized per label; new-corpus preparation is outside projections",
+    "Encoding measured in a serial independent audit with games in memory and warm filesystem; no batch loader/cache/GPU/training costs measured"
+  ],
+  "scope": "D06 only; automated completion, independent milestone review pending",
+  "selected": 1000,
+  "storage": {
+    "attempts.jsonl": {
+      "bytes": 16917952,
+      "sha256": "5f06cf78e311f112dd97f9a592d8c2f18452f1e959977628bd89ec481d2d155f"
+    },
+    "exclusions.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "independent-replay.json": {
+      "bytes": 763985,
+      "sha256": "d95e2694b855ef4757a8f4e20b2d142fc69b95d5f481d32e2af150650301073a"
+    },
+    "labels.jsonl": {
+      "bytes": 2547897,
+      "sha256": "4ddeee8da6ddfbeb5d652b10d77f79063c2ea27678bf79378555698b657cdc42"
+    },
+    "latencies.jsonl": {
+      "bytes": 297155,
+      "sha256": "b2532de2737f55eaddc0616bd3bb735e5412fa58ab5b94665f0a9f8d1ce3b52f"
+    },
+    "selected.jsonl": {
+      "bytes": 244787,
+      "sha256": "a7e71037dd8302f52d399d69c50e1d7cd23065564675a76b7ff99cae7c238b81"
+    },
+    "settings.json": {
+      "bytes": 6820,
+      "sha256": "a6dbbfb62c3770d98846c5bf675ee323ed17da9575a565ac6043423209bb0289"
+    },
+    "summary.json": {
+      "bytes": 1918,
+      "sha256": "307d1497638bbad99d718f89741430bbc6d324b6cac7545003500f9d7be3c82f"
+    },
+    "uci-transport.log": {
+      "bytes": 10301556,
+      "sha256": "45e8b54d5bc63418278561ff5eb01bbb29c89423d260d57a0858f8a67572ad17"
+    }
+  },
+  "successful_labels": 1000
+}

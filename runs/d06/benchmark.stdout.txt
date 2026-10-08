@@ -1,0 +1,70 @@
+{"processed": 100, "successful": 100, "attempts": 100, "elapsed_seconds": 41.503442042012466}
+{"processed": 200, "successful": 200, "attempts": 200, "elapsed_seconds": 83.77796108301845}
+{"processed": 300, "successful": 300, "attempts": 300, "elapsed_seconds": 128.1514909999969}
+{"processed": 400, "successful": 400, "attempts": 400, "elapsed_seconds": 169.5867491250101}
+{"processed": 500, "successful": 500, "attempts": 500, "elapsed_seconds": 212.00536916701822}
+{"processed": 600, "successful": 600, "attempts": 600, "elapsed_seconds": 255.96391420799773}
+{"processed": 700, "successful": 700, "attempts": 700, "elapsed_seconds": 298.4437714999949}
+{"processed": 800, "successful": 800, "attempts": 800, "elapsed_seconds": 340.69942849999643}
+{"processed": 900, "successful": 900, "attempts": 900, "elapsed_seconds": 387.13563079200685}
+{"processed": 1000, "successful": 1000, "attempts": 1000, "elapsed_seconds": 432.02324970799964}
+{
+  "annotation_loop_seconds": 432.0232782920066,
+  "annotation_started_at_utc": "2026-10-08T14:56:59.238097+00:00",
+  "attempts": 1000,
+  "excluded": 0,
+  "failed_attempts": 0,
+  "finished_at_utc": "2026-10-08T15:04:11.941410+00:00",
+  "interrupted_attempts": 0,
+  "invocation_started_at_utc": "2026-10-08T14:56:42.194768+00:00",
+  "output_identities": {
+    "attempts.jsonl": {
+      "bytes": 16917952,
+      "sha256": "5f06cf78e311f112dd97f9a592d8c2f18452f1e959977628bd89ec481d2d155f"
+    },
+    "exclusions.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "labels.jsonl": {
+      "bytes": 2547897,
+      "sha256": "4ddeee8da6ddfbeb5d652b10d77f79063c2ea27678bf79378555698b657cdc42"
+    },
+    "latencies.jsonl": {
+      "bytes": 297155,
+      "sha256": "b2532de2737f55eaddc0616bd3bb735e5412fa58ab5b94665f0a9f8d1ce3b52f"
+    },
+    "selected.jsonl": {
+      "bytes": 244787,
+      "sha256": "a7e71037dd8302f52d399d69c50e1d7cd23065564675a76b7ff99cae7c238b81"
+    },
+    "settings.json": {
+      "bytes": 6820,
+      "sha256": "a6dbbfb62c3770d98846c5bf675ee323ed17da9575a565ac6043423209bb0289"
+    },
+    "uci-transport.log": {
+      "bytes": 10301556,
+      "sha256": "45e8b54d5bc63418278561ff5eb01bbb29c89423d260d57a0858f8a67572ad17"
+    }
+  },
+  "pending_references": [],
+  "position_latency_seconds": {
+    "count": 1000,
+    "max": 0.75555025000358,
+    "mean": 0.4319534883714223,
+    "min": 0.3555802080081776,
+    "p50": 0.4273399999947287,
+    "p90": 0.4747917090135161,
+    "p95": 0.4968820000067353,
+    "p99": 0.5406227499770466,
+    "sum": 431.9534883714223
+  },
+  "post_input_audit_seconds": 0.6773892089840956,
+  "retries": 0,
+  "selected": 1000,
+  "setup_seconds": 17.031275250017643,
+  "status": "complete",
+  "successful_labels": 1000,
+  "successful_labels_per_second": 2.31469008788942,
+  "total_seconds": 449.7452517079946
+}

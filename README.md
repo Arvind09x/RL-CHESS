@@ -471,3 +471,20 @@ preservation checks. [Actual replay summary](runs/d02/replay-summary.json)
 and [commands/evidence](runs/d02/preparation-evidence.json) are retained.
 Bulk records remain at `/private/tmp/rl-chess-d02-accepted-prepared/`, outside
 Git. D02 stops for independent review; D03/D04 still block annotation.
+
+
+## Current integrated status — 8 October 2026
+
+D02 PGN replay and S02 PUCT selection/expansion/traversal have fresh independent
+AI review acceptance and are integrated together. No blocking findings or
+production fixes were required. Fresh combined checks pass: 570 model tests,
+402 adapter tests with six expected skips, both identical 13-fixture replays
+and 26 reviewer-authored probes. [Review and limitations](docs/d02-s02-review.md)
+and [structured evidence](runs/d02-s02-review/acceptance.json) supersede
+historical pending-review statements above.
+
+`chess_rl.search.puct` exposes `Node`, `SearchConfig`, `expand`, `select_edge`
+and `traverse`; explicit root expansion consumes zero visits.
+[Exact formula, signs and simulation-count conventions](docs/s02-puct.md)
+remain binding for S03. D03 canonicalization/splitting and S03 backup are next.
+Annotation remains blocked by D03/D04, and Gate S is not accepted.

@@ -1,0 +1,25 @@
+{
+  "independently_framed_sources": 289776,
+  "total_stored_plies": 25429063,
+  "all_source_spans_and_hashes_match": true,
+  "archive_identity_matches_manifest": true,
+  "uncompressed_member_sha256": "44162cdc6bf4611cff64e3a0f741d5cf524cc50100e09c56bd566ba3dabce83d",
+  "fresh_parser_and_adapter_sample_games": 291,
+  "freshly_replayed_sample_plies": 24807,
+  "sampling": "first, last, and every 1000th ordinal",
+  "byte_identical_three_runs": {
+    "replays.jsonl": {
+      "bytes": 541174538,
+      "sha256": "69c10231f4d569a6b3cb4b26bc22a9535346d68f0a4753bd83c0c92981ea950b"
+    },
+    "rejections.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "summary.json": {
+      "bytes": 1907,
+      "sha256": "494407e29f64046585151b91698778bb6ce3a0cfe849da0a252c200f85c2444b"
+    }
+  },
+  "limitation": "Fresh full-archive legal replay was not rerun; full source/provenance scan and 291 sampled game replays were rerun."
+}

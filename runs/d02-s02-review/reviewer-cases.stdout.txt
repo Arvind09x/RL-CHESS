@@ -1,0 +1,65 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d02-s02-review
+configfile: pyproject.toml
+collected 26 items
+
+runs/d02-s02-review/test_review_cases.py ........................F.      [100%]
+
+=================================== FAILURES ===================================
+______ test_search_nonuniform_controlled_two_ply_perspectives_and_scores _______
+
+    def test_search_nonuniform_controlled_two_ply_perspectives_and_scores():
+        calls = []
+        def controlled(states):
+            state, = states
+            calls.append(len(state.board.move_stack))
+            base, = evaluate(states)
+            priors = np.zeros_like(base.priors)
+            move = 'e2e4' if state.board.turn else 'e7e5'
+            priors[move_to_id(state, chess.Move.from_uci(move))] = 1
+            value = 0.8 if state.board.turn else -0.4
+            return [Evaluation(priors, [(1+value)/2, 0, (1-value)/2], value)]
+        root = Node(make_state())
+        expand(root, controlled)
+        first = traverse(root, evaluator=controlled)
+        assert first.result.value == -0.4 and len(first.path) == 1
+>       second = traverse(root, evaluator=controlled)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+runs/d02-s02-review/test_review_cases.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/chess_rl/search/puct.py:166: in traverse
+    result = expand(node, evaluator)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src/chess_rl/search/puct.py:92: in expand
+    results = evaluator([node.state])
+              ^^^^^^^^^^^^^^^^^^^^^^^
+runs/d02-s02-review/test_review_cases.py:85: in controlled
+    priors[move_to_id(state, chess.Move.from_uci(move))] = 1
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/chess_rl/adapter/moves.py:21: in move_to_id
+    require_legal_move(state.board, move)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+board = Board('rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2')
+move = Move.from_uci('e2e4')
+
+    def require_legal_move(board: chess.Board, move: chess.Move) -> None:
+        """Require exact standard legal UCI, excluding python-chess castling aliases."""
+        if isinstance(move, chess.Move):
+            fields = (move.from_square, move.to_square)
+            if move.promotion is not None:
+                fields += (move.promotion,)
+            if any(isinstance(value, bool) or not isinstance(value, Integral) for value in fields):
+                raise ValueError("Move squares and promotion must be integer chess fields")
+        if (not isinstance(move, chess.Move) or not move or move.drop is not None
+                or not any(move == legal for legal in board.generate_legal_moves())):
+>           raise ValueError(f"Illegal or noncanonical standard chess move: {move!r}")
+E           ValueError: Illegal or noncanonical standard chess move: Move.from_uci('e2e4')
+
+src/chess_rl/adapter/state.py:91: ValueError
+- generated xml file: /private/tmp/rl-chess-d02-s02-review/runs/d02-s02-review/reviewer-cases.xml -
+=========================== short test summary info ============================
+FAILED runs/d02-s02-review/test_review_cases.py::test_search_nonuniform_controlled_two_ply_perspectives_and_scores
+========================= 1 failed, 25 passed in 0.23s =========================

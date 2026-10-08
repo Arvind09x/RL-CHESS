@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "git",
+    "diff",
+    "--check",
+    "0347ceb",
+    "HEAD"
+  ],
+  "cwd": "/private/tmp/rl-chess-d02-s02-review",
+  "started_at_utc": "2026-10-08T11:02:55.952581+00:00",
+  "finished_at_utc": "2026-10-08T11:02:55.999569+00:00",
+  "duration_seconds": 0.04666470899246633,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d02-s02-review/src:/private/tmp/rl-chess-d02-s02-review",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": "committed-whitespace.stdout.txt",
+  "stderr": "committed-whitespace.stderr.txt"
+}

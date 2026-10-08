@@ -227,3 +227,15 @@ two captured stdout logs. Their exact original stdout is retained losslessly
 in `runs/d02/stdout-raw.json` (with byte lengths and SHA-256s); readable logs
 normalize only redundant trailing blank lines. The corrected staged check is
 recorded separately. No scientific or source-data bytes were changed.
+
+
+## Independent AI review acceptance — 8 October 2026
+
+D02 is accepted for its scoped milestone through fresh independent review
+by the coordinating Codex agent at the user's request. No blocking findings
+or production fixes were required. The reviewed D02 and S02 commits are
+integrated together. [Review, fresh checks and limitations](d02-s02-review.md)
+and [structured acceptance](../runs/d02-s02-review/acceptance.json) record
+the evidence. This entry supersedes earlier pending-review statements without
+changing historical evidence. Annotation remains blocked by D03/D04;
+Gate S remains unaccepted.

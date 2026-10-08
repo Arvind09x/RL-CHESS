@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "scripts/check_d01.py",
+    "--teacher-executable",
+    "/private/tmp/Stockfish-sf_17.1/src/stockfish"
+  ],
+  "cwd": "/private/tmp/rl-chess-d02-s02-review",
+  "started_at_utc": "2026-10-08T08:40:38.934135+00:00",
+  "finished_at_utc": "2026-10-08T08:40:39.403079+00:00",
+  "duration_seconds": 0.4689485000271816,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d02-s02-review/src:/private/tmp/rl-chess-d02-s02-review",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": "teacher-idle.stdout.txt",
+  "stderr": "teacher-idle.stderr.txt"
+}

@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "runs/d02-s02-review/audit_raw.py"
+  ],
+  "cwd": "/private/tmp/rl-chess-d02-s02-review",
+  "started_at_utc": "2026-10-08T08:40:37.561655+00:00",
+  "finished_at_utc": "2026-10-08T08:40:45.515445+00:00",
+  "duration_seconds": 7.9537624579970725,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d02-s02-review/src:/private/tmp/rl-chess-d02-s02-review",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": "independent-raw-audit-final.stdout.txt",
+  "stderr": "independent-raw-audit-final.stderr.txt"
+}

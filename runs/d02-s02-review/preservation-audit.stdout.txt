@@ -1,0 +1,6 @@
+{
+  "protected_base_files": 309,
+  "byte_identical": 304,
+  "original_worktrees_clean": true,
+  "task_code_and_evidence_preserved": true
+}

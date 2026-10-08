@@ -1,6 +1,6 @@
 # Coding plan: small tasks from interface to playable agent
 
-Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 and M05 are accepted through independent AI review; M06 is accepted for local CPU correctness through user-supplied independent AI review on 8 October 2026. D01 manifest preparation and S01 CPU evaluator plumbing are independently AI review accepted and integrated in merged base 0347ceb. D02 source replay passes automated checks and awaits independent review; D03–D08 and S02 onward remain unchecked. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
+Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 and M05 are accepted through independent AI review; M06 is accepted for local CPU correctness through user-supplied independent AI review on 8 October 2026. D01 manifest preparation and S01 CPU evaluator plumbing are independently AI review accepted and integrated in merged base 0347ceb. D02 source replay and S02 CPU PUCT selection/expansion/traversal are accepted through fresh independent AI review on 8 October 2026 and integrated together; D03–D08 and S03 onward remain unchecked. Annotation remains blocked and Gate S is not accepted. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
 
 This is the execution companion to [plan1.md](plan1.md), not a replacement strategy. [interface.md](interface.md) defines the shared behavior. The intended agent is a Chessformer network with Leela-inspired MCTS and self-play, based on AlphaZero's learning principle and initialized with Stockfish supervision.
 
@@ -119,7 +119,7 @@ Leela is the practical chess-search/self-play reference; AlphaZero supplies the 
 | Done | ID / owner | Prerequisites | Build | Acceptance check |
 |---|---|---|---|---|
 | [x] | S01 / P2 | A07, F02 | Implement a uniform-legal-prior, zero-value dummy evaluator with `evaluate(states) -> list[Evaluation \| TerminalResult]` in input order. Use a batch-of-one call from search initially. | Empty, batch-of-one and mixed-terminal batches preserve order/input histories. Priors sum to one over legal moves only. Terminal states return exact outcomes and never enter policy normalization. |
-| [ ] | S02 / P2 | S01 | Define search configuration and implement tree edges, selection, expansion and legal traversal. Record the PUCT formula/constants, tie handling and simulation-count convention. | Fixed seed/config yields repeatable traversals; input state/history is unchanged. Distinct histories are not merged by FEN-only identity. Root expansion versus counted edge visits is explicit. |
+| [x] | S02 / P2 | S01 | Define search configuration and implement tree edges, selection, expansion and legal traversal. Record the PUCT formula/constants, tie handling and simulation-count convention. | Fixed seed/config yields repeatable traversals; input state/history is unchanged. Distinct histories are not merged by FEN-only identity. Root expansion versus counted edge visits is explicit. |
 | [ ] | S03 / P2 | S02 | Implement backup with values stored from each parent player's perspective. | Tiny controlled trees independently verify one-ply and two-ply signs, visit totals and terminal scores. A terminal child is handled without evaluator invocation. |
 | [ ] | S04 / P2 | S03 | Return raw root visits, normalized training policy and a legal selected move; separate training exploration from evaluation selection. | Positive training visit count is required. Returned policy has legal support and unit sum. Terminal roots return no action. Budget exhaustion cannot fabricate a policy. |
 | [ ] | S05 / P2 | S04 | Implement a minimal match runner and search smoke checks with known chess positions. | Dummy search completes legal games under the cap/ending policy; a sufficient recorded budget recognizes simple terminal wins. Truncated games are counted explicitly, not scored as draws. |
@@ -623,3 +623,28 @@ training or search is implemented. Plan1/interface semantics, dependency pins,
 accepted implementation and all historical evidence are preserved. CPU macOS
 arm64/Python 3.12.12 intake only; unsupported syntax is rejected rather than
 salvaged. Review the focused D02 commit before starting D03.
+
+
+### D02/S02 independent AI review acceptance and integration — 2026-10-08
+
+At the user's request, the coordinating Codex agent independently reviewed
+D02 `cb37b0df79f85ee7615d89778efbad75c1b19576` and
+S02 `88e62a418bfd8cce54bc8c7e90bae60bb5719c6a` from common base
+`0347ceb7e6efd867e1f1253b3bf5a57d4fd6e48f`. Both scoped milestones
+are accepted with no blocking findings and no production fixes. This is fresh
+AI review, not an attribution to the implementers or human teammate acceptance.
+
+Fresh checks: 155 D02 tests and 95 S02 tests on their original commits;
+570 combined model tests; 402 combined adapter tests with six expected skips;
+26 reviewer-authored cases; both identical 13-fixture replays; M06, pinned
+source/notice, teacher-byte/idle-UCI and preservation checks. Full raw/output
+audits matched all 289,776 source records and 25,429,063 stored plies; 291 games
+were freshly parsed/replayed. Three saved bulk outputs were byte-identical.
+A fresh full-archive legal replay was not rerun. See `docs/d02-s02-review.md`
+and `runs/d02-s02-review/acceptance.json` for exact scope, commands and limits.
+
+The independent commits merge without conflicts. Original branches/evidence
+remain available. This entry supersedes historical pending-review statements.
+D03 canonicalization/splitting and S03 backup are the next scoped tasks.
+D04 sampling/phase/overlap decisions still follow D03; annotation remains
+blocked. S04/S05 remain pending and **Gate S is not accepted**.

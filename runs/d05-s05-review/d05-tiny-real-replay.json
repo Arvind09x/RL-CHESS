@@ -1,0 +1,160 @@
+{
+  "adapter_and_direct_board_agree": true,
+  "all_labels_legal": true,
+  "coverage": {
+    "endgame:black": 2,
+    "endgame:white": 2,
+    "middlegame:black": 2,
+    "middlegame:white": 2,
+    "opening:black": 2,
+    "opening:white": 2
+  },
+  "independent_move_ids_agree": true,
+  "raw_hash_reset_and_node_commands_verified": true,
+  "record_checks": [
+    {
+      "features_sha256": "bb49dc0053af80ea481a401a6a2804e36c295dc0060310536286541b603a1ae4",
+      "game_id": "g:000025602b7ecc9da7677d8baf42cad26dae7815ec1145a18af1c2792cbebb34",
+      "legal_mask_sha256": "1cd7b593a34f45d1ce474dc8cc106f542a19efa9137fc78274071609a3c673a7",
+      "pv_plies": 2,
+      "returned_nodes": 100023,
+      "root_fen": "rnbqkbnr/pp2pppp/2pp4/8/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq - 1 3",
+      "sample_ply": 5,
+      "score_bound": {}
+    },
+    {
+      "features_sha256": "5d37c320ea2f61258178301abe4511e86c7576f1bd8cdc74c3cde6f7676db706",
+      "game_id": "g:000025602b7ecc9da7677d8baf42cad26dae7815ec1145a18af1c2792cbebb34",
+      "legal_mask_sha256": "783af8792d3cd2c995c2e9cd8417a61537aff089953ccde25d8278ce0b756e97",
+      "pv_plies": 2,
+      "returned_nodes": 100062,
+      "root_fen": "rnb1kb1r/ppq1pppp/2pp1n2/4P3/3P4/3B1N2/PPP2PPP/RNBQK2R b KQkq - 0 5",
+      "sample_ply": 9,
+      "score_bound": {}
+    },
+    {
+      "features_sha256": "a9fb7c9a6d8946b9026d319c91cbdeef2b34f444c08512a45f4e32089f8046c8",
+      "game_id": "g:000025602b7ecc9da7677d8baf42cad26dae7815ec1145a18af1c2792cbebb34",
+      "legal_mask_sha256": "d9699c1877696757a1777a5c03fbb59a3ceac3d28849ad195c8712333bf17863",
+      "pv_plies": 19,
+      "returned_nodes": 100000,
+      "root_fen": "rn2kb1r/ppq1pppp/2p5/3np3/3P2b1/3B1N2/PPP2PPP/RNBQR1K1 w kq - 0 8",
+      "sample_ply": 14,
+      "score_bound": {}
+    },
+    {
+      "features_sha256": "cc5d38f4376cb97be7a39866fe41ba606d375980c09fafce03df90e5fac39ce0",
+      "game_id": "g:000025602b7ecc9da7677d8baf42cad26dae7815ec1145a18af1c2792cbebb34",
+      "legal_mask_sha256": "b03a1e5ab60db582766bca4aedf9e8562bbc71b139de215b52507d21d7fa2e58",
+      "pv_plies": 2,
+      "returned_nodes": 100124,
+      "root_fen": "r3kb1r/ppqn1ppp/2p1p3/3nP2b/8/3B1N1P/PPPN1PP1/R1BQR1K1 w kq - 1 11",
+      "sample_ply": 20,
+      "score_bound": {}
+    },
+    {
+      "features_sha256": "6dcb0cb4497211dfe9691734f4d892911f0ca4216e16fed21b55e64b9c74161a",
+      "game_id": "g:000025602b7ecc9da7677d8baf42cad26dae7815ec1145a18af1c2792cbebb34",
+      "legal_mask_sha256": "343ca5ddf38bf057da6dbe41d4fddb082faeee27243e4e6a591e698d7ca7efd7",
+      "pv_plies": 2,
+      "returned_nodes": 100085,
+      "root_fen": "2kr1b1r/ppqn1ppp/2p1p1b1/3nP1B1/2N3P1/3B1N1P/PPP2P2/R2QR1K1 b - - 4 13",
+      "sample_ply": 25,
+      "score_bound": {}
+    },
+    {
+      "features_sha256": "957d9483a8715ed5c5f9064f7a3fc99de7cec33cfb92ba88f13804de5da54e91",
+      "game_id": "g:000025602b7ecc9da7677d8baf42cad26dae7815ec1145a18af1c2792cbebb34",
+      "legal_mask_sha256": "db4ed5f9588f546fcf8a96e4bbadd146c4b5d5a36f9ca2c1f52165c378a213ef",
+      "pv_plies": 15,
+      "returned_nodes": 100018,
+      "root_fen": "2k2b1r/ppBn1ppp/2p1p3/3nP3/2N3P1/5N1P/PP3P2/R2bR1K1 w - - 0 16",
+      "sample_ply": 30,
+      "score_bound": {}
+    },
+    {
+      "features_sha256": "ec5eb9dfe955ee485d5cd269cf0a9f23bfe265319c9054a3db2d214b27487aec",
+      "game_id": "g:000025602b7ecc9da7677d8baf42cad26dae7815ec1145a18af1c2792cbebb34",
+      "legal_mask_sha256": "0ae3e9185ed3b39cf92d623746ad7a0229018f8af46a1e9f926dfaed98a1c0c3",
+      "pv_plies": 13,
+      "returned_nodes": 100081,
+      "root_fen": "5r2/ppkn2p1/2p1N3/3nP3/1bN1R1p1/7P/PP3P2/3R2K1 b - - 0 21",
+      "sample_ply": 41,
+      "score_bound": {}
+    },
+    {
+      "features_sha256": "e4e151a422028072a245aa5c616624094b53b7cf14913a4ff1a98fe90b3f6363",
+      "game_id": "g:00012298940f898babde41099e7c8970e735bfc5e7077d23e22cb042375211c3",
+      "legal_mask_sha256": "f77b49d1e875e00667f325746df043ba30d376b0074079caba98cb236c707d63",
+      "pv_plies": 2,
+      "returned_nodes": 100112,
+      "root_fen": "r2qkb1r/pp3ppp/2n1pn2/3p4/3P2b1/2PB1N2/PP3PPP/RNBQ1RK1 w kq - 0 8",
+      "sample_ply": 14,
+      "score_bound": {}
+    },
+    {
+      "features_sha256": "e9c4ad0ec4591365d2c225cc1bf211e7c972dfc9e99f2a19db8b702d7a36c152",
+      "game_id": "g:0001ccff154a5ff2f41ad11aefe0b28d34f1553cfd51287bcddf9fc44947a01f",
+      "legal_mask_sha256": "7dc4ce48f133160388433503272211f8c2f0fbbd170c43f207b139b11274122f",
+      "pv_plies": 12,
+      "returned_nodes": 100036,
+      "root_fen": "8/7p/3p1pp1/k1pPp3/2P1P3/3K2Pb/5P2/1B6 w - - 2 53",
+      "sample_ply": 104,
+      "score_bound": {}
+    },
+    {
+      "features_sha256": "cba417db57bb2d41ce507fcb49b834b8f0e3a0255514e36104aa071c1a61badc",
+      "game_id": "g:00020993640158af8d8a568722642934f59b3546b84e1f4d8498a93b4236c5d6",
+      "legal_mask_sha256": "ddf5f7f7568ecd44db04a8e272bd25b10b3a6d79934845846e4d42c5dfa3a833",
+      "pv_plies": 11,
+      "returned_nodes": 100012,
+      "root_fen": "7k/3R3P/4K3/8/pr6/3p4/8/8 b - - 2 69",
+      "sample_ply": 137,
+      "score_bound": {}
+    },
+    {
+      "features_sha256": "669fd4df74c4efff4fd2a2d7dcccb9ac9c6cee5236e9be9d04bc936acedeab28",
+      "game_id": "g:000284514d060f96b8785ebe89c8ce51b3441963f3e28b5b03dba28aed9c252a",
+      "legal_mask_sha256": "cf57c9825310e55e997871a0bb028a937852322b7d3a4c222911b416f3f9a7bc",
+      "pv_plies": 12,
+      "returned_nodes": 100041,
+      "root_fen": "3r4/6pp/1p3k2/1N1p4/P3p3/1P3n1P/2P1BP2/2K5 b - - 1 32",
+      "sample_ply": 63,
+      "score_bound": {}
+    },
+    {
+      "features_sha256": "ea74ee1a72c75fd5ee98a6869438cbb997ae27be754ef5aa14eff4223f245579",
+      "game_id": "g:00036ace29a6156283b32529053f893eb886d41f68d51f1f403de84e12324467",
+      "legal_mask_sha256": "ab08629c997562d23ecb183aa33427b64e25f4b2642adad97137b94244682afb",
+      "pv_plies": 1,
+      "returned_nodes": 100152,
+      "root_fen": "8/8/p1k1p2p/4P1pP/2K3P1/1pP5/1P6/8 w - - 0 40",
+      "sample_ply": 78,
+      "score_bound": {}
+    }
+  ],
+  "sample_identities": {
+    "attempts.jsonl": {
+      "bytes": 102520,
+      "sha256": "16a88eec930d34d82a2c28d127b3a5923fbf85ae5171b370435625739907db4c"
+    },
+    "exclusions.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "labels.jsonl": {
+      "bytes": 30542,
+      "sha256": "d0e9eaeef9d209474e4a2260cb6ca45cf402b8ccdc3602b9434cde0566faf047"
+    },
+    "selected.jsonl": {
+      "bytes": 2945,
+      "sha256": "50f725d3f898dceaff59d953fe0ddba05fe1b95558aef9cca15b26a1fba5c5e3"
+    },
+    "settings.json": {
+      "bytes": 3024,
+      "sha256": "a866d674e8af772b06b2f124051e069fa753749f94ad294ac550383fccdaeca7"
+    }
+  },
+  "selected": 12,
+  "successful_labels_replayed": 12
+}

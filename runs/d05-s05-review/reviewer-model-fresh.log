@@ -1,0 +1,12 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d05-s05-review-ukekilzz
+configfile: pyproject.toml
+collected 70 items
+
+runs/d02-s02-review/test_review_cases.py ..........................      [ 37%]
+runs/d03-s03-review/test_review_cases.py ...........................     [ 75%]
+runs/d04-s04-review/test_review_cases.py .................               [100%]
+
+- generated xml file: /private/tmp/rl-chess-d05-s05-review-ukekilzz/reviewer-model-fresh.xml -
+============================== 70 passed in 0.68s ==============================

@@ -1,0 +1,66 @@
+[
+  {
+    "name": "integrated-probes-adapter",
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-B",
+      "-m",
+      "pytest",
+      "runs/d05-s05-review/test_review_cases.py",
+      "--import-mode=importlib",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=/private/tmp/rl-chess-d05-s05-integration/runs/d05-s05-review/integrated-probes-adapter.xml"
+    ],
+    "cwd": "/private/tmp/rl-chess-d05-s05-integration",
+    "started_at_utc": "2026-10-08T14:45:26.517675+00:00",
+    "duration_seconds": 0.4335947090003174,
+    "exit_code": 0,
+    "environment_overrides": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "stdout": {
+      "path": "integrated-probes-adapter.stdout.txt",
+      "bytes": 519,
+      "sha256": "298ac43f60f7cc02b5786b5d837a2147bce8304bbcb5f8bcf8e3da9a2b70ccc4"
+    },
+    "stderr": {
+      "path": "integrated-probes-adapter.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "name": "integrated-probes-model",
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+      "-B",
+      "-m",
+      "pytest",
+      "runs/d05-s05-review/test_review_cases.py",
+      "--import-mode=importlib",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=/private/tmp/rl-chess-d05-s05-integration/runs/d05-s05-review/integrated-probes-model.xml"
+    ],
+    "cwd": "/private/tmp/rl-chess-d05-s05-integration",
+    "started_at_utc": "2026-10-08T14:45:26.951672+00:00",
+    "duration_seconds": 0.30280062500969507,
+    "exit_code": 0,
+    "environment_overrides": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "stdout": {
+      "path": "integrated-probes-model.stdout.txt",
+      "bytes": 517,
+      "sha256": "1310b74767d64426b8660327c03bea41d70a7925857471c9d3e8901308861914"
+    },
+    "stderr": {
+      "path": "integrated-probes-model.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+]

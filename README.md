@@ -550,3 +550,20 @@ accepted. [Review and evidence](docs/d04-s04-review.md) supersede historical
 pending statements. Use `data/manifests/elite-2025-01-d04-v1.json` for D05; the
 preserved original manifest retains its earlier metadata blockers. D05 worker/
 tiny annotation and S05 minimal games are next. Gate S is not accepted.
+
+
+## Current D05/S05 acceptance and integration — 8 October 2026
+
+D05 Stockfish annotation and S05 bounded dummy-search games are independently
+AI review accepted and combined with their original branch histories. Gate S
+is accepted for tested CPU correctness/plumbing. No blockers or production
+fixes were required. [Review and validation](docs/d05-s05-review.md) and
+[acceptance record](runs/d05-s05-review/acceptance.json) supersede historical
+pending statuses above. The user authorized integration into local main.
+
+Fresh combined checks passed: 984 model checks; 816 adapter checks with six
+expected skips; 70 prior reviewer probes and 14 new special-move probes per
+environment. Both D05 bundles and all 15 saved games replayed successfully.
+The two annotation bundles cover 12 distinct roots. Dummy games establish
+plumbing, not strength. D06 benchmarking, D07 loading/batching and E01 match
+protocols are next. D08, training, GPU work and model-guided games remain pending.

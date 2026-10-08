@@ -1,6 +1,6 @@
 # Coding plan: small tasks from interface to playable agent
 
-Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 and M05 are accepted through independent AI review; M06 is accepted for local CPU correctness through user-supplied independent AI review on 8 October 2026. D01 manifest preparation and S01 CPU evaluator plumbing are independently AI review accepted and integrated in merged base 0347ceb. D02 source replay and S02 CPU PUCT selection/expansion/traversal are accepted through fresh independent AI review on 8 October 2026 and integrated together; D03 canonical splits and S03 parent-perspective backup are independently AI review accepted on 8 October 2026 in the isolated combined review checkout; D04 deterministic sampling/overlap and S04 root policies/actions are independently AI review accepted on 8 October 2026. D05–D08 and S05 onward remain unchecked. D05 tiny annotation can use the resolved D04 manifest; Gate S is not accepted. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
+Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 and M05 are accepted through independent AI review; M06 is accepted for local CPU correctness through user-supplied independent AI review on 8 October 2026. D01 manifest preparation and S01 CPU evaluator plumbing are independently AI review accepted and integrated in merged base 0347ceb. D02 source replay and S02 CPU PUCT selection/expansion/traversal are accepted through fresh independent AI review on 8 October 2026 and integrated together; D03 canonical splits and S03 parent-perspective backup are independently AI review accepted on 8 October 2026 in the isolated combined review checkout; D04 deterministic sampling/overlap and S04 root policies/actions are independently AI review accepted on 8 October 2026. D05 and S05/Gate S are independently AI review accepted on 8 October 2026 and combined for local main integration. D06–D08, E01 and training remain pending. The resolved D04 manifest remains active. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
 
 This is the execution companion to [plan1.md](plan1.md), not a replacement strategy. [interface.md](interface.md) defines the shared behavior. The intended agent is a Chessformer network with Leela-inspired MCTS and self-play, based on AlphaZero's learning principle and initialized with Stockfish supervision.
 
@@ -94,7 +94,7 @@ After Gate A, the data, model and search tracks can proceed independently. They 
 | [x] | D02 / P1 | D01, A07 | Fetch the selected monthly archive, record its exact URL/checksum, and implement standard PGN parsing/replay with rejected-game accounting. | Valid games replay with full history; corrupted, variant and unreplayable games are rejected with counts/reasons. A small fixture requires no network access. |
 | [x] | D03 / P1 | D02 | Canonicalize duplicate games and assign deterministic 90/5/5 splits by game, before position sampling. | Repeated preparation produces the same assignments. Duplicate games cannot land in separate splits. |
 | [x] | D04 / P1 | D03 | Record phase boundaries and sampling algorithm; select at most eight distinct nonterminal positions per game and remove position overlap across splits. Define expansion with stable game assignments and protected held-out sets. | A split/coverage audit passes. Identity includes rule-relevant board state and legal en-passant availability, independent of network-history differences. Report phase counts per split before/after removal. Protected held-out splits remain separate; removals, expansion and refill rules are deterministic. |
-| [ ] | D05 / P1 | D04 | Implement the Stockfish worker and annotate a tiny valid sample with the locked settings, hash resets, failure/retry records and root-perspective targets. | Every retained best move is legal and matches its ID; WDL counts/probabilities are valid. Missing WDL/interrupted analyses are never accepted as targets. Replaying a saved record reproduces its root. |
+| [x] | D05 / P1 | D04 | Implement the Stockfish worker and annotate a tiny valid sample with the locked settings, hash resets, failure/retry records and root-perspective targets. | Every retained best move is legal and matches its ID; WDL counts/probabilities are valid. Missing WDL/interrupted analyses are never accepted as targets. Replaying a saved record reproduces its root. |
 | [ ] | D06 / P1 | D05 | Run the 1,000-position annotation benchmark separately from worker implementation. | Save actual throughput, failures, settings and returned search information. Project annotation/replay/encoding/storage costs for 10,000, 100,000, several hundred thousand and 1 million labels, identifying measured rates and scaling assumptions. Choose expansion using these costs and subsequent learning curves. |
 | [ ] | D07 / P1 | D05 | Implement record loading, shared-adapter tensor construction, batching and optional versioned cache validation. | A saved record yields the same state/mask/label after reload. Reject incompatible versions and invalid labels. A teacher class ID remains a class ID, not a dense stored one-hot policy. |
 | [ ] | D08 / P1 | D06, D07 | Produce the initial 10,000 successfully labeled positions using the measured worker and audited splits. | Manifest, success counts, split overlap and replay/target audits pass. Failures/exclusions are accounted for rather than counted as completed labels. |
@@ -122,9 +122,9 @@ Leela is the practical chess-search/self-play reference; AlphaZero supplies the 
 | [x] | S02 / P2 | S01 | Define search configuration and implement tree edges, selection, expansion and legal traversal. Record the PUCT formula/constants, tie handling and simulation-count convention. | Fixed seed/config yields repeatable traversals; input state/history is unchanged. Distinct histories are not merged by FEN-only identity. Root expansion versus counted edge visits is explicit. |
 | [x] | S03 / P2 | S02 | Implement backup with values stored from each parent player's perspective. | Tiny controlled trees independently verify one-ply and two-ply signs, visit totals and terminal scores. A terminal child is handled without evaluator invocation. |
 | [x] | S04 / P2 | S03 | Return raw root visits, normalized training policy and a legal selected move; separate training exploration from evaluation selection. | Positive training visit count is required. Returned policy has legal support and unit sum. Terminal roots return no action. Budget exhaustion cannot fabricate a policy. |
-| [ ] | S05 / P2 | S04 | Implement a minimal match runner and search smoke checks with known chess positions. | Dummy search completes legal games under the cap/ending policy; a sufficient recorded budget recognizes simple terminal wins. Truncated games are counted explicitly, not scored as draws. |
+| [x] | S05 / P2 | S04 | Implement a minimal match runner and search smoke checks with known chess positions. | Dummy search completes legal games under the cap/ending policy; a sufficient recorded budget recognizes simple terminal wins. Truncated games are counted explicitly, not scored as draws. |
 
-**Gate S — search accepted:** S05 and controlled backup checks pass before we interpret results from model-guided games. Completing games with a dummy evaluator does not demonstrate playing strength.
+**Gate S — accepted 2026-10-08 through independent AI review:** S05 and controlled backup checks pass before we interpret results from model-guided games. Completing games with a dummy evaluator does not demonstrate playing strength.
 
 ## 6. Implement learning, persistence and the real evaluator
 
@@ -778,3 +778,25 @@ and M06 checks. Commands, failures, exit codes and hashes are saved in
 main integration, D06 benchmark, D08 production, training or search integration
 is claimed. CPU macOS arm64 only; scaling, concurrency and crash recovery remain
 outside D05.
+
+
+### Independent D05/S05 review acceptance and integration — 2026-10-08
+
+D05 and S05 are accepted for their scoped CPU milestones through independent
+AI review by the coordinating Codex agent at the user's request. Gate S is
+accepted for search correctness and legal game plumbing. No blocking findings
+or production fixes were required. Both exact implementation commits are
+merged together with their original histories and evidence preserved.
+[Review and limitations](docs/d05-s05-review.md) and
+[structured acceptance](runs/d05-s05-review/acceptance.json) record fresh
+combined checks: 984 model passes, 816 adapter passes/six expected skips,
+70 prior reviewer cases per environment and 14 new special-move cases per
+environment. Both D05 label bundles and all 15 S05 records replayed; both
+frozen adapter reports matched. Merged source bytes equal the tested snapshot.
+
+The two D05 bundles cover the same 12 roots, not 24 distinct positions. Dummy
+games demonstrate plumbing only. D06's separate 1,000-position benchmark, D07
+loading/batching and E01 match protocols are next eligible tasks. D08 waits
+for D06/D07; T01 waits for D07. No later implementation or experiments ran.
+This dated acceptance supersedes historical pending statements while preserving
+their evidence. The user explicitly authorized local main integration.

@@ -1,0 +1,175 @@
+[
+  {
+    "name": "environment-adapter",
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-c",
+      "import importlib.metadata as m, importlib.util as u, json, platform, sys; print(json.dumps(dict(python=sys.version, executable=sys.executable, platform=platform.platform(), machine=platform.machine(), versions={name:m.version(name) for name in ['numpy','python-chess','chess','pytest']}, torch_available=u.find_spec('torch') is not None), indent=2))"
+    ],
+    "cwd": "/private/tmp/rl-chess-s01",
+    "environment": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-10-08T07:09:59.325142+00:00",
+    "elapsed_seconds": 0.0431332080042921,
+    "exit_code": 0,
+    "stdout": "environment-adapter.stdout.txt",
+    "stderr": "environment-adapter.stderr.txt"
+  },
+  {
+    "name": "focused-adapter",
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_evaluator.py",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=/private/tmp/rl-chess-s01/runs/s01/20261008T070959324954Z/focused-adapter.xml"
+    ],
+    "cwd": "/private/tmp/rl-chess-s01",
+    "environment": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-10-08T07:09:59.368394+00:00",
+    "elapsed_seconds": 0.38194208400091156,
+    "exit_code": 0,
+    "stdout": "focused-adapter.stdout.txt",
+    "stderr": "focused-adapter.stderr.txt"
+  },
+  {
+    "name": "adapter-only-regressions",
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=/private/tmp/rl-chess-s01/runs/s01/20261008T070959324954Z/adapter-only-regressions.xml"
+    ],
+    "cwd": "/private/tmp/rl-chess-s01",
+    "environment": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-10-08T07:09:59.750494+00:00",
+    "elapsed_seconds": 2.126767333014868,
+    "exit_code": 0,
+    "stdout": "adapter-only-regressions.stdout.txt",
+    "stderr": "adapter-only-regressions.stderr.txt"
+  },
+  {
+    "name": "replay-adapter",
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "scripts/check_adapter.py"
+    ],
+    "cwd": "/private/tmp/rl-chess-s01",
+    "environment": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-10-08T07:10:01.877419+00:00",
+    "elapsed_seconds": 0.07898358299280517,
+    "exit_code": 0,
+    "stdout": "replay-adapter.stdout.txt",
+    "stderr": "replay-adapter.stderr.txt"
+  },
+  {
+    "name": "environment-model",
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+      "-c",
+      "import importlib.metadata as m, importlib.util as u, json, platform, sys; print(json.dumps(dict(python=sys.version, executable=sys.executable, platform=platform.platform(), machine=platform.machine(), versions={name:m.version(name) for name in ['numpy','python-chess','chess','pytest']}, torch_available=u.find_spec('torch') is not None), indent=2))"
+    ],
+    "cwd": "/private/tmp/rl-chess-s01",
+    "environment": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-10-08T07:10:01.956644+00:00",
+    "elapsed_seconds": 0.04554520800593309,
+    "exit_code": 0,
+    "stdout": "environment-model.stdout.txt",
+    "stderr": "environment-model.stderr.txt"
+  },
+  {
+    "name": "focused-model",
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+      "-m",
+      "pytest",
+      "tests/test_evaluator.py",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=/private/tmp/rl-chess-s01/runs/s01/20261008T070959324954Z/focused-model.xml"
+    ],
+    "cwd": "/private/tmp/rl-chess-s01",
+    "environment": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-10-08T07:10:02.002352+00:00",
+    "elapsed_seconds": 0.3824079580081161,
+    "exit_code": 0,
+    "stdout": "focused-model.stdout.txt",
+    "stderr": "focused-model.stderr.txt"
+  },
+  {
+    "name": "replay-model",
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+      "scripts/check_adapter.py"
+    ],
+    "cwd": "/private/tmp/rl-chess-s01",
+    "environment": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-10-08T07:10:02.385236+00:00",
+    "elapsed_seconds": 0.07903983400319703,
+    "exit_code": 0,
+    "stdout": "replay-model.stdout.txt",
+    "stderr": "replay-model.stderr.txt"
+  },
+  {
+    "name": "diff-check",
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "cwd": "/private/tmp/rl-chess-s01",
+    "environment": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-10-08T07:10:02.464598+00:00",
+    "elapsed_seconds": 0.03749250000691973,
+    "exit_code": 0,
+    "stdout": "diff-check.stdout.txt",
+    "stderr": "diff-check.stderr.txt"
+  },
+  {
+    "name": "baseline-file-list",
+    "argv": [
+      "git",
+      "ls-tree",
+      "-r",
+      "--name-only",
+      "4765a8cb3d6ae9cf50619be283176ab9ac17cca6"
+    ],
+    "cwd": "/private/tmp/rl-chess-s01",
+    "environment": {
+      "PYTHONPATH": "src:.",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "started_utc": "2026-10-08T07:10:02.502304+00:00",
+    "elapsed_seconds": 0.008624416979728267,
+    "exit_code": 0,
+    "stdout": "baseline-file-list.stdout.txt",
+    "stderr": "baseline-file-list.stderr.txt"
+  }
+]

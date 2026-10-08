@@ -1,0 +1,93 @@
+{
+  "status": "passed",
+  "mode": "https",
+  "repositories": {
+    "maia3": {
+      "identity": "CSSLab/maia3",
+      "commit": "1e13597c42d4858b7cfd7cfdae01e297263364b2",
+      "license_paths": [
+        "LICENSE"
+      ]
+    },
+    "lczero": {
+      "identity": "daniel-monroe/lczero-training",
+      "commit": "7b3ee3fcdb49d8abeb034718935b099134c11882",
+      "license_paths": []
+    }
+  },
+  "files_verified": [
+    {
+      "repository": "maia3",
+      "path": "maia3/models.py",
+      "sha256": "9172bfd41e770baef734f472c6506e7615aa3f4b3f4227f41e9cf35e6ef0be0c"
+    },
+    {
+      "repository": "maia3",
+      "path": "maia3/utils.py",
+      "sha256": "17fa2c9ccd5a46e52446422aebbedcb5d67353353166ecaa7c40d4cb68417388"
+    },
+    {
+      "repository": "maia3",
+      "path": "maia3/dataset.py",
+      "sha256": "86259e2d11c2f68f3f6faac446906f311ef78a8dd18396bc286736be768806b3"
+    },
+    {
+      "repository": "maia3",
+      "path": "maia3/uci.py",
+      "sha256": "38dc83f6c74ce1e0bce7ad9f0769e474e41c674051cf3a4ca586334106e4c4a2"
+    },
+    {
+      "repository": "maia3",
+      "path": "maia3/model_registry.py",
+      "sha256": "50b555088586afeef167e996c6b686b6285a8aee7c86154ef8effa3d30950f58"
+    },
+    {
+      "repository": "maia3",
+      "path": "README.md",
+      "sha256": "19bd869b7fd591559620f86129b43582692445443193f88004796e90a4db8779"
+    },
+    {
+      "repository": "maia3",
+      "path": "pyproject.toml",
+      "sha256": "6981ff3b29833538b4a8018501b703fc657e4081ecc1094042a6dbb7aaa716e6"
+    },
+    {
+      "repository": "maia3",
+      "path": "LICENSE",
+      "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
+    },
+    {
+      "repository": "lczero",
+      "path": "tf/tfprocess.py",
+      "sha256": "487c998809d49e753d98f7d19ca09ac904dfdaf18b9dbac318bce6bac0733a24"
+    },
+    {
+      "repository": "lczero",
+      "path": "README.md",
+      "sha256": "2fddceea3a01fba614902327d255c6d29996754cc54d668fcbf0ecf0b973903b"
+    }
+  ],
+  "operations_verified": [
+    "compact_gab",
+    "board_compression",
+    "shared_template_bank",
+    "input_projection",
+    "absolute_pe",
+    "post_layernorm",
+    "dropout",
+    "final_normalization",
+    "initialization",
+    "pair_policy",
+    "promotion_adjustment",
+    "vocabulary_ordering",
+    "wdl_head",
+    "make_rpe_map",
+    "rpe_logits",
+    "rpe_value",
+    "qkv_contractions",
+    "history_padding"
+  ],
+  "references_verified": 43,
+  "retained_notices_verified": 2,
+  "numerical_port_validation": "not performed"
+}

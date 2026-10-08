@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-p",
+    "runs.m06.diagnostic_plugin",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=runs/d05/model-regression.xml"
+  ],
+  "cwd": "/private/tmp/rl-chess-d05",
+  "started_at_utc": "2026-10-08T13:29:53.390889+00:00",
+  "finished_at_utc": "2026-10-08T13:30:39.134300+00:00",
+  "duration_seconds": 45.7432419169927,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d05/src:/private/tmp/rl-chess-d05",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "model-regression.stdout.txt",
+    "bytes": 2806,
+    "sha256": "00b41474e648b9c908e0dfa9b3677c94a8d595a5eb9a23a87a1675708542f891"
+  },
+  "stderr": {
+    "path": "model-regression.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

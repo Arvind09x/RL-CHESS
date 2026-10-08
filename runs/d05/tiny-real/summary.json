@@ -1,0 +1,31 @@
+{
+  "attempts": 12,
+  "excluded": 0,
+  "failed_attempts": 0,
+  "output_identities": {
+    "attempts.jsonl": {
+      "bytes": 102520,
+      "sha256": "16a88eec930d34d82a2c28d127b3a5923fbf85ae5171b370435625739907db4c"
+    },
+    "exclusions.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "labels.jsonl": {
+      "bytes": 30542,
+      "sha256": "d0e9eaeef9d209474e4a2260cb6ca45cf402b8ccdc3602b9434cde0566faf047"
+    },
+    "selected.jsonl": {
+      "bytes": 2945,
+      "sha256": "50f725d3f898dceaff59d953fe0ddba05fe1b95558aef9cca15b26a1fba5c5e3"
+    },
+    "settings.json": {
+      "bytes": 3024,
+      "sha256": "a866d674e8af772b06b2f124051e069fa753749f94ad294ac550383fccdaeca7"
+    }
+  },
+  "pending_references": [],
+  "selected": 12,
+  "status": "complete",
+  "successful_labels": 12
+}

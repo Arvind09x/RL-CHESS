@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=runs/d05/final-adapter-regression.xml"
+  ],
+  "cwd": "/private/tmp/rl-chess-d05",
+  "started_at_utc": "2026-10-08T13:36:15.613589+00:00",
+  "finished_at_utc": "2026-10-08T13:36:27.297328+00:00",
+  "duration_seconds": 11.683698625012767,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d05/src:/private/tmp/rl-chess-d05",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "final-adapter-regression.stdout.txt",
+    "bytes": 2941,
+    "sha256": "256e2a19440e78ee480e5f7351be2916e61a9c0edcd8ea988831c6429739a686"
+  },
+  "stderr": {
+    "path": "final-adapter-regression.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

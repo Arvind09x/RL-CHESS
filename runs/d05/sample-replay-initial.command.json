@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "runs/d05/audit_sample.py",
+    "runs/d05/tiny-real"
+  ],
+  "cwd": "/private/tmp/rl-chess-d05",
+  "started_at_utc": "2026-10-08T13:27:28.860587+00:00",
+  "finished_at_utc": "2026-10-08T13:27:31.540589+00:00",
+  "duration_seconds": 2.679945499985479,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d05/src:/private/tmp/rl-chess-d05",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "sample-replay-initial.stdout.txt",
+    "bytes": 1091,
+    "sha256": "d5717bc2ca8b8b7b69ac76900a15168744e9464d47dc63186a469a324367881d"
+  },
+  "stderr": {
+    "path": "sample-replay-initial.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

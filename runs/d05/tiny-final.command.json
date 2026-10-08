@@ -1,0 +1,41 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "scripts/annotate_d05.py",
+    "--manifest",
+    "data/manifests/elite-2025-01-d04-v1.json",
+    "--games",
+    "/private/tmp/rl-chess-d03-prepared/games.jsonl",
+    "--split-audit",
+    "/private/tmp/rl-chess-d03-prepared/split-audit.json",
+    "--prepared",
+    "/private/tmp/rl-chess-d04-prepared",
+    "--executable",
+    "/private/tmp/Stockfish-sf_17.1/src/stockfish",
+    "--output-dir",
+    "runs/d05/tiny-final",
+    "--timeout",
+    "30",
+    "--max-attempts",
+    "2"
+  ],
+  "cwd": "/private/tmp/rl-chess-d05",
+  "started_at_utc": "2026-10-08T13:29:37.044318+00:00",
+  "finished_at_utc": "2026-10-08T13:29:47.226873+00:00",
+  "duration_seconds": 10.182509582984494,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d05/src:/private/tmp/rl-chess-d05",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "tiny-final.stdout.txt",
+    "bytes": 862,
+    "sha256": "3d3311ed36a98382207bba3ad19cf99e4d966c70d1d785f41bc60b537bff38c6"
+  },
+  "stderr": {
+    "path": "tiny-final.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "git",
+    "diff",
+    "--check"
+  ],
+  "cwd": "/private/tmp/rl-chess-d05",
+  "started_at_utc": "2026-10-08T13:42:50.365082+00:00",
+  "finished_at_utc": "2026-10-08T13:42:50.443134+00:00",
+  "duration_seconds": 0.07799679200979881,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d05/src:/private/tmp/rl-chess-d05",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "whitespace.stdout.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "whitespace.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -541,3 +541,12 @@ and capacity. Bulk outputs remain under `/private/tmp/rl-chess-d04-prepared/`;
 four preparation fields; the accepted original manifest remains unchanged.
 D04 has no review acceptance yet. No annotations, benchmark, training, teacher
 changes or merge into main are part of this task. D05 waits for D04 acceptance.
+
+
+## Independent D04/S04 review acceptance — 8 October 2026
+
+D04 sampling/overlap and S04 root policies/actions are independently AI review
+accepted. [Review and evidence](docs/d04-s04-review.md) supersede historical
+pending statements. Use `data/manifests/elite-2025-01-d04-v1.json` for D05; the
+preserved original manifest retains its earlier metadata blockers. D05 worker/
+tiny annotation and S05 minimal games are next. Gate S is not accepted.

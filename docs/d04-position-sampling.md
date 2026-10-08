@@ -218,3 +218,11 @@ Protected sample registry SHA-256: `813d40ec52f3058996ddf6d7586dea23ee568c3bcff9
 Final checks: focused-final: 37 passed, final-model-regression: 767 passed, final-adapter-regression: 599 passed, 6 expected skips, reviewer-adapter: 53 passed, reviewer-model: 53 passed. Both accepted 13-fixture adapter reports match byte-for-byte; pinned upstream and M06 checks pass. All final success commands exit 0.
 
 [Complete compact result](../runs/d04/completion.json), [output audit](../runs/d04/output-verification.json), [repeated selection](../runs/d04/reproduction.json), [actual commands](../runs/d04/commands.json) and [preservation](../runs/d04/preservation.json).
+
+
+## Independent AI review acceptance — 8 October 2026
+
+D04 is accepted for its scoped CPU milestone by the coordinating Codex agent.
+No blocking findings or production fixes were required.
+[Fresh combined review and limitations](d04-s04-review.md) supersede earlier
+pending-review statements. D05/S05 are next; Gate S remains unaccepted.

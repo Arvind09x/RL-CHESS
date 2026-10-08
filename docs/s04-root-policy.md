@@ -194,3 +194,11 @@ versions are unmeasured. Reviewer data replays depend on the preserved external
 or archive audit is rerun for this search-only change. No S05 matches, self-play,
 real evaluator, training or GPU work is implemented. **Stop for independent
 S04 review; Gate S remains unaccepted.**
+
+
+## Independent AI review acceptance — 8 October 2026
+
+S04 is accepted for its scoped CPU milestone by the coordinating Codex agent.
+No blocking findings or production fixes were required.
+[Fresh combined review and limitations](d04-s04-review.md) supersede earlier
+pending-review statements. D05/S05 are next; Gate S remains unaccepted.

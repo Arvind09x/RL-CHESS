@@ -1,6 +1,6 @@
 # Coding plan: small tasks from interface to playable agent
 
-Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 has passed automated acceptance and awaits review. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
+Version 2 — 7 October 2026. F01, F02 and A01–A06 are implemented and verified. A07/Gate A and F03 are accepted through independent AI review; M01 is accepted through independent AI review; M02 is accepted through independent AI review; M03 is accepted through independent AI review; M04 and M05 are accepted through independent AI review; M06 is accepted for local CPU correctness through user-supplied independent AI review on 8 October 2026. D01 preparation passes automated checks and awaits independent review; D02–D08 and S01 remain unchecked. See the dated entries below. This copy is the execution record for `/Users/arvindsrinivass/Desktop/RL-Chess`. This revision fixes GAB + Q/K/V relative attention, replaces the attention comparison with combined-model profiling, requires P-versus-R evaluation and supervised replay mixing, adopts actual-occurrence draws and the batched evaluator, and opens staged data expansion beyond 50,000 labels.
 
 This is the execution companion to [plan1.md](plan1.md), not a replacement strategy. [interface.md](interface.md) defines the shared behavior. The intended agent is a Chessformer network with Leela-inspired MCTS and self-play, based on AlphaZero's learning principle and initialized with Stockfish supervision.
 
@@ -90,7 +90,7 @@ After Gate A, the data, model and search tracks can proceed independently. They 
 
 | Done | ID / owner | Prerequisites | Build | Acceptance check |
 |---|---|---|---|---|
-| [ ] | D01 / P1 | F02 | Create the dataset manifest and decide the archive, sampling/split seeds, game-ID convention, storage format and ending-policy ID. Plan an initial 10,000 labels and measurement-based expansion to 100,000, several hundred thousand and potentially 1 million. Record the fixed teacher configuration and resolve the binary/version/checksum. | Required provenance fields are explicit; pending archive checksum is filled in D02. Archive coverage is audited before fixing the main scale. No annotation starts with an incomplete manifest; 1 million labels is not a mandatory allocation. |
+| [x] | D01 / P1 | F02 | Create the dataset manifest and decide the archive, sampling/split seeds, game-ID convention, storage format and ending-policy ID. Plan an initial 10,000 labels and measurement-based expansion to 100,000, several hundred thousand and potentially 1 million. Record the fixed teacher configuration and resolve the binary/version/checksum. | Required provenance fields are explicit; pending archive checksum is filled in D02. Archive coverage is audited before fixing the main scale. No annotation starts with an incomplete manifest; 1 million labels is not a mandatory allocation. |
 | [ ] | D02 / P1 | D01, A07 | Fetch the selected monthly archive, record its exact URL/checksum, and implement standard PGN parsing/replay with rejected-game accounting. | Valid games replay with full history; corrupted, variant and unreplayable games are rejected with counts/reasons. A small fixture requires no network access. |
 | [ ] | D03 / P1 | D02 | Canonicalize duplicate games and assign deterministic 90/5/5 splits by game, before position sampling. | Repeated preparation produces the same assignments. Duplicate games cannot land in separate splits. |
 | [ ] | D04 / P1 | D03 | Record phase boundaries and sampling algorithm; select at most eight distinct nonterminal positions per game and remove position overlap across splits. Define expansion with stable game assignments and protected held-out sets. | A split/coverage audit passes. Identity includes rule-relevant board state and legal en-passant availability, independent of network-history differences. Report phase counts per split before/after removal. Protected held-out splits remain separate; removals, expansion and refill rules are deterministic. |
@@ -107,8 +107,8 @@ After Gate A, the data, model and search tracks can proceed independently. They 
 | [x] | M02 / P1 | M01, A07 | Assemble the projection, additive square embeddings and specified Post-LayerNorm encoder blocks. | Correct `[B,64,256]` outputs, finite forward/backward values and working train/eval dropout behavior for several batch sizes. Record resolved normalization/bias/initialization settings. |
 | [x] | M03 / P1 | M02 | Implement the pair policy head, `d_policy=128`, promotion adjustment and exact flattening order. | Compare selected ordinary/promotion logits to an independent scalar calculation/reference. Output is `[B,4352]`; queen and underpromotions occupy their own correct slots. |
 | [x] | M04 / P1 | M02 | Implement mean pooling and the specified WDL head. | Output is `[B,3]` logits in WDL order. Pool across squares; one known synthetic case independently checks the head path. |
-| [ ] | M05 / Both | M03, M04 | Assemble the backbone and heads with GAB as an intermediate correctness stage, before adding relative terms in M06. | End-to-end adapter batches produce finite policy/WDL logits and gradients. Record intermediate parameters/memory; this stage is not the architecture for supervised or RL runs. |
-| [ ] | M06 / P1 | M05, F03 | Port all implemented Q/K/V relative terms and finalize the fixed combined architecture. Keep operations inspectable and a diagnostic disable path for correctness checks. | Match reference outputs and gradients with nonzero relative tables and asymmetric inputs. Disabling terms recovers GAB-only behavior; all three tables receive gradients when enabled. No omitted position-only cross term is added. Check finite combined-model forward/backward results and count full parameters/memory; resolve a material mismatch with the provisional 6–8M target before freezing a full run. |
+| [x] | M05 / Both | M03, M04 | Assemble the backbone and heads with GAB as an intermediate correctness stage, before adding relative terms in M06. | End-to-end adapter batches produce finite policy/WDL logits and gradients. Record intermediate parameters/memory; this stage is not the architecture for supervised or RL runs. |
+| [x] | M06 / P1 | M05, F03 | Port all implemented Q/K/V relative terms and finalize the fixed combined architecture. Keep operations inspectable and a diagnostic disable path for correctness checks. | Match reference outputs and gradients with nonzero relative tables and asymmetric inputs. Disabling terms recovers GAB-only behavior; all three tables receive gradients when enabled. No omitted position-only cross term is added. Check finite combined-model forward/backward results and count full parameters/memory; resolve a material mismatch with the provisional 6–8M target before freezing a full run. |
 
 M06 is required before supervised training, the real evaluator and the combined-model pilot. It remains on the training critical path by the accepted architecture choice. M05 is an intermediate implementation check, not a competing training track; dummy search and data preparation can proceed independently of M06.
 
@@ -471,3 +471,77 @@ checkpoint/RNG equivalence, throughput and strength are unvalidated.
 No ponder/auxiliary heads, subagents or paid compute. Original planning files,
 shared contracts, accepted implementations, source pins/notices and all prior
 run evidence remain unchanged.
+
+
+### M04/M05 acceptance synchronization — 2026-10-08
+
+The already-recorded user-supplied independent AI acceptance of M04 commit
+`0fdbd1eaf5e4d1701a2627d55f87b2150a4f252a` and M05 commit
+`2e6316dd0c49b0c22ff10ef72b55793856189a72` now updates this shared status.
+M04's reviewer reproduced 216 model tests, 119 adapter tests/four expected
+skips, all 12 WDL cases, synthetic/permutation/constructor checks, M01–M03
+acceptance, both 13-fixture replays and source/dependency/preservation checks;
+33,795 elements, WDL order, change manifest and clean tree were verified.
+Source of this attribution: `runs/m05/m04-review-acceptance.json` and appended
+`docs/m04-wdl.md`, already present in the D01 base commit.
+M05's reviewer reproduced 251 model tests, 119 adapter tests/five expected
+skips, M01–M05 acceptance, both 13-fixture replays and source/dependency,
+manifest/preservation and parameter/memory audits; clean tree verified.
+Source: existing `runs/m06/m05-review-acceptance.json` and appended
+`docs/m05-network.md`. No blocking findings were recorded. These were AI
+reviews, not human teammate review. Historical completion entries remain intact.
+
+### M06 review acceptance — 2026-10-08
+
+The user reports that the planning agent independently reviewed and accepts
+M06 commit `4765a8cb3d6ae9cf50619be283176ab9ac17cca6` for **local CPU
+correctness**. That reviewer reproduced **287 model tests**, **119 adapter
+tests with six expected skips**, the complete M06 numerical checker, both
+13-fixture adapter replays and **191 protected-file hashes**. The working tree
+was clean. This evidence is supplied by the user in the D01 request; it is
+not a new reviewer run performed by the D01 implementer. This is independent
+AI review, not human review. GPU correctness and performance remain unverified.
+Record: `runs/d01/m06-review-acceptance.json`; appended `docs/m06-relative.md`.
+The historical M06 automation and pending-review statements remain preserved;
+this dated entry supersedes the pending status.
+
+### D01 manifest preparation — 2026-10-08
+
+D01 only passes automated preparation checks and **stops for independent review**;
+it is not independently reviewed. Changed files: `src/chess_rl/data_manifest.py`,
+`data/manifests/elite-2025-01-v1.json`, `scripts/check_d01.py`,
+`tests/test_data_manifest.py`, `docs/d01-data-manifest.md`, appended M06 review,
+README/shared status and `runs/d01/` evidence. The selected January 2025 archive
+URL is index/HEAD verified; no archive body was fetched. Archive ZIP SHA-256,
+retrieval time/byte count remain null pending D02. Split/sampling seeds are
+20261008/20261009; replay JSONL stores authoritative games once and sample
+references by game/ply. D03/D04 algorithms, phase boundaries and split/overlap/
+protected-heldout evidence remain pending. Annotation readiness fails closed.
+Initial target: 10,000 successful labels; separate benchmark: 1,000 positions;
+expansion and archive coverage/costs require measurements.
+
+Stockfish 17.1 official source release was locally built for Apple silicon
+using Apple clang 15.0.0 and the non-PGO build target after the official binary
+asset host repeatedly reset connections. The pinned source/tag, source-package,
+NNUE and executable hashes plus full build/idle-UCI evidence are in `runs/d01/`.
+Executable SHA-256:
+`3bd05ad6e2fcfb7384aca5d4ebd50a493c07b32fc3838b65d17405c97ab45bc4`.
+The teacher contract stays 100,000 nodes, Threads=1, Hash=128 MB, MultiPV=1,
+UCI_ShowWDL=true, full-history roots, per-annotation Clear Hash and root WDL;
+failed/missing/interrupted outputs require retry or explicit exclusion.
+No annotation searches, benchmark, training, search, paid compute or subagents.
+
+Actual command/exit-code evidence: `runs/d01/commands.json`; focused acceptance
+and limitations: `docs/d01-data-manifest.md`. Plan1/interface semantics, accepted
+adapter/model bytes, dependency/source pins and every previous run remain
+preserved. S01 is not marked complete; its concurrent work is outside this
+worktree. D02–D08 are unimplemented. GPU correctness/performance remains
+unverified. D01 preparation readiness does not authorize annotation.
+
+D01 check results: 83 focused tests; full model environment 370 passed
+(287 historical + 83 D01, with the M06 diagnostic plugin); adapter environment
+202 passed/six expected skips (119 historical + 83 D01). The complete M06
+checker, both 13-fixture replays, pinned-source audit, Torch-free imports and
+raw/python-chess idle UCI probes passed. Success checks exit 0; the incomplete
+manifest annotation gate exits 1 as required. Preservation evidence and focused
+file inventory: `runs/d01/preservation-check.json`, `runs/d01/change-manifest.json`.

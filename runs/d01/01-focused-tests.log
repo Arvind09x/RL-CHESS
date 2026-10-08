@@ -1,0 +1,10 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d01
+configfile: pyproject.toml
+collected 83 items
+
+tests/test_data_manifest.py ............................................ [ 53%]
+.......................................                                  [100%]
+
+============================== 83 passed in 0.06s ==============================

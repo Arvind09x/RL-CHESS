@@ -1,0 +1,64 @@
+{
+  "binary_asset_attempted": {
+    "browser_download_url": "https://github.com/official-stockfish/Stockfish/releases/download/sf_17.1/stockfish-macos-m1-apple-silicon.tar",
+    "id": 242039612,
+    "name": "stockfish-macos-m1-apple-silicon.tar",
+    "size": 80753152
+  },
+  "build_command_record": "runs/d01/stockfish-build-command.json",
+  "compiler": "Apple clang version 15.0.0 (clang-1500.3.9.4)\nTarget: arm64-apple-darwin23.5.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+  "dynamic_libraries": "/private/tmp/Stockfish-sf_17.1/src/stockfish:\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1345.120.2)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 1700.255.5)\n",
+  "executable": "/private/tmp/Stockfish-sf_17.1/src/stockfish",
+  "executable_bytes": 79567096,
+  "executable_sha256": "3bd05ad6e2fcfb7384aca5d4ebd50a493c07b32fc3838b65d17405c97ab45bc4",
+  "file": "/private/tmp/Stockfish-sf_17.1/src/stockfish: Mach-O 64-bit executable arm64\n",
+  "nnue": [
+    {
+      "bytes": 74874478,
+      "embedded_offset": 393520,
+      "name": "nn-1c0000000000.nnue",
+      "sha256": "1c0000000000a67d629999d932d0c373f7450ce43cd12d0562868f4eaf9ae2ad",
+      "source_url": "https://tests.stockfishchess.org/api/nn/nn-1c0000000000.nnue"
+    },
+    {
+      "bytes": 3519630,
+      "embedded_offset": 75268016,
+      "name": "nn-37f18f62d772.nnue",
+      "sha256": "37f18f62d772f3107e1d6aaca3898c130c3c86f2ab63e6555fbbca20635a899d",
+      "source_url": "https://tests.stockfishchess.org/api/nn/nn-37f18f62d772.nnue"
+    }
+  ],
+  "preflight": {
+    "argv": [
+      "/private/tmp/Stockfish-sf_17.1/src/stockfish"
+    ],
+    "commands_sent": [
+      "uci",
+      "compiler",
+      "isready",
+      "quit"
+    ],
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "Stockfish 17.1 by the Stockfish developers (see AUTHORS file)\nid name Stockfish 17.1\nid author the Stockfish developers (see AUTHORS file)\n\noption name Debug Log File type string default <empty>\noption name NumaPolicy type string default auto\noption name Threads type spin default 1 min 1 max 1024\noption name Hash type spin default 16 min 1 max 33554432\noption name Clear Hash type button\noption name Ponder type check default false\noption name MultiPV type spin default 1 min 1 max 256\noption name Skill Level type spin default 20 min 0 max 20\noption name Move Overhead type spin default 10 min 0 max 5000\noption name nodestime type spin default 0 min 0 max 10000\noption name UCI_Chess960 type check default false\noption name UCI_LimitStrength type check default false\noption name UCI_Elo type spin default 1320 min 1320 max 3190\noption name UCI_ShowWDL type check default false\noption name SyzygyPath type string default <empty>\noption name SyzygyProbeDepth type spin default 1 min 1 max 100\noption name Syzygy50MoveRule type check default true\noption name SyzygyProbeLimit type spin default 7 min 0 max 7\noption name EvalFile type string default nn-1c0000000000.nnue\noption name EvalFileSmall type string default nn-37f18f62d772.nnue\nuciok\n\nCompiled by                : clang++ 15.0.0 on Apple\nCompilation architecture   : apple-silicon\nCompilation settings       : 64bit POPCNT NEON_DOTPROD\nCompiler __VERSION__ macro : Apple LLVM 15.0.0 (clang-1500.3.9.4)\n\nreadyok\n",
+    "verified_at_utc": "2026-10-08T07:18:18.722839+00:00"
+  },
+  "reason_for_source_build": "official binary release asset host reset connections (curl exit 35)",
+  "release_url": "https://github.com/official-stockfish/Stockfish/releases/tag/sf_17.1",
+  "searches_run": false,
+  "separately_required_runtime_assets": [],
+  "source_archive_bytes": 222553,
+  "source_archive_sha256": "0cfd9396438798cc68f5c0d5fa0bb458bb8ffff7de06add841aaeace86bec1f1",
+  "source_archive_url": "https://codeload.github.com/official-stockfish/Stockfish/tar.gz/refs/tags/sf_17.1",
+  "syzygy": "disabled",
+  "tag": {
+    "node_id": "MDM6UmVmMjA5NzYxMzg6cmVmcy90YWdzL3NmXzE3LjE=",
+    "object": {
+      "sha": "03e27488f3d21d8ff4dbf3065603afa21dbd0ef3",
+      "type": "commit",
+      "url": "https://api.github.com/repos/official-stockfish/Stockfish/git/commits/03e27488f3d21d8ff4dbf3065603afa21dbd0ef3"
+    },
+    "ref": "refs/tags/sf_17.1",
+    "url": "https://api.github.com/repos/official-stockfish/Stockfish/git/refs/tags/sf_17.1"
+  }
+}

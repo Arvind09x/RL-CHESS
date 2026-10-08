@@ -234,3 +234,15 @@ remain in runs/m06. [Repair procedure](../runs/m06/closeout-repair.py) and
 [record](../runs/m06/log-preservation-repair.json) document the continuation.
 Model/checker/test sources and numerical results were unchanged. Final repaired
 repository/staged whitespace, preservation, manifest and clean-tree checks passed.
+
+
+## Independent AI review acceptance — 8 October 2026
+
+The user supplied the planning agent's independent acceptance of M06 commit
+`4765a8cb3d6ae9cf50619be283176ab9ac17cca6` for local CPU correctness in the
+D01 request. That reviewer reproduced 287 model tests, 119 adapter tests with
+six expected skips, the complete M06 numerical checker, both 13-fixture
+adapter replays and 191 protected-file hashes. The working tree was clean.
+This is AI review, not human review; GPU correctness and performance remain
+unverified. This appended entry supersedes the preserved historical pending
+review status. [Attribution record](../runs/d01/m06-review-acceptance.json).

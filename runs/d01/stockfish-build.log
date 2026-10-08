@@ -1,0 +1,79 @@
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LC_ALL = "C.UTF-8",
+	LC_CTYPE = "C.UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+Existing nn-1c0000000000.nnue validated, skipping download
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LC_ALL = "C.UTF-8",
+	LC_CTYPE = "C.UTF-8",
+	LANG = "C.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+Existing nn-37f18f62d772.nnue validated, skipping download
+
+Config:
+debug: 'no'
+sanitize: 'none'
+optimize: 'yes'
+arch: 'arm64'
+bits: '64'
+kernel: 'Darwin'
+os: ''
+prefetch: 'yes'
+popcnt: 'yes'
+pext: 'no'
+sse: 'no'
+mmx: 'no'
+sse2: 'no'
+ssse3: 'no'
+sse41: 'no'
+avx2: 'no'
+avxvnni: 'no'
+avx512: 'no'
+vnni256: 'no'
+vnni512: 'no'
+altivec: 'no'
+vsx: 'no'
+neon: 'yes'
+dotprod: 'yes'
+arm_version: '8'
+lsx: 'no'
+lasx: 'no'
+target_windows: ''
+
+Flags:
+CXX: clang++
+CXXFLAGS:  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full
+LDFLAGS: -L/opt/homebrew/opt/openssl@1.1/lib  -m64 -mmacosx-version-min=10.15 -arch arm64 -lpthread  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full
+
+Testing config sanity. If this fails, try 'make help' ...
+
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ARCH=apple-silicon COMP=clang all
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o benchmark.o benchmark.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o bitboard.o bitboard.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o evaluate.o evaluate.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o main.o main.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o misc.o misc.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o movegen.o movegen.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o movepick.o movepick.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o position.o position.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o search.o search.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o thread.o thread.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o timeman.o timeman.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o tt.o tt.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o uci.o uci.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o ucioption.o ucioption.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o tune.o tune.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o tbprobe.o syzygy/tbprobe.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o nnue_accumulator.o nnue/nnue_accumulator.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o nnue_misc.o nnue/nnue_misc.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o half_ka_v2_hm.o nnue/features/half_ka_v2_hm.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o network.o nnue/network.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o engine.o engine.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o score.o score.cpp
+clang++  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full -I/opt/homebrew/opt/openssl@1.1/include  -c -o memory.o memory.cpp
+clang++ -o stockfish benchmark.o bitboard.o evaluate.o main.o misc.o movegen.o movepick.o position.o search.o thread.o timeman.o tt.o uci.o ucioption.o tune.o tbprobe.o nnue_accumulator.o nnue_misc.o half_ka_v2_hm.o network.o engine.o score.o memory.o -L/opt/homebrew/opt/openssl@1.1/lib  -m64 -mmacosx-version-min=10.15 -arch arm64 -lpthread  -Wall -Wcast-qual -fno-exceptions -std=c++17  -pedantic -Wextra -Wshadow -Wmissing-prototypes -Wconditional-uninitialized -m64 -mmacosx-version-min=10.15 -arch arm64 -DUSE_PTHREADS -DNDEBUG -O3 -funroll-loops -mdynamic-no-pic -fexperimental-new-pass-manager -DIS_64BIT -DUSE_POPCNT -DUSE_NEON=8 -march=armv8.2-a+dotprod -DUSE_NEON_DOTPROD -DARCH=apple-silicon -flto=full

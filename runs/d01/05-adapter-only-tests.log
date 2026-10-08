@@ -1,0 +1,28 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d01
+configfile: pyproject.toml
+testpaths: tests
+collected 202 items / 6 skipped
+
+tests/test_data_manifest.py ............................................ [ 21%]
+.......................................                                  [ 41%]
+tests/test_encoding.py ..................                                [ 50%]
+tests/test_foundation.py .                                               [ 50%]
+tests/test_history.py .....                                              [ 52%]
+tests/test_legality.py .........                                         [ 57%]
+tests/test_moves.py ................................                     [ 73%]
+tests/test_outcomes.py ...................                               [ 82%]
+tests/test_regression.py ...........                                     [ 88%]
+tests/test_state.py .................                                    [ 96%]
+tests/test_types.py .......                                              [100%]
+
+- generated xml file: /private/tmp/rl-chess-d01/runs/d01/pytest-adapter-only.xml -
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_backbone.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_gab.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_network.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_policy.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_relative.py:3: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_wdl.py:4: could not import 'torch': No module named 'torch'
+======================== 202 passed, 6 skipped in 1.98s ========================

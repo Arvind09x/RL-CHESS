@@ -1,0 +1,96 @@
+{
+  "archive": {
+    "downloaded_bytes": null,
+    "downloaded_sha256": null,
+    "index_url": "https://database.nikonoel.fr/",
+    "month": "2025-01",
+    "retrieved_at_utc": null,
+    "url": "https://database.nikonoel.fr/lichess_elite_2025-01.zip",
+    "verification_evidence": "runs/d01/archive-provenance.json",
+    "verified_at_utc": "2026-10-08T07:09:21.833693+00:00"
+  },
+  "dataset_id": "lichess-elite-2025-01-pilot-v1",
+  "decision_record": "docs/d01-data-manifest.md",
+  "duplicate_identity": "start-moves-sha256-v1",
+  "duplicate_policy": "same start and full moves share game_id regardless of PGN headers/results; retain all archive/member/ordinal/LichessURL provenance; reject identity conflicts",
+  "encoding_version": "chess128-v2",
+  "ending_policy": "actual-occurrence-v1",
+  "engine": {
+    "assets": "embedded NNUE; no separate runtime assets; Syzygy disabled",
+    "build": "local official release source build; make -j2 build ARCH=apple-silicon COMP=clang; Apple clang 15.0.0; O3/LTO/NEON_DOTPROD; no PGO",
+    "download_url": "https://codeload.github.com/official-stockfish/Stockfish/tar.gz/refs/tags/sf_17.1",
+    "embedded_nnue": [
+      {
+        "embedded": true,
+        "name": "nn-1c0000000000.nnue",
+        "sha256": "1c0000000000a67d629999d932d0c373f7450ce43cd12d0562868f4eaf9ae2ad",
+        "source_url": "https://tests.stockfishchess.org/api/nn/nn-1c0000000000.nnue"
+      },
+      {
+        "embedded": true,
+        "name": "nn-37f18f62d772.nnue",
+        "sha256": "37f18f62d772f3107e1d6aaca3898c130c3c86f2ab63e6555fbbca20635a899d",
+        "source_url": "https://tests.stockfishchess.org/api/nn/nn-37f18f62d772.nnue"
+      }
+    ],
+    "executable_member": "Stockfish-sf_17.1/src/stockfish",
+    "executable_sha256": "3bd05ad6e2fcfb7384aca5d4ebd50a493c07b32fc3838b65d17405c97ab45bc4",
+    "package_sha256": "0cfd9396438798cc68f5c0d5fa0bb458bb8ffff7de06add841aaeace86bec1f1",
+    "platform": "macOS 14.5 arm64",
+    "release": "17.1",
+    "release_tag": "sf_17.1",
+    "source_commit": "03e27488f3d21d8ff4dbf3065603afa21dbd0ef3",
+    "uci_author": "the Stockfish developers (see AUTHORS file)",
+    "uci_name": "Stockfish 17.1",
+    "verification_evidence": "runs/d01/stockfish-provenance.json",
+    "verified_at_utc": "2026-10-08T07:18:18.722839+00:00"
+  },
+  "expansion_policy": "measure coverage/costs/learning curves before 100k, several hundred thousand or optional 1m; preserve assignments and heldouts; repeat overlap audits",
+  "game_id_format": "g:SHA256(canonical UTF-8 JSON of identity_version, normalized six-field start_fen and full actual moves_uci; sorted keys, compact separators, no newline)",
+  "game_identity": "start-moves-sha256-v1",
+  "heldout_policy": "freeze validation/test game assignments and sample registries; never train or replay",
+  "initial_successful_labels": 10000,
+  "max_distinct_nonterminal_positions_per_game": 8,
+  "move_vocab_version": "pair4352-v1",
+  "overlap_policy": "rule-position-disjoint-v1",
+  "overlap_requirements": "audit pieces/side/castling/legal en-passant independent of counters/network history; distinct plies and rule positions per game; remove cross-split overlap before annotation; report phase/split counts before/after, removals/refill/expansion",
+  "preparation": {
+    "overlap_audit_sha256": null,
+    "phase_boundaries": null,
+    "protected_heldout_registry_sha256": null,
+    "sampling_algorithm": null,
+    "split_algorithm": null,
+    "split_audit_sha256": null
+  },
+  "sampling_seed": 20261009,
+  "schema_version": "dataset-manifest-v1",
+  "separate_benchmark_positions": 1000,
+  "split_before_sampling": true,
+  "split_percent": [
+    90,
+    5,
+    5
+  ],
+  "split_seed": 20261008,
+  "storage_layout": "UTF-8 JSONL: games once with authoritative replay/history/source/result; samples reference game_id and sample_ply with root/provenance/class/soft WDL/search info; no repeated moves or dense one-hot policies",
+  "storage_version": "replay-jsonl-v1",
+  "teacher": {
+    "config_id": "stockfish-17.1-100kn-v1",
+    "failure_policy": "retry or explicitly exclude; never count as a successful label",
+    "full_history_roots": true,
+    "hash_mb": 128,
+    "hash_reset": "Clear Hash before each independent annotation",
+    "missing_wdl_policy": "failure; no centipawn conversion or PGN-result substitution",
+    "multipv": 1,
+    "nodes": 100000,
+    "show_wdl": true,
+    "tablebases": "disabled",
+    "threads": 1,
+    "wdl_perspective": "root side to move"
+  },
+  "wdl_order": [
+    "win",
+    "draw",
+    "loss"
+  ]
+}

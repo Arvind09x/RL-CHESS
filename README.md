@@ -122,12 +122,12 @@ WDL order, change manifest and clean tree were verified; no blocking findings.
 M05 commit `2e6316dd0c49b0c22ff10ef72b55793856189a72` is accepted through
 independent AI review supplied by the user on 8 October 2026; no blocking findings.
 [Appended acceptance](docs/m05-network.md) records the reproduced checks.
-M06 combined GAB + Q/K/V relative network passes automated acceptance and stops for review.
+M06 combined GAB + Q/K/V relative network has user-supplied independent AI review acceptance for local CPU correctness on 8 October 2026.
 [Focused settings/results/limitations](docs/m05-network.md) and
-[exact commands](runs/m05/commands.json) record the evidence. All prior runs
-and planning files remain unchanged; dated M05 documentation supersedes their
+[exact commands](runs/m05/commands.json) record the evidence. All prior run evidence and
+plan1.md/interface.md remain unchanged; dated M05 documentation supersedes their
 historical pending status. [M06 evidence](docs/m06-relative.md) records the
-finalized fixed architecture; its independent review is pending. No human teammate review, subagents or paid compute is claimed.
+finalized fixed architecture; the appended dated entry records the M06 AI review. No human teammate review, subagents or paid compute is claimed.
 
 
 ## Pinned upstream sources (F03)
@@ -389,5 +389,43 @@ to `relative_enabled=False`; M06 tests use the enabled default. M01–M04 standa
 components retain their accepted diagnostic defaults. Historical snippets above
 describe their respective milestones; use these current suite commands after M06.
 **287 model tests**, **119 adapter tests with six expected skips**, M01–M05
-acceptance and both 13-fixture replays pass. M06 stops for independent review.
+acceptance and both 13-fixture replays pass. The user-supplied planning-agent AI review reproduced these results, the complete M06 checker and 191 protected-file hashes; the reviewed tree was clean. GPU correctness and performance remain unverified.
 No data, training, checkpoints, evaluator, search, GPU runs, paid compute or subagents.
+
+
+## Dataset manifest preparation (D01)
+
+D01 passes automated preparation checks and awaits independent review.
+[Selected manifest](data/manifests/elite-2025-01-v1.json) and
+[decisions, teacher provenance, readiness and limitations](docs/d01-data-manifest.md)
+record the January 2025 Lichess Elite archive (exact URL verified by index/HEAD;
+no archive body downloaded), split/sampling seeds 20261008/20261009, 90/5/5
+splitting by game before sampling, eight-position cap, authoritative replay
+JSONL plus game/ply sample references and protected heldouts. The initial target
+is 10,000 successful labels and a separate 1,000-position benchmark. Coverage,
+annotation costs and expansion scale are unmeasured.
+
+Stockfish 17.1 is a runnable local Apple-silicon build of its pinned official
+source release; the official binary download failed at the asset host. Full
+executable/source-package/embedded-NNUE SHA-256s, build and idle UCI checks are
+recorded under `runs/d01/`. No search was run. The fixed teacher settings remain
+100,000 nodes, Threads=1, Hash=128 MB, MultiPV=1, UCI_ShowWDL=true, full-history
+roots and per-annotation Clear Hash with root-perspective WDL/failure handling.
+
+From the D01 worktree with installed dependencies and `PYTHONPATH=src:.`:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:. /Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python scripts/check_d01.py
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:. /Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python scripts/check_d01.py --teacher-executable /private/tmp/Stockfish-sf_17.1/src/stockfish
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:. /Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python -m pytest tests/test_data_manifest.py -p no:cacheprovider
+```
+
+The manifest is **preparation-ready, not annotation-ready**. The downloaded
+archive SHA-256/retrieval provenance is pending D02; algorithms, phases and
+split/overlap/protected-heldout evidence are pending D03/D04. Calling
+`DatasetManifest.require_annotation_ready()` or running the checker with
+`--require-annotation-ready` rejects it. D02–D08, annotation, training and search
+are unimplemented here; S01 remains unchecked. D01 has no independent review
+acceptance. Historical M04/M05 acceptance and all earlier evidence are retained;
+[the dated M06 review record](runs/d01/m06-review-acceptance.json) attributes
+acceptance to the user's planning-agent report, not the D01 implementer's checks.

@@ -1,0 +1,16 @@
+{
+  "id": {
+    "name": "Stockfish 17.1",
+    "author": "the Stockfish developers (see AUTHORS file)"
+  },
+  "configured": {
+    "Threads": 1,
+    "Hash": 128,
+    "UCI_ShowWDL": true,
+    "Clear Hash": null,
+    "SyzygyPath": ""
+  },
+  "MultiPV_default": 1,
+  "transport": "python-chess 1.999 / chess 1.11.2",
+  "analysis_or_play_calls": 0
+}

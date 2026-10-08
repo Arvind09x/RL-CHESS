@@ -1,0 +1,259 @@
+{
+  "date": "2026-10-08",
+  "recording": "Actual commands and observed per-command exits transcribed from this D01 tool session; timestamps/durations not reconstructed. Build and verification records separately retain machine-captured timestamps/durations.",
+  "commands": [
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "30",
+        "https://database.nikonoel.fr/",
+        "-o",
+        "/private/tmp/rl-chess-d01-index.html"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 6,
+      "execution": "sandbox",
+      "result": "Could not resolve host"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "30",
+        "https://api.github.com/repos/official-stockfish/Stockfish/releases/tags/sf_17.1",
+        "-o",
+        "/private/tmp/rl-chess-d01-release.json"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 6,
+      "execution": "sandbox",
+      "result": "Could not resolve host"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "30",
+        "https://database.nikonoel.fr/",
+        "-o",
+        "/private/tmp/rl-chess-d01-index.html"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 0,
+      "execution": "approved network",
+      "result": "60137-byte index retrieved"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "30",
+        "https://api.github.com/repos/official-stockfish/Stockfish/releases/tags/sf_17.1",
+        "-o",
+        "/private/tmp/rl-chess-d01-release.json"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 0,
+      "execution": "approved network",
+      "result": "51079-byte release metadata retrieved"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "30",
+        "--head",
+        "https://database.nikonoel.fr/lichess_elite_2025-01.zip",
+        "-o",
+        "/private/tmp/rl-chess-d01-archive-head.txt"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 0,
+      "execution": "approved network",
+      "result": "HTTP/2 200; HEAD only, no archive body"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "120",
+        "https://github.com/official-stockfish/Stockfish/releases/download/sf_17.1/stockfish-macos-m1-apple-silicon.tar",
+        "-o",
+        "/private/tmp/rl-chess-stockfish-17.1-m1.tar"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 35,
+      "execution": "approved network",
+      "result": "Recv failure: Connection reset by peer; no binary package saved"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "30",
+        "https://api.github.com/repos/official-stockfish/Stockfish/git/ref/tags/sf_17.1",
+        "-o",
+        "/private/tmp/rl-chess-d01-stockfish-tag.json"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 0,
+      "execution": "approved network",
+      "result": "Official tag resolves to source commit 03e27488f3d21d8ff4dbf3065603afa21dbd0ef3"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "120",
+        "--retry",
+        "3",
+        "--http1.1",
+        "https://github.com/official-stockfish/Stockfish/releases/download/sf_17.1/stockfish-macos-m1-apple-silicon.tar",
+        "-o",
+        "/private/tmp/rl-chess-stockfish-17.1-m1.tar"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 35,
+      "execution": "approved network",
+      "result": "Connection reset by peer"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "120",
+        "-H",
+        "Accept: application/octet-stream",
+        "https://api.github.com/repos/official-stockfish/Stockfish/releases/assets/242039612",
+        "-o",
+        "/private/tmp/rl-chess-stockfish-17.1-m1.tar"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 35,
+      "execution": "approved network",
+      "result": "Connection reset by peer"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--max-time",
+        "30",
+        "-I",
+        "https://github.com/official-stockfish/Stockfish/releases/download/sf_17.1/stockfish-macos-m1-apple-silicon.tar",
+        "-o",
+        "/private/tmp/rl-chess-d01-asset-head.txt"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 0,
+      "execution": "approved network",
+      "result": "HTTP/2 302; redirect host release-assets.githubusercontent.com"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "120",
+        "https://github.com/official-stockfish/Stockfish/releases/download/sf_17.1/stockfish-macos-m1-apple-silicon.tar?download=1",
+        "-o",
+        "/private/tmp/rl-chess-stockfish-17.1-m1.tar"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 35,
+      "execution": "approved network",
+      "result": "Connection reset by peer"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "120",
+        "https://codeload.github.com/official-stockfish/Stockfish/tar.gz/refs/tags/sf_17.1",
+        "-o",
+        "/private/tmp/rl-chess-stockfish-17.1-source.tar.gz"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 0,
+      "execution": "approved network",
+      "result": "Official pinned release source package retrieved"
+    },
+    {
+      "argv": [
+        "tar",
+        "-xzf",
+        "/private/tmp/rl-chess-stockfish-17.1-source.tar.gz",
+        "-C",
+        "/private/tmp"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 0,
+      "execution": "sandbox",
+      "result": "Source extracted; locale warning only"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "120",
+        "https://tests.stockfishchess.org/api/nn/nn-1c0000000000.nnue",
+        "-o",
+        "/private/tmp/Stockfish-sf_17.1/src/nn-1c0000000000.nnue"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 0,
+      "execution": "approved network",
+      "result": "Official release-required NNUE retrieved; full hash and embedding recorded"
+    },
+    {
+      "argv": [
+        "curl",
+        "--fail",
+        "--location",
+        "--max-time",
+        "120",
+        "https://tests.stockfishchess.org/api/nn/nn-37f18f62d772.nnue",
+        "-o",
+        "/private/tmp/Stockfish-sf_17.1/src/nn-37f18f62d772.nnue"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 0,
+      "execution": "approved network",
+      "result": "Official release-required NNUE retrieved; full hash and embedding recorded"
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "runs/d01/prepare-manifest.py"
+      ],
+      "cwd": "/private/tmp/rl-chess-d01",
+      "exit_code": 0,
+      "execution": "sandbox; PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:.",
+      "result": "Selected manifest/evidence created; no searches"
+    }
+  ]
+}

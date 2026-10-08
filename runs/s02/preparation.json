@@ -1,0 +1,57 @@
+{
+  "override": "Latest user context selects common merged base 0347ceb, superseding earlier S01-only base",
+  "worktree_command": {
+    "argv": [
+      "git",
+      "worktree",
+      "add",
+      "-b",
+      "codex/s02-puct-tree",
+      "/private/tmp/rl-chess-s02",
+      "0347ceb7e6efd867e1f1253b3bf5a57d4fd6e48f"
+    ],
+    "cwd": "/Users/arvindsrinivass/Desktop/RL-Chess",
+    "exit_code": 0
+  },
+  "preflight_checks": [
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_puct.py",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "/private/tmp/rl-chess-s02",
+      "environment": {
+        "PYTHONPATH": "src:.",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "exit_code": 1,
+      "passed": 92,
+      "failed": 1,
+      "finding": "Test expectation at c_puct=2 was arithmetically incorrect: visited .82 exceeds unvisited .80; production formula passed all score comparisons"
+    },
+    {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_puct.py",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "/private/tmp/rl-chess-s02",
+      "environment": {
+        "PYTHONPATH": "src:.",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "exit_code": 0,
+      "passed": 95,
+      "failed": 0,
+      "fix": "Use c_puct=3 fixture; add long/incomplete histories and nonzero interrupted statistics"
+    }
+  ],
+  "agents_instructions": "No applicable AGENTS.md found in repository/subdirectories, source ancestors, or /private and /private/tmp"
+}

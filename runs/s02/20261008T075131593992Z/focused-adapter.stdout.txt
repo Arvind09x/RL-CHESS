@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-s02
+configfile: pyproject.toml
+collected 95 items
+
+tests/test_puct.py ..................................................... [ 55%]
+..........................................                               [100%]
+
+- generated xml file: /private/tmp/rl-chess-s02/runs/s02/20261008T075131593992Z/focused-adapter.xml -
+============================== 95 passed in 0.34s ==============================

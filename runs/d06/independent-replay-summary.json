@@ -1,0 +1,55 @@
+{
+  "adapter_and_direct_board_agree": true,
+  "all_labels_legal": true,
+  "complete_label_audit_seconds": 4.280553137563402,
+  "coverage": {
+    "endgame:black": 73,
+    "endgame:white": 73,
+    "middlegame:black": 361,
+    "middlegame:white": 377,
+    "opening:black": 66,
+    "opening:white": 50
+  },
+  "encoding_seconds": 0.2517914918716997,
+  "finished_at_utc": "2026-10-08T15:05:45.244892+00:00",
+  "independent_move_ids_agree": true,
+  "legal_mask_seconds": 0.49571894865948707,
+  "raw_hash_reset_and_node_commands_verified": true,
+  "replay_seconds": 2.204343557561515,
+  "sample_identities": {
+    "attempts.jsonl": {
+      "bytes": 16917952,
+      "sha256": "5f06cf78e311f112dd97f9a592d8c2f18452f1e959977628bd89ec481d2d155f"
+    },
+    "exclusions.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "labels.jsonl": {
+      "bytes": 2547897,
+      "sha256": "4ddeee8da6ddfbeb5d652b10d77f79063c2ea27678bf79378555698b657cdc42"
+    },
+    "latencies.jsonl": {
+      "bytes": 297155,
+      "sha256": "b2532de2737f55eaddc0616bd3bb735e5412fa58ab5b94665f0a9f8d1ce3b52f"
+    },
+    "selected.jsonl": {
+      "bytes": 244787,
+      "sha256": "a7e71037dd8302f52d399d69c50e1d7cd23065564675a76b7ff99cae7c238b81"
+    },
+    "settings.json": {
+      "bytes": 6820,
+      "sha256": "a6dbbfb62c3770d98846c5bf675ee323ed17da9575a565ac6043423209bb0289"
+    },
+    "uci-transport.log": {
+      "bytes": 10301556,
+      "sha256": "45e8b54d5bc63418278561ff5eb01bbb29c89423d260d57a0858f8a67572ad17"
+    }
+  },
+  "selected": 1000,
+  "selection_boundary_proved": true,
+  "setup_membership_join_seconds": 18.70526041602716,
+  "started_at_utc": "2026-10-08T15:05:20.633091+00:00",
+  "successful_labels_replayed": 1000,
+  "total_seconds": 24.616612666024594
+}

@@ -1,0 +1,106 @@
+{
+  "scope": "D06 only; automated completion, independent milestone review pending",
+  "selected": 1000,
+  "successful_labels": 1000,
+  "attempts": 1000,
+  "retries": 0,
+  "failed_attempts": 0,
+  "interrupted_attempts": 0,
+  "excluded": 0,
+  "pending": 0,
+  "coverage": {
+    "endgame:b": 73,
+    "endgame:w": 73,
+    "middlegame:b": 361,
+    "middlegame:w": 377,
+    "opening:b": 66,
+    "opening:w": 50
+  },
+  "projections": [
+    {
+      "successful_labels": 10000,
+      "annotation_worker_hours": 1.2000646619222408,
+      "engine_reported_search_hours": 0.21296388888888887,
+      "additional_replay_hours": 0.006123176548781986,
+      "additional_encoding_hours": 0.0006994208107547214,
+      "additional_legal_mask_hours": 0.0013769970796096863,
+      "complete_independent_label_audit_hours": 0.01189042538212056,
+      "compact_label_bytes": 25478970.0,
+      "full_evidence_bytes": 310733320.0,
+      "fixed_measured_setup_and_post_input_audit_seconds": 17.70866445900174,
+      "fixed_measured_independent_audit_setup_seconds": 18.70526041602716
+    },
+    {
+      "successful_labels": 100000,
+      "annotation_worker_hours": 12.000646619222405,
+      "engine_reported_search_hours": 2.1296388888888886,
+      "additional_replay_hours": 0.06123176548781986,
+      "additional_encoding_hours": 0.006994208107547213,
+      "additional_legal_mask_hours": 0.013769970796096863,
+      "complete_independent_label_audit_hours": 0.1189042538212056,
+      "compact_label_bytes": 254789700.0,
+      "full_evidence_bytes": 3107333200.0,
+      "fixed_measured_setup_and_post_input_audit_seconds": 17.70866445900174,
+      "fixed_measured_independent_audit_setup_seconds": 18.70526041602716
+    },
+    {
+      "successful_labels": 300000,
+      "annotation_worker_hours": 36.00193985766722,
+      "engine_reported_search_hours": 6.388916666666666,
+      "additional_replay_hours": 0.18369529646345958,
+      "additional_encoding_hours": 0.02098262432264164,
+      "additional_legal_mask_hours": 0.04130991238829059,
+      "complete_independent_label_audit_hours": 0.3567127614636168,
+      "compact_label_bytes": 764369100.0,
+      "full_evidence_bytes": 9321999600.0,
+      "fixed_measured_setup_and_post_input_audit_seconds": 17.70866445900174,
+      "fixed_measured_independent_audit_setup_seconds": 18.70526041602716
+    },
+    {
+      "successful_labels": 500000,
+      "annotation_worker_hours": 60.00323309611203,
+      "engine_reported_search_hours": 10.648194444444444,
+      "additional_replay_hours": 0.3061588274390993,
+      "additional_encoding_hours": 0.034971040537736066,
+      "additional_legal_mask_hours": 0.06884985398048432,
+      "complete_independent_label_audit_hours": 0.594521269106028,
+      "compact_label_bytes": 1273948500.0,
+      "full_evidence_bytes": 15536666000.0,
+      "fixed_measured_setup_and_post_input_audit_seconds": 17.70866445900174,
+      "fixed_measured_independent_audit_setup_seconds": 18.70526041602716
+    },
+    {
+      "successful_labels": 1000000,
+      "annotation_worker_hours": 120.00646619222405,
+      "engine_reported_search_hours": 21.296388888888888,
+      "additional_replay_hours": 0.6123176548781986,
+      "additional_encoding_hours": 0.06994208107547213,
+      "additional_legal_mask_hours": 0.13769970796096864,
+      "complete_independent_label_audit_hours": 1.189042538212056,
+      "compact_label_bytes": 2547897000.0,
+      "full_evidence_bytes": 31073332000.0,
+      "fixed_measured_setup_and_post_input_audit_seconds": 17.70866445900174,
+      "fixed_measured_independent_audit_setup_seconds": 18.70526041602716
+    }
+  ],
+  "scaling_assumptions": [
+    "Same sequential fresh-process D05 worker, teacher settings, host and comparable phase/history distribution; no concurrency speedup assumed",
+    "Observed successful yield and retry rate continue; zero observed failures does not establish zero future failures",
+    "Linear mean cost and uncompressed bytes per successful label; full evidence includes transport and independent audit records",
+    "Fixed corpus scan/hash/join overhead shown separately; expansion audits or larger inputs can change it",
+    "Independent label audit contains replay/encoding/mask time; these component costs must not be added twice",
+    "Existing canonical games and audited reference tables are reused once, not serialized per label; new-corpus preparation is outside projections",
+    "Encoding measured in a serial independent audit with games in memory and warm filesystem; no batch loader/cache/GPU/training costs measured"
+  ],
+  "limitations": [
+    "One CPU macOS arm64 run, 1000 distinct training rule positions from 999 games",
+    "Uniform hash sampling of unique rule positions changes the phase mix relative to reference-weighted sampling",
+    "Engine reported time is quantized milliseconds; observed transport wall includes parser/diagnostic work and engine initialization after go",
+    "Startup/reset/teardown timings include host scheduling and transport observation; startup metric excludes executable rehash",
+    "Pinned python-chess can omit score bounds placed after WDL; all raw flags are retained in attempt transport and independently reported alongside parsed bounds",
+    "No hardware isolation, power/thermal measurement, sustained scale or concurrency validation",
+    "Hard-crash recovery/resume are unimplemented; partial bundles cannot be consumed as complete datasets",
+    "No final expansion size selected: require subsequent held-out learning curves and training/resource evidence",
+    "D07, D08, training, search integration and GPU experiments were not run"
+  ]
+}

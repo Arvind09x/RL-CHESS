@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "sysctl",
+    "-n",
+    "machdep.cpu.brand_string",
+    "hw.memsize",
+    "hw.logicalcpu",
+    "hw.physicalcpu"
+  ],
+  "cwd": "/private/tmp/rl-chess-d06",
+  "started_at_utc": "2026-10-08T16:03:19.558045+00:00",
+  "finished_at_utc": "2026-10-08T16:03:19.561076+00:00",
+  "duration_seconds": 0.0029106250149197876,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d06/src:/private/tmp/rl-chess-d06",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "host-final.stdout.txt",
+    "bytes": 25,
+    "sha256": "322e1e7a7c1c3e33e1aa7404deb527d2594e853c9852e0b93f246bf2d6083509"
+  },
+  "stderr": {
+    "path": "host-final.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

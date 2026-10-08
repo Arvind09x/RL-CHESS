@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d06
+configfile: pyproject.toml
+collected 65 items
+
+tests/test_annotation_benchmark.py .......                               [ 10%]
+tests/test_stockfish_worker.py ......................................... [ 73%]
+.................                                                        [100%]
+
+============================== 65 passed in 0.30s ==============================

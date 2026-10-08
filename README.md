@@ -567,3 +567,37 @@ environment. Both D05 bundles and all 15 saved games replayed successfully.
 The two annotation bundles cover 12 distinct roots. Dummy games establish
 plumbing, not strength. D06 benchmarking, D07 loading/batching and E01 match
 protocols are next. D08, training, GPU work and model-guided games remain pending.
+
+
+### D06 separate annotation benchmark — 2026-10-08; independent review pending
+
+D06 automated completion is ready for review on `codex/d06-annotation-benchmark`
+in `/private/tmp/rl-chess-d06`, from exact accepted base
+`4184387c7e4b67559355d6b212a2a300c86c5ce6`. Primary main remains unchanged.
+[Actual D06 results and limitations](docs/d06-annotation-benchmark.md) and
+[runs/d06/results.json](runs/d06/results.json) record 1,000 distinct audited
+training positions, excluding the 12 D05 references, fixed before annotation.
+The accepted worker produced 1,000 labels in 1,000 attempts with zero failures,
+retries, exclusions, interruptions or pending references. All labels passed
+separate full-history/PV/WDL/move-ID/raw-UCI replay audit; full table scanning
+independently proved membership and held-out exclusion.
+
+Annotation loop: 432.023s, 2.314690 successful labels/s; mean/median/p95/p99
+latency 431.953/427.340/496.882/540.623 ms. Setup and post-input audit are separate.
+Engine-reported search totals 76.667s; startup/reset/shutdown, retries, returned
+search fields, full replay/encoding/mask and storage costs are measured.
+Raw transport preserves 498 score-bound flags omitted by the pinned parser
+when placed after WDL; raw and parsed bounds are separately reported.
+Conditional annotation projections for 10k/100k/300k/500k/1m successful labels
+are 1.2/12/36/60/120 worker hours, with replay/encoding/audit/storage costs and
+scaling assumptions recorded. No final expansion size is selected before
+subsequent learning-curve evidence. Bulk benchmark artifacts remain external
+and are excluded from D08 production.
+
+Regressions: 992 model passes, 824 adapter passes/six expected skips, 84 prior
+reviewer cases per environment, both identical 13-fixture adapter reports,
+offline pinned-source and dependency checks. Exact commands, times, hashes,
+failed audit/check commands and preservation evidence remain under runs/d06.
+Accepted implementations, pins, teacher, historical evidence, original inputs
+and protected registries are preserved. D06 remains unchecked pending independent
+review. No D07, D08, training, search integration or GPU experiments ran.

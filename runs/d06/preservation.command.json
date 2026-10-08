@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "runs/d06/check_preservation.py"
+  ],
+  "cwd": "/private/tmp/rl-chess-d06",
+  "started_at_utc": "2026-10-08T16:02:42.228818+00:00",
+  "finished_at_utc": "2026-10-08T16:02:48.884781+00:00",
+  "duration_seconds": 6.655960415984737,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d06/src:/private/tmp/rl-chess-d06",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "preservation.stdout.txt",
+    "bytes": 454,
+    "sha256": "62c6954db9cd0d45457abb0f8164079ceab9d793ffa99e2f94dd71f7046b9d82"
+  },
+  "stderr": {
+    "path": "preservation.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

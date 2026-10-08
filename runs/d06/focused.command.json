@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_annotation_benchmark.py",
+    "tests/test_stockfish_worker.py",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "cwd": "/private/tmp/rl-chess-d06",
+  "started_at_utc": "2026-10-08T14:56:34.023318+00:00",
+  "finished_at_utc": "2026-10-08T14:56:34.455804+00:00",
+  "duration_seconds": 0.4324519579822663,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d06/src:/private/tmp/rl-chess-d06",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "focused.stdout.txt",
+    "bytes": 547,
+    "sha256": "be7fc55afca55143a69f8d7679d74b4654b5950069bf932597f4038aa669c67e"
+  },
+  "stderr": {
+    "path": "focused.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

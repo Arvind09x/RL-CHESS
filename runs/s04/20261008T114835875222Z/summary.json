@@ -1,0 +1,79 @@
+{
+  "base_commit": "37f286618642150b0ffa904abee0cfaac3ad75e8",
+  "branch": "codex/s04-root-policy",
+  "checkout": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/s04-root-policy",
+  "checks": {
+    "focused-adapter": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "360",
+      "time": "9.509",
+      "timestamp": "2026-10-08T17:18:36.063774+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "regressions-adapter": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "6",
+      "tests": "681",
+      "time": "12.195",
+      "timestamp": "2026-10-08T17:18:45.730180+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "accepted-review-probes-adapter": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "53",
+      "time": "0.458",
+      "timestamp": "2026-10-08T17:18:58.042395+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "focused-model": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "360",
+      "time": "8.985",
+      "timestamp": "2026-10-08T17:18:58.814347+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "regressions-model": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "843",
+      "time": "54.136",
+      "timestamp": "2026-10-08T17:19:07.940771+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    },
+    "accepted-review-probes-model": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "53",
+      "time": "0.559",
+      "timestamp": "2026-10-08T17:20:02.641512+05:30",
+      "hostname": "Arvinds-MacBook-Air.local"
+    }
+  },
+  "focused_only": false,
+  "replay_reports_equal": true,
+  "replay_records_per_environment": 13,
+  "byte_identical_accepted_base_files": 700,
+  "public_api": "chess_rl.search.runner: search, root_visits, training_policy, select_move; TrainingExploration, SearchResult, SearchFailure",
+  "limitations": [
+    "Sequential search-owned trees; interrupts propagate after prior restoration",
+    "CPU macOS arm64/Python 3.12.12; no performance or strength claim",
+    "Dummy/controlled evaluators only; no S05, self-play, training or GPU work",
+    "Temperature/root-noise schedules deferred to R01",
+    "S04 independent review pending; Gate S remains unaccepted"
+  ]
+}

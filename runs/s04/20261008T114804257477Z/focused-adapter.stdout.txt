@@ -1,0 +1,82 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/s04-root-policy
+configfile: pyproject.toml
+collected 360 items
+
+tests/test_search_runner.py ............................................ [ 12%]
+.............................................................FF......    [ 31%]
+tests/test_backup.py ................................................... [ 45%]
+....................................................................     [ 64%]
+tests/test_puct.py ..................................................... [ 79%]
+..........................................                               [ 90%]
+tests/test_evaluator.py .................................                [100%]
+
+=================================== FAILURES ===================================
+_ test_actual_backup_publication_failure_preserves_completed_stats_and_noise[False] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1052a0890>
+interrupt = False
+
+    @pytest.mark.parametrize("interrupt", [False, True])
+    def test_actual_backup_publication_failure_preserves_completed_stats_and_noise(monkeypatch, interrupt):
+        root = Node(make_state())
+        search(root, 3)
+        expected_priors = {i: e.prior for i, e in root.edges.items()}
+        original_setattr = runner.backup.__globals__["Edge"].__setattr__
+        count, failed = 0, False
+        error_type = KeyboardInterrupt if interrupt else RuntimeError
+        def fail_on_value_sum(edge, name, value):
+            nonlocal count, failed
+            if name == "value_sum" and not failed:
+                count += 1
+                if count == 2:
+                    failed = True
+                    original_setattr(edge, name, value)
+                    raise error_type("Injected S03 publication failure")
+            original_setattr(edge, name, value)
+        monkeypatch.setattr(runner.backup.__globals__["Edge"], "__setattr__", fail_on_value_sum)
+        with pytest.raises(KeyboardInterrupt if interrupt else SearchFailure) as caught:
+            search(root, 5, exploration=TrainingExploration(0, .25), rng=np.random.default_rng(6))
+>       assert root.parent_visits == 4  # One new completion, then atomic failure.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert 3 == 4
+E        +  where 3 = Node(state=ChessState(board=Board('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'), initial_fen='rnbqkbnr/p...[0., 0., 0., ..., 0., 0., 0.], shape=(4352,), dtype=float32), wdl=array([0.25, 0.5 , 0.25], dtype=float32), value=0.0)).parent_visits
+
+tests/test_search_runner.py:382: AssertionError
+_ test_actual_backup_publication_failure_preserves_completed_stats_and_noise[True] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1052a0800>
+interrupt = True
+
+    @pytest.mark.parametrize("interrupt", [False, True])
+    def test_actual_backup_publication_failure_preserves_completed_stats_and_noise(monkeypatch, interrupt):
+        root = Node(make_state())
+        search(root, 3)
+        expected_priors = {i: e.prior for i, e in root.edges.items()}
+        original_setattr = runner.backup.__globals__["Edge"].__setattr__
+        count, failed = 0, False
+        error_type = KeyboardInterrupt if interrupt else RuntimeError
+        def fail_on_value_sum(edge, name, value):
+            nonlocal count, failed
+            if name == "value_sum" and not failed:
+                count += 1
+                if count == 2:
+                    failed = True
+                    original_setattr(edge, name, value)
+                    raise error_type("Injected S03 publication failure")
+            original_setattr(edge, name, value)
+        monkeypatch.setattr(runner.backup.__globals__["Edge"], "__setattr__", fail_on_value_sum)
+        with pytest.raises(KeyboardInterrupt if interrupt else SearchFailure) as caught:
+            search(root, 5, exploration=TrainingExploration(0, .25), rng=np.random.default_rng(6))
+>       assert root.parent_visits == 4  # One new completion, then atomic failure.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert 3 == 4
+E        +  where 3 = Node(state=ChessState(board=Board('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'), initial_fen='rnbqkbnr/p...[0., 0., 0., ..., 0., 0., 0.], shape=(4352,), dtype=float32), wdl=array([0.25, 0.5 , 0.25], dtype=float32), value=0.0)).parent_visits
+
+tests/test_search_runner.py:382: AssertionError
+- generated xml file: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/s04-root-policy/runs/s04/20261008T114804257477Z/focused-adapter.xml -
+=========================== short test summary info ============================
+FAILED tests/test_search_runner.py::test_actual_backup_publication_failure_preserves_completed_stats_and_noise[False]
+FAILED tests/test_search_runner.py::test_actual_backup_publication_failure_preserves_completed_stats_and_noise[True]
+======================== 2 failed, 358 passed in 10.78s ========================

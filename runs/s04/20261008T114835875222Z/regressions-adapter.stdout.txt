@@ -1,0 +1,38 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/s04-root-policy
+configfile: pyproject.toml
+testpaths: tests
+collected 675 items / 6 skipped
+
+tests/test_backup.py ................................................... [  7%]
+....................................................................     [ 17%]
+tests/test_canonical_games.py .........................................  [ 23%]
+tests/test_data_manifest.py ............................................ [ 30%]
+.......................................                                  [ 36%]
+tests/test_encoding.py ..................                                [ 38%]
+tests/test_evaluator.py .................................                [ 43%]
+tests/test_foundation.py .                                               [ 43%]
+tests/test_history.py .....                                              [ 44%]
+tests/test_legality.py .........                                         [ 45%]
+tests/test_moves.py ................................                     [ 50%]
+tests/test_outcomes.py ...................                               [ 53%]
+tests/test_pgn_replay.py ............................................... [ 60%]
+.........................                                                [ 64%]
+tests/test_puct.py ..................................................... [ 71%]
+..........................................                               [ 78%]
+tests/test_regression.py ...........                                     [ 79%]
+tests/test_search_runner.py ............................................ [ 86%]
+.....................................................................    [ 96%]
+tests/test_state.py .................                                    [ 98%]
+tests/test_types.py .......                                              [100%]
+
+- generated xml file: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/s04-root-policy/runs/s04/20261008T114835875222Z/regressions-adapter.xml -
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_backbone.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_gab.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_network.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_policy.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_relative.py:3: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_wdl.py:4: could not import 'torch': No module named 'torch'
+======================= 675 passed, 6 skipped in 12.20s ========================

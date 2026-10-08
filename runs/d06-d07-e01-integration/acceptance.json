@@ -103,6 +103,12 @@
   },
   "production_fixes": [],
   "protected_heldout_artifacts_preserved": true,
+  "raw_stdout_formatting_preserved": [
+    "m06-checker.stdout.txt",
+    "manifest-teacher-gate.stdout.txt",
+    "prepared-manifest-teacher-gate.stdout.txt"
+  ],
+  "raw_stdout_whitespace_policy": "Exact per-file attributes preserve the original final blank lines; all other integration content is checked normally.",
   "review_attribution": "Independent review acceptance and fresh source-suite/replay results supplied by the user; integration checks by this agent",
   "s05_records_replayed_per_environment": 15,
   "scope": "D06 separate annotation benchmark; D07 shared-adapter CPU loading/batching and optional Torch conversion; E01 paired-match protocol fixtures and replay",

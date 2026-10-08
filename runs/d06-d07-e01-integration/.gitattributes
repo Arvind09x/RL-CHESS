@@ -1,0 +1,4 @@
+# Preserve these exact captured outputs, including the scripts' final blank line.
+m06-checker.stdout.txt -whitespace
+manifest-teacher-gate.stdout.txt -whitespace
+prepared-manifest-teacher-gate.stdout.txt -whitespace

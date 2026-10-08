@@ -1,0 +1,165 @@
+{
+  "D06_benchmark_run": false,
+  "D08_production_run": false,
+  "accepted": false,
+  "active_manifest": "data/manifests/elite-2025-01-d04-v1.json",
+  "api": "await AnnotationWorker.annotate(reference, canonical_game) -> label dict | None",
+  "base_commit": "ad8438acfbd859f734daaebc6115afdab0367b65",
+  "both_adapter_replays_identical": true,
+  "branch": "codex/d05-stockfish-worker",
+  "checkout": "/private/tmp/rl-chess-d05",
+  "cli": "scripts/annotate_d05.py",
+  "dependencies_resynced": false,
+  "distinct_real_references": 12,
+  "evidence": {
+    "commands.json": {
+      "bytes": 32910,
+      "sha256": "791da7537921ba94eb0e0169264aa2af418dcddd57420c4e259ffa52c640f4b9"
+    },
+    "failure-fixtures/attempts.jsonl": {
+      "bytes": 13771,
+      "sha256": "0d1a063dbfc368903b83a0d288ea3182a9cf16c740691cc90f894cff61f728eb"
+    },
+    "failure-fixtures/summary.json": {
+      "bytes": 1622,
+      "sha256": "bb0f2047898a9627edd0d04255497b99aae850bc7b773bb8f9ad472320913735"
+    },
+    "preservation.json": {
+      "bytes": 241317,
+      "sha256": "9c8ae714dd491410338674dc1ab6bb9da9bcef046c31ae3f51ca53ebe742358e"
+    },
+    "tiny-final/independent-replay.json": {
+      "bytes": 6751,
+      "sha256": "f1c4682e2458c37f994076d7f414b0f97a26c833e87a6bab19cbaa2c84c46437"
+    },
+    "tiny-final/uci-transport.log": {
+      "bytes": 107595,
+      "sha256": "e0d1a0e0dda5df8d303b2945bdd2c3b3e324b93efd57eb3a5bb66793c9b09f78"
+    }
+  },
+  "final_sample": {
+    "attempts": 12,
+    "excluded": 0,
+    "failed_attempts": 0,
+    "output_identities": {
+      "attempts.jsonl": {
+        "bytes": 157037,
+        "sha256": "1977ce7e95f3c3b45d95f85be7aac3f37839d1ce04ad425280909a9b19c35eaa"
+      },
+      "exclusions.jsonl": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "labels.jsonl": {
+        "bytes": 30541,
+        "sha256": "ceec9a44e56a5ae6521036219388a73801baaf7c32df16359faa75b650784a7f"
+      },
+      "selected.jsonl": {
+        "bytes": 2945,
+        "sha256": "50f725d3f898dceaff59d953fe0ddba05fe1b95558aef9cca15b26a1fba5c5e3"
+      },
+      "settings.json": {
+        "bytes": 3024,
+        "sha256": "a866d674e8af772b06b2f124051e069fa753749f94ad294ac550383fccdaeca7"
+      }
+    },
+    "pending_references": [],
+    "selected": 12,
+    "status": "complete",
+    "successful_labels": 12
+  },
+  "independent_replay": {
+    "coverage": {
+      "endgame:black": 2,
+      "endgame:white": 2,
+      "middlegame:black": 2,
+      "middlegame:white": 2,
+      "opening:black": 2,
+      "opening:white": 2
+    },
+    "successful_labels_replayed": 12
+  },
+  "initial_run_preserved": true,
+  "input_identities": {
+    "exclusions.jsonl": {
+      "bytes": 105285659,
+      "sha256": "72e45e4f89d15a596090ad940218867aedcb53275a3eddb6f50674502dd02b32"
+    },
+    "games.jsonl": {
+      "bytes": 638770177,
+      "sha256": "f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5"
+    },
+    "heldout-games.jsonl": {
+      "bytes": 2862240,
+      "sha256": "73202bd1b255fb89958da1be043e219f192b33a06da05ceb669eb1984d60fc18"
+    },
+    "manifest": {
+      "bytes": 6058,
+      "sha256": "5867fb9c09bf7d0c29d9a09d59d7196b145636d4abe6b38faf9c70d899e5879d"
+    },
+    "overlap-audit.json": {
+      "bytes": 4898,
+      "sha256": "feb20d4e38fa46ff6e5fcc77b4c4b8d1b36b985f3dcf6a3785a412a2fbb91f5e"
+    },
+    "protected-heldout.jsonl": {
+      "bytes": 57171328,
+      "sha256": "813d40ec52f3058996ddf6d7586dea23ee568c3bcff995cd92879e306a1f8ed3"
+    },
+    "samples.jsonl": {
+      "bytes": 567767218,
+      "sha256": "f3dc3410321e46c5e424912f8ae1d4aa26bd5c97267df944cbf8e7e3d1e3581e"
+    },
+    "split-audit.json": {
+      "bytes": 2191,
+      "sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36"
+    }
+  },
+  "limitations": [
+    "CPU macOS arm64/Python 3.12.12 only",
+    "Tiny plumbing subset; no throughput/cost or strength claims",
+    "Sequential worker; no concurrent engine diagnostic observers",
+    "No crash recovery, resume or cross-run deduplication",
+    "Two initial fake-NNUE fixture setup failures preserved before correction; sandbox DNS failure preserved before successful retry",
+    "Worktree creation was recorded from the execution tool; UTC timestamps were not captured before the wrapper existed"
+  ],
+  "main_merged": false,
+  "real_attempts_across_initial_and_final_runs": 24,
+  "review_status": "independent review pending",
+  "sampling_or_heldout_decisions_changed": false,
+  "search_integration": false,
+  "task": "D05 only",
+  "teacher_rebuilt": false,
+  "tests": {
+    "final-adapter-regression": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 6,
+      "tests": 776
+    },
+    "final-model-regression": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 938
+    },
+    "focused-strict-final": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 58
+    },
+    "reviewer-adapter": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 70
+    },
+    "reviewer-model": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 70
+    }
+  },
+  "training_run": false
+}

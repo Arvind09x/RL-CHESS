@@ -756,3 +756,25 @@ D05 may implement the teacher worker and annotate a tiny valid sample using
 `data/manifests/elite-2025-01-d04-v1.json`; the historical manifest is preserved.
 S05 minimal games/smoke checks are next. D06 benchmark, D08 initial labels,
 real evaluation and learning remain pending. Gate S is not accepted.
+
+### D05 implementation — 2026-10-08; independent review pending
+
+Implemented the bounded sequential Stockfish worker and a tiny audited training
+sample from exact accepted base `ad8438acfbd859f734daaebc6115afdab0367b65` on
+`codex/d05-stockfish-worker` in `/private/tmp/rl-chess-d05`.
+[D05 API, actual results and limitations](docs/d05-stockfish-worker.md) and
+[execution evidence](runs/d05/completion.json) record the implementation.
+The final sample has 12 selected/12 successful references, both colors and all
+three available phases, zero failures/exclusions, locked teacher settings,
+per-attempt hash resets and independently replayed legal root-perspective
+targets. The initial and final tiny runs use the same 12 distinct references;
+all artifacts and protected held-out membership are preserved.
+
+Actual checks: 58 D05 cases, 938 model regressions, 770 adapter regressions/six
+expected skips, 70 accepted reviewer probes per environment, both identical
+13-fixture adapter replays, teacher identities/capabilities, pinned upstream
+and M06 checks. Commands, failures, exit codes and hashes are saved in
+`runs/d05/`. D05 remains unchecked pending independent review; no acceptance,
+main integration, D06 benchmark, D08 production, training or search integration
+is claimed. CPU macOS arm64 only; scaling, concurrency and crash recovery remain
+outside D05.

@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_stockfish_worker.py",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=runs/d05/focused-strict-final.xml"
+  ],
+  "cwd": "/private/tmp/rl-chess-d05",
+  "started_at_utc": "2026-10-08T13:35:40.013658+00:00",
+  "finished_at_utc": "2026-10-08T13:35:40.356212+00:00",
+  "duration_seconds": 0.34251916699577123,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d05/src:/private/tmp/rl-chess-d05",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "focused-strict-final.stdout.txt",
+    "bytes": 551,
+    "sha256": "0aeef672ea7288ae13f3f45fa5aa34c94fa4e0f0184964828f778ace07384bf5"
+  },
+  "stderr": {
+    "path": "focused-strict-final.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

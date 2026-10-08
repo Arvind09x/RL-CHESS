@@ -1,0 +1,170 @@
+runs/d05/focused-corrected.stdout.txt:24: trailing whitespace.
++tests/test_stockfish_worker.py:319: 
+runs/d05/focused-corrected.stdout.txt:25: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-corrected.stdout.txt:35: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-corrected.stdout.txt:61: trailing whitespace.
++tests/test_stockfish_worker.py:319: 
+runs/d05/focused-corrected.stdout.txt:62: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-corrected.stdout.txt:72: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-corrected.stdout.txt:98: trailing whitespace.
++tests/test_stockfish_worker.py:319: 
+runs/d05/focused-corrected.stdout.txt:99: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-corrected.stdout.txt:109: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-corrected.xml:12: trailing whitespace.
++tests/test_stockfish_worker.py:319: 
+runs/d05/focused-corrected.xml:13: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-corrected.xml:23: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-corrected.xml:46: trailing whitespace.
++tests/test_stockfish_worker.py:319: 
+runs/d05/focused-corrected.xml:47: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-corrected.xml:57: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-corrected.xml:80: trailing whitespace.
++tests/test_stockfish_worker.py:319: 
+runs/d05/focused-corrected.xml:81: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-corrected.xml:91: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-final.stdout.txt:24: trailing whitespace.
++tests/test_stockfish_worker.py:319: 
+runs/d05/focused-final.stdout.txt:25: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-final.stdout.txt:36: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-final.stdout.txt:61: trailing whitespace.
++tests/test_stockfish_worker.py:319: 
+runs/d05/focused-final.stdout.txt:62: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-final.stdout.txt:73: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-final.stdout.txt:98: trailing whitespace.
++tests/test_stockfish_worker.py:319: 
+runs/d05/focused-final.stdout.txt:99: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-final.stdout.txt:110: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-final.xml:12: trailing whitespace.
++tests/test_stockfish_worker.py:319: 
+runs/d05/focused-final.xml:13: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-final.xml:24: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-final.xml:46: trailing whitespace.
++tests/test_stockfish_worker.py:319: 
+runs/d05/focused-final.xml:47: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-final.xml:58: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-final.xml:80: trailing whitespace.
++tests/test_stockfish_worker.py:319: 
+runs/d05/focused-final.xml:81: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/focused-final.xml:92: trailing whitespace.
++_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+runs/d05/m06-check.stdout.txt:2594: new blank line at EOF.
+runs/d05/teacher-capabilities.stdout.txt:69: new blank line at EOF.
+runs/d05/tiny-final/uci-transport.log:6: trailing whitespace.
++2026-10-08 18:59:42,041 chess.engine DEBUG <UciProtocol (pid=93007)>: >> 
+runs/d05/tiny-final/uci-transport.log:30: trailing whitespace.
++2026-10-08 18:59:42,044 chess.engine DEBUG <UciProtocol (pid=93007)>: << setoption name SyzygyPath value 
+runs/d05/tiny-final/uci-transport.log:69: trailing whitespace.
++2026-10-08 18:59:42,484 chess.engine DEBUG <UciProtocol (pid=93008)>: >> 
+runs/d05/tiny-final/uci-transport.log:93: trailing whitespace.
++2026-10-08 18:59:42,487 chess.engine DEBUG <UciProtocol (pid=93008)>: << setoption name SyzygyPath value 
+runs/d05/tiny-final/uci-transport.log:131: trailing whitespace.
++2026-10-08 18:59:42,905 chess.engine DEBUG <UciProtocol (pid=93009)>: >> 
+runs/d05/tiny-final/uci-transport.log:155: trailing whitespace.
++2026-10-08 18:59:42,907 chess.engine DEBUG <UciProtocol (pid=93009)>: << setoption name SyzygyPath value 
+runs/d05/tiny-final/uci-transport.log:193: trailing whitespace.
++2026-10-08 18:59:43,326 chess.engine DEBUG <UciProtocol (pid=93013)>: >> 
+runs/d05/tiny-final/uci-transport.log:217: trailing whitespace.
++2026-10-08 18:59:43,329 chess.engine DEBUG <UciProtocol (pid=93013)>: << setoption name SyzygyPath value 
+runs/d05/tiny-final/uci-transport.log:253: trailing whitespace.
++2026-10-08 18:59:43,748 chess.engine DEBUG <UciProtocol (pid=93014)>: >> 
+runs/d05/tiny-final/uci-transport.log:277: trailing whitespace.
++2026-10-08 18:59:43,750 chess.engine DEBUG <UciProtocol (pid=93014)>: << setoption name SyzygyPath value 
+runs/d05/tiny-final/uci-transport.log:314: trailing whitespace.
++2026-10-08 18:59:44,166 chess.engine DEBUG <UciProtocol (pid=93015)>: >> 
+runs/d05/tiny-final/uci-transport.log:338: trailing whitespace.
++2026-10-08 18:59:44,168 chess.engine DEBUG <UciProtocol (pid=93015)>: << setoption name SyzygyPath value 
+runs/d05/tiny-final/uci-transport.log:375: trailing whitespace.
++2026-10-08 18:59:44,589 chess.engine DEBUG <UciProtocol (pid=93016)>: >> 
+runs/d05/tiny-final/uci-transport.log:399: trailing whitespace.
++2026-10-08 18:59:44,592 chess.engine DEBUG <UciProtocol (pid=93016)>: << setoption name SyzygyPath value 
+runs/d05/tiny-final/uci-transport.log:439: trailing whitespace.
++2026-10-08 18:59:44,981 chess.engine DEBUG <UciProtocol (pid=93017)>: >> 
+runs/d05/tiny-final/uci-transport.log:463: trailing whitespace.
++2026-10-08 18:59:44,984 chess.engine DEBUG <UciProtocol (pid=93017)>: << setoption name SyzygyPath value 
+runs/d05/tiny-final/uci-transport.log:502: trailing whitespace.
++2026-10-08 18:59:45,411 chess.engine DEBUG <UciProtocol (pid=93018)>: >> 
+runs/d05/tiny-final/uci-transport.log:526: trailing whitespace.
++2026-10-08 18:59:45,413 chess.engine DEBUG <UciProtocol (pid=93018)>: << setoption name SyzygyPath value 
+runs/d05/tiny-final/uci-transport.log:566: trailing whitespace.
++2026-10-08 18:59:45,820 chess.engine DEBUG <UciProtocol (pid=93019)>: >> 
+runs/d05/tiny-final/uci-transport.log:590: trailing whitespace.
++2026-10-08 18:59:45,822 chess.engine DEBUG <UciProtocol (pid=93019)>: << setoption name SyzygyPath value 
+runs/d05/tiny-final/uci-transport.log:626: trailing whitespace.
++2026-10-08 18:59:46,201 chess.engine DEBUG <UciProtocol (pid=93020)>: >> 
+runs/d05/tiny-final/uci-transport.log:650: trailing whitespace.
++2026-10-08 18:59:46,203 chess.engine DEBUG <UciProtocol (pid=93020)>: << setoption name SyzygyPath value 
+runs/d05/tiny-final/uci-transport.log:690: trailing whitespace.
++2026-10-08 18:59:46,624 chess.engine DEBUG <UciProtocol (pid=93021)>: >> 
+runs/d05/tiny-final/uci-transport.log:714: trailing whitespace.
++2026-10-08 18:59:46,626 chess.engine DEBUG <UciProtocol (pid=93021)>: << setoption name SyzygyPath value 
+runs/d05/tiny-real/uci-transport.log:6: trailing whitespace.
++2026-10-08 18:54:57,982 chess.engine DEBUG <UciProtocol (pid=91164)>: >> 
+runs/d05/tiny-real/uci-transport.log:30: trailing whitespace.
++2026-10-08 18:54:57,984 chess.engine DEBUG <UciProtocol (pid=91164)>: << setoption name SyzygyPath value 
+runs/d05/tiny-real/uci-transport.log:68: trailing whitespace.
++2026-10-08 18:54:58,424 chess.engine DEBUG <UciProtocol (pid=91165)>: >> 
+runs/d05/tiny-real/uci-transport.log:92: trailing whitespace.
++2026-10-08 18:54:58,427 chess.engine DEBUG <UciProtocol (pid=91165)>: << setoption name SyzygyPath value 
+runs/d05/tiny-real/uci-transport.log:129: trailing whitespace.
++2026-10-08 18:54:58,852 chess.engine DEBUG <UciProtocol (pid=91166)>: >> 
+runs/d05/tiny-real/uci-transport.log:153: trailing whitespace.
++2026-10-08 18:54:58,854 chess.engine DEBUG <UciProtocol (pid=91166)>: << setoption name SyzygyPath value 
+runs/d05/tiny-real/uci-transport.log:190: trailing whitespace.
++2026-10-08 18:54:59,270 chess.engine DEBUG <UciProtocol (pid=91167)>: >> 
+runs/d05/tiny-real/uci-transport.log:214: trailing whitespace.
++2026-10-08 18:54:59,273 chess.engine DEBUG <UciProtocol (pid=91167)>: << setoption name SyzygyPath value 
+runs/d05/tiny-real/uci-transport.log:249: trailing whitespace.
++2026-10-08 18:54:59,690 chess.engine DEBUG <UciProtocol (pid=91168)>: >> 
+runs/d05/tiny-real/uci-transport.log:273: trailing whitespace.
++2026-10-08 18:54:59,693 chess.engine DEBUG <UciProtocol (pid=91168)>: << setoption name SyzygyPath value 
+runs/d05/tiny-real/uci-transport.log:309: trailing whitespace.
++2026-10-08 18:55:00,106 chess.engine DEBUG <UciProtocol (pid=91169)>: >> 
+runs/d05/tiny-real/uci-transport.log:333: trailing whitespace.
++2026-10-08 18:55:00,109 chess.engine DEBUG <UciProtocol (pid=91169)>: << setoption name SyzygyPath value 
+runs/d05/tiny-real/uci-transport.log:369: trailing whitespace.
++2026-10-08 18:55:00,530 chess.engine DEBUG <UciProtocol (pid=91170)>: >> 
+runs/d05/tiny-real/uci-transport.log:393: trailing whitespace.
++2026-10-08 18:55:00,532 chess.engine DEBUG <UciProtocol (pid=91170)>: << setoption name SyzygyPath value 
+runs/d05/tiny-real/uci-transport.log:432: trailing whitespace.
++2026-10-08 18:55:00,927 chess.engine DEBUG <UciProtocol (pid=91171)>: >> 
+runs/d05/tiny-real/uci-transport.log:456: trailing whitespace.
++2026-10-08 18:55:00,929 chess.engine DEBUG <UciProtocol (pid=91171)>: << setoption name SyzygyPath value 
+runs/d05/tiny-real/uci-transport.log:494: trailing whitespace.
++2026-10-08 18:55:01,357 chess.engine DEBUG <UciProtocol (pid=91174)>: >> 
+runs/d05/tiny-real/uci-transport.log:518: trailing whitespace.
++2026-10-08 18:55:01,359 chess.engine DEBUG <UciProtocol (pid=91174)>: << setoption name SyzygyPath value 
+runs/d05/tiny-real/uci-transport.log:557: trailing whitespace.
++2026-10-08 18:55:01,764 chess.engine DEBUG <UciProtocol (pid=91175)>: >> 
+runs/d05/tiny-real/uci-transport.log:581: trailing whitespace.
++2026-10-08 18:55:01,766 chess.engine DEBUG <UciProtocol (pid=91175)>: << setoption name SyzygyPath value 
+runs/d05/tiny-real/uci-transport.log:616: trailing whitespace.
++2026-10-08 18:55:02,159 chess.engine DEBUG <UciProtocol (pid=91176)>: >> 
+runs/d05/tiny-real/uci-transport.log:640: trailing whitespace.
++2026-10-08 18:55:02,161 chess.engine DEBUG <UciProtocol (pid=91176)>: << setoption name SyzygyPath value 
+runs/d05/tiny-real/uci-transport.log:679: trailing whitespace.
++2026-10-08 18:55:02,583 chess.engine DEBUG <UciProtocol (pid=91186)>: >> 
+runs/d05/tiny-real/uci-transport.log:703: trailing whitespace.
++2026-10-08 18:55:02,585 chess.engine DEBUG <UciProtocol (pid=91186)>: << setoption name SyzygyPath value 

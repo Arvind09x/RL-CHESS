@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "runs/d05/failure_evidence.py"
+  ],
+  "cwd": "/private/tmp/rl-chess-d05",
+  "started_at_utc": "2026-10-08T13:34:28.238725+00:00",
+  "finished_at_utc": "2026-10-08T13:34:28.445608+00:00",
+  "duration_seconds": 0.20685749998665415,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/private/tmp/rl-chess-d05/src:/private/tmp/rl-chess-d05",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "failure-fixtures.stdout.txt",
+    "bytes": 1429,
+    "sha256": "17fe82cbbf433f0fc0732c3d9c993c58678880893ce645104496e99a6965f5f9"
+  },
+  "stderr": {
+    "path": "failure-fixtures.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,127 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/rl-chess-d05
+configfile: pyproject.toml
+collected 53 items
+
+tests/test_stockfish_worker.py ......................................... [ 77%]
+.........FFF                                                             [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_teacher_identity_gate[None] _______________________
+
+manifest = DatasetManifest(dataset_id='lichess-elite-2025-01-pilot-v1', archive=ArchiveProvenance(month='2025-01', url='https://d...curves before 100k, several hundred thousand or optional 1m; preserve assignments and heldouts; repeat overlap audits')
+tmp_path = PosixPath('/private/var/folders/9p/xv4lw78522j5crtyxlrflx9c0000gn/T/pytest-of-arvindsrinivass/pytest-101/test_teacher_identity_gate_Non0')
+tamper = None
+
+    @pytest.mark.parametrize("tamper", [None, "binary", "asset"])
+    def test_teacher_identity_gate(manifest, tmp_path, tamper):
+        blobs = [b"first embedded asset", b"second embedded asset"]
+        binary = b"header" + b"".join(blobs)
+>       assets = tuple(replace(asset, sha256=hashlib.sha256(blob).hexdigest(),
+            name=f"nn-{hashlib.sha256(blob).hexdigest()[:12]}.nnue") for asset, blob in zip(manifest.engine.embedded_nnue, blobs))
+
+tests/test_stockfish_worker.py:319: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_stockfish_worker.py:319: in <genexpr>
+    assets = tuple(replace(asset, sha256=hashlib.sha256(blob).hexdigest(),
+/Users/arvindsrinivass/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:7: in __init__
+    ???
+src/chess_rl/data_manifest.py:95: in __post_init__
+    _locked(self.source_url, f"https://tests.stockfishchess.org/api/nn/{self.name}", "NNUE source")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'https://tests.stockfishchess.org/api/nn/nn-1c0000000000.nnue'
+expected = 'https://tests.stockfishchess.org/api/nn/nn-d7a735172a42.nnue'
+name = 'NNUE source'
+
+    def _locked(value, expected, name):
+        # bool is an int subclass; equality alone would silently accept it as 1.
+        if type(value) is not type(expected) or value != expected:
+>           raise ValueError(f"Unsupported {name}: {value!r}; expected {expected!r}")
+E           ValueError: Unsupported NNUE source: 'https://tests.stockfishchess.org/api/nn/nn-1c0000000000.nnue'; expected 'https://tests.stockfishchess.org/api/nn/nn-d7a735172a42.nnue'
+
+src/chess_rl/data_manifest.py:51: ValueError
+______________________ test_teacher_identity_gate[binary] ______________________
+
+manifest = DatasetManifest(dataset_id='lichess-elite-2025-01-pilot-v1', archive=ArchiveProvenance(month='2025-01', url='https://d...curves before 100k, several hundred thousand or optional 1m; preserve assignments and heldouts; repeat overlap audits')
+tmp_path = PosixPath('/private/var/folders/9p/xv4lw78522j5crtyxlrflx9c0000gn/T/pytest-of-arvindsrinivass/pytest-101/test_teacher_identity_gate_bin0')
+tamper = 'binary'
+
+    @pytest.mark.parametrize("tamper", [None, "binary", "asset"])
+    def test_teacher_identity_gate(manifest, tmp_path, tamper):
+        blobs = [b"first embedded asset", b"second embedded asset"]
+        binary = b"header" + b"".join(blobs)
+>       assets = tuple(replace(asset, sha256=hashlib.sha256(blob).hexdigest(),
+            name=f"nn-{hashlib.sha256(blob).hexdigest()[:12]}.nnue") for asset, blob in zip(manifest.engine.embedded_nnue, blobs))
+
+tests/test_stockfish_worker.py:319: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_stockfish_worker.py:319: in <genexpr>
+    assets = tuple(replace(asset, sha256=hashlib.sha256(blob).hexdigest(),
+/Users/arvindsrinivass/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:7: in __init__
+    ???
+src/chess_rl/data_manifest.py:95: in __post_init__
+    _locked(self.source_url, f"https://tests.stockfishchess.org/api/nn/{self.name}", "NNUE source")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'https://tests.stockfishchess.org/api/nn/nn-1c0000000000.nnue'
+expected = 'https://tests.stockfishchess.org/api/nn/nn-d7a735172a42.nnue'
+name = 'NNUE source'
+
+    def _locked(value, expected, name):
+        # bool is an int subclass; equality alone would silently accept it as 1.
+        if type(value) is not type(expected) or value != expected:
+>           raise ValueError(f"Unsupported {name}: {value!r}; expected {expected!r}")
+E           ValueError: Unsupported NNUE source: 'https://tests.stockfishchess.org/api/nn/nn-1c0000000000.nnue'; expected 'https://tests.stockfishchess.org/api/nn/nn-d7a735172a42.nnue'
+
+src/chess_rl/data_manifest.py:51: ValueError
+______________________ test_teacher_identity_gate[asset] _______________________
+
+manifest = DatasetManifest(dataset_id='lichess-elite-2025-01-pilot-v1', archive=ArchiveProvenance(month='2025-01', url='https://d...curves before 100k, several hundred thousand or optional 1m; preserve assignments and heldouts; repeat overlap audits')
+tmp_path = PosixPath('/private/var/folders/9p/xv4lw78522j5crtyxlrflx9c0000gn/T/pytest-of-arvindsrinivass/pytest-101/test_teacher_identity_gate_ass0')
+tamper = 'asset'
+
+    @pytest.mark.parametrize("tamper", [None, "binary", "asset"])
+    def test_teacher_identity_gate(manifest, tmp_path, tamper):
+        blobs = [b"first embedded asset", b"second embedded asset"]
+        binary = b"header" + b"".join(blobs)
+>       assets = tuple(replace(asset, sha256=hashlib.sha256(blob).hexdigest(),
+            name=f"nn-{hashlib.sha256(blob).hexdigest()[:12]}.nnue") for asset, blob in zip(manifest.engine.embedded_nnue, blobs))
+
+tests/test_stockfish_worker.py:319: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_stockfish_worker.py:319: in <genexpr>
+    assets = tuple(replace(asset, sha256=hashlib.sha256(blob).hexdigest(),
+/Users/arvindsrinivass/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:7: in __init__
+    ???
+src/chess_rl/data_manifest.py:95: in __post_init__
+    _locked(self.source_url, f"https://tests.stockfishchess.org/api/nn/{self.name}", "NNUE source")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 'https://tests.stockfishchess.org/api/nn/nn-1c0000000000.nnue'
+expected = 'https://tests.stockfishchess.org/api/nn/nn-d7a735172a42.nnue'
+name = 'NNUE source'
+
+    def _locked(value, expected, name):
+        # bool is an int subclass; equality alone would silently accept it as 1.
+        if type(value) is not type(expected) or value != expected:
+>           raise ValueError(f"Unsupported {name}: {value!r}; expected {expected!r}")
+E           ValueError: Unsupported NNUE source: 'https://tests.stockfishchess.org/api/nn/nn-1c0000000000.nnue'; expected 'https://tests.stockfishchess.org/api/nn/nn-d7a735172a42.nnue'
+
+src/chess_rl/data_manifest.py:51: ValueError
+- generated xml file: /private/tmp/rl-chess-d05/runs/d05/focused-corrected.xml -
+=========================== short test summary info ============================
+FAILED tests/test_stockfish_worker.py::test_teacher_identity_gate[None] - Val...
+FAILED tests/test_stockfish_worker.py::test_teacher_identity_gate[binary] - V...
+FAILED tests/test_stockfish_worker.py::test_teacher_identity_gate[asset] - Va...
+========================= 3 failed, 50 passed in 0.32s =========================

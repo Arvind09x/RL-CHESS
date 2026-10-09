@@ -1,0 +1,33 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "-B",
+    "-m",
+    "pytest",
+    "-p",
+    "runs.m06.diagnostic_plugin",
+    "--import-mode=importlib",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=runs/d08/regressions-model.xml"
+  ],
+  "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+  "started_at_utc": "2026-10-09T07:34:16.543345+00:00",
+  "finished_at_utc": "2026-10-09T07:35:10.640257+00:00",
+  "duration_seconds": 54.096670124999946,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "regressions-model.stdout.txt",
+    "bytes": 3621,
+    "sha256": "9a01539784b9e6f286dc1bac4324e07375fd53f4089edfcf78b12ed3397a640c"
+  },
+  "stderr": {
+    "path": "regressions-model.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

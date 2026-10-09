@@ -1,0 +1,86 @@
+{"successful_labels_independently_audited": 1000}
+{"successful_labels_independently_audited": 2000}
+{"successful_labels_independently_audited": 3000}
+{"successful_labels_independently_audited": 4000}
+{"successful_labels_independently_audited": 5000}
+{"successful_labels_independently_audited": 6000}
+{"successful_labels_independently_audited": 7000}
+{"successful_labels_independently_audited": 8000}
+{"successful_labels_independently_audited": 9000}
+{"successful_labels_independently_audited": 10000}
+{
+  "started_at_utc": "2026-10-09T08:39:53.512422+00:00",
+  "finished_at_utc": "2026-10-09T08:40:48.223308+00:00",
+  "total_seconds": 54.711504875012906,
+  "setup_membership_join_seconds": 13.462487042008433,
+  "replay_seconds": 17.4690492512309,
+  "encoding_seconds": 1.9224053109646775,
+  "legal_mask_seconds": 4.362721325218445,
+  "complete_label_audit_seconds": 40.69192084111273,
+  "selection_boundary_proved": true,
+  "cross_split_rule_position_overlaps": {
+    "train-validation": 0,
+    "train-test": 0,
+    "validation-test": 0
+  },
+  "successful_by_split": {
+    "train": 9000,
+    "validation": 500,
+    "test": 500
+  },
+  "quota_reached": true,
+  "successful_labels_replayed": 10000,
+  "selected": 10000,
+  "coverage": {
+    "train:opening:black": 1085,
+    "train:middlegame:white": 2872,
+    "train:endgame:black": 601,
+    "train:opening:white": 928,
+    "train:middlegame:black": 2927,
+    "train:endgame:white": 587,
+    "validation:middlegame:white": 151,
+    "validation:middlegame:black": 161,
+    "validation:endgame:white": 28,
+    "validation:opening:black": 56,
+    "validation:endgame:black": 43,
+    "validation:opening:white": 61,
+    "test:endgame:white": 34,
+    "test:endgame:black": 37,
+    "test:middlegame:black": 149,
+    "test:middlegame:white": 138,
+    "test:opening:white": 81,
+    "test:opening:black": 61
+  },
+  "adapter_and_direct_board_agree": true,
+  "independent_move_ids_agree": true,
+  "raw_hash_reset_and_node_commands_verified": true,
+  "all_labels_legal": true,
+  "prior_1012_references_excluded": true,
+  "exact_heldout_registry_membership_verified": true,
+  "sample_identities": {
+    "attempts.jsonl": {
+      "bytes": 158909706,
+      "sha256": "a4576eed221942fe94be01a395a1fd49236ed4d9a869308e92b1c5c4905f3c69"
+    },
+    "exclusions.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "labels.jsonl": {
+      "bytes": 25476244,
+      "sha256": "e653e2f5b098562eef2482478ef2b48009516a81bec2fbf0d53dbc92f5a30369"
+    },
+    "selected.jsonl": {
+      "bytes": 2457101,
+      "sha256": "e9bb4ba052f1210773a89228a98fab692d4990f8d4b961a9567c8a770aebb36a"
+    },
+    "settings.json": {
+      "bytes": 107012,
+      "sha256": "8bb3831a821d65702edd7aab0445ca78ee9090b97e18f6a62d168f49e98e94ef"
+    }
+  },
+  "bundle_summary_identity": {
+    "sha256": "620db9b787140e06c174619d8f5f5c0a08b1998e88627731992b2e1ba9a2a08a",
+    "bytes": 1941
+  }
+}

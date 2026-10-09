@@ -617,3 +617,34 @@ replay, all 1,000 D06 labels, all 12 D07 roots, 15 S05 records and both E01
 evidence and protected held-out artifacts are preserved; bulk stays outside Git.
 Historical pending statuses above are superseded only within these milestone
 scopes. No D08, T01, later tasks, training or playing-strength evaluation ran.
+
+
+### D08 initial labels — 2026-10-09; independent review pending
+
+D08 was implemented and executed in the isolated `d08-initial-labels` clone on
+`codex/d08-initial-labels`, from reviewed integrated main
+`9565093abe40a7807e3472c1101f5f28c14b7afe`. Exactly 10,000 new labels succeeded:
+9,000 train, 500 validation and 500 test. Frozen deterministic reference membership,
+ordering, quotas and bounded failure policy exclude all 12 D05 and 1,000 D06
+references; prior labels do not count. All failures, retries, interruptions,
+exclusions, pending references and shortfalls are zero. Canonical assignments,
+protected registries, phase rules and the eight-position contract are preserved.
+
+The accepted D05 teacher/search/label path is reused with an explicit D08 replay
+hook that preserves genuine held-out splits; its default remains train-only.
+Teacher binary/NNUE assets, full-history roots, fresh processes, Clear Hash and
+100,000-node settings remain pinned. Raw UCI and score-bound flags are retained.
+Every success passed independent board/history/provenance/legality/move-ID/PV/WDL
+audits; all cross-split rule-position overlaps are zero. D07 loaded and batched
+all three real splits, verifying every sample and three complete batch passes.
+
+Annotation took 4,491.422s; the independent audit took 54.712s; full D07 verification
+took 213.240s. External labels use 25.476 MB; the full production bundle uses
+302.496 MB. [D08 methods, composition, cost and limits](docs/d08-initial-labels.md)
+and [exact external paths/hashes/results](runs/d08/results.json) document the run.
+Full regressions: 1,192 model passes; 1,023 adapter passes/seven expected skips.
+Accepted inputs and primary main are preserved. Production artifacts remain in
+`/private/tmp/rl-chess-d08-production/`, outside Git. Automated checks are complete;
+independent milestone review and integration remain pending, so the historical
+D08 checkbox remains unchecked. No training, held-out tuning or larger expansion
+selection was performed. Stop for independent review before dependent work.

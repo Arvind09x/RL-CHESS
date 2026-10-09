@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "-B",
+    "scripts/audit_d08.py",
+    "/private/tmp/rl-chess-d08-production"
+  ],
+  "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+  "started_at_utc": "2026-10-09T08:39:53.312891+00:00",
+  "finished_at_utc": "2026-10-09T08:40:49.200919+00:00",
+  "duration_seconds": 55.88776358301402,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "independent-replay.stdout.txt",
+    "bytes": 2959,
+    "sha256": "916588cb18297e74975878d5e3839e39775128d4a164212a663f8839b36567ea"
+  },
+  "stderr": {
+    "path": "independent-replay.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

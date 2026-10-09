@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "-B",
+    "-m",
+    "pytest",
+    "--import-mode=importlib",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=runs/d08/regressions-adapter.xml"
+  ],
+  "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+  "started_at_utc": "2026-10-09T07:34:16.543335+00:00",
+  "finished_at_utc": "2026-10-09T07:34:34.509957+00:00",
+  "duration_seconds": 17.96633466699859,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdout": {
+    "path": "regressions-adapter.stdout.txt",
+    "bytes": 3843,
+    "sha256": "47fdcf8f4fd4f9caeff49298e8949af5d9f00ecbc4eb8940041cf0f7f9eaddad"
+  },
+  "stderr": {
+    "path": "regressions-adapter.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

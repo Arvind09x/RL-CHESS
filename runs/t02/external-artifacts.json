@@ -1,0 +1,63 @@
+{
+  "directory": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-cpu-continuation",
+  "files": {
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-cpu-continuation/resumed.json": {
+      "bytes": 247012,
+      "sha256": "9ea631482c2816e2045cb14d9cbb8a082df29225eba546e7cfd71a0fab3cba05"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-cpu-continuation/step-1.pt": {
+      "bytes": 60871811,
+      "sha256": "9f3ecddc1237f56aac1eb69c5c5fd87d442c937b23d591adcfed5df50853fefc"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-cpu-continuation/summary.json": {
+      "bytes": 1797,
+      "sha256": "b9c51cbcb855e074f49f7dd51384b05fab610b8a9b99f9040c82eb02bcebd09e"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-cpu-continuation/uninterrupted.json": {
+      "bytes": 247012,
+      "sha256": "9ea631482c2816e2045cb14d9cbb8a082df29225eba546e7cfd71a0fab3cba05"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-cpu-continuation/warmup.json": {
+      "bytes": 3530,
+      "sha256": "d2eee11ad8d0c59b7b38ab1476307e988272cd0c325a3214666d1e1fd33c094d"
+    }
+  },
+  "source_inputs_rehashed_unchanged": {
+    "/private/tmp/rl-chess-d03-prepared/games.jsonl": {
+      "bytes": 638770177,
+      "sha256": "f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5"
+    },
+    "/private/tmp/rl-chess-d03-prepared/split-audit.json": {
+      "bytes": 2191,
+      "sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36"
+    },
+    "/private/tmp/rl-chess-d04-prepared/overlap-audit.json": {
+      "bytes": 4898,
+      "sha256": "feb20d4e38fa46ff6e5fcc77b4c4b8d1b36b985f3dcf6a3785a412a2fbb91f5e"
+    },
+    "/private/tmp/rl-chess-d04-prepared/samples.jsonl": {
+      "bytes": 567767218,
+      "sha256": "f3dc3410321e46c5e424912f8ae1d4aa26bd5c97267df944cbf8e7e3d1e3581e"
+    },
+    "data/manifests/elite-2025-01-d04-v1.json": {
+      "bytes": 6058,
+      "sha256": "5867fb9c09bf7d0c29d9a09d59d7196b145636d4abe6b38faf9c70d899e5879d"
+    },
+    "runs/d01/stockfish-provenance.json": {
+      "bytes": 4416,
+      "sha256": "c9760d9b073b6300ec7ff002c8bd72bc7ec195aca83c5bb072e30226812751a6"
+    },
+    "runs/d05/tiny-final/labels.jsonl": {
+      "bytes": 30541,
+      "sha256": "ceec9a44e56a5ae6521036219388a73801baaf7c32df16359faa75b650784a7f"
+    },
+    "runs/d05/tiny-final/settings.json": {
+      "bytes": 3024,
+      "sha256": "a866d674e8af772b06b2f124051e069fa753749f94ad294ac550383fccdaeca7"
+    },
+    "runs/d05/tiny-final/summary.json": {
+      "bytes": 862,
+      "sha256": "3d3311ed36a98382207bba3ad19cf99e4d966c70d1d785f41bc60b537bff38c6"
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "base_commit": "b26cf38f04a09fd04283023795c0752753ce3106",
+  "branch": "codex/t02-checkpoints",
+  "checked_at_utc": "2026-10-09T10:50:25.772978+00:00",
+  "command_index": "commands.json",
+  "command_records": 8,
+  "existing_files_preserved": 1752,
+  "external_artifact_index": "external-artifacts.json",
+  "frozen_adapter_exact": true,
+  "independent_review": "pending",
+  "isolated_checkout": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t02-checkpoints",
+  "limitations": "Pinned macOS arm64 CPU float32 continuation only; float64/nondefault configurations receive unit coverage. Standard Adam and explicit single-process D07 order only. No scheduler/gradient accumulation/custom RNG/worker-prefetch/accelerator restoration; incompatible runtime rejected.",
+  "m06_pass": true,
+  "no_subagents": true,
+  "preservation": "preservation.json",
+  "primary_main_and_uncommitted_plan_preserved": true,
+  "real_continuation": {
+    "changed_parameter_tensors": 214,
+    "checkpoint": {
+      "bytes": 60871811,
+      "sha256": "9f3ecddc1237f56aac1eb69c5c5fd87d442c937b23d591adcfed5df50853fefc"
+    },
+    "compared_fields": [
+      "batch",
+      "before_predictions",
+      "changed_parameter_tensors",
+      "config",
+      "draws",
+      "gradients",
+      "indices",
+      "metrics",
+      "optimizer",
+      "optimizer_defaults",
+      "parameters",
+      "post_update_predictions",
+      "random_state_after_update",
+      "references",
+      "runtime",
+      "shared_bank_identity",
+      "training_forward"
+    ],
+    "dropout": 0.1,
+    "exact_match": true,
+    "gradient_tensors": 215,
+    "limitations": "local pinned CPU float32 correctness only; two updates total; no T03/T04, fit, P, pilot, RL or accelerator claim",
+    "metrics": {
+      "batch_size": 2,
+      "policy_loss": 2.8774099349975586,
+      "total_loss": 3.6107428073883057,
+      "wdl_loss": 1.228119969367981
+    },
+    "optimizer_states": 215,
+    "outputs": {
+      "resumed.json": {
+        "bytes": 247012,
+        "sha256": "9ea631482c2816e2045cb14d9cbb8a082df29225eba546e7cfd71a0fab3cba05"
+      },
+      "uninterrupted.json": {
+        "bytes": 247012,
+        "sha256": "9ea631482c2816e2045cb14d9cbb8a082df29225eba546e7cfd71a0fab3cba05"
+      },
+      "warmup.json": {
+        "bytes": 3530,
+        "sha256": "d2eee11ad8d0c59b7b38ab1476307e988272cd0c325a3214666d1e1fd33c094d"
+      }
+    },
+    "parameter_tensors": 215,
+    "runtime": {
+      "default_dtype": "torch.float32",
+      "deterministic": true,
+      "deterministic_warn_only": false,
+      "interop_threads": 1,
+      "machine": "arm64",
+      "matmul_precision": "highest",
+      "mkldnn": true,
+      "numpy": "2.5.3",
+      "platform": "macOS-14.5-arm64-arm-64bit",
+      "python": "3.12.12",
+      "threads": 1,
+      "torch": "2.8.0"
+    },
+    "separate_python_process": true,
+    "tolerance": 0
+  },
+  "scope": "T02 only; no T03/T04/overfit/pilot/P/self-play/RL",
+  "task": "T02",
+  "tests": {
+    "accepted-review-probes-adapter": {
+      "collected": 84,
+      "passed": 84,
+      "sha256": "9314d0d43e9aa74c4831f9f491673f7114d96f0cd3cc13afb4b4fe2fa32ebfa9",
+      "skipped": 0
+    },
+    "accepted-review-probes-model": {
+      "collected": 84,
+      "passed": 84,
+      "sha256": "1cf68744bfa0152f52d84b7e603de29838d760bd0d55d9d09f53a67e0dcf9395",
+      "skipped": 0
+    },
+    "adapter-regressions": {
+      "collected": 1032,
+      "passed": 1023,
+      "sha256": "ba1576a6ac4b1c26d78c1d7acb94511f86dd3abf6528624aaf73335cba033c24",
+      "skipped": 9
+    },
+    "checkpoint-tests": {
+      "collected": 60,
+      "passed": 60,
+      "sha256": "612d93f2bddd41dda33b189dd8d43b70fcdb28760ca797a7269b658377c9d504",
+      "skipped": 0
+    },
+    "model-regressions": {
+      "collected": 1344,
+      "passed": 1344,
+      "sha256": "91cdbaab04422b7021b0c14c8b8f9220edd09a0b37726eb91635a5322b4c7de7",
+      "skipped": 0
+    }
+  }
+}

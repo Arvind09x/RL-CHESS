@@ -1,0 +1,124 @@
+{
+  "metrics": {
+    "batch_size": 2,
+    "policy_loss": 2.918200969696045,
+    "wdl_loss": 1.0305107831954956,
+    "total_loss": 3.3824045658111572
+  },
+  "references": [
+    [
+      "g:0001ccff154a5ff2f41ad11aefe0b28d34f1553cfd51287bcddf9fc44947a01f",
+      104
+    ],
+    [
+      "g:000025602b7ecc9da7677d8baf42cad26dae7815ec1145a18af1c2792cbebb34",
+      9
+    ]
+  ],
+  "config": {
+    "d_policy": 128,
+    "d_value": 128,
+    "dropout": 0.1,
+    "relative_enabled": true,
+    "dtype": "float32",
+    "device": "cpu",
+    "architecture": "m06-gab-relative-qkv-v1"
+  },
+  "weights": {
+    "policy": 0.7,
+    "wdl": 1.3
+  },
+  "progress": {
+    "step": 1,
+    "epoch": 0,
+    "samples_seen": 2
+  },
+  "data_order": {
+    "source_id": "ceec9a44e56a5ae6521036219388a73801baaf7c32df16359faa75b650784a7f",
+    "references_sha256": "cb32e0081881135b26d11d012b457b00438784532ef35b5b28accb521b332781",
+    "order": [
+      8,
+      1,
+      0,
+      9,
+      11,
+      6,
+      2,
+      4,
+      5,
+      7,
+      3,
+      10
+    ],
+    "cursor": 2,
+    "batch_size": 2,
+    "drop_last": false,
+    "epoch": 0,
+    "split": "train",
+    "version": "d07-explicit-order-v1"
+  },
+  "provenance": {
+    "task": "T02",
+    "reviewed_base": "b26cf38f04a09fd04283023795c0752753ce3106",
+    "seed": 20261009,
+    "dataset_split": "train",
+    "files": {
+      "data/manifests/elite-2025-01-d04-v1.json": {
+        "bytes": 6058,
+        "sha256": "5867fb9c09bf7d0c29d9a09d59d7196b145636d4abe6b38faf9c70d899e5879d"
+      },
+      "runs/d01/stockfish-provenance.json": {
+        "bytes": 4416,
+        "sha256": "c9760d9b073b6300ec7ff002c8bd72bc7ec195aca83c5bb072e30226812751a6"
+      },
+      "runs/d05/tiny-final/labels.jsonl": {
+        "bytes": 30541,
+        "sha256": "ceec9a44e56a5ae6521036219388a73801baaf7c32df16359faa75b650784a7f"
+      },
+      "runs/d05/tiny-final/settings.json": {
+        "bytes": 3024,
+        "sha256": "a866d674e8af772b06b2f124051e069fa753749f94ad294ac550383fccdaeca7"
+      },
+      "runs/d05/tiny-final/summary.json": {
+        "bytes": 862,
+        "sha256": "3d3311ed36a98382207bba3ad19cf99e4d966c70d1d785f41bc60b537bff38c6"
+      },
+      "/private/tmp/rl-chess-d03-prepared/games.jsonl": {
+        "bytes": 638770177,
+        "sha256": "f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5"
+      },
+      "/private/tmp/rl-chess-d03-prepared/split-audit.json": {
+        "bytes": 2191,
+        "sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36"
+      },
+      "/private/tmp/rl-chess-d04-prepared/samples.jsonl": {
+        "bytes": 567767218,
+        "sha256": "f3dc3410321e46c5e424912f8ae1d4aa26bd5c97267df944cbf8e7e3d1e3581e"
+      },
+      "/private/tmp/rl-chess-d04-prepared/overlap-audit.json": {
+        "bytes": 4898,
+        "sha256": "feb20d4e38fa46ff6e5fcc77b4c4b8d1b36b985f3dcf6a3785a412a2fbb91f5e"
+      }
+    },
+    "sampler": "NumPy global permutation; D07 explicit order",
+    "schedule": "one warmup and one continuation update; no scheduler or accumulation"
+  },
+  "runtime": {
+    "python": "3.12.12",
+    "numpy": "2.5.3",
+    "torch": "2.8.0",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "machine": "arm64",
+    "threads": 1,
+    "interop_threads": 1,
+    "deterministic": true,
+    "deterministic_warn_only": false,
+    "default_dtype": "torch.float32",
+    "matmul_precision": "highest",
+    "mkldnn": true
+  },
+  "checkpoint": {
+    "bytes": 60871811,
+    "sha256": "9f3ecddc1237f56aac1eb69c5c5fd87d442c937b23d591adcfed5df50853fefc"
+  }
+}

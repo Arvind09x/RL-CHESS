@@ -982,3 +982,28 @@ and [structured verification](runs/d08-t01-integration/summary.json) supersede
 D08/T01 pending-review status. D08 and T01 are accepted within their original CPU
 correctness boundaries. No checkpoint, tiny overfit, T02 or later implementation
 was started. Stop after integration evidence.
+
+### T02 implementation evidence — 9 October 2026; independent review pending
+
+Only T02 is implemented on isolated `codex/t02-checkpoints`, based on reviewed
+integrated main `b26cf38f04a09fd04283023795c0752753ce3106`. The shared checkpoint
+format preserves combined M06 construction settings and weights, contract versions,
+WDL order/ending policy, provenance, CPU Adam configuration/state, weights/progress,
+Python/NumPy/Torch RNG and explicit D07 source/order/cursor/batch settings.
+Inference loading and training restoration have separate entry points; malformed
+or incompatible checkpoints fail clearly and shared GAB identity is retained.
+
+A bounded real D05/D07 check establishes Adam state with one warmup update, then
+reproduces the next training update in a fresh Python process with 0.1 dropout.
+Evaluation logits/probabilities, next-batch references/tensors, all 215 gradients,
+parameters and Adam states, losses and subsequent RNG agree exactly. No held-out
+sample is trained. Automated checks pass: 60 checkpoint cases, 1,344 full model
+tests, 1,023 adapter tests/nine expected optional-Torch skips, 84 accepted reviewer
+probes per environment, M06 and the frozen adapter replay. Existing Git artifacts,
+protected registries, manifest/lock and primary planning edits are preserved.
+
+[Checkpoint contract and limitations](docs/t02-checkpoints.md) and
+[commands/hashes/results](runs/t02/summary.json) are ready for independent review.
+The historical T02 checkbox remains unchecked until that review. No T03, T04,
+overfit, pilot training, P selection, self-play or RL is started. Stop at the
+isolated implementation/evidence commit; do not advance primary main.

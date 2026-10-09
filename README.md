@@ -806,3 +806,42 @@ freeze and overfit artifacts remain unchanged; separate integration verification
 performs no original fitting rerun. This is supplied AI review, without human or
 newly commissioned review. Scope ends at primary main integration, before R01,
 GPU work or training campaigns.
+
+
+### R01 model-guided self-play — 10 October 2026; independent review pending
+
+Only R01 is implemented in isolated `r01-self-play` on `codex/r01-self-play`,
+from accepted combined T03/T04 main `ea0f8a142ec3b1ec3266ffafef8853ea07ab0c2d`.
+The shared adapter, search, RealEvaluator and T02 loader remain unchanged.
+Sequential CPU batch-of-one execution freezes checkpoint identity, budget,
+exploration phases, opening source/selection seed/full prefix and owned PCG64
+settings before search. Atomic move-boundary records retain complete history,
+played-root legal masks/raw visits/search policies and execution metadata.
+Terminal outcomes precede the cap; unfinished games never receive draw outcomes
+or WDL labels. R02 finalization and training are outside this implementation.
+
+All 55 new tests and 308 focused cases pass; full regressions pass 1,453 model
+cases and 1,023 Torch-free cases with 12 expected optional-Torch skips. Both
+environments pass 84 historical reviewer probes and identical frozen 13-fixture
+adapter replays; M06 numerical checks pass. The unchanged actual T03 plumbing
+checkpoint executes the pre-frozen 20-snapshot suite: eight completed (40%),
+11 truncated (55%), one interrupted (5%), and one deliberate duplicate completed
+excess (12.5% of completions). Among 15 snapshots with generated moves: four
+completed, ten truncated, one interrupted and zero duplicate completions.
+Short caps explain the high truncation rate; no scaling/strength inference follows.
+
+A long-history fixture stops between moves, is SIGKILLed during the next search,
+then resumes in a fresh process with scrambled global RNGs. Initial board/full
+history, opening prefix, checkpoint/search/phase settings, all actions/root
+visits/search policies and private RNG exactly match uninterrupted execution.
+The original cap is preserved and the resumed truncation remains unlabeled.
+Primary main, its unrelated exact planning patch, accepted tracked bytes and
+76 indexed external files are preserved. No pretrained P is selected.
+
+[API, durable boundary and limits](docs/r01-self-play.md),
+[frozen real suite](runs/r01/real/frozen-plan.json),
+[real results](runs/r01/real/summary.json) and
+[checks/preservation index](runs/r01/summary.json) save the review evidence.
+The R01 checkbox remains pending independent acceptance. Commit only this
+isolated R01 work and stop; do not integrate main or start R02/R03/R04, RL
+updates, GPU work, production training or playing-strength claims.

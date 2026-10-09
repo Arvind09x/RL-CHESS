@@ -1,0 +1,321 @@
+{
+  "external_files": {
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/.gitignore": {
+      "bytes": 2,
+      "sha256": "cdbcae15105d6b781e620813c79c7e868740d4e9cc53ce6f5fcbbc12387adf4b"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-bcb208d-production/attempts.jsonl": {
+      "bytes": 158909706,
+      "sha256": "a4576eed221942fe94be01a395a1fd49236ed4d9a869308e92b1c5c4905f3c69"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-bcb208d-production/exclusions.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-bcb208d-production/independent-replay.json": {
+      "bytes": 7876928,
+      "sha256": "776f7d6246ef050b39798332eaf572ba9558b2780c3ee73108480647664a0862"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-bcb208d-production/labels.jsonl": {
+      "bytes": 25476244,
+      "sha256": "e653e2f5b098562eef2482478ef2b48009516a81bec2fbf0d53dbc92f5a30369"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-bcb208d-production/latencies.jsonl": {
+      "bytes": 2980713,
+      "sha256": "47b586c5699a32023cbbfdb6b16fb0fb3798bd8ecb37615994fcf76e7e0d2224"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-bcb208d-production/loader-verification.json": {
+      "bytes": 4242,
+      "sha256": "eb7e568750dbe13d0a51e1b9de218afd9aad618cf9232f806a9958b0b742b1a1"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-bcb208d-production/selected.jsonl": {
+      "bytes": 2457101,
+      "sha256": "e9bb4ba052f1210773a89228a98fab692d4990f8d4b961a9567c8a770aebb36a"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-bcb208d-production/settings.json": {
+      "bytes": 107012,
+      "sha256": "8bb3831a821d65702edd7aab0445ca78ee9090b97e18f6a62d168f49e98e94ef"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-bcb208d-production/summary.json": {
+      "bytes": 1941,
+      "sha256": "620db9b787140e06c174619d8f5f5c0a08b1998e88627731992b2e1ba9a2a08a"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-bcb208d-production/uci-transport.log": {
+      "bytes": 104682069,
+      "sha256": "2b87daca6e9faba45f778846598922d4e3bfe5e2d71464df0968f406ad7bec09"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-t01-integration-audits/d08-loader.json": {
+      "bytes": 4251,
+      "sha256": "0acb42c6a4a6c292e02a78b0f9765c3d2747d7d5d14c8c1fc931d16c0e5e31ee"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-t01-integration-audits/d08-replay.json": {
+      "bytes": 7875624,
+      "sha256": "14304ad4c8442b4aad5760e857b3d1010281da6df0f280352a584b33055da33e"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/primary-preservation/coding-plan.original.md": {
+      "bytes": 84352,
+      "sha256": "4e78618d3cbe76836976818b29fb4692f9215a0474279e3729aca8ab8a0f8962"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/primary-preservation/coding-plan.patch": {
+      "bytes": 6026,
+      "sha256": "d52cd200efa3ec7a1ec86e758f2ffc5dea54703e4e3fc48d63d27f43c4e12fab"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-cpu-continuation/resumed.json": {
+      "bytes": 247012,
+      "sha256": "9ea631482c2816e2045cb14d9cbb8a082df29225eba546e7cfd71a0fab3cba05"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-cpu-continuation/step-1.pt": {
+      "bytes": 60871811,
+      "sha256": "9f3ecddc1237f56aac1eb69c5c5fd87d442c937b23d591adcfed5df50853fefc"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-cpu-continuation/summary.json": {
+      "bytes": 1797,
+      "sha256": "b9c51cbcb855e074f49f7dd51384b05fab610b8a9b99f9040c82eb02bcebd09e"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-cpu-continuation/uninterrupted.json": {
+      "bytes": 247012,
+      "sha256": "9ea631482c2816e2045cb14d9cbb8a082df29225eba546e7cfd71a0fab3cba05"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-cpu-continuation/warmup.json": {
+      "bytes": 3530,
+      "sha256": "d2eee11ad8d0c59b7b38ab1476307e988272cd0c325a3214666d1e1fd33c094d"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-integration-cpu-continuation-20261009/resumed.json": {
+      "bytes": 247012,
+      "sha256": "9ea631482c2816e2045cb14d9cbb8a082df29225eba546e7cfd71a0fab3cba05"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-integration-cpu-continuation-20261009/step-1.pt": {
+      "bytes": 60871811,
+      "sha256": "9f3ecddc1237f56aac1eb69c5c5fd87d442c937b23d591adcfed5df50853fefc"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-integration-cpu-continuation-20261009/summary.json": {
+      "bytes": 1797,
+      "sha256": "b9c51cbcb855e074f49f7dd51384b05fab610b8a9b99f9040c82eb02bcebd09e"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-integration-cpu-continuation-20261009/uninterrupted.json": {
+      "bytes": 247012,
+      "sha256": "9ea631482c2816e2045cb14d9cbb8a082df29225eba546e7cfd71a0fab3cba05"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-integration-cpu-continuation-20261009/warmup.json": {
+      "bytes": 3530,
+      "sha256": "d2eee11ad8d0c59b7b38ab1476307e988272cd0c325a3214666d1e1fd33c094d"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t03-tiny-overfit-20261009/execution-start.json": {
+      "bytes": 15200,
+      "sha256": "fe913ad6518b8aa6f6f3f6faaab507fe098d3f2b99be391b2fc56217729840cd"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t03-tiny-overfit-20261009/expected-reload.json": {
+      "bytes": 203829,
+      "sha256": "54c2760a25dde915adf83e78ddf611891a3420fe74e518b641c6eb651852a6fc"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t03-tiny-overfit-20261009/final.pt": {
+      "bytes": 60883331,
+      "sha256": "d4454a65793b1c21aaacbe7445f7682cd88220e5e1a46af5e11ea3d390beb13d"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t03-tiny-overfit-20261009/learning-curves.jsonl": {
+      "bytes": 23479,
+      "sha256": "869c0445796fde60fc97f04d9fbf77621a5d94f42f3aebea19e5e5bea24be604"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t03-tiny-overfit-20261009/reload-verification.json": {
+      "bytes": 1490,
+      "sha256": "07ba869ae0a71d7ff37d6a6397861737cf72581b3cc1832f1781e5f93becb5bd"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t03-tiny-overfit-20261009/result.json": {
+      "bytes": 1750,
+      "sha256": "5c0b34e9c6373ea84039578e3386bb11a0aff40615ba05c2829451e6bcf29eb0"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t02-integration/data/manifests/elite-2025-01-d04-v1.json": {
+      "bytes": 6058,
+      "sha256": "5867fb9c09bf7d0c29d9a09d59d7196b145636d4abe6b38faf9c70d899e5879d"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t02-integration/runs/d01/stockfish-provenance.json": {
+      "bytes": 4416,
+      "sha256": "c9760d9b073b6300ec7ff002c8bd72bc7ec195aca83c5bb072e30226812751a6"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t02-integration/runs/d05/tiny-final/labels.jsonl": {
+      "bytes": 30541,
+      "sha256": "ceec9a44e56a5ae6521036219388a73801baaf7c32df16359faa75b650784a7f"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t02-integration/runs/d05/tiny-final/settings.json": {
+      "bytes": 3024,
+      "sha256": "a866d674e8af772b06b2f124051e069fa753749f94ad294ac550383fccdaeca7"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t02-integration/runs/d05/tiny-final/summary.json": {
+      "bytes": 862,
+      "sha256": "3d3311ed36a98382207bba3ad19cf99e4d966c70d1d785f41bc60b537bff38c6"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t03-tiny-overfit/data/manifests/elite-2025-01-d04-v1.json": {
+      "bytes": 6058,
+      "sha256": "5867fb9c09bf7d0c29d9a09d59d7196b145636d4abe6b38faf9c70d899e5879d"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t03-tiny-overfit/runs/d01/stockfish-provenance.json": {
+      "bytes": 4416,
+      "sha256": "c9760d9b073b6300ec7ff002c8bd72bc7ec195aca83c5bb072e30226812751a6"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t03-tiny-overfit/runs/d05/tiny-final/attempts.jsonl": {
+      "bytes": 157037,
+      "sha256": "1977ce7e95f3c3b45d95f85be7aac3f37839d1ce04ad425280909a9b19c35eaa"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t03-tiny-overfit/runs/d05/tiny-final/exclusions.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t03-tiny-overfit/runs/d05/tiny-final/labels.jsonl": {
+      "bytes": 30541,
+      "sha256": "ceec9a44e56a5ae6521036219388a73801baaf7c32df16359faa75b650784a7f"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t03-tiny-overfit/runs/d05/tiny-final/selected.jsonl": {
+      "bytes": 2945,
+      "sha256": "50f725d3f898dceaff59d953fe0ddba05fe1b95558aef9cca15b26a1fba5c5e3"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t03-tiny-overfit/runs/d05/tiny-final/settings.json": {
+      "bytes": 3024,
+      "sha256": "a866d674e8af772b06b2f124051e069fa753749f94ad294ac550383fccdaeca7"
+    },
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t03-tiny-overfit/runs/d05/tiny-final/summary.json": {
+      "bytes": 862,
+      "sha256": "3d3311ed36a98382207bba3ad19cf99e4d966c70d1d785f41bc60b537bff38c6"
+    },
+    "/private/tmp/Stockfish-sf_17.1/src/stockfish": {
+      "bytes": 79567096,
+      "sha256": "3bd05ad6e2fcfb7384aca5d4ebd50a493c07b32fc3838b65d17405c97ab45bc4"
+    },
+    "/private/tmp/lichess_elite_2025-01.zip": {
+      "bytes": 82724777,
+      "sha256": "f2fa14565bcdaba7ad6de6a4f8f2348d0f9f8f262935c46e61925c5acce6f7b7"
+    },
+    "/private/tmp/rl-chess-d02-accepted-prepared/rejections.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/private/tmp/rl-chess-d02-accepted-prepared/replays.jsonl": {
+      "bytes": 541174538,
+      "sha256": "69c10231f4d569a6b3cb4b26bc22a9535346d68f0a4753bd83c0c92981ea950b"
+    },
+    "/private/tmp/rl-chess-d03-prepared/games.jsonl": {
+      "bytes": 638770177,
+      "sha256": "f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5"
+    },
+    "/private/tmp/rl-chess-d03-prepared/split-audit.json": {
+      "bytes": 2191,
+      "sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36"
+    },
+    "/private/tmp/rl-chess-d04-prepared/candidate-pools.sqlite": {
+      "bytes": 1091997696,
+      "sha256": "3f35a20715f0c948e4f3c8597aed630efed3e4210caa3531b3cf0a15c0f4bcce"
+    },
+    "/private/tmp/rl-chess-d04-prepared/exclusions.jsonl": {
+      "bytes": 105285659,
+      "sha256": "72e45e4f89d15a596090ad940218867aedcb53275a3eddb6f50674502dd02b32"
+    },
+    "/private/tmp/rl-chess-d04-prepared/heldout-games.jsonl": {
+      "bytes": 2862240,
+      "sha256": "73202bd1b255fb89958da1be043e219f192b33a06da05ceb669eb1984d60fc18"
+    },
+    "/private/tmp/rl-chess-d04-prepared/overlap-audit.json": {
+      "bytes": 4898,
+      "sha256": "feb20d4e38fa46ff6e5fcc77b4c4b8d1b36b985f3dcf6a3785a412a2fbb91f5e"
+    },
+    "/private/tmp/rl-chess-d04-prepared/protected-heldout.jsonl": {
+      "bytes": 57171328,
+      "sha256": "813d40ec52f3058996ddf6d7586dea23ee568c3bcff995cd92879e306a1f8ed3"
+    },
+    "/private/tmp/rl-chess-d04-prepared/samples.jsonl": {
+      "bytes": 567767218,
+      "sha256": "f3dc3410321e46c5e424912f8ae1d4aa26bd5c97267df944cbf8e7e3d1e3581e"
+    },
+    "/private/tmp/rl-chess-d06-benchmark/attempts.jsonl": {
+      "bytes": 16917952,
+      "sha256": "5f06cf78e311f112dd97f9a592d8c2f18452f1e959977628bd89ec481d2d155f"
+    },
+    "/private/tmp/rl-chess-d06-benchmark/exclusions.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/private/tmp/rl-chess-d06-benchmark/independent-replay.json": {
+      "bytes": 763985,
+      "sha256": "d95e2694b855ef4757a8f4e20b2d142fc69b95d5f481d32e2af150650301073a"
+    },
+    "/private/tmp/rl-chess-d06-benchmark/labels.jsonl": {
+      "bytes": 2547897,
+      "sha256": "4ddeee8da6ddfbeb5d652b10d77f79063c2ea27678bf79378555698b657cdc42"
+    },
+    "/private/tmp/rl-chess-d06-benchmark/latencies.jsonl": {
+      "bytes": 297155,
+      "sha256": "b2532de2737f55eaddc0616bd3bb735e5412fa58ab5b94665f0a9f8d1ce3b52f"
+    },
+    "/private/tmp/rl-chess-d06-benchmark/selected.jsonl": {
+      "bytes": 244787,
+      "sha256": "a7e71037dd8302f52d399d69c50e1d7cd23065564675a76b7ff99cae7c238b81"
+    },
+    "/private/tmp/rl-chess-d06-benchmark/settings.json": {
+      "bytes": 6820,
+      "sha256": "a6dbbfb62c3770d98846c5bf675ee323ed17da9575a565ac6043423209bb0289"
+    },
+    "/private/tmp/rl-chess-d06-benchmark/summary.json": {
+      "bytes": 1918,
+      "sha256": "307d1497638bbad99d718f89741430bbc6d324b6cac7545003500f9d7be3c82f"
+    },
+    "/private/tmp/rl-chess-d06-benchmark/uci-transport.log": {
+      "bytes": 10301556,
+      "sha256": "45e8b54d5bc63418278561ff5eb01bbb29c89423d260d57a0858f8a67572ad17"
+    },
+    "/private/tmp/rl-chess-d07/data/manifests/elite-2025-01-d04-v1.json": {
+      "bytes": 6058,
+      "sha256": "5867fb9c09bf7d0c29d9a09d59d7196b145636d4abe6b38faf9c70d899e5879d"
+    },
+    "/private/tmp/rl-chess-d08-production/attempts.jsonl": {
+      "bytes": 158909706,
+      "sha256": "a4576eed221942fe94be01a395a1fd49236ed4d9a869308e92b1c5c4905f3c69"
+    },
+    "/private/tmp/rl-chess-d08-production/exclusions.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/private/tmp/rl-chess-d08-production/independent-replay.json": {
+      "bytes": 7876928,
+      "sha256": "776f7d6246ef050b39798332eaf572ba9558b2780c3ee73108480647664a0862"
+    },
+    "/private/tmp/rl-chess-d08-production/labels.jsonl": {
+      "bytes": 25476244,
+      "sha256": "e653e2f5b098562eef2482478ef2b48009516a81bec2fbf0d53dbc92f5a30369"
+    },
+    "/private/tmp/rl-chess-d08-production/latencies.jsonl": {
+      "bytes": 2980713,
+      "sha256": "47b586c5699a32023cbbfdb6b16fb0fb3798bd8ecb37615994fcf76e7e0d2224"
+    },
+    "/private/tmp/rl-chess-d08-production/loader-verification.json": {
+      "bytes": 4242,
+      "sha256": "eb7e568750dbe13d0a51e1b9de218afd9aad618cf9232f806a9958b0b742b1a1"
+    },
+    "/private/tmp/rl-chess-d08-production/selected.jsonl": {
+      "bytes": 2457101,
+      "sha256": "e9bb4ba052f1210773a89228a98fab692d4990f8d4b961a9567c8a770aebb36a"
+    },
+    "/private/tmp/rl-chess-d08-production/settings.json": {
+      "bytes": 107012,
+      "sha256": "8bb3831a821d65702edd7aab0445ca78ee9090b97e18f6a62d168f49e98e94ef"
+    },
+    "/private/tmp/rl-chess-d08-production/summary.json": {
+      "bytes": 1941,
+      "sha256": "620db9b787140e06c174619d8f5f5c0a08b1998e88627731992b2e1ba9a2a08a"
+    },
+    "/private/tmp/rl-chess-d08-production/uci-transport.log": {
+      "bytes": 104682069,
+      "sha256": "2b87daca6e9faba45f778846598922d4e3bfe5e2d71464df0968f406ad7bec09"
+    }
+  },
+  "primary_main_and_exact_uncommitted_patch_unchanged": true,
+  "trees": {
+    "both_documentation_completion_records_preserved": true,
+    "exact_non_document_files_per_commit": {
+      "197bf821bfe13f2fab1dc5a8a54da2d8d13779e8": 1894,
+      "1a9b00dd799af7578476624e4471073eaa3450eb": 1916,
+      "4fa48d4afef91a3bea125fb5f9f85b4d5159fc28": 1856
+    },
+    "original_freeze_not_extended_to_t04_sources": true,
+    "original_frozen_source_set_and_bytes_unchanged": true,
+    "original_reviewed_checkouts_clean_and_unchanged": true
+  },
+  "verified_at_utc": "2026-10-09T11:56:09.423960+00:00"
+}

@@ -132,8 +132,8 @@ Leela is the practical chess-search/self-play reference; AlphaZero supplies the 
 |---|---|---|---|---|
 | [x] | T01 / P1 | M06, D07 | Implement legal policy cross-entropy, soft WDL cross-entropy and a minimal supervised training step for the combined architecture. Choose and record optimizer, loss weighting, seed and small-run batch settings. | Independent calculations check both losses. Illegal policy logits receive zero loss gradient; teacher distributions remain soft. No `0 * -inf`, terminal sample or nonfinite loss passes silently. |
 | [x] | T02 / P1 | T01 | Implement versioned checkpoint save/load with model/config, optimizer, progress and random states. | Save/load preserves evaluation predictions. A deterministic continuation check reproduces the next update on a supported backend; record backend nondeterminism where applicable. Reject incompatible encodings/configurations. |
-| [ ] | T03 / P1 | T02, D05 | Overfit a tiny fixed training-only labeled subset with dropout disabled. Set a step cap and acceptance thresholds before running. | Best-move fit becomes near-perfect and teacher-WDL KL becomes small under the recorded thresholds; compare WDL loss to the teacher entropy floor, not to zero. No held-out samples are used. Save metrics/checkpoint. |
-| [ ] | T04 / Both | T02, A07 | Implement the real batched evaluator: checkpoint loading, terminal partitioning, encoding/batching of nonterminal states, inference mode, legal normalization and WDL-to-value conversion, with results restored to input order. | Empty, batch-of-one and mixed-terminal batches preserve order and input histories. Terminal states skip encoding/model inference. Batched nonterminal predictions agree with individual evaluation within recorded numerical tolerance. Legal priors normalize and `v=P(win)-P(loss)` matches an independently checked result. |
+| [x] | T03 / P1 | T02, D05 | Overfit a tiny fixed training-only labeled subset with dropout disabled. Set a step cap and acceptance thresholds before running. | Best-move fit becomes near-perfect and teacher-WDL KL becomes small under the recorded thresholds; compare WDL loss to the teacher entropy floor, not to zero. No held-out samples are used. Save metrics/checkpoint. |
+| [x] | T04 / Both | T02, A07 | Implement the real batched evaluator: checkpoint loading, terminal partitioning, encoding/batching of nonterminal states, inference mode, legal normalization and WDL-to-value conversion, with results restored to input order. | Empty, batch-of-one and mixed-terminal batches preserve order and input histories. Terminal states skip encoding/model inference. Batched nonterminal predictions agree with individual evaluation within recorded numerical tolerance. Legal priors normalize and `v=P(win)-P(loss)` matches an independently checked result. |
 
 ## 7. Complete a tiny end-to-end cycle locally
 
@@ -1116,3 +1116,33 @@ source hashes and primary/checkpoint preservation. Original accepted documents
 and completion records are retained with dated appends. Commit and stop for
 independent review before R01, pilot training, P selection, self-play, RL or
 performance campaigns.
+
+
+### T03/T04 supplied AI review acceptance and integration — 9 October 2026
+
+T03 `1a9b00dd799af7578476624e4471073eaa3450eb` and T04
+`197bf821bfe13f2fab1dc5a8a54da2d8d13779e8` are accepted for their documented
+CPU scope, based on the user-supplied independent AI review finding no blocking
+issue. That supplied review freshly passed 20 T03 and 34 T04 tests, verified the
+actual T03 checkpoint's exact model hashes and final metrics, confirmed step 26
+was the first passing step, and exercised the artifact through T04 and bounded
+search. No human review or newly commissioned review is claimed.
+
+The combined isolated branch retains both exact commits and complete completion
+appends. Fresh pinned regressions passed 1,398 model tests, 1,023 Torch-free tests
+(with 11 optional-Torch skips), 206 focused cases, and 84 historical review probes
+in each environment. Frozen adapter replay, M06 numerical and dependency/source
+audits passed. T04 freshly loads the unchanged actual T03 checkpoint, reproduces
+all saved model hashes and final metrics, and returns legal normalized outputs
+with valid bounded searches and unchanged histories/RNG.
+
+T03's original freeze, checkpoints, curves and evidence remain untouched. The
+original checkout owns its source-set identity; integration verification uses
+separate files without adding T04 to that freeze or rerunning the original fit.
+Historical pending-review entries are retained; this dated acceptance supersedes
+their status. [Integration evidence](docs/t03-t04-integration.md) and
+[summary](runs/t03-t04-integration/summary.json) document commands, CPU limits and
+preservation. Primary main integration uses the accepted drift-check/stash/
+fast-forward/restore workflow, preserving the original uncommitted D06/D07/E01
+checkbox changes. T03 and T04 are checked complete. Stop after integration;
+R01, GPU work and training campaigns are not begun.

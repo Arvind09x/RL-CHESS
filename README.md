@@ -789,3 +789,20 @@ the pre-recorded `atol=2e-6, rtol=2e-5` tolerance.
 [structured results](runs/t04/summary.json) record this isolated implementation
 on `codex/t04-real-evaluator`. T04 remains pending independent review. Work
 stops after committing T04; no R01 or performance campaign is begun.
+
+
+## T03/T04 accepted integration — 9 October 2026
+
+T03 and T04 are accepted within their documented CPU scope through the supplied
+independent AI review and fresh combined integration verification. Both original
+commits and completion records remain intact. The actual T03 checkpoint loads
+through T04 with exact saved model hashes and final metrics, legal normalized
+outputs and valid bounded search. Fresh model regressions pass 1,398 tests;
+Torch-free regressions pass 1,023 with 11 expected optional-Torch skips.
+
+See [integration and preservation evidence](docs/t03-t04-integration.md) and
+[structured results](runs/t03-t04-integration/summary.json). The original T03
+freeze and overfit artifacts remain unchanged; separate integration verification
+performs no original fitting rerun. This is supplied AI review, without human or
+newly commissioned review. Scope ends at primary main integration, before R01,
+GPU work or training campaigns.

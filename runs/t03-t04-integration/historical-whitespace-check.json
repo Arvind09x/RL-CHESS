@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "git",
+    "diff",
+    "--check",
+    "4fa48d4afef91a3bea125fb5f9f85b4d5159fc28"
+  ],
+  "exit_code": 2,
+  "only_exact_reviewed_historical_failure_logs": true,
+  "preserved_files": [
+    "runs/t04/focused.stdout.txt",
+    "runs/t04/focused.xml"
+  ],
+  "stderr": "",
+  "stdout": "runs/t04/focused.stdout.txt:16: trailing whitespace.\n+E       AssertionError: \nruns/t04/focused.stdout.txt:18: trailing whitespace.\n+E       \nruns/t04/focused.xml:11: trailing whitespace.\n+E       AssertionError: \nruns/t04/focused.xml:13: trailing whitespace.\n+E       \n"
+}

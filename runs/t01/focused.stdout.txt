@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t01-supervised-losses
+configfile: pyproject.toml
+collected 219 items
+
+tests/test_training.py ................................................. [ 22%]
+...........................................                              [ 42%]
+tests/test_supervised.py ............................................... [ 63%]
+........................................................................ [ 96%]
+........                                                                 [100%]
+
+- generated xml file: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t01-supervised-losses/runs/t01/focused.xml -
+============================= 219 passed in 8.68s ==============================

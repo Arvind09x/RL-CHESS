@@ -1,0 +1,243 @@
+{
+  "base_commit": "9565093abe40a7807e3472c1101f5f28c14b7afe",
+  "changed_paths": [
+    "README.md",
+    "coding-plan.md",
+    "docs/t01-supervised-losses.md",
+    "runs/t01/archive_m06_stdout.py",
+    "runs/t01/audit_preservation.py",
+    "runs/t01/change-manifest.json",
+    "runs/t01/completion.json",
+    "runs/t01/config.json",
+    "runs/t01/finalize_evidence.py",
+    "runs/t01/focused.command.json",
+    "runs/t01/focused.stderr.txt",
+    "runs/t01/focused.stdout.txt",
+    "runs/t01/focused.xml",
+    "runs/t01/frozen-adapter.command.json",
+    "runs/t01/frozen-adapter.stderr.txt",
+    "runs/t01/frozen-adapter.stdout.txt",
+    "runs/t01/frozen-model.command.json",
+    "runs/t01/frozen-model.stderr.txt",
+    "runs/t01/frozen-model.stdout.txt",
+    "runs/t01/full-adapter.command.json",
+    "runs/t01/full-adapter.stderr.txt",
+    "runs/t01/full-adapter.stdout.txt",
+    "runs/t01/full-adapter.xml",
+    "runs/t01/full-model.command.json",
+    "runs/t01/full-model.stderr.txt",
+    "runs/t01/full-model.stdout.txt",
+    "runs/t01/full-model.xml",
+    "runs/t01/m06.command.json",
+    "runs/t01/m06.stderr.txt",
+    "runs/t01/m06.stdout.json",
+    "runs/t01/preservation.json",
+    "runs/t01/real-batch.command.json",
+    "runs/t01/real-batch.json",
+    "runs/t01/real-batch.stderr.txt",
+    "runs/t01/real-batch.stdout.txt",
+    "runs/t01/reviewer-probes.command.json",
+    "runs/t01/reviewer-probes.stderr.txt",
+    "runs/t01/reviewer-probes.stdout.txt",
+    "runs/t01/reviewer-probes.xml",
+    "runs/t01/run_command.py",
+    "scripts/check_t01.py",
+    "src/chess_rl/tensor_ops.py",
+    "src/chess_rl/training/__init__.py",
+    "src/chess_rl/training/losses.py",
+    "src/chess_rl/training/trainer.py",
+    "tests/fixtures/loss_reference.py",
+    "tests/test_training.py"
+  ],
+  "identities": {
+    "README.md": {
+      "bytes": 33929,
+      "sha256": "5c5f5af83d1dbc2ab22ff9935bace04e3c6a6f7433f3903e38629aabb07f22eb"
+    },
+    "coding-plan.md": {
+      "bytes": 86308,
+      "sha256": "9b9cb5efc6b66974a07357f1a523b54d27a2d2c7973749fa78e71aabc6595d2e"
+    },
+    "docs/t01-supervised-losses.md": {
+      "bytes": 9367,
+      "sha256": "2396e4989be7db1ba060ff5ba916e9aa58f91a21a67b9d7bb2c6d8bec626a560"
+    },
+    "runs/t01/archive_m06_stdout.py": {
+      "bytes": 1176,
+      "sha256": "0f8594683ac934d57b9bcf6449083ae80ea7ee02ab29d2ed03cc72e580659afe"
+    },
+    "runs/t01/audit_preservation.py": {
+      "bytes": 3854,
+      "sha256": "fcf4e2f0f202bb949dc1b0bdc9031b5b732e26a1089be3d5d27a8836e9251159"
+    },
+    "runs/t01/completion.json": {
+      "bytes": 1193,
+      "sha256": "b7239505fe52b3797e81edd5bbfacc6026d4127baa3d2c2e8b7dbcaacc7fb981"
+    },
+    "runs/t01/config.json": {
+      "bytes": 869,
+      "sha256": "393e9a0ba2c7bb30e233b5faf30523022c54c8a2c91e3ee90fd7cd2d4497631c"
+    },
+    "runs/t01/finalize_evidence.py": {
+      "bytes": 2958,
+      "sha256": "278fbad47d1dd6501260319e8aaa77c707b56e3a12743dfea4a1fb9a8ce8f8a5"
+    },
+    "runs/t01/focused.command.json": {
+      "bytes": 2084,
+      "sha256": "37f7a06e9056fff8ef954658cec0a995a9ac147ba7a4bf408bc1b3ee990e7076"
+    },
+    "runs/t01/focused.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runs/t01/focused.stdout.txt": {
+      "bytes": 879,
+      "sha256": "95b5bd49410d7a6485e2fa0333bf3f7be8b585d8f92287fa94e3c2dfb6126b1e"
+    },
+    "runs/t01/focused.xml": {
+      "bytes": 25398,
+      "sha256": "859df48dd250d6c5ebb06ba512fd5b80e25b08bbaf3e61e5b3845225e1e69370"
+    },
+    "runs/t01/frozen-adapter.command.json": {
+      "bytes": 1985,
+      "sha256": "6ccda4ad23c951b1ddc301eac791ce838523a2375a8ed163a9a1e1ee3dd6d959"
+    },
+    "runs/t01/frozen-adapter.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runs/t01/frozen-adapter.stdout.txt": {
+      "bytes": 14637,
+      "sha256": "32c8da66c132f9ce87bbdb8b772b02acf3318e6d235538553c904556d6da3737"
+    },
+    "runs/t01/frozen-model.command.json": {
+      "bytes": 1970,
+      "sha256": "a9dcbbd22a91c9f197df7586e3ceb242e7ef459d09397be5ae8ec2a0980d2eac"
+    },
+    "runs/t01/frozen-model.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runs/t01/frozen-model.stdout.txt": {
+      "bytes": 14637,
+      "sha256": "32c8da66c132f9ce87bbdb8b772b02acf3318e6d235538553c904556d6da3737"
+    },
+    "runs/t01/full-adapter.command.json": {
+      "bytes": 2050,
+      "sha256": "aff765dd003f41fd7992344cbbfb0d4c6890f2fbc51ddc73673550b1b8d099c2"
+    },
+    "runs/t01/full-adapter.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runs/t01/full-adapter.stdout.txt": {
+      "bytes": 3850,
+      "sha256": "9500f678ac14548dd49eb3f6d5865af6ed667fcf43dfc708e4a4555d8b3278f4"
+    },
+    "runs/t01/full-adapter.xml": {
+      "bytes": 128828,
+      "sha256": "82843be0a130da5c65b2a31cc83e99b286936d6a004553664ab5bdccbf0b6103"
+    },
+    "runs/t01/full-model.command.json": {
+      "bytes": 2077,
+      "sha256": "ad99956cad4dcdaf5537a62e2acad7ed062aa6b483903f805a3fe2d5374567e3"
+    },
+    "runs/t01/full-model.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runs/t01/full-model.stdout.txt": {
+      "bytes": 3700,
+      "sha256": "16371c45a849e68af620170f00962b817fa34159049529186aca570556a43f42"
+    },
+    "runs/t01/full-model.xml": {
+      "bytes": 157188,
+      "sha256": "08858a232403a499854adc04baddee9b626cedef6823994c1f90ee85add88182"
+    },
+    "runs/t01/m06.command.json": {
+      "bytes": 2222,
+      "sha256": "e513d859e22c452d3dcbc4984b713779d89e080aa8c6ea6d5a4f174c6a4a1fcc"
+    },
+    "runs/t01/m06.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runs/t01/m06.stdout.json": {
+      "bytes": 159737,
+      "sha256": "0a6f33ef6799a6a3a2949a2db4de3078203d4e27658e92ea3790680c3bd3e050"
+    },
+    "runs/t01/preservation.json": {
+      "bytes": 354409,
+      "sha256": "6ac703b56a42ff16e139941c6ed1c2e43874738ec0b52d08dd4b313608de342b"
+    },
+    "runs/t01/real-batch.command.json": {
+      "bytes": 2009,
+      "sha256": "6a19d3936450a2db2ec6fa56f6f07270fff923cdfd41e17caf082858ccba9e5a"
+    },
+    "runs/t01/real-batch.json": {
+      "bytes": 47919,
+      "sha256": "5717fc6063d99f9691ca3e6f3482bf38e87688ee6dc8337eb350e51f6e4f7c0d"
+    },
+    "runs/t01/real-batch.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runs/t01/real-batch.stdout.txt": {
+      "bytes": 1976,
+      "sha256": "e68e366a648db7aaf198c7240158ea6b06222049429b8e1aafd14e2769d2513d"
+    },
+    "runs/t01/reviewer-probes.command.json": {
+      "bytes": 2269,
+      "sha256": "66ccf8772af5306e58ddf8856bd403ff6edc034c7365d7a5f10f2eb6a4ac688e"
+    },
+    "runs/t01/reviewer-probes.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runs/t01/reviewer-probes.stdout.txt": {
+      "bytes": 806,
+      "sha256": "86e5be1599c39fd5824214979d435ca8f525e4cba536e3532d16647884ba3828"
+    },
+    "runs/t01/reviewer-probes.xml": {
+      "bytes": 12543,
+      "sha256": "247e6b29e2ccdbca0e23d4de9eac9e89d8e9487c55f4c9a92ae173647a5d0ca6"
+    },
+    "runs/t01/run_command.py": {
+      "bytes": 1947,
+      "sha256": "6e29032bc5c442760678ee02da5ca66aeccfeb08c6c92a7cf5ec4cacb5d3badd"
+    },
+    "scripts/check_t01.py": {
+      "bytes": 7798,
+      "sha256": "f136c3eb8df70f72adbe41eddd5930ed1470364def5fcd21300b927ae7561b92"
+    },
+    "src/chess_rl/tensor_ops.py": {
+      "bytes": 3031,
+      "sha256": "23d4540120eacb7ce6faa203026ae9751b3d49890e233cf207f3d857b8614da1"
+    },
+    "src/chess_rl/training/__init__.py": {
+      "bytes": 77,
+      "sha256": "c3e4a843262e14a9b2f0f0612a3f4937746bb5dca6749543834d1a5322dd11d2"
+    },
+    "src/chess_rl/training/losses.py": {
+      "bytes": 2495,
+      "sha256": "aaea7a28e208cf2013a569fb8ea5135befa186e2eb4bd93f65673ae247ee23f6"
+    },
+    "src/chess_rl/training/trainer.py": {
+      "bytes": 4651,
+      "sha256": "77277d97642148b2ff4ce432afa4b3d0f6a6870a0812efaca5d3a099cbfb66a8"
+    },
+    "tests/fixtures/loss_reference.py": {
+      "bytes": 1250,
+      "sha256": "799e142098ab21ac47de753bdeaa6e9fce038f48022a4fd7eba6b620bff5f60c"
+    },
+    "tests/test_training.py": {
+      "bytes": 12979,
+      "sha256": "4ed739c03ac12dba9cb0133a9eb0d77e6da87077b5aba221934ad6b17686c8e9"
+    }
+  },
+  "original_documents_append_only": [
+    "README.md",
+    "coding-plan.md"
+  ],
+  "self_hash_excluded_to_avoid_recursion": true
+}

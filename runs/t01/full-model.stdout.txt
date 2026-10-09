@@ -1,0 +1,50 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t01-supervised-losses
+configfile: pyproject.toml
+testpaths: tests
+collected 1273 items
+
+tests/test_annotation_benchmark.py ........                              [  0%]
+tests/test_backbone.py ..................                                [  2%]
+tests/test_backup.py ................................................... [  6%]
+....................................................................     [ 11%]
+tests/test_canonical_games.py .........................................  [ 14%]
+tests/test_data_manifest.py ............................................ [ 18%]
+.......................................                                  [ 21%]
+tests/test_encoding.py ..................                                [ 22%]
+tests/test_evaluator.py .................................                [ 25%]
+tests/test_foundation.py .                                               [ 25%]
+tests/test_gab.py ....................                                   [ 26%]
+tests/test_game_runner.py .............................................. [ 30%]
+                                                                         [ 30%]
+tests/test_history.py .....                                              [ 30%]
+tests/test_legality.py .........                                         [ 31%]
+tests/test_matches.py .................................................. [ 35%]
+............                                                             [ 36%]
+tests/test_moves.py ................................                     [ 38%]
+tests/test_network.py ...................................                [ 41%]
+tests/test_outcomes.py ...................                               [ 43%]
+tests/test_pgn_replay.py ............................................... [ 46%]
+.........................                                                [ 48%]
+tests/test_policy.py ..............................                      [ 51%]
+tests/test_position_sampling.py .....................................    [ 54%]
+tests/test_puct.py ..................................................... [ 58%]
+..........................................                               [ 61%]
+tests/test_regression.py ...........                                     [ 62%]
+tests/test_relative.py ....................................              [ 65%]
+tests/test_search_runner.py ............................................ [ 68%]
+.....................................................................    [ 74%]
+tests/test_state.py .................                                    [ 75%]
+tests/test_stockfish_worker.py ......................................... [ 78%]
+.................                                                        [ 79%]
+tests/test_supervised.py ............................................... [ 83%]
+........................................................................ [ 89%]
+........                                                                 [ 89%]
+tests/test_training.py ................................................. [ 93%]
+...........................................                              [ 97%]
+tests/test_types.py .......                                              [ 97%]
+tests/test_wdl.py .............................                          [100%]
+
+- generated xml file: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t01-supervised-losses/runs/t01/full-model.xml -
+============================ 1273 passed in 54.01s =============================

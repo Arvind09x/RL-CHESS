@@ -1,0 +1,50 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "-m",
+    "pytest",
+    "runs/d02-s02-review/test_review_cases.py",
+    "runs/d03-s03-review/test_review_cases.py",
+    "runs/d04-s04-review/test_review_cases.py",
+    "runs/d05-s05-review/test_review_cases.py",
+    "--import-mode=importlib",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=runs/t01/reviewer-probes.xml"
+  ],
+  "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t01-supervised-losses",
+  "duration_seconds": 1.194380791974254,
+  "environment_overrides": {
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t01-supervised-losses/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t01-supervised-losses"
+  },
+  "exit_code": 0,
+  "finished_at_utc": "2026-10-09T07:27:03.257966+00:00",
+  "outputs": {
+    "stderr": {
+      "bytes": 0,
+      "path": "reviewer-probes.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 806,
+      "path": "reviewer-probes.stdout.txt",
+      "sha256": "86e5be1599c39fd5824214979d435ca8f525e4cba536e3532d16647884ba3828"
+    }
+  },
+  "started_at_utc": "2026-10-09T07:27:02.063286+00:00",
+  "tested_source_sha256": {
+    "runs/t01/config.json": "393e9a0ba2c7bb30e233b5faf30523022c54c8a2c91e3ee90fd7cd2d4497631c",
+    "scripts/check_t01.py": "f136c3eb8df70f72adbe41eddd5930ed1470364def5fcd21300b927ae7561b92",
+    "src/chess_rl/tensor_ops.py": "23d4540120eacb7ce6faa203026ae9751b3d49890e233cf207f3d857b8614da1",
+    "src/chess_rl/training/__init__.py": "c3e4a843262e14a9b2f0f0612a3f4937746bb5dca6749543834d1a5322dd11d2",
+    "src/chess_rl/training/losses.py": "aaea7a28e208cf2013a569fb8ea5135befa186e2eb4bd93f65673ae247ee23f6",
+    "src/chess_rl/training/trainer.py": "77277d97642148b2ff4ce432afa4b3d0f6a6870a0812efaca5d3a099cbfb66a8",
+    "tests/fixtures/loss_reference.py": "799e142098ab21ac47de753bdeaa6e9fce038f48022a4fd7eba6b620bff5f60c",
+    "tests/test_training.py": "4ed739c03ac12dba9cb0133a9eb0d77e6da87077b5aba221934ad6b17686c8e9"
+  },
+  "tested_source_unchanged_during_command": true
+}

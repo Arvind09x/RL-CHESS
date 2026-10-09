@@ -1,0 +1,375 @@
+{
+  "actual_t03_cpu_checkpoint": {
+    "checkpoint": {
+      "bytes": 60883331,
+      "sha256": "d4454a65793b1c21aaacbe7445f7682cd88220e5e1a46af5e11ea3d390beb13d"
+    },
+    "checkpoint_id": "T03-plumbing-step-26",
+    "metrics": {
+      "correct_moves": 8,
+      "entropy_identity_error": 1.7557722831185174e-08,
+      "legal_best_move_accuracy": 1.0,
+      "per_sample_kl": [
+        0.018651164093665296,
+        0.021492420032182824,
+        0.0007123167227579157,
+        0.005188637823765659,
+        0.0007031247022319057,
+        0.006484851130641452,
+        0.021037597845053126,
+        0.0024932591722092983
+      ],
+      "policy_ce": 0.0013030193513259292,
+      "predicted_legal_move_ids": [
+        405,
+        1244,
+        292,
+        1221,
+        853,
+        3,
+        642,
+        983
+      ],
+      "samples": 8,
+      "teacher_entropy_floor": 0.35483976223793856,
+      "teacher_wdl_kl_max": 0.021492420032182824,
+      "teacher_wdl_kl_mean": 0.009595421440313435,
+      "teacher_wdl_kl_min": 0.0007031247022319057,
+      "wdl_ce_minus_entropy": 0.009595403882590614,
+      "wdl_cross_entropy": 0.3644351661205292
+    },
+    "metrics_exact": true,
+    "model_tensors_exact": true,
+    "portable_data_verified": true,
+    "updates_performed": 0
+  },
+  "all_commands_passed": true,
+  "base_commit": "ea0f8a1",
+  "branch": "codex/cuda-support",
+  "command_count": 21,
+  "external_artifacts": {
+    "cuda-support-cpu": {
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/config.json": {
+        "bytes": 554,
+        "sha256": "266a0f117b9b644a10064a0a79dd89d859bc4f6eb856ecbdad200123eaba4a11"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/resumed.json": {
+        "bytes": 1193,
+        "sha256": "a771fce40339c61929d52d17faa614afc9fe572dddc0105dd4eb18b910d63bb1"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/resumed.pt": {
+        "bytes": 85346070,
+        "sha256": "7c823deb453208c617c16933ff04b2b8d07d03413d5c91907c3ae2dc56580bb5"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/step-1.pt": {
+        "bytes": 60870211,
+        "sha256": "ca823cfce105d23504d06cf2903e396fac78c37ce9b3053e9f988798e3865519"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/summary.json": {
+        "bytes": 1451,
+        "sha256": "e9699aad6b885ec0e1c7605ed4bb4df16a948de3ee55c3a2f7542119d1a42c0e"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/bundle/attempts.jsonl": {
+        "bytes": 12513,
+        "sha256": "d6b59b35d738c6bdd7fcdb21ccb49d75797f6ae92a33200806df36340c16239e"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/bundle/exclusions.jsonl": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/bundle/labels.jsonl": {
+        "bytes": 17503,
+        "sha256": "da2bac91dfdbabf36aa00c61eb90553a47a18861f0acd10d2ff02e5b263a1dae"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/bundle/selected.jsonl": {
+        "bytes": 1726,
+        "sha256": "1f85edc3ea68fdf4fca982738ea02e22a6b5cab0c50a6b16c6492909eab5114f"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/bundle/settings.json": {
+        "bytes": 2207,
+        "sha256": "a2a6a30f0d9b786d5d9ab9c8486ac9f2a69fb8b61f1a88567c290cd23f37d415"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/bundle/summary.json": {
+        "bytes": 725,
+        "sha256": "1d03f50396a48723834c8531b80c813decb88f05d02a73469f3a525f1d533953"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/games.jsonl": {
+        "bytes": 1488,
+        "sha256": "c4847c78b746c3928c06ec1c33039c28c467457bdd405289a84ce1cfcb8d8d82"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/manifest.json": {
+        "bytes": 6058,
+        "sha256": "7433a69990092d2a7d32da7c79f9df9fc0782ebe549fb9342db013fb93c7430c"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/prepared/exclusions.jsonl": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/prepared/heldout-games.jsonl": {
+        "bytes": 198,
+        "sha256": "fd4ff3774db6e07904f8308239dae2a50bf5b5ebaa0739b294ceb0111af49587"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/prepared/overlap-audit.json": {
+        "bytes": 2092,
+        "sha256": "5fb33a00b8fe955cb537d460f075f00cdeb63f36303db82e79c85bd778a9e33c"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/prepared/protected-heldout.jsonl": {
+        "bytes": 988,
+        "sha256": "72767feb8ef91ff5d8c111655cccae7e31566a8dce50bdbb4e160812b9c6e7c0"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/prepared/samples.jsonl": {
+        "bytes": 1726,
+        "sha256": "1f85edc3ea68fdf4fca982738ea02e22a6b5cab0c50a6b16c6492909eab5114f"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/synthetic/split.json": {
+        "bytes": 740,
+        "sha256": "8a6bacd61bdd88ec86d82441d8f862902dd63b02baee0193851da293da37f2db"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/uninterrupted.json": {
+        "bytes": 1193,
+        "sha256": "a771fce40339c61929d52d17faa614afc9fe572dddc0105dd4eb18b910d63bb1"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-cpu/uninterrupted.pt": {
+        "bytes": 85353280,
+        "sha256": "6663613bb987d28adf4c679ba1979436f669a639e5cd9927bce45951d9d71fdd"
+      }
+    },
+    "cuda-support-portable": {
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/bundle/attempts.jsonl": {
+        "bytes": 157037,
+        "sha256": "1977ce7e95f3c3b45d95f85be7aac3f37839d1ce04ad425280909a9b19c35eaa"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/bundle/exclusions.jsonl": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/bundle/labels.jsonl": {
+        "bytes": 30541,
+        "sha256": "ceec9a44e56a5ae6521036219388a73801baaf7c32df16359faa75b650784a7f"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/bundle/selected.jsonl": {
+        "bytes": 2945,
+        "sha256": "50f725d3f898dceaff59d953fe0ddba05fe1b95558aef9cca15b26a1fba5c5e3"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/bundle/settings.json": {
+        "bytes": 3024,
+        "sha256": "a866d674e8af772b06b2f124051e069fa753749f94ad294ac550383fccdaeca7"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/bundle/summary.json": {
+        "bytes": 862,
+        "sha256": "3d3311ed36a98382207bba3ad19cf99e4d966c70d1d785f41bc60b537bff38c6"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/checkpoint.pt": {
+        "bytes": 60883331,
+        "sha256": "d4454a65793b1c21aaacbe7445f7682cd88220e5e1a46af5e11ea3d390beb13d"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/data-config.json": {
+        "bytes": 274,
+        "sha256": "7a0a440f11677c862c0547951cd50cd0be86e96f0734f13df52bd32d3a1aa486"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/games.jsonl": {
+        "bytes": 638770177,
+        "sha256": "f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/manifest.json": {
+        "bytes": 6058,
+        "sha256": "5867fb9c09bf7d0c29d9a09d59d7196b145636d4abe6b38faf9c70d899e5879d"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/prepared/exclusions.jsonl": {
+        "bytes": 105285659,
+        "sha256": "72e45e4f89d15a596090ad940218867aedcb53275a3eddb6f50674502dd02b32"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/prepared/heldout-games.jsonl": {
+        "bytes": 2862240,
+        "sha256": "73202bd1b255fb89958da1be043e219f192b33a06da05ceb669eb1984d60fc18"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/prepared/overlap-audit.json": {
+        "bytes": 4898,
+        "sha256": "feb20d4e38fa46ff6e5fcc77b4c4b8d1b36b985f3dcf6a3785a412a2fbb91f5e"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/prepared/protected-heldout.jsonl": {
+        "bytes": 57171328,
+        "sha256": "813d40ec52f3058996ddf6d7586dea23ee568c3bcff995cd92879e306a1f8ed3"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/prepared/samples.jsonl": {
+        "bytes": 567767218,
+        "sha256": "f3dc3410321e46c5e424912f8ae1d4aa26bd5c97267df944cbf8e7e3d1e3581e"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/split-audit.json": {
+        "bytes": 2191,
+        "sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/staging-evidence.json": {
+        "bytes": 4043,
+        "sha256": "ce499c892aea80b745026e25d0b8d08bf174ad39ab2c17c55a389dc45a045eb7"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable/teacher-evidence.json": {
+        "bytes": 4416,
+        "sha256": "c9760d9b073b6300ec7ff002c8bd72bc7ec195aca83c5bb072e30226812751a6"
+      }
+    },
+    "cuda-support-portable-cpu": {
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable-cpu/config.json": {
+        "bytes": 554,
+        "sha256": "266a0f117b9b644a10064a0a79dd89d859bc4f6eb856ecbdad200123eaba4a11"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable-cpu/resumed.json": {
+        "bytes": 1192,
+        "sha256": "c87e252f16d6cbf96faf631508911b63f98da1c76cd8bddb5c841a7763a07197"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable-cpu/resumed.pt": {
+        "bytes": 85381014,
+        "sha256": "24dc51fadf881f466738c7c54810dce69d2a7802c69e7b41c83abc5de4946af9"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable-cpu/step-1.pt": {
+        "bytes": 60870275,
+        "sha256": "ad2b6c47c2f4bd5d4b7ed41a029f7bf8f750c3ec2f9aabc10cb4cee0961d536a"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable-cpu/summary.json": {
+        "bytes": 1451,
+        "sha256": "1d3aff5d31360843c15e2c265b804154f459d380e8af18d073eb8485852260a9"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable-cpu/uninterrupted.json": {
+        "bytes": 1192,
+        "sha256": "c87e252f16d6cbf96faf631508911b63f98da1c76cd8bddb5c841a7763a07197"
+      },
+      "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/cuda-support-portable-cpu/uninterrupted.pt": {
+        "bytes": 85388160,
+        "sha256": "796b92156e3ca7e1ef0fc858f15053d0e1f9073fa3822791af4de11e23b5a2b1"
+      }
+    }
+  },
+  "final_sources": {
+    "docs/cuda-support.md": {
+      "bytes": 14032,
+      "sha256": "06c087dcc9c8ab46b3bbef61cf3a673a546856f35a22ec15cbaa2b507190be51"
+    },
+    "runtime/cuda/build-constraints.txt": {
+      "bytes": 33,
+      "sha256": "34920eaf6dd8c8ea928a434f5cb9fc0b04e2f9d0cd521cd67100d941d6aee589"
+    },
+    "runtime/cuda/local-frozen-data.json": {
+      "bytes": 441,
+      "sha256": "ac881b59eb894705c10f0b5d93405485ea3cd7f8a5ab339ea60489ac2be894c3"
+    },
+    "runtime/cuda/requirements.in": {
+      "bytes": 254,
+      "sha256": "9dd11a967ed5bc6b4e43b3559087a4b241c8973b0e6936a4a66f21736a6c0244"
+    },
+    "runtime/cuda/requirements.lock": {
+      "bytes": 31097,
+      "sha256": "57c1743e0c5b0122e725930b7a585fcaacbfc0679c351ef948c9ffd14ff87f6c"
+    },
+    "runtime/cuda/setup.sh": {
+      "bytes": 981,
+      "sha256": "c87a054704ce0d155a9a819709590a75e2e74d18d5e74e14f2c2844408f513c3"
+    },
+    "scripts/check_cuda_support.py": {
+      "bytes": 12763,
+      "sha256": "3d86cc9776ef6df293291a4dc4109eb22f89d3252b386db142084361b94fa2d5"
+    },
+    "scripts/stage_cuda_data.py": {
+      "bytes": 3398,
+      "sha256": "6a780e434c817f27570d7316013ad0c619c707a86d026fc0f0afbf082f41f74a"
+    },
+    "src/chess_rl/search/real_evaluator.py": {
+      "bytes": 3366,
+      "sha256": "a970235b66e21b49819628a41b9e009c3093ef4bff412afe514516d48c9bbe2b"
+    },
+    "src/chess_rl/training/checkpoints.py": {
+      "bytes": 30899,
+      "sha256": "3f39593dc86247d746b62b4619ba80e7b43174e6b7181cd495a33ea6469ecf8c"
+    },
+    "tests/test_cuda_staging.py": {
+      "bytes": 1297,
+      "sha256": "25ac394f1e2af7baff7a0252ee47353e313147828f3dad58847d4a0d3bfd70df"
+    },
+    "tests/test_cuda_support.py": {
+      "bytes": 4785,
+      "sha256": "33f7a5d523be6cd000cee6c1a41eafaceb830b735717c4509dd93e14e5710732"
+    }
+  },
+  "hardware_reason": "Local macOS arm64, CPU Torch, CUDA unavailable; no authorized CUDA host supplied",
+  "hardware_verified": false,
+  "independent_review": "pending",
+  "no_cross_cpu_cuda_exact_agreement_claim": true,
+  "outstanding": [
+    "Linux CUDA environment installation",
+    "CUDA forward/backward, save/reload, continuation and evaluator commands"
+  ],
+  "prepared_utc": "2026-10-09T19:55:47.756987+00:00",
+  "preservation_report": "preservation.json",
+  "scope": "Backend preparation only; default CPU preserved; no main integration or R01 edits",
+  "tests": {
+    "accepted-probes-adapter.xml": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 84
+    },
+    "accepted-probes-model.xml": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 84
+    },
+    "final-focused.xml": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 120
+    },
+    "focused.xml": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 117
+    },
+    "full-adapter.xml": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 12,
+      "tests": 1035
+    },
+    "full-model.xml": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 1421
+    },
+    "staging-adapter.xml": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 1
+    },
+    "staging-tests.xml": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 1
+    }
+  },
+  "tolerances_fixed_before_execution": {
+    "batch": {
+      "atol": 2e-06,
+      "rtol": 2e-05
+    },
+    "continuation": {
+      "atol": 1e-06,
+      "rtol": 1e-05
+    },
+    "oracle": {
+      "atol": 1e-06,
+      "rtol": 1e-05
+    },
+    "probability_sum": {
+      "atol": 1e-06,
+      "rtol": 0
+    },
+    "reload": {
+      "atol": 0,
+      "rtol": 0
+    }
+  }
+}

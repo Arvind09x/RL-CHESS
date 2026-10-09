@@ -1,0 +1,48 @@
+{
+  "runtime": {
+    "python": "3.12.12",
+    "numpy": "2.5.3",
+    "torch": "2.8.0",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "machine": "arm64",
+    "threads": 1,
+    "interop_threads": 1,
+    "deterministic": true,
+    "deterministic_warn_only": false,
+    "default_dtype": "torch.float32",
+    "matmul_precision": "highest",
+    "mkldnn": true
+  },
+  "cuda_runtime": null,
+  "config": {
+    "d_policy": 128,
+    "d_value": 128,
+    "dropout": 0.1,
+    "relative_enabled": true,
+    "dtype": "float32",
+    "device": "cpu",
+    "architecture": "m06-gab-relative-qkv-v1"
+  },
+  "metrics": {
+    "batch_size": 2,
+    "policy_loss": 3.8570950031280518,
+    "wdl_loss": 0.8838598728179932,
+    "total_loss": 3.8489842414855957
+  },
+  "evaluation": {
+    "batch_max_abs_error": 2.980232238769531e-07,
+    "inputs": 26,
+    "forward_device": "cpu",
+    "terminal_bypass": true,
+    "owned_arrays": true,
+    "input_and_rng_preserved": true,
+    "accepted_cpu_checkpoint": {
+      "batch_max_abs_error": 2.682209014892578e-07,
+      "inputs": 26,
+      "forward_device": "cpu",
+      "terminal_bypass": true,
+      "owned_arrays": true,
+      "input_and_rng_preserved": true
+    }
+  }
+}

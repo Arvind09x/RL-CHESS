@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "device": "cpu",
+  "separate_process_continuation": true,
+  "continuation_max_abs_error": 0.0,
+  "tolerances": {
+    "batch": {
+      "atol": 2e-06,
+      "rtol": 2e-05
+    },
+    "oracle": {
+      "atol": 1e-06,
+      "rtol": 1e-05
+    },
+    "continuation": {
+      "atol": 1e-06,
+      "rtol": 1e-05
+    },
+    "reload": {
+      "atol": 0,
+      "rtol": 0
+    },
+    "probability_sum": {
+      "atol": 1e-06,
+      "rtol": 0
+    }
+  },
+  "checkpoint": {
+    "bytes": 60870275,
+    "sha256": "ad2b6c47c2f4bd5d4b7ed41a029f7bf8f750c3ec2f9aabc10cb4cee0961d536a"
+  },
+  "outputs": {
+    "uninterrupted.json": {
+      "bytes": 1192,
+      "sha256": "c87e252f16d6cbf96faf631508911b63f98da1c76cd8bddb5c841a7763a07197"
+    },
+    "config.json": {
+      "bytes": 554,
+      "sha256": "266a0f117b9b644a10064a0a79dd89d859bc4f6eb856ecbdad200123eaba4a11"
+    },
+    "uninterrupted.pt": {
+      "bytes": 85388160,
+      "sha256": "796b92156e3ca7e1ef0fc858f15053d0e1f9073fa3822791af4de11e23b5a2b1"
+    },
+    "step-1.pt": {
+      "bytes": 60870275,
+      "sha256": "ad2b6c47c2f4bd5d4b7ed41a029f7bf8f750c3ec2f9aabc10cb4cee0961d536a"
+    },
+    "resumed.pt": {
+      "bytes": 85381014,
+      "sha256": "24dc51fadf881f466738c7c54810dce69d2a7802c69e7b41c83abc5de4946af9"
+    },
+    "resumed.json": {
+      "bytes": 1192,
+      "sha256": "c87e252f16d6cbf96faf631508911b63f98da1c76cd8bddb5c841a7763a07197"
+    }
+  },
+  "hardware_verified": false
+}

@@ -1,0 +1,32 @@
+{
+  "tolerances": {
+    "batch": {
+      "atol": 2e-06,
+      "rtol": 2e-05
+    },
+    "oracle": {
+      "atol": 1e-06,
+      "rtol": 1e-05
+    },
+    "continuation": {
+      "atol": 1e-06,
+      "rtol": 1e-05
+    },
+    "reload": {
+      "atol": 0,
+      "rtol": 0
+    },
+    "probability_sum": {
+      "atol": 1e-06,
+      "rtol": 0
+    }
+  },
+  "seed": 20261010,
+  "device": "cpu",
+  "updates": "one warmup; one continuation in each of two processes",
+  "dtype": "float32",
+  "dropout": 0.1,
+  "amsgrad": false,
+  "foreach": false,
+  "fused": false
+}

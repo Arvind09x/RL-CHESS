@@ -1,0 +1,11 @@
+{
+  "version": "cuda-portable-data-v1",
+  "paths": {
+    "bundle": "bundle",
+    "manifest_path": "manifest.json",
+    "games_path": "games.jsonl",
+    "split_audit_path": "split-audit.json",
+    "prepared": "prepared",
+    "teacher_evidence": "teacher-evidence.json"
+  }
+}

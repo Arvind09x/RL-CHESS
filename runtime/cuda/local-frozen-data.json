@@ -1,0 +1,11 @@
+{
+  "version": "cuda-portable-data-v1",
+  "paths": {
+    "bundle": "../../runs/d05/tiny-final",
+    "manifest_path": "../../data/manifests/elite-2025-01-d04-v1.json",
+    "games_path": "/private/tmp/rl-chess-d03-prepared/games.jsonl",
+    "split_audit_path": "/private/tmp/rl-chess-d03-prepared/split-audit.json",
+    "prepared": "/private/tmp/rl-chess-d04-prepared",
+    "teacher_evidence": "../../runs/d01/stockfish-provenance.json"
+  }
+}

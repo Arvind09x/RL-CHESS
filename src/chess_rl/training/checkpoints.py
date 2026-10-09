@@ -1,10 +1,10 @@
 """T02 shared, versioned M06 checkpoints at completed optimizer-step boundaries.
 
-CPU float32/float64, standard Adam, and D07 explicit single-process ordering are
-supported. No scheduler, gradient accumulation, worker prefetch, custom generators,
-or accelerator state is implied. Inference never installs saved training RNG.
+CPU v1 float32/float64 and single-CUDA v2 float32, standard Adam, and D07
+explicit single-process ordering are supported. No scheduler, accumulation,
+worker prefetch or custom generators. Inference never installs saved training RNG.
 """
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 import hashlib
 import json
 import math
@@ -24,6 +24,7 @@ from chess_rl.supervised import SupervisedDataset
 from .trainer import LossWeights
 
 CHECKPOINT_VERSION = "m06-checkpoint-v1"
+CUDA_CHECKPOINT_VERSION = "m06-checkpoint-cuda-v2"
 MODEL_VERSION = "m06-gab-relative-qkv-v1"
 ORDER_VERSION = "d07-explicit-order-v1"
 
@@ -76,14 +77,68 @@ class ModelConfig:
                  and 0 <= self.dropout <= 1, "invalid model dropout")
         _require(self.relative_enabled is True and self.architecture == MODEL_VERSION,
                  "only accepted combined M06 architecture is supported")
-        _require(self.dtype in ("float32", "float64") and self.device == "cpu",
-                 "checkpoint backend must be CPU float32 or float64")
+        _require((self.device == "cpu" and self.dtype in ("float32", "float64"))
+                 or (self.device == "cuda:0" and self.dtype == "float32"),
+                 "checkpoint backend must be CPU float32/float64 or single cuda:0 float32")
 
     def build(self):
         # Construction must not consume caller's dropout stream (also on failure).
         with torch.random.fork_rng(devices=[]):
-            return ChessNetwork(d_policy=self.d_policy, d_value=self.d_value,
+            model = ChessNetwork(d_policy=self.d_policy, d_value=self.d_value,
                 dropout=self.dropout, relative_enabled=True, device="cpu", dtype=getattr(torch, self.dtype))
+        if self.device != "cpu":
+            _cuda_available()
+            model.to(self.device)  # copying consumes no CUDA random numbers
+        return model
+
+
+def _cuda_available():
+    _require(torch.cuda.is_available() and torch.cuda.device_count() == 1,
+             "CUDA requires exactly one visible device; set CUDA_VISIBLE_DEVICES before launch")
+
+
+def _cpu_tree(value):
+    """Snapshot tensor storage on CPU without aliases to live model/Adam state."""
+    if isinstance(value, torch.Tensor):
+        return value.detach().cpu().clone()
+    if isinstance(value, dict):
+        return {k: _cpu_tree(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_cpu_tree(v) for v in value]
+    if isinstance(value, tuple):
+        return tuple(_cpu_tree(v) for v in value)
+    return value
+
+
+def cuda_runtime_config():
+    """Strict same-device/runtime resume fingerprint; no global settings changed."""
+    _cuda_available()
+    p = torch.cuda.get_device_properties(0)
+    return dict(cuda=str(torch.version.cuda), cudnn=torch.backends.cudnn.version(),
+        name=p.name, capability=list(torch.cuda.get_device_capability(0)),
+        total_memory=p.total_memory, visible_devices=1,
+        matmul_tf32=torch.backends.cuda.matmul.allow_tf32,
+        cudnn_tf32=torch.backends.cudnn.allow_tf32,
+        cudnn_benchmark=torch.backends.cudnn.benchmark,
+        cudnn_deterministic=torch.backends.cudnn.deterministic,
+        cublas_workspace_config=os.environ.get("CUBLAS_WORKSPACE_CONFIG", ""))
+
+
+def _validate_cuda_runtime(runtime):
+    schema = dict(cuda=str, cudnn=int, name=str, capability=list, total_memory=int,
+        visible_devices=int, matmul_tf32=bool, cudnn_tf32=bool, cudnn_benchmark=bool,
+        cudnn_deterministic=bool, cublas_workspace_config=str)
+    _fields(runtime, schema, "CUDA runtime")
+    _require(all(type(runtime[k]) is t for k, t in schema.items()), "invalid CUDA runtime types")
+    _require(runtime["visible_devices"] == 1 and runtime["total_memory"] > 0
+             and len(runtime["capability"]) == 2
+             and all(type(v) is int and v >= 0 for v in runtime["capability"]),
+             "invalid CUDA runtime device")
+    _require(not runtime["matmul_tf32"] and not runtime["cudnn_tf32"],
+             "CUDA float32 contract requires TF32 disabled")
+    _require(not runtime["cudnn_benchmark"] and runtime["cudnn_deterministic"]
+             and runtime["cublas_workspace_config"] == ":4096:8",
+             "CUDA resume requires deterministic cuDNN and CUBLAS_WORKSPACE_CONFIG=:4096:8")
 
 
 @dataclass(frozen=True)
@@ -182,8 +237,8 @@ def runtime_config():
 def _model_config(model):
     _require(type(model) is ChessNetwork, "checkpoint requires ChessNetwork")
     parameters = list(model.parameters())
-    _require(all(p.device.type == "cpu" and p.dtype == parameters[0].dtype and p.requires_grad
-                 for p in parameters), "model requires uniform CPU dtype and trainable parameters")
+    _require(all(p.device == parameters[0].device and p.dtype == parameters[0].dtype and p.requires_grad
+                 for p in parameters), "model requires uniform device/dtype and trainable parameters")
     _require(all(m.training == model.training for m in model.modules()), "mixed model train/eval modes unsupported")
     bank = model.backbone.bank
     _require(all(layer.self_attn.gab.bank is bank and layer.self_attn.relative is not None
@@ -192,7 +247,8 @@ def _model_config(model):
     rates += [layer.self_attn.mha.dropout for layer in model.backbone.layers]
     _require(len(set(rates)) == 1, "inconsistent model dropout configuration")
     config = ModelConfig(d_policy=model.policy_head.d_policy, d_value=model.wdl_head.d_value,
-                         dropout=rates[0], dtype=str(parameters[0].dtype).removeprefix("torch."))
+                         dropout=rates[0], dtype=str(parameters[0].dtype).removeprefix("torch."),
+                         device=str(parameters[0].device))
     template = config.build()
     _require(repr(model) == repr(template), "model settings differ from accepted M06 construction")
     buffers = dict(template.named_buffers())
@@ -239,7 +295,7 @@ def _adam_options(options):
         _require(options[name] is None or type(options[name]) is bool, f"invalid Adam {name}")
     _require(not options["capturable"] and not options["differentiable"]
              and options["fused"] is not True and not options["decoupled_weight_decay"],
-             "only standard nonfused CPU Adam is supported")
+             "only standard nonfused noncapturable Adam is supported")
 
 
 def _optimizer_payload(model, optimizer):
@@ -324,8 +380,15 @@ def _rng_state():
                    position=position, has_gauss=has_gauss, cached=cached))
 
 
-def _validate_rng(rng):
-    _fields(rng, ("python", "numpy", "torch"), "random states")
+def _validate_rng(rng, *, cuda=False):
+    _fields(rng, ("python", "numpy", "torch", "cuda") if cuda else ("python", "numpy", "torch"), "random states")
+    if cuda:
+        _fields(rng["cuda"], ("device", "state"), "CUDA RNG")
+        t = rng["cuda"]["state"]
+        _require(rng["cuda"]["device"] == "cuda:0" and type(t) is torch.Tensor
+                 and t.device.type == "cpu" and t.dtype == torch.uint8
+                 and t.ndim == 1 and t.numel() > 0 and not t.requires_grad,
+                 "invalid CUDA RNG state")
     p = rng["python"]
     _require(type(p) is tuple and len(p) == 3 and type(p[0]) is int and p[0] == 3
              and type(p[1]) is tuple and len(p[1]) == 625
@@ -361,22 +424,32 @@ def _read_payload(path):
 def _validate_payload(payload, expected_config=None):
     _fields(payload, ("version", "checkpoint_id", "contracts", "model_config", "model_state",
                      "model_training", "provenance", "training"), "checkpoint")
-    _require(payload["version"] == CHECKPOINT_VERSION, "incompatible checkpoint version")
+    _require(payload["version"] in (CHECKPOINT_VERSION, CUDA_CHECKPOINT_VERSION), "incompatible checkpoint version")
+    cuda = payload["version"] == CUDA_CHECKPOINT_VERSION
     _require(type(payload["checkpoint_id"]) is str and bool(payload["checkpoint_id"]), "checkpoint ID required")
     _same(payload["contracts"], asdict(AdapterConfig()), "encoding/vocabulary/WDL order/ending policy")
     _fields(payload["model_config"], ModelConfig.__dataclass_fields__, "model configuration")
     config = ModelConfig(**payload["model_config"])
+    _require((config.device == "cuda:0") == cuda, "checkpoint version/backend mismatch")
     if expected_config is not None:
         _require(type(expected_config) is ModelConfig, "expected_config must be ModelConfig")
         _same(asdict(config), asdict(expected_config), "model configuration")
     _require(type(payload["model_training"]) is bool, "invalid model training mode")
     _require(type(payload["provenance"]) is dict and bool(payload["provenance"]), "provenance must be nonempty JSON")
     _json(payload["provenance"])
-    model = config.build()
+    # Validate all weights and optimizer tensors on CPU, including CUDA files.
+    # This keeps CUDA checkpoints readable by CPU-only inference hosts.
+    model = replace(config, device="cpu").build()
     _model_state(model, payload["model_state"])
     model.load_state_dict(payload["model_state"], strict=True)  # assign=False retains GAB identity
     training = payload["training"]
-    _fields(training, ("optimizer", "weights", "progress", "data_order", "rng", "runtime"), "training state")
+    fields = {"optimizer", "weights", "progress", "data_order", "rng", "runtime"}
+    _fields(training, fields | {"cuda_runtime"} if cuda else fields, "training state")
+    if cuda:
+        _validate_cuda_runtime(training["cuda_runtime"])
+        for options in [training["optimizer"]["defaults"]] + [g["options"] for g in training["optimizer"]["groups"]]:
+            _require(options["foreach"] is False and options["fused"] is False,
+                     "CUDA Adam requires explicit foreach=False and fused=False")
     _fields(training["progress"], Progress.__dataclass_fields__, "progress")
     progress = Progress(**training["progress"])
     _fields(training["weights"], LossWeights.__dataclass_fields__, "loss weights")
@@ -392,7 +465,12 @@ def _validate_payload(payload, expected_config=None):
         _require(type(training["runtime"][key]) is type(current), f"invalid runtime field {key}")
     _require(training["runtime"]["threads"] > 0 and training["runtime"]["interop_threads"] > 0,
              "invalid CPU runtime thread counts")
-    numpy_state = _validate_rng(training["rng"])
+    if cuda:
+        _require(training["runtime"]["deterministic"] and not training["runtime"]["deterministic_warn_only"]
+                 and training["runtime"]["default_dtype"] == "torch.float32"
+                 and training["runtime"]["matmul_precision"] == "highest",
+                 "CUDA resume requires strict deterministic float32 runtime")
+    numpy_state = _validate_rng(training["rng"], cuda=cuda)
     optimizer = _restore_optimizer(model, training["optimizer"], progress)
     return model, optimizer, config, weights, progress, order, numpy_state
 
@@ -409,11 +487,23 @@ def save_checkpoint(path, *, model, optimizer, checkpoint_id, provenance, weight
         _require(type(weights) is LossWeights and type(progress) is Progress and type(data_order) is DataOrder,
                  "save requires LossWeights, Progress and DataOrder")
         config = _model_config(model)
-        payload = dict(version=CHECKPOINT_VERSION, checkpoint_id=checkpoint_id,
+        cuda = config.device == "cuda:0"
+        if cuda:
+            _cuda_available()
+            torch.cuda.synchronize(0)
+            for p, state in optimizer.state.items():
+                for name, tensor in state.items():
+                    _require(tensor.device == (torch.device("cpu") if name == "step" else p.device),
+                             f"invalid live Adam {name} placement")
+        payload = dict(version=CUDA_CHECKPOINT_VERSION if cuda else CHECKPOINT_VERSION, checkpoint_id=checkpoint_id,
             contracts=asdict(AdapterConfig()), model_config=asdict(config), model_state=model.state_dict(),
             model_training=model.training, provenance=provenance,
             training=dict(optimizer=_optimizer_payload(model, optimizer), weights=asdict(weights),
                           progress=asdict(progress), data_order=asdict(data_order), rng=_rng_state(), runtime=runtime_config()))
+        if cuda:
+            payload["training"]["rng"]["cuda"] = dict(device="cuda:0", state=torch.cuda.get_rng_state(0))
+            payload["training"]["cuda_runtime"] = cuda_runtime_config()
+            payload = _cpu_tree(payload)
         _validate_payload(payload)
         path = Path(path)
         with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".checkpoint-", delete=False) as handle:
@@ -432,7 +522,7 @@ def save_checkpoint(path, *, model, optimizer, checkpoint_id, provenance, weight
         if temporary is not None: temporary.unlink(missing_ok=True)
 
 
-def load_inference(path, *, expected_config=None):
+def load_inference(path, *, expected_config=None, device="cpu"):
     """Return an eval model and identity metadata; leave all caller RNG untouched.
 
     Validate the entire common format, including training fields, without
@@ -441,6 +531,10 @@ def load_inference(path, *, expected_config=None):
     try:
         payload = _read_payload(path)
         model, _, config, *_ = _validate_payload(payload, expected_config)
+        config = replace(config, device=device)
+        if device != "cpu":
+            _cuda_available()
+            model.to(device)
         model.eval()
         return InferenceCheckpoint(model, config, payload["checkpoint_id"], payload["provenance"], payload["contracts"])
     except Exception as error:
@@ -453,8 +547,8 @@ def restore_training(path, *, expected_config, expected_provenance, dataset, sou
 
     All objects are reconstructed; no caller model/optimizer is partly mutated.
     Dataset must be opened by D07 and match saved source identity and membership.
-    Caller configures the recorded CPU runtime before restoration. Failures leave
-    Python, NumPy and Torch RNG unchanged. Success restores mode and RNG last.
+    Caller configures the recorded runtime/backend before restoration. Failures
+    leave Python, NumPy and Torch RNG unchanged. Success restores mode and RNG last.
     """
     try:
         _require(type(expected_config) is ModelConfig, "training requires explicit expected ModelConfig")
@@ -467,9 +561,23 @@ def restore_training(path, *, expected_config, expected_provenance, dataset, sou
         if expected_optimizer is not None:
             _same({k: v for k, v in payload["training"]["optimizer"].items() if k != "state"},
                   expected_optimizer, "optimizer configuration")
-        _same(payload["training"]["runtime"], runtime_config(), "CPU resumption runtime")
+        _same(payload["training"]["runtime"], runtime_config(), "resumption runtime")
         order.validate_dataset(dataset, source_id=source_id)
+        if config.device == "cuda:0":
+            _same(payload["training"]["cuda_runtime"], cuda_runtime_config(), "CUDA resumption runtime")
+            state = payload["training"]["rng"]["cuda"]["state"]
+            # Validate with an independent generator before touching caller RNG.
+            torch.Generator(device="cuda:0").set_state(state)
+            model.to("cuda:0")
+            optimizer = _restore_optimizer(model, payload["training"]["optimizer"], progress)
+            # Noncapturable Adam keeps scalar steps on CPU, moments on cuda:0.
+            for p, values in optimizer.state.items():
+                _require(values["step"].device.type == "cpu", "Adam step must stay on CPU")
+                _require(all(t.device == p.device for n, t in values.items() if n != "step"),
+                         "Adam moments must follow model device")
         model.train(payload["model_training"])
+        if config.device == "cuda:0":
+            torch.cuda.set_rng_state(state, 0)
         random.setstate(payload["training"]["rng"]["python"])
         np.random.set_state(numpy_state)
         torch.set_rng_state(payload["training"]["rng"]["torch"])

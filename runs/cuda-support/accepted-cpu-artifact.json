@@ -1,0 +1,44 @@
+{
+  "checkpoint": {
+    "bytes": 60883331,
+    "sha256": "d4454a65793b1c21aaacbe7445f7682cd88220e5e1a46af5e11ea3d390beb13d"
+  },
+  "model_tensors_exact": true,
+  "metrics_exact": true,
+  "metrics": {
+    "legal_best_move_accuracy": 1.0,
+    "correct_moves": 8,
+    "samples": 8,
+    "policy_ce": 0.0013030193513259292,
+    "wdl_cross_entropy": 0.3644351661205292,
+    "teacher_entropy_floor": 0.35483976223793856,
+    "wdl_ce_minus_entropy": 0.009595403882590614,
+    "teacher_wdl_kl_mean": 0.009595421440313435,
+    "teacher_wdl_kl_max": 0.021492420032182824,
+    "teacher_wdl_kl_min": 0.0007031247022319057,
+    "entropy_identity_error": 1.7557722831185174e-08,
+    "per_sample_kl": [
+      0.018651164093665296,
+      0.021492420032182824,
+      0.0007123167227579157,
+      0.005188637823765659,
+      0.0007031247022319057,
+      0.006484851130641452,
+      0.021037597845053126,
+      0.0024932591722092983
+    ],
+    "predicted_legal_move_ids": [
+      405,
+      1244,
+      292,
+      1221,
+      853,
+      3,
+      642,
+      983
+    ]
+  },
+  "checkpoint_id": "T03-plumbing-step-26",
+  "updates_performed": 0,
+  "portable_data_verified": true
+}

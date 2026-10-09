@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.247" timestamp="2026-10-10T01:22:34.802568+05:30" hostname="Arvinds-MacBook-Air.local"><testcase classname="tests.test_cuda_staging" name="test_staging_copies_exact_bytes_and_relocates" time="0.062" /></testsuite></testsuites>

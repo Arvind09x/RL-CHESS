@@ -349,12 +349,16 @@ class AnnotationWorker:
     An interruption is recorded, then propagated. Callers must mark the run
     interrupted; they may not reinterpret surviving partial output as success.
     """
-    def __init__(self, manifest, provenance, attempt, sink, *, max_attempts=2):
+    def __init__(self, manifest, provenance, attempt, sink, *, max_attempts=2, root_replayer=replay_root):
         if type(max_attempts) is not int or not 1 <= max_attempts <= 3:
             raise ValueError("max_attempts must be 1..3")
         manifest.require_annotation_ready()
         self.manifest, self.provenance = manifest, provenance
         self.attempt, self.sink, self.max_attempts = attempt, sink, max_attempts
+        # D08 supplies an audited three-split replayer; D05 stays train-only.
+        if not callable(root_replayer):
+            raise ValueError("root_replayer must be callable")
+        self.root_replayer = root_replayer
         self.seen = set()
 
     async def annotate(self, ref, game):
@@ -366,7 +370,7 @@ class AnnotationWorker:
             record = dict(reference=ref, attempt=number, started_at_utc=utc_now(),
                 requested_settings=asdict(self.manifest.teacher), returned={}, status="failed")
             try:
-                state = replay_root(ref, game, self.manifest)
+                state = self.root_replayer(ref, game, self.manifest)
                 before = replay_identity(state)
                 info, best = await self.attempt(state, record["returned"])
                 record["returned"]["principal_response"] = serialize_info(info)

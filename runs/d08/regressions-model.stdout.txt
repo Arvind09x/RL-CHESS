@@ -1,0 +1,49 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels
+configfile: pyproject.toml
+testpaths: tests
+collected 1192 items
+
+tests/test_annotation_benchmark.py ........                              [  0%]
+tests/test_backbone.py ..................                                [  2%]
+tests/test_backup.py ................................................... [  6%]
+....................................................................     [ 12%]
+tests/test_canonical_games.py .........................................  [ 15%]
+tests/test_data_manifest.py ............................................ [ 19%]
+.......................................                                  [ 22%]
+tests/test_encoding.py ..................                                [ 24%]
+tests/test_evaluator.py .................................                [ 26%]
+tests/test_foundation.py .                                               [ 26%]
+tests/test_gab.py ....................                                   [ 28%]
+tests/test_game_runner.py .............................................. [ 32%]
+                                                                         [ 32%]
+tests/test_history.py .....                                              [ 32%]
+tests/test_initial_labels.py ...........                                 [ 33%]
+tests/test_legality.py .........                                         [ 34%]
+tests/test_matches.py .................................................. [ 38%]
+............                                                             [ 39%]
+tests/test_moves.py ................................                     [ 42%]
+tests/test_network.py ...................................                [ 45%]
+tests/test_outcomes.py ...................                               [ 46%]
+tests/test_pgn_replay.py ............................................... [ 50%]
+.........................                                                [ 53%]
+tests/test_policy.py ..............................                      [ 55%]
+tests/test_position_sampling.py .....................................    [ 58%]
+tests/test_puct.py ..................................................... [ 63%]
+..........................................                               [ 66%]
+tests/test_regression.py ...........                                     [ 67%]
+tests/test_relative.py ....................................              [ 70%]
+tests/test_search_runner.py ............................................ [ 74%]
+.....................................................................    [ 80%]
+tests/test_state.py .................                                    [ 81%]
+tests/test_stockfish_worker.py ......................................... [ 84%]
+.................                                                        [ 86%]
+tests/test_supervised.py ............................................... [ 90%]
+........................................................................ [ 96%]
+........                                                                 [ 96%]
+tests/test_types.py .......                                              [ 97%]
+tests/test_wdl.py .............................                          [100%]
+
+- generated xml file: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/runs/d08/regressions-model.xml -
+============================ 1192 passed in 53.36s =============================

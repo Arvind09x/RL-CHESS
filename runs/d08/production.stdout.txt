@@ -1,0 +1,168 @@
+{"processed": 100, "successful": 100, "attempts": 100, "elapsed_seconds": 42.85993791601504}
+{"processed": 200, "successful": 200, "attempts": 200, "elapsed_seconds": 89.16472291600076}
+{"processed": 300, "successful": 300, "attempts": 300, "elapsed_seconds": 136.77400266600307}
+{"processed": 400, "successful": 400, "attempts": 400, "elapsed_seconds": 187.0912196249992}
+{"processed": 500, "successful": 500, "attempts": 500, "elapsed_seconds": 234.71938525000587}
+{"processed": 600, "successful": 600, "attempts": 600, "elapsed_seconds": 280.2307114159921}
+{"processed": 700, "successful": 700, "attempts": 700, "elapsed_seconds": 326.24504429101944}
+{"processed": 800, "successful": 800, "attempts": 800, "elapsed_seconds": 371.47669041599147}
+{"processed": 900, "successful": 900, "attempts": 900, "elapsed_seconds": 418.4299153329921}
+{"processed": 1000, "successful": 1000, "attempts": 1000, "elapsed_seconds": 463.5193174580054}
+{"processed": 1100, "successful": 1100, "attempts": 1100, "elapsed_seconds": 508.42759300000034}
+{"processed": 1200, "successful": 1200, "attempts": 1200, "elapsed_seconds": 552.2062279579986}
+{"processed": 1300, "successful": 1300, "attempts": 1300, "elapsed_seconds": 596.3884189160017}
+{"processed": 1400, "successful": 1400, "attempts": 1400, "elapsed_seconds": 643.9202246660134}
+{"processed": 1500, "successful": 1500, "attempts": 1500, "elapsed_seconds": 693.4468610830081}
+{"processed": 1600, "successful": 1600, "attempts": 1600, "elapsed_seconds": 737.9884862079925}
+{"processed": 1700, "successful": 1700, "attempts": 1700, "elapsed_seconds": 782.272705875017}
+{"processed": 1800, "successful": 1800, "attempts": 1800, "elapsed_seconds": 826.6510988330119}
+{"processed": 1900, "successful": 1900, "attempts": 1900, "elapsed_seconds": 871.2161777500005}
+{"processed": 2000, "successful": 2000, "attempts": 2000, "elapsed_seconds": 917.1905582910113}
+{"processed": 2100, "successful": 2100, "attempts": 2100, "elapsed_seconds": 964.0957853750151}
+{"processed": 2200, "successful": 2200, "attempts": 2200, "elapsed_seconds": 1008.863155916013}
+{"processed": 2300, "successful": 2300, "attempts": 2300, "elapsed_seconds": 1052.545489540993}
+{"processed": 2400, "successful": 2400, "attempts": 2400, "elapsed_seconds": 1100.0821234580071}
+{"processed": 2500, "successful": 2500, "attempts": 2500, "elapsed_seconds": 1146.826739665994}
+{"processed": 2600, "successful": 2600, "attempts": 2600, "elapsed_seconds": 1192.3312151250138}
+{"processed": 2700, "successful": 2700, "attempts": 2700, "elapsed_seconds": 1237.5503946660028}
+{"processed": 2800, "successful": 2800, "attempts": 2800, "elapsed_seconds": 1281.602937415999}
+{"processed": 2900, "successful": 2900, "attempts": 2900, "elapsed_seconds": 1325.725444041018}
+{"processed": 3000, "successful": 3000, "attempts": 3000, "elapsed_seconds": 1370.2438348330033}
+{"processed": 3100, "successful": 3100, "attempts": 3100, "elapsed_seconds": 1413.551728958002}
+{"processed": 3200, "successful": 3200, "attempts": 3200, "elapsed_seconds": 1458.0108260410198}
+{"processed": 3300, "successful": 3300, "attempts": 3300, "elapsed_seconds": 1502.3800575410132}
+{"processed": 3400, "successful": 3400, "attempts": 3400, "elapsed_seconds": 1547.2240862910112}
+{"processed": 3500, "successful": 3500, "attempts": 3500, "elapsed_seconds": 1592.122090000019}
+{"processed": 3600, "successful": 3600, "attempts": 3600, "elapsed_seconds": 1637.2945858330058}
+{"processed": 3700, "successful": 3700, "attempts": 3700, "elapsed_seconds": 1681.4209686660033}
+{"processed": 3800, "successful": 3800, "attempts": 3800, "elapsed_seconds": 1725.9007446659962}
+{"processed": 3900, "successful": 3900, "attempts": 3900, "elapsed_seconds": 1770.0971800410189}
+{"processed": 4000, "successful": 4000, "attempts": 4000, "elapsed_seconds": 1816.6652678330138}
+{"processed": 4100, "successful": 4100, "attempts": 4100, "elapsed_seconds": 1863.3331053750007}
+{"processed": 4200, "successful": 4200, "attempts": 4200, "elapsed_seconds": 1908.6824225000164}
+{"processed": 4300, "successful": 4300, "attempts": 4300, "elapsed_seconds": 1953.1640667500033}
+{"processed": 4400, "successful": 4400, "attempts": 4400, "elapsed_seconds": 1997.2853981660155}
+{"processed": 4500, "successful": 4500, "attempts": 4500, "elapsed_seconds": 2040.9212425409933}
+{"processed": 4600, "successful": 4600, "attempts": 4600, "elapsed_seconds": 2086.87730737502}
+{"processed": 4700, "successful": 4700, "attempts": 4700, "elapsed_seconds": 2131.218576415995}
+{"processed": 4800, "successful": 4800, "attempts": 4800, "elapsed_seconds": 2175.329700125003}
+{"processed": 4900, "successful": 4900, "attempts": 4900, "elapsed_seconds": 2219.5339055829972}
+{"processed": 5000, "successful": 5000, "attempts": 5000, "elapsed_seconds": 2263.216994290997}
+{"processed": 5100, "successful": 5100, "attempts": 5100, "elapsed_seconds": 2307.3293233750155}
+{"processed": 5200, "successful": 5200, "attempts": 5200, "elapsed_seconds": 2354.280901332997}
+{"processed": 5300, "successful": 5300, "attempts": 5300, "elapsed_seconds": 2403.7190854579967}
+{"processed": 5400, "successful": 5400, "attempts": 5400, "elapsed_seconds": 2449.2522404580086}
+{"processed": 5500, "successful": 5500, "attempts": 5500, "elapsed_seconds": 2494.5124866660044}
+{"processed": 5600, "successful": 5600, "attempts": 5600, "elapsed_seconds": 2540.3633229999978}
+{"processed": 5700, "successful": 5700, "attempts": 5700, "elapsed_seconds": 2586.7036325829977}
+{"processed": 5800, "successful": 5800, "attempts": 5800, "elapsed_seconds": 2632.9568077500153}
+{"processed": 5900, "successful": 5900, "attempts": 5900, "elapsed_seconds": 2677.291807625006}
+{"processed": 6000, "successful": 6000, "attempts": 6000, "elapsed_seconds": 2723.830182750011}
+{"processed": 6100, "successful": 6100, "attempts": 6100, "elapsed_seconds": 2768.6453760000004}
+{"processed": 6200, "successful": 6200, "attempts": 6200, "elapsed_seconds": 2813.3094725410047}
+{"processed": 6300, "successful": 6300, "attempts": 6300, "elapsed_seconds": 2857.360700749996}
+{"processed": 6400, "successful": 6400, "attempts": 6400, "elapsed_seconds": 2901.3789494580124}
+{"processed": 6500, "successful": 6500, "attempts": 6500, "elapsed_seconds": 2945.171601625014}
+{"processed": 6600, "successful": 6600, "attempts": 6600, "elapsed_seconds": 2989.4529620000103}
+{"processed": 6700, "successful": 6700, "attempts": 6700, "elapsed_seconds": 3038.021887291019}
+{"processed": 6800, "successful": 6800, "attempts": 6800, "elapsed_seconds": 3082.1916017910116}
+{"processed": 6900, "successful": 6900, "attempts": 6900, "elapsed_seconds": 3125.6673017909925}
+{"processed": 7000, "successful": 7000, "attempts": 7000, "elapsed_seconds": 3169.671967833012}
+{"processed": 7100, "successful": 7100, "attempts": 7100, "elapsed_seconds": 3213.6851946249953}
+{"processed": 7200, "successful": 7200, "attempts": 7200, "elapsed_seconds": 3257.4698451659933}
+{"processed": 7300, "successful": 7300, "attempts": 7300, "elapsed_seconds": 3301.0350100829965}
+{"processed": 7400, "successful": 7400, "attempts": 7400, "elapsed_seconds": 3344.830056583014}
+{"processed": 7500, "successful": 7500, "attempts": 7500, "elapsed_seconds": 3389.274435625004}
+{"processed": 7600, "successful": 7600, "attempts": 7600, "elapsed_seconds": 3433.5412037500064}
+{"processed": 7700, "successful": 7700, "attempts": 7700, "elapsed_seconds": 3477.9271686660068}
+{"processed": 7800, "successful": 7800, "attempts": 7800, "elapsed_seconds": 3521.8982329159917}
+{"processed": 7900, "successful": 7900, "attempts": 7900, "elapsed_seconds": 3565.6264037500077}
+{"processed": 8000, "successful": 8000, "attempts": 8000, "elapsed_seconds": 3609.6753107080003}
+{"processed": 8100, "successful": 8100, "attempts": 8100, "elapsed_seconds": 3654.012375457998}
+{"processed": 8200, "successful": 8200, "attempts": 8200, "elapsed_seconds": 3699.9911124579958}
+{"processed": 8300, "successful": 8300, "attempts": 8300, "elapsed_seconds": 3744.2765025830013}
+{"processed": 8400, "successful": 8400, "attempts": 8400, "elapsed_seconds": 3788.420705458004}
+{"processed": 8500, "successful": 8500, "attempts": 8500, "elapsed_seconds": 3831.4906663750007}
+{"processed": 8600, "successful": 8600, "attempts": 8600, "elapsed_seconds": 3874.718909874995}
+{"processed": 8700, "successful": 8700, "attempts": 8700, "elapsed_seconds": 3917.911890040996}
+{"processed": 8800, "successful": 8800, "attempts": 8800, "elapsed_seconds": 3961.180960583006}
+{"processed": 8900, "successful": 8900, "attempts": 8900, "elapsed_seconds": 4005.3819009580184}
+{"processed": 9000, "successful": 9000, "attempts": 9000, "elapsed_seconds": 4049.343927458016}
+{"processed": 9100, "successful": 9100, "attempts": 9100, "elapsed_seconds": 4093.3856198750145}
+{"processed": 9200, "successful": 9200, "attempts": 9200, "elapsed_seconds": 4137.024388916005}
+{"processed": 9300, "successful": 9300, "attempts": 9300, "elapsed_seconds": 4181.225496666011}
+{"processed": 9400, "successful": 9400, "attempts": 9400, "elapsed_seconds": 4224.6137190830195}
+{"processed": 9500, "successful": 9500, "attempts": 9500, "elapsed_seconds": 4269.732128125004}
+{"processed": 9600, "successful": 9600, "attempts": 9600, "elapsed_seconds": 4314.486545916006}
+{"processed": 9700, "successful": 9700, "attempts": 9700, "elapsed_seconds": 4358.3613637080125}
+{"processed": 9800, "successful": 9800, "attempts": 9800, "elapsed_seconds": 4402.330107916001}
+{"processed": 9900, "successful": 9900, "attempts": 9900, "elapsed_seconds": 4446.497187458008}
+{"processed": 10000, "successful": 10000, "attempts": 10000, "elapsed_seconds": 4491.421715916018}
+{
+  "annotation_loop_seconds": 4491.421999250015,
+  "annotation_started_at_utc": "2026-10-09T07:23:58.551204+00:00",
+  "attempts": 10000,
+  "evidence_identities": {
+    "latencies.jsonl": {
+      "bytes": 2980713,
+      "sha256": "47b586c5699a32023cbbfdb6b16fb0fb3798bd8ecb37615994fcf76e7e0d2224"
+    },
+    "uci-transport.log": {
+      "bytes": 104682069,
+      "sha256": "2b87daca6e9faba45f778846598922d4e3bfe5e2d71464df0968f406ad7bec09"
+    }
+  },
+  "excluded": 0,
+  "failed_attempts": 0,
+  "finished_at_utc": "2026-10-09T08:38:50.756597+00:00",
+  "interrupted_attempts": 0,
+  "output_identities": {
+    "attempts.jsonl": {
+      "bytes": 158909706,
+      "sha256": "a4576eed221942fe94be01a395a1fd49236ed4d9a869308e92b1c5c4905f3c69"
+    },
+    "exclusions.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "labels.jsonl": {
+      "bytes": 25476244,
+      "sha256": "e653e2f5b098562eef2482478ef2b48009516a81bec2fbf0d53dbc92f5a30369"
+    },
+    "selected.jsonl": {
+      "bytes": 2457101,
+      "sha256": "e9bb4ba052f1210773a89228a98fab692d4990f8d4b961a9567c8a770aebb36a"
+    },
+    "settings.json": {
+      "bytes": 107012,
+      "sha256": "8bb3831a821d65702edd7aab0445ca78ee9090b97e18f6a62d168f49e98e94ef"
+    }
+  },
+  "pending_references": [],
+  "position_latency_seconds": {
+    "count": 10000,
+    "max": 1.4947662079939619,
+    "mean": 0.4490664727171068,
+    "min": 0.36171145900152624,
+    "p50": 0.44541029099491425,
+    "p90": 0.46981362500810064,
+    "p95": 0.4955176250077784,
+    "p99": 0.6735967499844264,
+    "sum": 4490.664727171068
+  },
+  "post_input_audit_seconds": 0.7403311249800026,
+  "retries": 0,
+  "selected": 10000,
+  "shortfall_by_split": {
+    "test": 0,
+    "train": 0,
+    "validation": 0
+  },
+  "status": "complete",
+  "successful_by_split": {
+    "test": 500,
+    "train": 9000,
+    "validation": 500
+  },
+  "successful_labels": 10000
+}

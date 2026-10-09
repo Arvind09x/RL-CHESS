@@ -1,0 +1,303 @@
+[
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-B",
+      "-m",
+      "pytest",
+      "tests/test_initial_labels.py",
+      "tests/test_stockfish_worker.py",
+      "tests/test_supervised.py",
+      "-p",
+      "no:cacheprovider"
+    ],
+    "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "duration_seconds": 3.8988898750103544,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels"
+    },
+    "exit_code": 0,
+    "finished_at_utc": "2026-10-09T07:21:48.945877+00:00",
+    "started_at_utc": "2026-10-09T07:21:45.046805+00:00",
+    "stderr": {
+      "bytes": 0,
+      "path": "focused-preflight.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 1008,
+      "path": "focused-preflight.stdout.txt",
+      "sha256": "59a838ba15bca3b75cd778247298bffbdef76f71fe8bdcee215774a3546cabcd"
+    }
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-B",
+      "scripts/produce_d08.py",
+      "freeze",
+      "--manifest",
+      "data/manifests/elite-2025-01-d04-v1.json",
+      "--games",
+      "/private/tmp/rl-chess-d03-prepared/games.jsonl",
+      "--split-audit",
+      "/private/tmp/rl-chess-d03-prepared/split-audit.json",
+      "--prepared",
+      "/private/tmp/rl-chess-d04-prepared",
+      "--executable",
+      "/private/tmp/Stockfish-sf_17.1/src/stockfish",
+      "--d06-bundle",
+      "/private/tmp/rl-chess-d06-benchmark",
+      "--output-dir",
+      "/private/tmp/rl-chess-d08-production"
+    ],
+    "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "duration_seconds": 43.49384666699916,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels"
+    },
+    "exit_code": 0,
+    "finished_at_utc": "2026-10-09T07:22:42.362740+00:00",
+    "started_at_utc": "2026-10-09T07:21:58.868867+00:00",
+    "stderr": {
+      "bytes": 0,
+      "path": "freeze.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 896,
+      "path": "freeze.stdout.txt",
+      "sha256": "58cc292c716fa8f5a527fa0b4ba9681493697e2c40c6cf461eee4c9cbdfa82c0"
+    }
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-B",
+      "scripts/produce_d08.py",
+      "execute",
+      "--output-dir",
+      "/private/tmp/rl-chess-d08-production"
+    ],
+    "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "duration_seconds": 4509.5729398340045,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels"
+    },
+    "exit_code": 0,
+    "finished_at_utc": "2026-10-09T08:38:51.273023+00:00",
+    "started_at_utc": "2026-10-09T07:23:41.717467+00:00",
+    "stderr": {
+      "bytes": 0,
+      "path": "production.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 11566,
+      "path": "production.stdout.txt",
+      "sha256": "312e9a9fcbb6c7d9777999398cac04b69be91b1fec2963f2bdaa6d363dcae456"
+    }
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-B",
+      "-m",
+      "pytest",
+      "--import-mode=importlib",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=runs/d08/regressions-adapter.xml"
+    ],
+    "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "duration_seconds": 17.96633466699859,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels"
+    },
+    "exit_code": 0,
+    "finished_at_utc": "2026-10-09T07:34:34.509957+00:00",
+    "started_at_utc": "2026-10-09T07:34:16.543335+00:00",
+    "stderr": {
+      "bytes": 0,
+      "path": "regressions-adapter.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 3843,
+      "path": "regressions-adapter.stdout.txt",
+      "sha256": "47fdcf8f4fd4f9caeff49298e8949af5d9f00ecbc4eb8940041cf0f7f9eaddad"
+    }
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+      "-B",
+      "-m",
+      "pytest",
+      "-p",
+      "runs.m06.diagnostic_plugin",
+      "--import-mode=importlib",
+      "-p",
+      "no:cacheprovider",
+      "--junitxml=runs/d08/regressions-model.xml"
+    ],
+    "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "duration_seconds": 54.096670124999946,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels"
+    },
+    "exit_code": 0,
+    "finished_at_utc": "2026-10-09T07:35:10.640257+00:00",
+    "started_at_utc": "2026-10-09T07:34:16.543345+00:00",
+    "stderr": {
+      "bytes": 0,
+      "path": "regressions-model.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 3621,
+      "path": "regressions-model.stdout.txt",
+      "sha256": "9a01539784b9e6f286dc1bac4324e07375fd53f4089edfcf78b12ed3397a640c"
+    }
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-B",
+      "scripts/audit_d08.py",
+      "/private/tmp/rl-chess-d08-production"
+    ],
+    "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "duration_seconds": 55.88776358301402,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels"
+    },
+    "exit_code": 0,
+    "finished_at_utc": "2026-10-09T08:40:49.200919+00:00",
+    "started_at_utc": "2026-10-09T08:39:53.312891+00:00",
+    "stderr": {
+      "bytes": 0,
+      "path": "independent-replay.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 2959,
+      "path": "independent-replay.stdout.txt",
+      "sha256": "916588cb18297e74975878d5e3839e39775128d4a164212a663f8839b36567ea"
+    }
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-B",
+      "scripts/check_d08_loader.py",
+      "/private/tmp/rl-chess-d08-production"
+    ],
+    "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "duration_seconds": 213.4910629579972,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels"
+    },
+    "exit_code": 0,
+    "finished_at_utc": "2026-10-09T08:45:29.378031+00:00",
+    "started_at_utc": "2026-10-09T08:41:55.865046+00:00",
+    "stderr": {
+      "bytes": 0,
+      "path": "loader-verification.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 5327,
+      "path": "loader-verification.stdout.txt",
+      "sha256": "34abd70d5dd8d127c483fd317ca5d6d3bd908ad283a3d10d30ad0edac127842a"
+    }
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-B",
+      "scripts/report_d08.py",
+      "/private/tmp/rl-chess-d08-production",
+      "--report",
+      "runs/d08/results.json"
+    ],
+    "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "duration_seconds": 0.5782672920031473,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels"
+    },
+    "exit_code": 0,
+    "finished_at_utc": "2026-10-09T08:46:21.363217+00:00",
+    "started_at_utc": "2026-10-09T08:46:20.784678+00:00",
+    "stderr": {
+      "bytes": 0,
+      "path": "report.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 349,
+      "path": "report.stdout.txt",
+      "sha256": "88590c7040e0832dfd085e3314a0c45a15c3d68757a6ab944cd5d620b6b0d294"
+    }
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-B",
+      "scripts/check_d08_preservation.py"
+    ],
+    "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "duration_seconds": 0.2711542499891948,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels"
+    },
+    "exit_code": 1,
+    "finished_at_utc": "2026-10-09T08:47:53.661246+00:00",
+    "started_at_utc": "2026-10-09T08:47:53.389907+00:00",
+    "stderr": {
+      "bytes": 453,
+      "path": "preservation.stderr.txt",
+      "sha256": "16d8216487ad01dcf18433791c3b8a48d1451291f463155a0bdd2dd413ade035"
+    },
+    "stdout": {
+      "bytes": 0,
+      "path": "preservation.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "argv": [
+      "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+      "-B",
+      "scripts/check_d08_preservation.py"
+    ],
+    "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels",
+    "duration_seconds": 1.8378935829969123,
+    "environment_overrides": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels"
+    },
+    "exit_code": 0,
+    "finished_at_utc": "2026-10-09T08:49:03.074148+00:00",
+    "started_at_utc": "2026-10-09T08:49:01.236041+00:00",
+    "stderr": {
+      "bytes": 0,
+      "path": "preservation-final.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 1525,
+      "path": "preservation-final.stdout.txt",
+      "sha256": "6a2cde9a64d3722b696f626201cf31a87f26d012e73d95f0e6bbaffa1763c2b7"
+    }
+  }
+]

@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels
+configfile: pyproject.toml
+collected 195 items
+
+tests/test_initial_labels.py ..........                                  [  5%]
+tests/test_stockfish_worker.py ......................................... [ 26%]
+.................                                                        [ 34%]
+tests/test_supervised.py ............................................... [ 58%]
+.................................................s...................... [ 95%]
+........                                                                 [100%]
+
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_supervised.py:346: could not import 'torch': No module named 'torch'
+======================== 194 passed, 1 skipped in 3.76s ========================

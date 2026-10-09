@@ -1,0 +1,359 @@
+{
+  "annotation_seconds": 4491.421999250015,
+  "annotation_started_at_utc": "2026-10-09T07:23:58.551204+00:00",
+  "annotation_successful_labels_per_second": 2.226466362250044,
+  "artifacts": {
+    "attempts.jsonl": {
+      "bytes": 158909706,
+      "path": "/private/tmp/rl-chess-d08-production/attempts.jsonl",
+      "sha256": "a4576eed221942fe94be01a395a1fd49236ed4d9a869308e92b1c5c4905f3c69"
+    },
+    "exclusions.jsonl": {
+      "bytes": 0,
+      "path": "/private/tmp/rl-chess-d08-production/exclusions.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "independent-replay.json": {
+      "bytes": 7876928,
+      "path": "/private/tmp/rl-chess-d08-production/independent-replay.json",
+      "sha256": "776f7d6246ef050b39798332eaf572ba9558b2780c3ee73108480647664a0862"
+    },
+    "labels.jsonl": {
+      "bytes": 25476244,
+      "path": "/private/tmp/rl-chess-d08-production/labels.jsonl",
+      "sha256": "e653e2f5b098562eef2482478ef2b48009516a81bec2fbf0d53dbc92f5a30369"
+    },
+    "latencies.jsonl": {
+      "bytes": 2980713,
+      "path": "/private/tmp/rl-chess-d08-production/latencies.jsonl",
+      "sha256": "47b586c5699a32023cbbfdb6b16fb0fb3798bd8ecb37615994fcf76e7e0d2224"
+    },
+    "loader-verification.json": {
+      "bytes": 4242,
+      "path": "/private/tmp/rl-chess-d08-production/loader-verification.json",
+      "sha256": "eb7e568750dbe13d0a51e1b9de218afd9aad618cf9232f806a9958b0b742b1a1"
+    },
+    "selected.jsonl": {
+      "bytes": 2457101,
+      "path": "/private/tmp/rl-chess-d08-production/selected.jsonl",
+      "sha256": "e9bb4ba052f1210773a89228a98fab692d4990f8d4b961a9567c8a770aebb36a"
+    },
+    "settings.json": {
+      "bytes": 107012,
+      "path": "/private/tmp/rl-chess-d08-production/settings.json",
+      "sha256": "8bb3831a821d65702edd7aab0445ca78ee9090b97e18f6a62d168f49e98e94ef"
+    },
+    "summary.json": {
+      "bytes": 1941,
+      "path": "/private/tmp/rl-chess-d08-production/summary.json",
+      "sha256": "620db9b787140e06c174619d8f5f5c0a08b1998e88627731992b2e1ba9a2a08a"
+    },
+    "uci-transport.log": {
+      "bytes": 104682069,
+      "path": "/private/tmp/rl-chess-d08-production/uci-transport.log",
+      "sha256": "2b87daca6e9faba45f778846598922d4e3bfe5e2d71464df0968f406ad7bec09"
+    }
+  },
+  "bulk_directory": "/private/tmp/rl-chess-d08-production",
+  "coverage": {
+    "test:endgame:black": 37,
+    "test:endgame:white": 34,
+    "test:middlegame:black": 149,
+    "test:middlegame:white": 138,
+    "test:opening:black": 61,
+    "test:opening:white": 81,
+    "train:endgame:black": 601,
+    "train:endgame:white": 587,
+    "train:middlegame:black": 2927,
+    "train:middlegame:white": 2872,
+    "train:opening:black": 1085,
+    "train:opening:white": 928,
+    "validation:endgame:black": 43,
+    "validation:endgame:white": 28,
+    "validation:middlegame:black": 161,
+    "validation:middlegame:white": 151,
+    "validation:opening:black": 56,
+    "validation:opening:white": 61
+  },
+  "cross_split_rule_position_overlaps": {
+    "train-test": 0,
+    "train-validation": 0,
+    "validation-test": 0
+  },
+  "distinct_games": 9861,
+  "distinct_rule_positions_by_split": {
+    "test": 461,
+    "train": 8861,
+    "validation": 495
+  },
+  "engine_reported_search_seconds": 791.543,
+  "engine_returned_nodes": 974774193,
+  "exclusions": 0,
+  "failed_attempts": 0,
+  "finished_at_utc": "2026-10-09T08:38:50.756597+00:00",
+  "freeze_invocation_seconds": 43.49384666699916,
+  "freeze_seconds": 41.024134667008184,
+  "frozen_at_utc": "2026-10-09T07:22:40.075228+00:00",
+  "full_production_storage_bytes": 302495956,
+  "independent_audit_seconds": 54.711504875012906,
+  "independent_encoding_seconds": 1.9224053109646775,
+  "independent_legal_mask_seconds": 4.362721325218445,
+  "independent_replay_seconds": 17.4690492512309,
+  "interrupted_attempts": 0,
+  "label_storage_bytes": 25476244,
+  "limitations": "One sequential CPU run on interactive macOS host; warm-file D07 costs include eager full-bundle validation on each split open; no cache, sustained concurrency, training, strength claim or expansion decision; external /private/tmp artifacts must be retained separately from Git",
+  "loader": {
+    "all_10000_individual_samples_and_three_batch_passes_verified": true,
+    "bundle_summary_identity": {
+      "bytes": 1941,
+      "sha256": "620db9b787140e06c174619d8f5f5c0a08b1998e88627731992b2e1ba9a2a08a"
+    },
+    "explicit_split_selection_verified": true,
+    "finished_at_utc": "2026-10-09T08:45:29.333726+00:00",
+    "independent_audit_identity": {
+      "bytes": 7876928,
+      "sha256": "776f7d6246ef050b39798332eaf572ba9558b2780c3ee73108480647664a0862"
+    },
+    "independent_feature_mask_fingerprints_match": true,
+    "limitations": "CPU/warm-files only; each open eagerly validates the entire bundle; no cache, model, training or held-out tuning",
+    "splits": {
+      "test": {
+        "batch_checks": [
+          {
+            "batch_size": 1,
+            "batches": 500,
+            "final_batch_size": 1,
+            "reverse_order": false,
+            "samples": 500,
+            "samples_per_second": 446.71913829385056,
+            "seconds": 1.1192715000070166
+          },
+          {
+            "batch_size": 64,
+            "batches": 8,
+            "final_batch_size": 52,
+            "reverse_order": false,
+            "samples": 500,
+            "samples_per_second": 444.0253504275472,
+            "seconds": 1.126061832997948
+          },
+          {
+            "batch_size": 127,
+            "batches": 4,
+            "final_batch_size": 119,
+            "reverse_order": true,
+            "samples": 500,
+            "samples_per_second": 431.1196534094087,
+            "seconds": 1.1597708340268582
+          }
+        ],
+        "coverage": {
+          "endgame:black": 37,
+          "endgame:white": 34,
+          "middlegame:black": 149,
+          "middlegame:white": 138,
+          "opening:black": 61,
+          "opening:white": 81
+        },
+        "individual_seconds": 1.1277469580236357,
+        "open_seconds": 39.416234500007704,
+        "samples": 500
+      },
+      "train": {
+        "batch_checks": [
+          {
+            "batch_size": 1,
+            "batches": 9000,
+            "final_batch_size": 1,
+            "reverse_order": false,
+            "samples": 9000,
+            "samples_per_second": 399.5935800294978,
+            "seconds": 22.52288437500829
+          },
+          {
+            "batch_size": 64,
+            "batches": 141,
+            "final_batch_size": 40,
+            "reverse_order": false,
+            "samples": 9000,
+            "samples_per_second": 393.6617168554102,
+            "seconds": 22.86226883297786
+          },
+          {
+            "batch_size": 127,
+            "batches": 71,
+            "final_batch_size": 110,
+            "reverse_order": true,
+            "samples": 9000,
+            "samples_per_second": 390.17166957920625,
+            "seconds": 23.066769583005225
+          }
+        ],
+        "coverage": {
+          "endgame:black": 601,
+          "endgame:white": 587,
+          "middlegame:black": 2927,
+          "middlegame:white": 2872,
+          "opening:black": 1085,
+          "opening:white": 928
+        },
+        "individual_seconds": 22.121205583011033,
+        "open_seconds": 36.684490500018,
+        "samples": 9000
+      },
+      "validation": {
+        "batch_checks": [
+          {
+            "batch_size": 1,
+            "batches": 500,
+            "final_batch_size": 1,
+            "reverse_order": false,
+            "samples": 500,
+            "samples_per_second": 406.2591673955593,
+            "seconds": 1.23074145798455
+          },
+          {
+            "batch_size": 64,
+            "batches": 8,
+            "final_batch_size": 52,
+            "reverse_order": false,
+            "samples": 500,
+            "samples_per_second": 409.8173520431037,
+            "seconds": 1.2200557089818176
+          },
+          {
+            "batch_size": 127,
+            "batches": 4,
+            "final_batch_size": 119,
+            "reverse_order": true,
+            "samples": 500,
+            "samples_per_second": 413.5349578156814,
+            "seconds": 1.209087625000393
+          }
+        ],
+        "coverage": {
+          "endgame:black": 43,
+          "endgame:white": 28,
+          "middlegame:black": 161,
+          "middlegame:white": 151,
+          "opening:black": 56,
+          "opening:white": 61
+        },
+        "individual_seconds": 1.2663509999983944,
+        "open_seconds": 36.70011704097851,
+        "samples": 500
+      }
+    },
+    "started_at_utc": "2026-10-09T08:41:56.072760+00:00",
+    "torch_imported": false,
+    "total_seconds": 213.239819874987
+  },
+  "maximum_references_per_game": 3,
+  "naturally_completed_below_node_request": 365,
+  "parsed_score_bound_flags": {
+    "lowerbound": 0,
+    "upperbound": 0
+  },
+  "pending": 0,
+  "position_latency_seconds": {
+    "count": 10000,
+    "max": 1.4947662079939619,
+    "mean": 0.4490664727171068,
+    "min": 0.36171145900152624,
+    "p50": 0.44541029099491425,
+    "p90": 0.46981362500810064,
+    "p95": 0.4955176250077784,
+    "p99": 0.6735967499844264,
+    "sum": 4490.664727171068
+  },
+  "post_input_audit_seconds": 0.7403311249800026,
+  "production_invocation_seconds": 4509.5729398340045,
+  "production_setup_and_command_overhead_seconds": 17.41060945900972,
+  "production_source_identities": {
+    "scripts/produce_d08.py": {
+      "bytes": 13950,
+      "sha256": "295f5c4543297a9dda571f93bf74b83b5c77205af59a9c4057137884f89ccda2"
+    },
+    "src/chess_rl/annotation_benchmark.py": {
+      "bytes": 4532,
+      "sha256": "067253ea900031c76fa416e59a151163d56e22b8bcadd3593ea3068c7898a4fb"
+    },
+    "src/chess_rl/initial_labels.py": {
+      "bytes": 4710,
+      "sha256": "b18113dce9358c09572187efba4dee23515fc29335f64fe86351f9962ac801e4"
+    },
+    "src/chess_rl/position_sampling.py": {
+      "bytes": 18057,
+      "sha256": "8c11f082354b19dc9f7afbc884be57df3a6b9b0949dc28e3e27c3416cecc2321"
+    },
+    "src/chess_rl/stockfish_worker.py": {
+      "bytes": 21470,
+      "sha256": "2428224953569f2546f30d71c9c521579f658a8ad3aa80fbb7d7e2ec5ad1fc55"
+    },
+    "src/chess_rl/supervised.py": {
+      "bytes": 22340,
+      "sha256": "85e097e0013b9c78da5c9f0e2c99c05237d83b0ec2a23c0e3e74cc9641ac2ae5"
+    }
+  },
+  "raw_score_bound_flags": {
+    "lowerbound": 1931,
+    "upperbound": 3187
+  },
+  "retries": 0,
+  "returned_nodes": {
+    "count": 10000,
+    "max": 100233,
+    "mean": 97477.4193,
+    "min": 245,
+    "p50": 100061,
+    "p90": 100114,
+    "p95": 100126,
+    "p99": 100154,
+    "sum": 974774193
+  },
+  "reused_inputs": {
+    "exclusions.jsonl": {
+      "bytes": 105285659,
+      "sha256": "72e45e4f89d15a596090ad940218867aedcb53275a3eddb6f50674502dd02b32"
+    },
+    "games.jsonl": {
+      "bytes": 638770177,
+      "sha256": "f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5"
+    },
+    "heldout-games.jsonl": {
+      "bytes": 2862240,
+      "sha256": "73202bd1b255fb89958da1be043e219f192b33a06da05ceb669eb1984d60fc18"
+    },
+    "manifest": {
+      "bytes": 6058,
+      "sha256": "5867fb9c09bf7d0c29d9a09d59d7196b145636d4abe6b38faf9c70d899e5879d"
+    },
+    "overlap-audit.json": {
+      "bytes": 4898,
+      "sha256": "feb20d4e38fa46ff6e5fcc77b4c4b8d1b36b985f3dcf6a3785a412a2fbb91f5e"
+    },
+    "protected-heldout.jsonl": {
+      "bytes": 57171328,
+      "sha256": "813d40ec52f3058996ddf6d7586dea23ee568c3bcff995cd92879e306a1f8ed3"
+    },
+    "samples.jsonl": {
+      "bytes": 567767218,
+      "sha256": "f3dc3410321e46c5e424912f8ae1d4aa26bd5c97267df944cbf8e7e3d1e3581e"
+    },
+    "split-audit.json": {
+      "bytes": 2191,
+      "sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36"
+    }
+  },
+  "scope": "D08 only, automated checks complete; independent milestone review pending",
+  "selected_identity": {
+    "bytes": 2457101,
+    "sha256": "e9bb4ba052f1210773a89228a98fab692d4990f8d4b961a9567c8a770aebb36a"
+  },
+  "successful_by_split": {
+    "test": 500,
+    "train": 9000,
+    "validation": 500
+  },
+  "successful_labels": 10000
+}

@@ -1,0 +1,52 @@
+{
+  "checkpoint": {
+    "bytes": 60883331,
+    "sha256": "d4454a65793b1c21aaacbe7445f7682cd88220e5e1a46af5e11ea3d390beb13d"
+  },
+  "exact_adam_state": true,
+  "exact_inference_and_training_metrics": true,
+  "exact_model_tensors": true,
+  "final_metrics": {
+    "correct_moves": 8,
+    "entropy_identity_error": 1.7557722831185174e-08,
+    "legal_best_move_accuracy": 1.0,
+    "per_sample_kl": [
+      0.018651164093665296,
+      0.021492420032182824,
+      0.0007123167227579157,
+      0.005188637823765659,
+      0.0007031247022319057,
+      0.006484851130641452,
+      0.021037597845053126,
+      0.0024932591722092983
+    ],
+    "policy_ce": 0.0013030193513259292,
+    "predicted_legal_move_ids": [
+      405,
+      1244,
+      292,
+      1221,
+      853,
+      3,
+      642,
+      983
+    ],
+    "samples": 8,
+    "teacher_entropy_floor": 0.35483976223793856,
+    "teacher_wdl_kl_max": 0.021492420032182824,
+    "teacher_wdl_kl_mean": 0.009595421440313435,
+    "teacher_wdl_kl_min": 0.0007031247022319057,
+    "wdl_ce_minus_entropy": 0.009595403882590614,
+    "wdl_cross_entropy": 0.3644351661205292
+  },
+  "fresh_python_process": true,
+  "frozen_plan": {
+    "bytes": 14173,
+    "sha256": "bce4268c83e094fe204c45dd94dc8d9ccb3f7b4c71f483be3ccf4d76aa9ddc09"
+  },
+  "inputs_unchanged": true,
+  "limits": "reload correctness only; no extra optimizer update or playing-strength claim",
+  "progress_order_weights_provenance_verified": true,
+  "shared_gab_identity": true,
+  "tolerance": 0
+}

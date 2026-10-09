@@ -1,0 +1,66 @@
+{
+  "accepted_inputs_unchanged": true,
+  "batch_unchanged": true,
+  "cap_reached": false,
+  "checkpoint_identity": {
+    "bytes": 60883331,
+    "sha256": "d4454a65793b1c21aaacbe7445f7682cd88220e5e1a46af5e11ea3d390beb13d"
+  },
+  "dropout": 0.0,
+  "fresh_process_reload": "pending",
+  "frozen_plan_identity": {
+    "bytes": 14173,
+    "sha256": "bce4268c83e094fe204c45dd94dc8d9ccb3f7b4c71f483be3ccf4d76aa9ddc09"
+  },
+  "metrics": {
+    "correct_moves": 8,
+    "entropy_identity_error": 1.7557722831185174e-08,
+    "legal_best_move_accuracy": 1.0,
+    "per_sample_kl": [
+      0.018651164093665296,
+      0.021492420032182824,
+      0.0007123167227579157,
+      0.005188637823765659,
+      0.0007031247022319057,
+      0.006484851130641452,
+      0.021037597845053126,
+      0.0024932591722092983
+    ],
+    "policy_ce": 0.0013030193513259292,
+    "predicted_legal_move_ids": [
+      405,
+      1244,
+      292,
+      1221,
+      853,
+      3,
+      642,
+      983
+    ],
+    "samples": 8,
+    "teacher_entropy_floor": 0.35483976223793856,
+    "teacher_wdl_kl_max": 0.021492420032182824,
+    "teacher_wdl_kl_mean": 0.009595421440313435,
+    "teacher_wdl_kl_min": 0.0007031247022319057,
+    "wdl_ce_minus_entropy": 0.009595403882590614,
+    "wdl_cross_entropy": 0.3644351661205292
+  },
+  "parameter_count": 5049411,
+  "runtime": {
+    "default_dtype": "torch.float32",
+    "deterministic": true,
+    "deterministic_warn_only": false,
+    "interop_threads": 1,
+    "machine": "arm64",
+    "matmul_precision": "highest",
+    "mkldnn": true,
+    "numpy": "2.5.3",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "python": "3.12.12",
+    "threads": 1,
+    "torch": "2.8.0"
+  },
+  "status": "passed",
+  "step": 26,
+  "training_seconds": 9.231145792000461
+}

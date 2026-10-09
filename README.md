@@ -731,3 +731,39 @@ including the unrelated uncommitted primary planning edits. New evidence is in
 [Integration, artifact location and limitations](docs/t02-integration.md) and
 [structured results](runs/t02-integration/summary.json) document the supported
 pinned CPU boundary. Work stops after T02 integration; no T03, T04, pilot or RL.
+
+
+## T03 tiny fixed training fit — 9 October 2026; independent review pending
+
+T03 was implemented and executed once in isolated `t03-tiny-overfit` on
+`codex/t03-tiny-overfit`, from reviewed integrated main
+`4fa48d4afef91a3bea125fb5f9f85b4d5159fc28`. Before execution, the frozen plan
+recorded eight exact accepted D05 training references, source/tensor hashes,
+seed 20261009, full M06 combined architecture with dropout zero, Adam 0.0003,
+T01 1:1 losses, CPU settings and a 1,000-update cap. No held-out samples were
+used. Gates were 100% legal best-move accuracy, mean teacher-WDL KL at most
+0.01 nats and maximum KL at most 0.03 nats, with a separate numerical identity
+tolerance. Neither thresholds nor membership changed after execution.
+
+The run passed at its first qualifying update, step 26: 8/8 best moves, mean KL
+0.009595421, maximum KL 0.021492420. WDL CE 0.364435166 is compared with the
+teacher entropy floor 0.354839762; CE-minus-entropy agrees with KL within
+1.76e-8 nats. D07 loading, accepted combined M06 construction, T01 losses/step
+and T02 checkpoints are reused without changing their implementation.
+
+All 27 curve rows, checkpoint identities and exact fresh-process inference/
+training restore verification are saved. Weights remain outside Git in the
+workspace `external-artifacts/t03-tiny-overfit-20261009/final.pt`; they are a
+plumbing checkpoint, never immutable pretrained P. The runner retains a final
+checkpoint and explicit failure status on cap failure; tests cover that path.
+Checks pass: 299 focused tests, 1,364 full model tests, 1,023 adapter tests/10
+expected Torch skips, 84 accepted review probes, M06 numerical and the frozen
+13-fixture replay. Accepted inputs/evidence and primary main with its unrelated
+uncommitted edits are preserved.
+
+[Methods, exact settings, results and limits](docs/t03-tiny-overfit.md),
+[frozen plan](runs/t03/frozen-plan.json), [summary](runs/t03/summary.json) and
+[curves](runs/t03/learning-curves.svg) record the evidence. T03 automated checks
+are complete; independent review is pending and its historical checkbox remains
+unchecked. Stop after the isolated commit. No T04, pilot/pretraining, P selection,
+model-guided games or RL was started.

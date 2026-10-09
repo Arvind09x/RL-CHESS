@@ -1,0 +1,26 @@
+{
+  "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t03-tiny-overfit-20261009/execution-start.json": {
+    "bytes": 15200,
+    "sha256": "fe913ad6518b8aa6f6f3f6faaab507fe098d3f2b99be391b2fc56217729840cd"
+  },
+  "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t03-tiny-overfit-20261009/expected-reload.json": {
+    "bytes": 203829,
+    "sha256": "54c2760a25dde915adf83e78ddf611891a3420fe74e518b641c6eb651852a6fc"
+  },
+  "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t03-tiny-overfit-20261009/final.pt": {
+    "bytes": 60883331,
+    "sha256": "d4454a65793b1c21aaacbe7445f7682cd88220e5e1a46af5e11ea3d390beb13d"
+  },
+  "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t03-tiny-overfit-20261009/learning-curves.jsonl": {
+    "bytes": 23479,
+    "sha256": "869c0445796fde60fc97f04d9fbf77621a5d94f42f3aebea19e5e5bea24be604"
+  },
+  "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t03-tiny-overfit-20261009/reload-verification.json": {
+    "bytes": 1490,
+    "sha256": "07ba869ae0a71d7ff37d6a6397861737cf72581b3cc1832f1781e5f93becb5bd"
+  },
+  "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t03-tiny-overfit-20261009/result.json": {
+    "bytes": 1750,
+    "sha256": "5c0b34e9c6373ea84039578e3386bb11a0aff40615ba05c2829451e6bcf29eb0"
+  }
+}

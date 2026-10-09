@@ -1,0 +1,36 @@
+{
+  "agents_md": "No applicable AGENTS.md found in checkout or inspected ancestor paths",
+  "base_commit": "b26cf38f04a09fd04283023795c0752753ce3106",
+  "branch": "codex/t02-checkpoints",
+  "commands": [
+    [
+      "git",
+      "clone",
+      "--no-hardlinks",
+      "/Users/arvindsrinivass/Desktop/RL-Chess",
+      "t02-checkpoints"
+    ],
+    [
+      "git",
+      "switch",
+      "-c",
+      "codex/t02-checkpoints",
+      "b26cf38f04a09fd04283023795c0752753ce3106"
+    ]
+  ],
+  "evidence_finalization_command": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "-B",
+    "runs/t02/finalize.py"
+  ],
+  "independent_review": "pending",
+  "isolated_checkout": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t02-checkpoints",
+  "no_subagents": true,
+  "primary_checkout": "/Users/arvindsrinivass/Desktop/RL-Chess",
+  "primary_user_edit_hash_from_accepted_integration": "16e020d39666daf6b5f25dd490fc19a46ba6c90f557af41ff22528d0a1c6ae5b",
+  "results": [
+    "clone succeeded",
+    "branch created at reviewed integrated main"
+  ],
+  "strategy": "isolated clone; committed main state only"
+}

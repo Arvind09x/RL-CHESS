@@ -690,3 +690,24 @@ and [structured verification](runs/d08-t01-integration/summary.json) supersede
 D08/T01 pending-review status. D08 and T01 are accepted within their original CPU
 correctness boundaries. No checkpoint, tiny overfit, T02 or later implementation
 was started. Stop after integration evidence.
+
+## T02 checkpoints — 9 October 2026; independent review pending
+
+T02 adds shared versioned save/load for the accepted combined M06 model in
+`training/checkpoints.py`, with separate inference loading and training restore.
+It preserves construction/contract/provenance metadata, standard CPU Adam groups
+and moments, loss weights/progress, explicit D07 permutation/cursor and Python,
+NumPy and Torch CPU RNG. Incompatible or malformed state is rejected; shared GAB
+identity is retained. Checkpoint publication refuses overwrite.
+
+The next real D05/D07 update matches exactly after a fresh-process restore with
+0.1 dropout: all 215 gradients, parameter tensors and Adam states, next-batch
+order, losses, RNG and evaluation predictions. Verification passes 60 checkpoint
+cases, 1,344 full model tests, 1,023 adapter tests/nine expected Torch skips,
+84 accepted reviewer probes per environment, M06 and the frozen adapter replay.
+
+[API, evidence and limitations](docs/t02-checkpoints.md) and
+[recorded verification](runs/t02/summary.json) describe the supported CPU boundary.
+T02 is implemented but not independently review accepted; its checkbox remains
+unchecked. Work stops after the isolated commit on `codex/t02-checkpoints`.
+No T03, T04, overfit, pilot training, P or RL was begun; primary main is preserved.

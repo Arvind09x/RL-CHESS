@@ -1,0 +1,14 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "diagnostics": [
+    "runs/d08-t01-integration/primary-coding-plan.patch:14: trailing whitespace.\n+ \n",
+    "runs/d08-t01-integration/primary-coding-plan.patch:17: trailing whitespace.\n+ \n"
+  ],
+  "exit_code": 2,
+  "resolution": "Archive the exact patch bytes in a reversible base64 JSON container, preserving its decoded SHA-256; retain the original raw patch in external-artifacts/primary-preservation. No patch bytes or frozen evidence were trimmed."
+}

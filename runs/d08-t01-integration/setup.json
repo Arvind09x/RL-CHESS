@@ -1,0 +1,27 @@
+{
+  "actual_primary_main": "/Users/arvindsrinivass/Desktop/RL-Chess",
+  "base_commit": "9565093abe40a7807e3472c1101f5f28c14b7afe",
+  "isolated_checkout": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-t01-integration",
+  "primary_coding_plan_identity": {
+    "bytes": 84352,
+    "sha256": "4e78618d3cbe76836976818b29fb4692f9215a0474279e3729aca8ab8a0f8962"
+  },
+  "primary_patch_identity": {
+    "bytes": 6026,
+    "sha256": "d52cd200efa3ec7a1ec86e758f2ffc5dea54703e4e3fc48d63d27f43c4e12fab"
+  },
+  "primary_status": " M coding-plan.md\n",
+  "source_checkouts": {
+    "d08-initial-labels": {
+      "clean": true,
+      "commit": "bcb208d73271451b05d1409d4bf340aaad82eabf",
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels"
+    },
+    "t01-supervised-losses": {
+      "clean": true,
+      "commit": "f669fc8b4de397a31768321b9105e255b0ff0e0e",
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t01-supervised-losses"
+    }
+  },
+  "started_at_utc": "2026-10-09T10:27:45.699785+00:00"
+}

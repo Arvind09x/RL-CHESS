@@ -664,3 +664,29 @@ Independent losses/gradients and an actual optimizer update agree; batch
 ownership, shared GAB and accepted implementation/data/manifest bytes are
 preserved. Main remains at the reviewed base. Stop for independent review;
 checkpoints, overfitting, P, T02/T04 and RL remain outside this change.
+
+
+### D08/T01 AI review attribution and integration — 9 October 2026
+
+The user supplied independent AI review acceptance of D08
+`bcb208d73271451b05d1409d4bf340aaad82eabf` and T01
+`f669fc8b4de397a31768321b9105e255b0ff0e0e` and authorized integration from
+actual accepted main `9565093abe40a7807e3472c1101f5f28c14b7afe`. This chat
+performed implementation inspection and fresh combined verification in isolation;
+it did not commission a new independent reviewer, use subagents or claim human
+review. Both original completion records and source histories are retained.
+
+Combined checks pass: 1,284 model tests; 1,023 adapter tests/eight expected
+Torch skips; 84 accepted reviewer probes in each environment; both exact frozen
+13-fixture adapter replays; M06 and T01 numerical checks; the fixed T01 one-step
+Adam check; all 10,000 D08 labels and three full D07 batch passes in every split.
+Accepted Git/external bytes, protected registries, manifests and prior evidence
+are preserved. The complete ten-file D08 bundle has a hash-verified durable copy
+outside RL-Chess Git; frozen evidence is unchanged. Primary D06/D07/E01 checkbox
+edits are preserved as uncommitted edits.
+
+[Scoped integration, artifact location and limitations](docs/d08-t01-integration.md)
+and [structured verification](runs/d08-t01-integration/summary.json) supersede
+D08/T01 pending-review status. D08 and T01 are accepted within their original CPU
+correctness boundaries. No checkpoint, tiny overfit, T02 or later implementation
+was started. Stop after integration evidence.

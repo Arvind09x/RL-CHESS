@@ -1,0 +1,17 @@
+{
+  "base_commit": "9565093abe40a7807e3472c1101f5f28c14b7afe",
+  "branch": "codex/d08-t01-integration",
+  "conflicts": [
+    "README.md",
+    "coding-plan.md"
+  ],
+  "independent_review_attribution": "User-supplied independent AI review acceptance of the two exact commits",
+  "later_implementation_started": false,
+  "merge_commits": {
+    "D08": "8523d4fdf1aeda4888d86b17b295eb2fc0ee941d",
+    "T01": "a46621879988b7d088bd345cd652455ebd4b595f"
+  },
+  "primary_edits": "D06 D07 E01 checkbox edits preserved uncommitted",
+  "resolution": "exact accepted base plus exact complete D08 suffix plus exact complete T01 suffix; subsequent dated status appended",
+  "this_chat_scope": "implementation-boundary inspection, isolated integration, fresh combined verification and preservation; no new independent reviewer or human review"
+}

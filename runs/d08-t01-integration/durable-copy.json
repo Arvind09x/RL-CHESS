@@ -1,0 +1,53 @@
+{
+  "copied_at_utc": "2026-10-09T10:27:46.301078+00:00",
+  "copy_and_source_hashes_verified": true,
+  "durable_copy": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/d08-bcb208d-production",
+  "files": {
+    "attempts.jsonl": {
+      "bytes": 158909706,
+      "sha256": "a4576eed221942fe94be01a395a1fd49236ed4d9a869308e92b1c5c4905f3c69"
+    },
+    "exclusions.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "independent-replay.json": {
+      "bytes": 7876928,
+      "sha256": "776f7d6246ef050b39798332eaf572ba9558b2780c3ee73108480647664a0862"
+    },
+    "labels.jsonl": {
+      "bytes": 25476244,
+      "sha256": "e653e2f5b098562eef2482478ef2b48009516a81bec2fbf0d53dbc92f5a30369"
+    },
+    "latencies.jsonl": {
+      "bytes": 2980713,
+      "sha256": "47b586c5699a32023cbbfdb6b16fb0fb3798bd8ecb37615994fcf76e7e0d2224"
+    },
+    "loader-verification.json": {
+      "bytes": 4242,
+      "sha256": "eb7e568750dbe13d0a51e1b9de218afd9aad618cf9232f806a9958b0b742b1a1"
+    },
+    "selected.jsonl": {
+      "bytes": 2457101,
+      "sha256": "e9bb4ba052f1210773a89228a98fab692d4990f8d4b961a9567c8a770aebb36a"
+    },
+    "settings.json": {
+      "bytes": 107012,
+      "sha256": "8bb3831a821d65702edd7aab0445ca78ee9090b97e18f6a62d168f49e98e94ef"
+    },
+    "summary.json": {
+      "bytes": 1941,
+      "sha256": "620db9b787140e06c174619d8f5f5c0a08b1998e88627731992b2e1ba9a2a08a"
+    },
+    "uci-transport.log": {
+      "bytes": 104682069,
+      "sha256": "2b87daca6e9faba45f778846598922d4e3bfe5e2d71464df0968f406ad7bec09"
+    }
+  },
+  "frozen_settings_and_evidence_modified": false,
+  "outside_rl_chess_git": true,
+  "parent_workspace_git_ignored": true,
+  "primary_original_copy": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/primary-preservation/coding-plan.original.md",
+  "source": "/private/tmp/rl-chess-d08-production",
+  "total_bytes": 302495956
+}

@@ -97,7 +97,7 @@ After Gate A, the data, model and search tracks can proceed independently. They 
 | [x] | D05 / P1 | D04 | Implement the Stockfish worker and annotate a tiny valid sample with the locked settings, hash resets, failure/retry records and root-perspective targets. | Every retained best move is legal and matches its ID; WDL counts/probabilities are valid. Missing WDL/interrupted analyses are never accepted as targets. Replaying a saved record reproduces its root. |
 | [ ] | D06 / P1 | D05 | Run the 1,000-position annotation benchmark separately from worker implementation. | Save actual throughput, failures, settings and returned search information. Project annotation/replay/encoding/storage costs for 10,000, 100,000, several hundred thousand and 1 million labels, identifying measured rates and scaling assumptions. Choose expansion using these costs and subsequent learning curves. |
 | [ ] | D07 / P1 | D05 | Implement record loading, shared-adapter tensor construction, batching and optional versioned cache validation. | A saved record yields the same state/mask/label after reload. Reject incompatible versions and invalid labels. A teacher class ID remains a class ID, not a dense stored one-hot policy. |
-| [ ] | D08 / P1 | D06, D07 | Produce the initial 10,000 successfully labeled positions using the measured worker and audited splits. | Manifest, success counts, split overlap and replay/target audits pass. Failures/exclusions are accounted for rather than counted as completed labels. |
+| [x] | D08 / P1 | D06, D07 | Produce the initial 10,000 successfully labeled positions using the measured worker and audited splits. | Manifest, success counts, split overlap and replay/target audits pass. Failures/exclusions are accounted for rather than counted as completed labels. |
 
 ## 4. Build the network against the interface
 
@@ -130,7 +130,7 @@ Leela is the practical chess-search/self-play reference; AlphaZero supplies the 
 
 | Done | ID / owner | Prerequisites | Build | Acceptance check |
 |---|---|---|---|---|
-| [ ] | T01 / P1 | M06, D07 | Implement legal policy cross-entropy, soft WDL cross-entropy and a minimal supervised training step for the combined architecture. Choose and record optimizer, loss weighting, seed and small-run batch settings. | Independent calculations check both losses. Illegal policy logits receive zero loss gradient; teacher distributions remain soft. No `0 * -inf`, terminal sample or nonfinite loss passes silently. |
+| [x] | T01 / P1 | M06, D07 | Implement legal policy cross-entropy, soft WDL cross-entropy and a minimal supervised training step for the combined architecture. Choose and record optimizer, loss weighting, seed and small-run batch settings. | Independent calculations check both losses. Illegal policy logits receive zero loss gradient; teacher distributions remain soft. No `0 * -inf`, terminal sample or nonfinite loss passes silently. |
 | [ ] | T02 / P1 | T01 | Implement versioned checkpoint save/load with model/config, optimizer, progress and random states. | Save/load preserves evaluation predictions. A deterministic continuation check reproduces the next update on a supported backend; record backend nondeterminism where applicable. Reject incompatible encodings/configurations. |
 | [ ] | T03 / P1 | T02, D05 | Overfit a tiny fixed training-only labeled subset with dropout disabled. Set a step cap and acceptance thresholds before running. | Best-move fit becomes near-perfect and teacher-WDL KL becomes small under the recorded thresholds; compare WDL loss to the teacher entropy floor, not to zero. No held-out samples are used. Save metrics/checkpoint. |
 | [ ] | T04 / Both | T02, A07 | Implement the real batched evaluator: checkpoint loading, terminal partitioning, encoding/batching of nonterminal states, inference mode, legal normalization and WDL-to-value conversion, with results restored to input order. | Empty, batch-of-one and mixed-terminal batches preserve order and input histories. Terminal states skip encoding/model inference. Batched nonterminal predictions agree with individual evaluation within recorded numerical tolerance. Legal priors normalize and `v=P(win)-P(loss)` matches an independently checked result. |
@@ -956,3 +956,29 @@ are under `runs/t01/`. Accepted implementations, historical evidence, data,
 manifests and main are preserved. The historical checkbox stays pending
 independent acceptance. No checkpoints, tiny overfit, P, T02, T04, RL, GPU or
 quality/performance campaign is implemented or begun.
+
+
+### D08/T01 AI review attribution and integration — 9 October 2026
+
+The user supplied independent AI review acceptance of D08
+`bcb208d73271451b05d1409d4bf340aaad82eabf` and T01
+`f669fc8b4de397a31768321b9105e255b0ff0e0e` and authorized integration from
+actual accepted main `9565093abe40a7807e3472c1101f5f28c14b7afe`. This chat
+performed implementation inspection and fresh combined verification in isolation;
+it did not commission a new independent reviewer, use subagents or claim human
+review. Both original completion records and source histories are retained.
+
+Combined checks pass: 1,284 model tests; 1,023 adapter tests/eight expected
+Torch skips; 84 accepted reviewer probes in each environment; both exact frozen
+13-fixture adapter replays; M06 and T01 numerical checks; the fixed T01 one-step
+Adam check; all 10,000 D08 labels and three full D07 batch passes in every split.
+Accepted Git/external bytes, protected registries, manifests and prior evidence
+are preserved. The complete ten-file D08 bundle has a hash-verified durable copy
+outside RL-Chess Git; frozen evidence is unchanged. Primary D06/D07/E01 checkbox
+edits are preserved as uncommitted edits.
+
+[Scoped integration, artifact location and limitations](docs/d08-t01-integration.md)
+and [structured verification](runs/d08-t01-integration/summary.json) supersede
+D08/T01 pending-review status. D08 and T01 are accepted within their original CPU
+correctness boundaries. No checkpoint, tiny overfit, T02 or later implementation
+was started. Stop after integration evidence.

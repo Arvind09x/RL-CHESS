@@ -1,0 +1,14 @@
+{
+  "checkpoint": {
+    "bytes": 60871811,
+    "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-integration-cpu-continuation-20261009/step-1.pt",
+    "sha256": "9f3ecddc1237f56aac1eb69c5c5fd87d442c937b23d591adcfed5df50853fefc"
+  },
+  "primary_head": "4fa48d4afef91a3bea125fb5f9f85b4d5159fc28",
+  "primary_plan": {
+    "bytes": 93438,
+    "path": "/Users/arvindsrinivass/Desktop/RL-Chess/coding-plan.md",
+    "sha256": "e56a6e6c04baa3c387e77a0ed7d70556e8fe88db053ca97ec167afc9f23589b4"
+  },
+  "primary_status": " M coding-plan.md\n"
+}

@@ -1,0 +1,34 @@
+.................F...................................................... [ 76%]
+......................                                                   [100%]
+=================================== FAILURES ===================================
+______________________ test_output_arrays_are_independent ______________________
+
+real = <chess_rl.search.real_evaluator.RealEvaluator object at 0x10370dfd0>
+
+    def test_output_arrays_are_independent(real):
+        state = make_state()
+        a, b = real([state, state])
+        reference, = real([state])
+        assert not np.shares_memory(a.priors, b.priors) and not np.shares_memory(a.wdl, b.wdl)
+        a.priors[:] = 0
+        a.wdl[:] = 0
+>       np.testing.assert_array_equal(b.priors, reference.priors)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 15 / 4352 (0.345%)
+E       First 5 mismatches are at indices:
+E        [80]: 0.06901504844427109 (ACTUAL), 0.0690150335431099 (DESIRED)
+E        [405]: 0.07745050638914108 (ACTUAL), 0.07745052129030228 (DESIRED)
+E        [407]: 0.07790839672088623 (ACTUAL), 0.07790841162204742 (DESIRED)
+E        [593]: 0.045264143496751785 (ACTUAL), 0.04526415467262268 (DESIRED)
+E        [601]: 0.04920286685228348 (ACTUAL), 0.04920287802815437 (DESIRED)
+E       Max absolute difference among violations: 2.9802322e-08
+E       Max relative difference among violations: 6.631479e-07
+E        ACTUAL: array([0., 0., 0., ..., 0., 0., 0.], shape=(4352,), dtype=float32)
+E        DESIRED: array([0., 0., 0., ..., 0., 0., 0.], shape=(4352,), dtype=float32)
+
+tests/test_real_evaluator.py:189: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_real_evaluator.py::test_output_arrays_are_independent - Ass...
+1 failed, 93 passed in 25.97s

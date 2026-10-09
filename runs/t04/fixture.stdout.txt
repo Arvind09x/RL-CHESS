@@ -1,0 +1,20 @@
+{
+  "batch_max_absolute_error": {
+    "priors": 9.834766387939453e-07,
+    "wdl": 8.940696716308594e-08,
+    "value": 1.1920928955078125e-07
+  },
+  "independent_conversion_max_absolute_error": {
+    "priors": 2.049916711377442e-08,
+    "wdl": 3.324357814027401e-08,
+    "value": 2.251419586873915e-08
+  },
+  "mixed_forward_shapes": [
+    [
+      16,
+      64,
+      128
+    ]
+  ],
+  "scope": "T04 correctness only; independent review pending"
+}

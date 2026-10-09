@@ -1036,3 +1036,47 @@ uncommitted. New evidence and correctness artifacts use new paths.
 [fresh checks and hashes](runs/t02-integration/summary.json) record acceptance
 within the original pinned CPU correctness boundary. Stop after T02 integration;
 no T03, T04, overfit, pilot training, P selection, self-play or RL was begun.
+
+### T04 implementation evidence — 9 October 2026; independent review pending
+
+Only T04 is implemented on isolated `codex/t04-real-evaluator`, from primary
+main `4fa48d4afef91a3bea125fb5f9f85b4d5159fc28` after the recorded independent
+AI review acceptance and integration of T02. T03 is not a prerequisite and is
+outside this change. The existing T04 checkbox remains unchecked pending
+independent review; no new review acceptance is claimed.
+
+The real callable evaluator uses T02 checkpoint loading, the accepted adapter
+and T01 legal normalization. It adjudicates the complete input before encoding,
+stacks only nonterminal states, performs one combined M06 forward in evaluation
+and inference mode, applies legal policy/WDL normalization, computes root-side
+`v=P(win)-P(loss)` and restores original order. Empty/all-terminal inputs bypass
+nonterminal work; returned arrays are owned independently. The dummy search
+path remains Torch-free and real search uses the existing evaluator argument.
+
+All 34 T04 tests pass, including empty, singleton and mixed-terminal inputs,
+terminal identity/exact outcomes/bypass, reached repetition and fifty-move draws
+with legal moves, full input history preservation, legal support/zero illegal
+mass, independent NumPy conversion, asymmetric WDL sign checks, float64
+checkpoint conversion and bounded search. Final focused checkpoint/T04 checks
+pass 94 cases. Full model regressions pass 1,378 cases; full adapter regressions
+pass 1,023 with 10 expected optional-Torch skips, and frozen replay passes all
+13 accepted fixtures. The documented historical M05 diagnostic plugin is used
+only for full model regressions.
+
+The preserved T02 integration correctness checkpoint is read without training
+or modification. Its 31-input audit performs exactly one 16-row nonterminal
+forward and eight three-simulation search checks; 12 terminal search requests
+bypass inference. Batch tolerances were fixed at `atol=2e-6, rtol=2e-5` before
+execution. Maximum absolute errors are `9.834766387939453e-7` for priors,
+`8.940696716308594e-8` for WDL and `1.1920928955078125e-7` for value. Independent
+float64 NumPy conversion errors remain below `3.33e-8`. The initial focused
+array-ownership test's overly strict bitwise batch comparison is corrected;
+the original failed evidence is retained separately from the final passing run.
+
+[Implementation and limits](docs/t04-real-evaluator.md),
+[commands and results](runs/t04/summary.json), and
+[real checkpoint evidence](runs/t04/fixture.json) record the pinned CPU boundary,
+source hashes and primary/checkpoint preservation. Original accepted documents
+and completion records are retained with dated appends. Commit and stop for
+independent review before R01, pilot training, P selection, self-play, RL or
+performance campaigns.

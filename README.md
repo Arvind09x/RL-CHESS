@@ -711,3 +711,23 @@ cases, 1,344 full model tests, 1,023 adapter tests/nine expected Torch skips,
 T02 is implemented but not independently review accepted; its checkbox remains
 unchecked. Work stops after the isolated commit on `codex/t02-checkpoints`.
 No T03, T04, overfit, pilot training, P or RL was begun; primary main is preserved.
+
+## T02 AI review acceptance and integration — 9 October 2026
+
+Exact T02 commit `27731e32d8aa64d852b439945f30e7238e87a824` is independently
+AI review accepted on the user's supplied review: no blocking findings, 152
+checkpoint/training tests and exact fresh-process continuation/hash reproduction.
+No human review is claimed. Its original history and completion evidence are
+retained; this dated acceptance supersedes the historical pending-review status.
+
+Fresh isolated integration verification passes 1,344 model tests, 1,023 adapter
+tests/nine expected Torch skips, 152 focused checkpoint/training tests, 84 accepted
+review probes per environment, both frozen adapter replays, M06 and offline
+dependency/upstream checks. CPU continuation exactly reproduces the original
+checkpoint and report hashes. Accepted data, code and evidence are preserved,
+including the unrelated uncommitted primary planning edits. New evidence is in
+`runs/t02-integration`; fresh weights/reports use a distinct external directory.
+
+[Integration, artifact location and limitations](docs/t02-integration.md) and
+[structured results](runs/t02-integration/summary.json) document the supported
+pinned CPU boundary. Work stops after T02 integration; no T03, T04, pilot or RL.

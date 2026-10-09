@@ -131,7 +131,7 @@ Leela is the practical chess-search/self-play reference; AlphaZero supplies the 
 | Done | ID / owner | Prerequisites | Build | Acceptance check |
 |---|---|---|---|---|
 | [x] | T01 / P1 | M06, D07 | Implement legal policy cross-entropy, soft WDL cross-entropy and a minimal supervised training step for the combined architecture. Choose and record optimizer, loss weighting, seed and small-run batch settings. | Independent calculations check both losses. Illegal policy logits receive zero loss gradient; teacher distributions remain soft. No `0 * -inf`, terminal sample or nonfinite loss passes silently. |
-| [ ] | T02 / P1 | T01 | Implement versioned checkpoint save/load with model/config, optimizer, progress and random states. | Save/load preserves evaluation predictions. A deterministic continuation check reproduces the next update on a supported backend; record backend nondeterminism where applicable. Reject incompatible encodings/configurations. |
+| [x] | T02 / P1 | T01 | Implement versioned checkpoint save/load with model/config, optimizer, progress and random states. | Save/load preserves evaluation predictions. A deterministic continuation check reproduces the next update on a supported backend; record backend nondeterminism where applicable. Reject incompatible encodings/configurations. |
 | [ ] | T03 / P1 | T02, D05 | Overfit a tiny fixed training-only labeled subset with dropout disabled. Set a step cap and acceptance thresholds before running. | Best-move fit becomes near-perfect and teacher-WDL KL becomes small under the recorded thresholds; compare WDL loss to the teacher entropy floor, not to zero. No held-out samples are used. Save metrics/checkpoint. |
 | [ ] | T04 / Both | T02, A07 | Implement the real batched evaluator: checkpoint loading, terminal partitioning, encoding/batching of nonterminal states, inference mode, legal normalization and WDL-to-value conversion, with results restored to input order. | Empty, batch-of-one and mixed-terminal batches preserve order and input histories. Terminal states skip encoding/model inference. Batched nonterminal predictions agree with individual evaluation within recorded numerical tolerance. Legal priors normalize and `v=P(win)-P(loss)` matches an independently checked result. |
 
@@ -1007,3 +1007,32 @@ protected registries, manifest/lock and primary planning edits are preserved.
 The historical T02 checkbox remains unchecked until that review. No T03, T04,
 overfit, pilot training, P selection, self-play or RL is started. Stop at the
 isolated implementation/evidence commit; do not advance primary main.
+
+### T02 AI review acceptance and integration — 9 October 2026
+
+The user supplied independent AI review acceptance of exact T02 commit
+`27731e32d8aa64d852b439945f30e7238e87a824` from `codex/t02-checkpoints`: no
+blocking findings, 152 checkpoint/training tests rerun, and fresh-process CPU
+continuation independently reproduced including checkpoint/report hashes. This
+is AI review, without a human-review claim. This integration chat performed fresh
+combined verification; no new independent reviewer or subagent was commissioned.
+
+The exact commit was merged with its history into an isolated checkout of accepted
+main `b26cf38f04a09fd04283023795c0752753ce3106`, without conflicts. Original
+completion records and pending-review snapshots remain as historical evidence;
+this dated acceptance supersedes their pending status and marks T02 accepted.
+
+Fresh verification passes 1,344 model tests, 1,023 adapter tests/nine expected
+Torch skips, 152 focused checkpoint/training tests and 84 accepted reviewer probes
+per environment, both exact frozen 13-fixture adapter replays, M06 numerical
+checks, and offline dependency/upstream checks. The model suite uses the documented
+M06 diagnostic plugin. A new fresh-process continuation exactly reproduces the
+original checkpoint and every report hash with zero tolerance. Accepted files,
+manifests, protected held-out registries, external artifacts and historical
+evidence are preserved. Unrelated primary D06/D07/E01 checkbox edits remain
+uncommitted. New evidence and correctness artifacts use new paths.
+
+[Integration and limitations](docs/t02-integration.md) and
+[fresh checks and hashes](runs/t02-integration/summary.json) record acceptance
+within the original pinned CPU correctness boundary. Stop after T02 integration;
+no T03, T04, overfit, pilot training, P selection, self-play or RL was begun.

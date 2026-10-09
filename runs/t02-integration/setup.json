@@ -1,0 +1,18 @@
+{
+  "base_commit": "b26cf38f04a09fd04283023795c0752753ce3106",
+  "branch": "codex/t02-integration",
+  "conflicts": [],
+  "instructions": "No applicable AGENTS.md in checkouts or inspected ancestors; coding-plan.md, interface.md and documented M06 diagnostic instructions read",
+  "isolated_checkout": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t02-integration",
+  "merge_commit": "1a9d06bee658e886f40fcd315ce80ef6d344b97c",
+  "merge_strategy": "exact reviewed commit merged with --no-ff; original history retained",
+  "primary_checkout": "/Users/arvindsrinivass/Desktop/RL-Chess",
+  "primary_coding_plan_identity": {
+    "bytes": 89914,
+    "sha256": "16e020d39666daf6b5f25dd490fc19a46ba6c90f557af41ff22528d0a1c6ae5b"
+  },
+  "primary_status": " M coding-plan.md\n",
+  "review_attribution": "Independent AI review supplied by user: no blocking findings, 152 checkpoint/training tests and exact fresh-process CPU reproduction including hashes. No human review claimed; no new independent reviewer or subagent commissioned.",
+  "scope": "T02 integration only; stop before T03, T04, pilot, P selection, self-play or RL",
+  "source_commit": "27731e32d8aa64d852b439945f30e7238e87a824"
+}

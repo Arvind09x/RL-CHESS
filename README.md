@@ -648,3 +648,19 @@ Accepted inputs and primary main are preserved. Production artifacts remain in
 independent milestone review and integration remain pending, so the historical
 D08 checkbox remains unchecked. No training, held-out tuning or larger expansion
 selection was performed. Stop for independent review before dependent work.
+
+## T01 supervised losses — 9 October 2026; independent review pending
+
+The isolated `codex/t01-supervised-losses` branch implements shared legal
+normalization, integer teacher-class policy CE, soft root-side WDL CE and one
+supervised optimizer step through the fixed combined model. [T01 API and
+evidence](docs/t01-supervised-losses.md) records Adam/learning rate/loss weights,
+seed, batch size and CPU settings. The real check uses one two-position D07
+batch from the existing D05 training labels; no D08 data is required.
+
+Checks pass: 219 focused tests, 1,273 full model tests, 1,012 adapter tests/eight
+expected Torch skips, 84 prior reviewer probes, M06 and both frozen replays.
+Independent losses/gradients and an actual optimizer update agree; batch
+ownership, shared GAB and accepted implementation/data/manifest bytes are
+preserved. Main remains at the reviewed base. Stop for independent review;
+checkpoints, overfitting, P, T02/T04 and RL remain outside this change.

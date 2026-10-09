@@ -925,3 +925,34 @@ Accepted inputs and primary main are preserved. Production artifacts remain in
 independent milestone review and integration remain pending, so the historical
 D08 checkbox remains unchecked. No training, held-out tuning or larger expansion
 selection was performed. Stop for independent review before dependent work.
+
+### T01 implementation — 2026-10-09; independent review pending
+
+T01 automated checks pass in the isolated `t01-supervised-losses` checkout on
+`codex/t01-supervised-losses`, from reviewed integrated main
+`9565093abe40a7807e3472c1101f5f28c14b7afe`. Main is unchanged.
+[T01 behavior and limitations](docs/t01-supervised-losses.md) and
+[real-batch evidence](runs/t01/real-batch.json) record shared tensor
+normalization, legal integer-class policy CE, soft `[win,draw,loss]` CE and
+one combined-model supervised optimizer step. Numerical behavior has one owner
+for later evaluator/RL reuse; D07 retains batching and adapter/provenance/
+terminal semantics. Existing D05 training labels supply the bounded real check;
+D08 is not a prerequisite and no new data is annotated.
+
+Recorded configuration: Adam, lr `1e-4`, betas `.9/.999`, epsilon `1e-8`, no
+weight decay, policy/WDL weights `1/1`, seed `20261009`, batch size 2, one
+CPU float32 update, one compute/interop thread, deterministic algorithms and
+accepted dropout `.1`. Independent NumPy calculations verify losses and all
+output gradients, including exact zero illegal-policy gradients, soft targets,
+zero target probabilities and extreme/invalid/nonfinite cases. The actual
+Adam update reaches the shared bank and every relative table, preserves owned
+batch arrays and agrees with the independent first-step formula.
+
+Actual verification: 219 focused tests (92 T01 + 127 D07), 1,273 full model
+passes, 1,012 full adapter passes/eight expected Torch skips, 84 accepted
+reviewer probes, complete M06 numerical checker and both identical frozen
+13-fixture adapter replays. Exact commands/raw output and preservation hashes
+are under `runs/t01/`. Accepted implementations, historical evidence, data,
+manifests and main are preserved. The historical checkbox stays pending
+independent acceptance. No checkpoints, tiny overfit, P, T02, T04, RL, GPU or
+quality/performance campaign is implemented or begun.

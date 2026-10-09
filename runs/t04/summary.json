@@ -1,0 +1,329 @@
+{
+  "accepted_files_exactly_unchanged": 1856,
+  "base_commit": "4fa48d4afef91a3bea125fb5f9f85b4d5159fc28",
+  "batch_max_absolute_error": {
+    "priors": 9.834766387939453e-07,
+    "value": 1.1920928955078125e-07,
+    "wdl": 8.940696716308594e-08
+  },
+  "bounded_search_nonterminal_roots": 8,
+  "bounded_terminal_searches": 12,
+  "branch": "codex/t04-real-evaluator",
+  "checkpoint": {
+    "bytes": 60871811,
+    "checkpoint_id": "T02-correctness-step-1",
+    "config": {
+      "architecture": "m06-gab-relative-qkv-v1",
+      "d_policy": 128,
+      "d_value": 128,
+      "device": "cpu",
+      "dropout": 0.1,
+      "dtype": "float32",
+      "relative_enabled": true
+    },
+    "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-integration-cpu-continuation-20261009/step-1.pt",
+    "provenance": {
+      "dataset_split": "train",
+      "files": {
+        "/private/tmp/rl-chess-d03-prepared/games.jsonl": {
+          "bytes": 638770177,
+          "sha256": "f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5"
+        },
+        "/private/tmp/rl-chess-d03-prepared/split-audit.json": {
+          "bytes": 2191,
+          "sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36"
+        },
+        "/private/tmp/rl-chess-d04-prepared/overlap-audit.json": {
+          "bytes": 4898,
+          "sha256": "feb20d4e38fa46ff6e5fcc77b4c4b8d1b36b985f3dcf6a3785a412a2fbb91f5e"
+        },
+        "/private/tmp/rl-chess-d04-prepared/samples.jsonl": {
+          "bytes": 567767218,
+          "sha256": "f3dc3410321e46c5e424912f8ae1d4aa26bd5c97267df944cbf8e7e3d1e3581e"
+        },
+        "data/manifests/elite-2025-01-d04-v1.json": {
+          "bytes": 6058,
+          "sha256": "5867fb9c09bf7d0c29d9a09d59d7196b145636d4abe6b38faf9c70d899e5879d"
+        },
+        "runs/d01/stockfish-provenance.json": {
+          "bytes": 4416,
+          "sha256": "c9760d9b073b6300ec7ff002c8bd72bc7ec195aca83c5bb072e30226812751a6"
+        },
+        "runs/d05/tiny-final/labels.jsonl": {
+          "bytes": 30541,
+          "sha256": "ceec9a44e56a5ae6521036219388a73801baaf7c32df16359faa75b650784a7f"
+        },
+        "runs/d05/tiny-final/settings.json": {
+          "bytes": 3024,
+          "sha256": "a866d674e8af772b06b2f124051e069fa753749f94ad294ac550383fccdaeca7"
+        },
+        "runs/d05/tiny-final/summary.json": {
+          "bytes": 862,
+          "sha256": "3d3311ed36a98382207bba3ad19cf99e4d966c70d1d785f41bc60b537bff38c6"
+        }
+      },
+      "reviewed_base": "b26cf38f04a09fd04283023795c0752753ce3106",
+      "sampler": "NumPy global permutation; D07 explicit order",
+      "schedule": "one warmup and one continuation update; no scheduler or accumulation",
+      "seed": 20261009,
+      "task": "T02"
+    },
+    "sha256": "9f3ecddc1237f56aac1eb69c5c5fd87d442c937b23d591adcfed5df50853fefc"
+  },
+  "evidence": {
+    "adapter.command.json": {
+      "bytes": 25083,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/adapter.command.json",
+      "sha256": "9d9d1bb89866236961621f6d7898ebaa7777c69e99181f52c62095cd4672f7f9"
+    },
+    "adapter.stderr.txt": {
+      "bytes": 0,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/adapter.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "adapter.stdout.txt": {
+      "bytes": 2195,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/adapter.stdout.txt",
+      "sha256": "40fb90e34067049de828431dccacaef3b68d97073f8d8a7ae534c5904a73103d"
+    },
+    "adapter.xml": {
+      "bytes": 130618,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/adapter.xml",
+      "sha256": "a1d95b0abecbe57adea2ac31bc2d5c377051e716cd8f0fdaabc86910afce2031"
+    },
+    "finalize.py": {
+      "bytes": 4657,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/finalize.py",
+      "sha256": "2fa69d0c825fe9f7713434e99ba194ada6b03355817627d00684d3d26d357811"
+    },
+    "fixture.command.json": {
+      "bytes": 25175,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/fixture.command.json",
+      "sha256": "6e8532edf4c5d72f2b643d213214bb70811ce413d312f5299ab9fe2bd555f749"
+    },
+    "fixture.json": {
+      "bytes": 12648,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/fixture.json",
+      "sha256": "3de390cc92dd96b6f1822fae76e651e99d2c127db954fc15c46771d084bd6e31"
+    },
+    "fixture.stderr.txt": {
+      "bytes": 0,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/fixture.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture.stdout.txt": {
+      "bytes": 445,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/fixture.stdout.txt",
+      "sha256": "fcf32a8b0eaad929bf297abd4d742c4f9e5774d8307ad7b7835ceace42095efe"
+    },
+    "focused-final.command.json": {
+      "bytes": 25134,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/focused-final.command.json",
+      "sha256": "724960b6bdc2ba1ed74b0a00d6edb9e0d6bda3d9b6cd182e61f301266fcc1f5c"
+    },
+    "focused-final.stderr.txt": {
+      "bytes": 0,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/focused-final.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "focused-final.stdout.txt": {
+      "bytes": 180,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/focused-final.stdout.txt",
+      "sha256": "eaa00c8d3733ae91446f09e753a9dcfa5f7c9131cd030bd77d26e914a9ea722b"
+    },
+    "focused-final.xml": {
+      "bytes": 12394,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/focused-final.xml",
+      "sha256": "ad6086d4d33b2793ba03fe8085a8f630d6b94053054aecf0dd0fc3382dd71f51"
+    },
+    "focused.command.json": {
+      "bytes": 24871,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/focused.command.json",
+      "sha256": "a1468fe8f4dc2fecc40023a8218f44cc35db64d91977ab5a7484fed20676002b"
+    },
+    "focused.stderr.txt": {
+      "bytes": 0,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/focused.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "focused.stdout.txt": {
+      "bytes": 1827,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/focused.stdout.txt",
+      "sha256": "7308870989d9839bfec600cb0ce53ecc82ed22114a111f6fbd5cb4e4164a580e"
+    },
+    "focused.xml": {
+      "bytes": 14521,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/focused.xml",
+      "sha256": "27dfb59622b68d14b9d28a86d60202893992f4e1f19b93f5b5e952dbdcaa0750"
+    },
+    "model.command.json": {
+      "bytes": 25113,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/model.command.json",
+      "sha256": "bb352257e145f0c34d4de7e3b51b31e4f186bb0e44bbed92bd14d95109c8d49c"
+    },
+    "model.stderr.txt": {
+      "bytes": 0,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/model.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "model.stdout.txt": {
+      "bytes": 1632,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/model.stdout.txt",
+      "sha256": "4472484795849812a8bb4ab0d35f71c7c09dee3bd9eaab4610d0614de9fd5711"
+    },
+    "model.xml": {
+      "bytes": 170542,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/model.xml",
+      "sha256": "b89ca9724f742813e43e8ed99b577800a72930833c18dd3aa9e5c6141d769c79"
+    },
+    "preservation-after-adapter.json": {
+      "bytes": 571,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/preservation-after-adapter.json",
+      "sha256": "86d7530fbeac84fb257f31af70e1f139494060383f63f454b278cb99dca808fa"
+    },
+    "preservation-after-fixture.json": {
+      "bytes": 571,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/preservation-after-fixture.json",
+      "sha256": "86d7530fbeac84fb257f31af70e1f139494060383f63f454b278cb99dca808fa"
+    },
+    "preservation-after-focused-final.json": {
+      "bytes": 571,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/preservation-after-focused-final.json",
+      "sha256": "86d7530fbeac84fb257f31af70e1f139494060383f63f454b278cb99dca808fa"
+    },
+    "preservation-after-focused.json": {
+      "bytes": 571,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/preservation-after-focused.json",
+      "sha256": "86d7530fbeac84fb257f31af70e1f139494060383f63f454b278cb99dca808fa"
+    },
+    "preservation-after-model.json": {
+      "bytes": 571,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/preservation-after-model.json",
+      "sha256": "86d7530fbeac84fb257f31af70e1f139494060383f63f454b278cb99dca808fa"
+    },
+    "preservation-after-replay.json": {
+      "bytes": 571,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/preservation-after-replay.json",
+      "sha256": "86d7530fbeac84fb257f31af70e1f139494060383f63f454b278cb99dca808fa"
+    },
+    "preservation-before.json": {
+      "bytes": 571,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/preservation-before.json",
+      "sha256": "86d7530fbeac84fb257f31af70e1f139494060383f63f454b278cb99dca808fa"
+    },
+    "replay.command.json": {
+      "bytes": 25057,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/replay.command.json",
+      "sha256": "b02c4ea4e92ce3858021be376b5bfc55cdc584a344f5dd92f51a37e0366830aa"
+    },
+    "replay.stderr.txt": {
+      "bytes": 0,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/replay.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "replay.stdout.txt": {
+      "bytes": 14637,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/replay.stdout.txt",
+      "sha256": "32c8da66c132f9ce87bbdb8b772b02acf3318e6d235538553c904556d6da3737"
+    },
+    "run_checks.py": {
+      "bytes": 3774,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/runs/t04/run_checks.py",
+      "sha256": "5d4a4113d5a78d02db2648ab933a72d5cff8e358d29cb128f57019d4d3bb76dd"
+    }
+  },
+  "finished_at_utc": "2026-10-09T11:35:10.504069+00:00",
+  "frozen_adapter_fixtures": 13,
+  "implementation": {
+    "scripts/check_t04.py": {
+      "bytes": 7373,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/scripts/check_t04.py",
+      "sha256": "dde14cb2b4739196f650afd96902c366d8d3b366108758eac4c2573fde7359f0"
+    },
+    "src/chess_rl/search/real_evaluator.py": {
+      "bytes": 3199,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/src/chess_rl/search/real_evaluator.py",
+      "sha256": "e20ece3c1a9988ebe2c8a1bb58fc23a8c7f615308ace42abb55c704c849c2b29"
+    },
+    "tests/test_real_evaluator.py": {
+      "bytes": 12365,
+      "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator/tests/test_real_evaluator.py",
+      "sha256": "61ccffd2d495809c3d632de25f9276a834332424bf7ecf36109e876f4e70c8b7"
+    }
+  },
+  "independent_conversion_max_absolute_error": {
+    "priors": 2.049916711377442e-08,
+    "value": 2.251419586873915e-08,
+    "wdl": 3.324357814027401e-08
+  },
+  "initial_failed_run": "focused: 93 passed, one overly strict bitwise batch comparison; corrected test, unchanged tolerances; retained evidence",
+  "input_histories_and_rng_unchanged": true,
+  "isolated_checkout": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/t04-real-evaluator",
+  "limitations": "Pinned CPU numerical agreement only; no concurrency, accelerator or playing-strength claim",
+  "mixed_batch_size": 31,
+  "mixed_forward_shapes": [
+    [
+      16,
+      64,
+      128
+    ]
+  ],
+  "original_documents_preserved_with_appends": {
+    "README.md": {
+      "append_bytes": 1330,
+      "original_bytes": 40101,
+      "t04_checkbox_pending": null
+    },
+    "coding-plan.md": {
+      "append_bytes": 2802,
+      "original_bytes": 93438,
+      "t04_checkbox_pending": true
+    }
+  },
+  "primary_and_checkpoint_unchanged": true,
+  "review_status": "Independent review pending; T04 checkbox unchecked",
+  "runtime": {
+    "interop_threads": 1,
+    "numpy": "2.5.3",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "python": "3.12.12",
+    "threads": 1,
+    "torch": "2.8.0"
+  },
+  "scope": "T04 only; stop before R01 and performance campaigns",
+  "simulations_per_root": 3,
+  "t04_cases": 34,
+  "tests": {
+    "adapter": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 1023,
+      "skipped": 10,
+      "tests": 1033
+    },
+    "focused-final": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 94,
+      "skipped": 0,
+      "tests": 94
+    },
+    "model": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 1378,
+      "skipped": 0,
+      "tests": 1378
+    }
+  },
+  "tolerances": {
+    "batch": {
+      "atol": 2e-06,
+      "rtol": 2e-05
+    },
+    "independent_conversion": {
+      "atol": 1e-06,
+      "rtol": 1e-05
+    }
+  }
+}

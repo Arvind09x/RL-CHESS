@@ -1,0 +1,27 @@
+........................................................................ [  7%]
+........................................................................ [ 14%]
+........................................................................ [ 21%]
+........................................................................ [ 28%]
+........................................................................ [ 35%]
+........................................................................ [ 42%]
+........................................................................ [ 49%]
+........................................................................ [ 56%]
+........................................................................ [ 63%]
+........................................................................ [ 70%]
+........................................................................ [ 77%]
+........................................................................ [ 84%]
+........................................................................ [ 91%]
+..................................................s..................... [ 98%]
+................                                                         [100%]
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_backbone.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_checkpoints.py:9: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_gab.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_network.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_policy.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_real_evaluator.py:7: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_relative.py:3: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_training.py:7: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_wdl.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_supervised.py:346: could not import 'torch': No module named 'torch'
+1023 passed, 10 skipped in 16.92s

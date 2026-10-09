@@ -767,3 +767,25 @@ uncommitted edits are preserved.
 are complete; independent review is pending and its historical checkbox remains
 unchecked. Stop after the isolated commit. No T04, pilot/pretraining, P selection,
 model-guided games or RL was started.
+
+## T04 real batched evaluator — 9 October 2026; independent review pending
+
+`chess_rl.search.real_evaluator.RealEvaluator` loads through T02, partitions
+terminal states before encoding/inference, batches nonterminal states through
+the combined M06 model in evaluation/inference mode, uses T01 legal
+normalization and restores input order. It returns legal priors, root-side WDL
+and `v=P(win)-P(loss)` through the accepted adapter result types. Pass the
+callable directly to the existing search's `evaluator` argument.
+
+Verification passes 34 T04 checks (94 with T02 checkpoint tests), 1,378 full
+model regressions and 1,023 adapter regressions with 10 expected optional-Torch
+skips. Frozen adapter replay passes. A preserved real T02 fixture checkpoint
+verifies terminal bypass, mixed batching, exact draws with legal moves, history
+and RNG preservation, independently calculated priors/WDL/value and bounded
+search compatibility. Largest observed prior batch error is `9.83e-7`, within
+the pre-recorded `atol=2e-6, rtol=2e-5` tolerance.
+
+[API, evidence and CPU limits](docs/t04-real-evaluator.md) and
+[structured results](runs/t04/summary.json) record this isolated implementation
+on `codex/t04-real-evaluator`. T04 remains pending independent review. Work
+stops after committing T04; no R01 or performance campaign is begun.

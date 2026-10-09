@@ -1,0 +1,529 @@
+{
+  "batch_max_absolute_error": {
+    "priors": 9.834766387939453e-07,
+    "value": 1.1920928955078125e-07,
+    "wdl": 8.940696716308594e-08
+  },
+  "bounded_search": [
+    {
+      "budget": 3,
+      "completed": 3,
+      "move": "b1c3",
+      "nonterminal_index": 0
+    },
+    {
+      "budget": 3,
+      "completed": 3,
+      "move": "b8c6",
+      "nonterminal_index": 1
+    },
+    {
+      "budget": 3,
+      "completed": 3,
+      "move": "a1c1",
+      "nonterminal_index": 2
+    },
+    {
+      "budget": 3,
+      "completed": 3,
+      "move": "e5d6",
+      "nonterminal_index": 4
+    },
+    {
+      "budget": 3,
+      "completed": 3,
+      "move": "e7d8b",
+      "nonterminal_index": 6
+    },
+    {
+      "budget": 3,
+      "completed": 3,
+      "move": "e2f1q",
+      "nonterminal_index": 7
+    },
+    {
+      "budget": 3,
+      "completed": 3,
+      "move": "h8g8",
+      "nonterminal_index": 11
+    },
+    {
+      "budget": 3,
+      "completed": 3,
+      "move": "a1c1",
+      "nonterminal_index": 12
+    }
+  ],
+  "checkpoint": {
+    "bytes": 60871811,
+    "checkpoint_id": "T02-correctness-step-1",
+    "config": {
+      "architecture": "m06-gab-relative-qkv-v1",
+      "d_policy": 128,
+      "d_value": 128,
+      "device": "cpu",
+      "dropout": 0.1,
+      "dtype": "float32",
+      "relative_enabled": true
+    },
+    "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/t02-integration-cpu-continuation-20261009/step-1.pt",
+    "provenance": {
+      "dataset_split": "train",
+      "files": {
+        "/private/tmp/rl-chess-d03-prepared/games.jsonl": {
+          "bytes": 638770177,
+          "sha256": "f9f69d255b652f45276ee6163857b3a9c8054ac5ff037f36c94e9ecb039f9df5"
+        },
+        "/private/tmp/rl-chess-d03-prepared/split-audit.json": {
+          "bytes": 2191,
+          "sha256": "029e3e78cf8114ec68796ef35644c67749184bf060c4a3321e3107b3f0534a36"
+        },
+        "/private/tmp/rl-chess-d04-prepared/overlap-audit.json": {
+          "bytes": 4898,
+          "sha256": "feb20d4e38fa46ff6e5fcc77b4c4b8d1b36b985f3dcf6a3785a412a2fbb91f5e"
+        },
+        "/private/tmp/rl-chess-d04-prepared/samples.jsonl": {
+          "bytes": 567767218,
+          "sha256": "f3dc3410321e46c5e424912f8ae1d4aa26bd5c97267df944cbf8e7e3d1e3581e"
+        },
+        "data/manifests/elite-2025-01-d04-v1.json": {
+          "bytes": 6058,
+          "sha256": "5867fb9c09bf7d0c29d9a09d59d7196b145636d4abe6b38faf9c70d899e5879d"
+        },
+        "runs/d01/stockfish-provenance.json": {
+          "bytes": 4416,
+          "sha256": "c9760d9b073b6300ec7ff002c8bd72bc7ec195aca83c5bb072e30226812751a6"
+        },
+        "runs/d05/tiny-final/labels.jsonl": {
+          "bytes": 30541,
+          "sha256": "ceec9a44e56a5ae6521036219388a73801baaf7c32df16359faa75b650784a7f"
+        },
+        "runs/d05/tiny-final/settings.json": {
+          "bytes": 3024,
+          "sha256": "a866d674e8af772b06b2f124051e069fa753749f94ad294ac550383fccdaeca7"
+        },
+        "runs/d05/tiny-final/summary.json": {
+          "bytes": 862,
+          "sha256": "3d3311ed36a98382207bba3ad19cf99e4d966c70d1d785f41bc60b537bff38c6"
+        }
+      },
+      "reviewed_base": "b26cf38f04a09fd04283023795c0752753ce3106",
+      "sampler": "NumPy global permutation; D07 explicit order",
+      "schedule": "one warmup and one continuation update; no scheduler or accumulation",
+      "seed": 20261009,
+      "task": "T02"
+    },
+    "sha256": "9f3ecddc1237f56aac1eb69c5c5fd87d442c937b23d591adcfed5df50853fefc"
+  },
+  "empty_and_all_terminal_inference_bypassed": true,
+  "encoded_count": 16,
+  "exact_terminal_results": true,
+  "independent_conversion_max_absolute_error": {
+    "priors": 2.049916711377442e-08,
+    "value": 2.251419586873915e-08,
+    "wdl": 3.324357814027401e-08
+  },
+  "input_histories_and_rng_unchanged": true,
+  "mixed_forward_shapes": [
+    [
+      16,
+      64,
+      128
+    ]
+  ],
+  "predictions": [
+    {
+      "index": 0,
+      "legal_moves": 20,
+      "terminal": "THREEFOLD_REPETITION",
+      "value": 0.0,
+      "wdl": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "index": 1,
+      "legal_moves": 20,
+      "prior_sum": 0.9999999925494194,
+      "priors_sha256": "dcc32f9003cabbbb0c823538df9bb5eb44934032c615243317b05fc214acef04",
+      "terminal": null,
+      "value": -0.22807887196540833,
+      "wdl": [
+        0.22286900877952576,
+        0.32618311047554016,
+        0.4509478807449341
+      ]
+    },
+    {
+      "index": 2,
+      "legal_moves": 5,
+      "terminal": "FIFTY_MOVES",
+      "value": 0.0,
+      "wdl": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "index": 3,
+      "legal_moves": 20,
+      "prior_sum": 0.9999999813735485,
+      "priors_sha256": "ded515ad9aa9cd94b5d9f34d87e8e309dfe19df3da94f427a11ce0acd43a2e48",
+      "terminal": null,
+      "value": -0.23436398804187775,
+      "wdl": [
+        0.21563725173473358,
+        0.33436155319213867,
+        0.45000123977661133
+      ]
+    },
+    {
+      "index": 4,
+      "legal_moves": 0,
+      "terminal": "CHECKMATE",
+      "value": -1.0,
+      "wdl": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "index": 5,
+      "legal_moves": 20,
+      "prior_sum": 0.9999999925494194,
+      "priors_sha256": "dcc32f9003cabbbb0c823538df9bb5eb44934032c615243317b05fc214acef04",
+      "terminal": null,
+      "value": -0.22807887196540833,
+      "wdl": [
+        0.22286900877952576,
+        0.32618311047554016,
+        0.4509478807449341
+      ]
+    },
+    {
+      "index": 6,
+      "legal_moves": 20,
+      "prior_sum": 0.9999999813735485,
+      "priors_sha256": "ded515ad9aa9cd94b5d9f34d87e8e309dfe19df3da94f427a11ce0acd43a2e48",
+      "terminal": null,
+      "value": -0.23436398804187775,
+      "wdl": [
+        0.21563725173473358,
+        0.33436155319213867,
+        0.45000123977661133
+      ]
+    },
+    {
+      "index": 7,
+      "legal_moves": 26,
+      "prior_sum": 1.0000000335276127,
+      "priors_sha256": "037d48d97697a28ff15d3c00dd257a14589266393c24c19a51506458adb0b6fe",
+      "terminal": null,
+      "value": -0.18936312198638916,
+      "wdl": [
+        0.2519455850124359,
+        0.3067456781864166,
+        0.4413087069988251
+      ]
+    },
+    {
+      "index": 8,
+      "legal_moves": 26,
+      "prior_sum": 1.000000011175871,
+      "priors_sha256": "eafcb241adae867754a437f30a4d9f0145ba0228b5f583ab0871538bc98e9feb",
+      "terminal": null,
+      "value": -0.1840158849954605,
+      "wdl": [
+        0.2451268881559372,
+        0.3257303237915039,
+        0.4291427731513977
+      ]
+    },
+    {
+      "index": 9,
+      "legal_moves": 31,
+      "prior_sum": 0.9999999590218067,
+      "priors_sha256": "794ec4bf9f5d28715630ab33bd4a4542075dbb8d9f300688c116bff05f3a083e",
+      "terminal": null,
+      "value": -0.22684112191200256,
+      "wdl": [
+        0.22321820259094238,
+        0.32672250270843506,
+        0.45005932450294495
+      ]
+    },
+    {
+      "index": 10,
+      "legal_moves": 31,
+      "prior_sum": 0.9999999981373549,
+      "priors_sha256": "68274de254edcd1ec034cc264d167bf1c2e4bdc54e31dd963461fc9abab5898d",
+      "terminal": null,
+      "value": -0.23320834338665009,
+      "wdl": [
+        0.21586377918720245,
+        0.3350641429424286,
+        0.44907212257385254
+      ]
+    },
+    {
+      "index": 11,
+      "legal_moves": 15,
+      "prior_sum": 1.000000006002665,
+      "priors_sha256": "02d6884029f48af8b4b83c9447bb50108d9ef25ce9f67488de41b3cdd3a16dbe",
+      "terminal": null,
+      "value": -0.32482701539993286,
+      "wdl": [
+        0.22222284972667694,
+        0.23072732985019684,
+        0.547049880027771
+      ]
+    },
+    {
+      "index": 12,
+      "legal_moves": 15,
+      "prior_sum": 1.0000000014151738,
+      "priors_sha256": "a229862f817c6befe38cd6b029adaede6d426a4e62ced8e0186d5eb463fb32de",
+      "terminal": null,
+      "value": -0.2617339789867401,
+      "wdl": [
+        0.23946824669837952,
+        0.25932955741882324,
+        0.5012022256851196
+      ]
+    },
+    {
+      "index": 13,
+      "legal_moves": 29,
+      "prior_sum": 0.999999875202775,
+      "priors_sha256": "511661f257fc3870d45d357add7892207f18e397f8df3adf7dc58e9147e4b0ae",
+      "terminal": null,
+      "value": -0.20049358904361725,
+      "wdl": [
+        0.22783704102039337,
+        0.3438322842121124,
+        0.4283306300640106
+      ]
+    },
+    {
+      "index": 14,
+      "legal_moves": 20,
+      "prior_sum": 0.9999999888241291,
+      "priors_sha256": "777965763b2a54f82ddd92aa09ca77ba4b6667f5c8df3b85b5f5d7a40472471d",
+      "terminal": null,
+      "value": -0.2317603975534439,
+      "wdl": [
+        0.2194863110780716,
+        0.3292670249938965,
+        0.4512467086315155
+      ]
+    },
+    {
+      "index": 15,
+      "legal_moves": 23,
+      "prior_sum": 1.0000000670552254,
+      "priors_sha256": "ece8a7e2c002b63723e89d53ca007b7b7785c5980c47745d3e70c224c707220d",
+      "terminal": null,
+      "value": -0.23112155497074127,
+      "wdl": [
+        0.22562886774539948,
+        0.3176206946372986,
+        0.45675042271614075
+      ]
+    },
+    {
+      "index": 16,
+      "legal_moves": 22,
+      "prior_sum": 0.9999998733401299,
+      "priors_sha256": "df1d3086daae4f85b43e20ae422fba8359210005346577969fd7aacf5437dcd0",
+      "terminal": null,
+      "value": -0.2150508016347885,
+      "wdl": [
+        0.2270643562078476,
+        0.3308205306529999,
+        0.4421151578426361
+      ]
+    },
+    {
+      "index": 17,
+      "legal_moves": 15,
+      "prior_sum": 0.9999999515712261,
+      "priors_sha256": "a9eea41c1a6c1e067e39da7b0e60577b70953412e63d0fd2af132569905ae449",
+      "terminal": null,
+      "value": -0.20318737626075745,
+      "wdl": [
+        0.2611214518547058,
+        0.27456966042518616,
+        0.46430882811546326
+      ]
+    },
+    {
+      "index": 18,
+      "legal_moves": 0,
+      "terminal": "CHECKMATE",
+      "value": -1.0,
+      "wdl": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "index": 19,
+      "legal_moves": 0,
+      "terminal": "CHECKMATE",
+      "value": -1.0,
+      "wdl": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "index": 20,
+      "legal_moves": 0,
+      "terminal": "STALEMATE",
+      "value": 0.0,
+      "wdl": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "index": 21,
+      "legal_moves": 0,
+      "terminal": "STALEMATE",
+      "value": 0.0,
+      "wdl": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "index": 22,
+      "legal_moves": 20,
+      "terminal": "THREEFOLD_REPETITION",
+      "value": 0.0,
+      "wdl": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "index": 23,
+      "legal_moves": 20,
+      "terminal": "THREEFOLD_REPETITION",
+      "value": 0.0,
+      "wdl": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "index": 24,
+      "legal_moves": 5,
+      "terminal": "FIFTY_MOVES",
+      "value": 0.0,
+      "wdl": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "index": 25,
+      "legal_moves": 5,
+      "terminal": "FIFTY_MOVES",
+      "value": 0.0,
+      "wdl": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "index": 26,
+      "legal_moves": 5,
+      "terminal": "INSUFFICIENT_MATERIAL",
+      "value": 0.0,
+      "wdl": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "index": 27,
+      "legal_moves": 20,
+      "terminal": "FIVEFOLD_REPETITION",
+      "value": 0.0,
+      "wdl": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "index": 28,
+      "legal_moves": 15,
+      "terminal": "SEVENTYFIVE_MOVES",
+      "value": 0.0,
+      "wdl": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "index": 29,
+      "legal_moves": 20,
+      "terminal": "THREEFOLD_REPETITION",
+      "value": 0.0,
+      "wdl": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "index": 30,
+      "legal_moves": 20,
+      "prior_sum": 0.9999999925494194,
+      "priors_sha256": "dcc32f9003cabbbb0c823538df9bb5eb44934032c615243317b05fc214acef04",
+      "terminal": null,
+      "value": -0.22807887196540833,
+      "wdl": [
+        0.22286900877952576,
+        0.32618311047554016,
+        0.4509478807449341
+      ]
+    }
+  ],
+  "runtime": {
+    "interop_threads": 1,
+    "numpy": "2.5.3",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "python": "3.12.12",
+    "threads": 1,
+    "torch": "2.8.0"
+  },
+  "scope": "T04 correctness only; independent review pending",
+  "terminal_searches_bypassed": 12,
+  "tolerances": {
+    "batch": {
+      "atol": 2e-06,
+      "rtol": 2e-05
+    },
+    "independent_conversion": {
+      "atol": 1e-06,
+      "rtol": 1e-05
+    }
+  }
+}

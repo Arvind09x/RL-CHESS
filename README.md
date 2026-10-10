@@ -845,3 +845,14 @@ Primary main, its unrelated exact planning patch, accepted tracked bytes and
 The R01 checkbox remains pending independent acceptance. Commit only this
 isolated R01 work and stop; do not integrate main or start R02/R03/R04, RL
 updates, GPU work, production training or playing-strength claims.
+
+
+## R01 accepted CPU self-play integration — 10 October 2026
+
+R01 `2e31236` is independently AI review accepted and freshly verified in an
+isolated integration checkout. All 20 real T03-checkpoint snapshots reproduce
+exactly; fresh-process crash/resume matches uninterrupted histories, actions,
+visits, policies and RNG. Historical implementation evidence remains intact.
+See [integration and acceptance](docs/r01-integration.md) and
+[fresh evidence](runs/r01-integration/summary.json). This accepts sequential CPU
+execution and durable move-boundary recovery; R02 and CUDA integration are pending.

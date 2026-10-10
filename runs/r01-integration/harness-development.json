@@ -1,0 +1,7 @@
+{
+  "initial_attempt": "harness-attempt-1/",
+  "cause": "pytest basetemp parent directory omitted by integration harness",
+  "production_failure": false,
+  "resolution": "create runs/r01-integration/tmp before rerunning identical commands",
+  "production_changes": false
+}

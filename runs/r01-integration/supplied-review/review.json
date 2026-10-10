@@ -1,0 +1,238 @@
+{
+  "reviewed_at_local_date": "2026-10-10",
+  "timezone": "Asia/Kolkata",
+  "base": "ea0f8a142ec3b1ec3266ffafef8853ea07ab0c2d",
+  "actionable_findings": [],
+  "acceptance": {
+    "R01": {
+      "commit": "2e31236c33a114490c59be837459803c7b4f7299",
+      "verdict": "ACCEPTED for documented R01 sequential deterministic CPU self-play and durable move-boundary resume scope",
+      "scope": "Complete-history game orchestration, terminal-before-cap adjudication, search visits/policies, atomic publication, advisory writer rejection, stale-session rejection and fresh-process crash/resume",
+      "excluded": [
+        "R02 replay finalization",
+        "R03/R04 RL updates",
+        "production opening sampling",
+        "P selection",
+        "scaling or strength claims",
+        "GPU execution",
+        "hardware/power-loss recovery"
+      ]
+    },
+    "CUDA": {
+      "commit": "a97cf314c9994469ba4c908100a6560d7d4b5508",
+      "verdict": "ACCEPTED for CPU-tested single-device CUDA preparation scope; CUDA execution NOT VERIFIED",
+      "scope": "Backward-compatible CPU v1 checkpoints, CPU-readable CUDA v2 schema, explicit device/dtype validation, code preparation for model/Adam placement and RNG/runtime restore, evaluator CPU-array conversion, separate hashed CUDA lock and portable byte staging",
+      "unverified": [
+        "Linux x86_64 installation of the CUDA lock",
+        "CUDA model forward/backward and Adam updates",
+        "actual CUDA RNG preservation/restoration",
+        "CUDA checkpoint publication/reload/resume placement",
+        "CUDA evaluator kernels and numerical tolerances"
+      ],
+      "hardware_verified": false
+    }
+  },
+  "validation": {
+    "r01-probes-adapter.xml": {
+      "tests": 84,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 84
+    },
+    "cuda-probes-adapter.xml": {
+      "tests": 84,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 84
+    },
+    "cuda-independent.xml": {
+      "tests": 8,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 8
+    },
+    "r01-model.xml": {
+      "tests": 1453,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 1453
+    },
+    "r01-independent.xml": {
+      "tests": 11,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 11
+    },
+    "cuda-probes-model.xml": {
+      "tests": 84,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 84
+    },
+    "cuda-model.xml": {
+      "tests": 1424,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 1424
+    },
+    "r01-adapter.xml": {
+      "tests": 1035,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 12,
+      "passed": 1023
+    },
+    "r01-probes-model.xml": {
+      "tests": 84,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "passed": 84
+    },
+    "cuda-adapter.xml": {
+      "tests": 1036,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 12,
+      "passed": 1024
+    }
+  },
+  "evidence": {
+    "r01": {
+      "fresh_real_suite": "r01-real/summary.json",
+      "all_twenty_committed_snapshots_exact": true,
+      "full_history_replay": true,
+      "SIGKILL_resume_core_sha256": "3e04ba91ae21b3fa895458e347eaa310ea754de971deed0b394d1378eaddbd58",
+      "independent_cases": "test_r01_review.py",
+      "independent_cases_passed": 11,
+      "independent_coverage": [
+        "writer lock held by another process rejects run without changing boundary",
+        "file fsync failure preserves old boundary",
+        "rename failure preserves old boundary",
+        "directory fsync failure after rename exposes whole new boundary",
+        "each publication failure resumes to exact uninterrupted result",
+        "visits/policy/mask/RNG/root/outcome tampering rejected",
+        "stale session cannot advance boundary",
+        "partial creation refused"
+      ]
+    },
+    "cuda": {
+      "synthetic_cpu_continuation": "cuda-synthetic/summary.json",
+      "real_train_cpu_continuation": "cuda-real/summary.json",
+      "both_next_updates_exact_in_fresh_process": true,
+      "independent_cases": "test_cuda_review.py",
+      "independent_cases_passed": 8,
+      "accepted_T03_checkpoint": "cuda-accepted-artifact.json",
+      "accepted_checkpoint_all_tensor_hashes_and_metrics_exact": true,
+      "portable_staging": "cuda-portable/staging-evidence.json",
+      "source_and_copied_bytes_exact": true,
+      "offline_dependency_lock_payload_exact": true,
+      "setup_shell_syntax_passed": true,
+      "local_runtime": "environment-model.json",
+      "cuda_available": false,
+      "visible_cuda_devices": 0,
+      "independent_coverage": [
+        "v2 malformed CUDA RNG shape/extra keys rejected",
+        "invalid capability types rejected",
+        "invalid Adam moment dtype/negative variance rejected",
+        "contradictory shared-bank aliases rejected",
+        "duplicate optimizer membership rejected",
+        "CPU-to-CUDA training restore fails before backend access",
+        "caller Python/NumPy/CPU Torch RNG unchanged on failure"
+      ]
+    }
+  },
+  "inspected_sources": {
+    "R01": [
+      {
+        "file": "r01-self-play/src/chess_rl/selfplay.py",
+        "line": 94,
+        "area": "atomic file publication"
+      },
+      {
+        "file": "r01-self-play/src/chess_rl/selfplay.py",
+        "line": 139,
+        "area": "terminal precedence"
+      },
+      {
+        "file": "r01-self-play/src/chess_rl/selfplay.py",
+        "line": 154,
+        "area": "replay and policy audit"
+      },
+      {
+        "file": "r01-self-play/src/chess_rl/selfplay.py",
+        "line": 257,
+        "area": "strict load"
+      },
+      {
+        "file": "r01-self-play/src/chess_rl/selfplay.py",
+        "line": 295,
+        "area": "writer/stale checks"
+      },
+      {
+        "file": "r01-self-play/src/chess_rl/selfplay.py",
+        "line": 311,
+        "area": "transaction and RNG boundary"
+      }
+    ],
+    "CUDA": [
+      {
+        "file": "cuda-support/src/chess_rl/training/checkpoints.py",
+        "line": 80,
+        "area": "explicit CPU/CUDA backend and RNG-preserving construction"
+      },
+      {
+        "file": "cuda-support/src/chess_rl/training/checkpoints.py",
+        "line": 424,
+        "area": "schema/backend/runtime validation"
+      },
+      {
+        "file": "cuda-support/src/chess_rl/training/checkpoints.py",
+        "line": 478,
+        "area": "quiescent GPU snapshot and Adam placement"
+      },
+      {
+        "file": "cuda-support/src/chess_rl/training/checkpoints.py",
+        "line": 544,
+        "area": "strict restore and install RNG last"
+      },
+      {
+        "file": "cuda-support/src/chess_rl/search/real_evaluator.py",
+        "line": 44,
+        "area": "device input and owned CPU output conversion"
+      },
+      {
+        "file": "cuda-support/runtime/cuda/setup.sh",
+        "line": 1,
+        "area": "isolated pinned setup"
+      },
+      {
+        "file": "cuda-support/scripts/stage_cuda_data.py",
+        "line": 22,
+        "area": "D07-verified byte copies and relative paths"
+      }
+    ]
+  },
+  "evidence_integrity": "integrity.json",
+  "historical_receipt_note": "Some CUDA implementation-era receipts hash earlier revisions of production, checks and tests. These are preserved and recorded under historical_source_versions in integrity.json. Fresh review regressions and CPU continuation checks ran the complete selected final commit.",
+  "preservation": {
+    "both_checkouts_clean": true,
+    "selected_commit_tracked_bytes_exact": true,
+    "primary_main_and_original_user_patch_exact": true,
+    "historical_artifacts_unchanged": true
+  },
+  "constraints": {
+    "no_integration": true,
+    "no_production_or_historical_evidence_edits": true,
+    "no_acceptance_threshold_changes": true,
+    "no_later_milestones": true
+  },
+  "remaining_action": "CUDA hardware commands and Linux installation remain future verification tasks; they are not findings against the explicitly limited CPU-tested preparation scope."
+}

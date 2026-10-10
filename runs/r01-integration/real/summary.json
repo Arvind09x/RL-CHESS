@@ -1,0 +1,93 @@
+{
+  "checkpoint_unchanged": true,
+  "committed_simulations": 258,
+  "continuation": {
+    "commands": [
+      {
+        "argv": [
+          "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+          "-B",
+          "/Users/arvindsrinivass/Documents/Codex/2026-10-10/using-the-independent-r01-review-supplied-2/work/r01-integration/scripts/check_r01.py",
+          "kill",
+          "--output",
+          "/Users/arvindsrinivass/Documents/Codex/2026-10-10/using-the-independent-r01-review-supplied-2/work/r01-integration/runs/r01-integration/real/continuation-split"
+        ],
+        "mode": "kill",
+        "returncode": -9,
+        "stderr": "",
+        "stdout": ""
+      },
+      {
+        "argv": [
+          "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+          "-B",
+          "/Users/arvindsrinivass/Documents/Codex/2026-10-10/using-the-independent-r01-review-supplied-2/work/r01-integration/scripts/check_r01.py",
+          "resume",
+          "--output",
+          "/Users/arvindsrinivass/Documents/Codex/2026-10-10/using-the-independent-r01-review-supplied-2/work/r01-integration/runs/r01-integration/real/continuation-split"
+        ],
+        "mode": "resume",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": ""
+      }
+    ],
+    "counted_interruption": "one distinct stopped game in snapshot summary; resumed reference comparison is separate",
+    "exact_positions_visits_actions_policies": true,
+    "frozen_checkpoint_search_schedule_preserved": true,
+    "full_initial_history_preserved": true,
+    "global_rng_untouched": true,
+    "hard_kill_recovered_prior_atomic_boundary": true,
+    "opening_prefix_preserved": true,
+    "owned_rng_exact": true,
+    "reference_core_sha256": "3e04ba91ae21b3fa895458e347eaa310ea754de971deed0b394d1378eaddbd58",
+    "resumed_core_sha256": "3e04ba91ae21b3fa895458e347eaa310ea754de971deed0b394d1378eaddbd58",
+    "resumed_status": "truncated"
+  },
+  "frozen_plan_sha256": "266b81f3863b25a93a74cbd833a6422eae4272359d746a99f55f330e3f9c1d6a",
+  "generated_game_summary": {
+    "duplicate_completed_games": 0,
+    "duplicate_completed_rate": 0.0,
+    "games": 15,
+    "status_counts": {
+      "completed": 4,
+      "interrupted": 1,
+      "truncated": 10
+    },
+    "status_rates": {
+      "completed": 0.26666666666666666,
+      "interrupted": 0.06666666666666667,
+      "truncated": 0.6666666666666666
+    },
+    "unique_completed_games": 4
+  },
+  "generated_plies": 36,
+  "inference": {
+    "all_batch_of_one": true,
+    "forwards": 148,
+    "shapes": [
+      [
+        1,
+        64,
+        128
+      ]
+    ]
+  },
+  "scope": "Fixed bounded plumbing fixtures; caps frozen; no tuning, scale or playing-strength claim",
+  "summary": {
+    "duplicate_completed_games": 1,
+    "duplicate_completed_rate": 0.125,
+    "games": 20,
+    "status_counts": {
+      "completed": 8,
+      "interrupted": 1,
+      "truncated": 11
+    },
+    "status_rates": {
+      "completed": 0.4,
+      "interrupted": 0.05,
+      "truncated": 0.55
+    },
+    "unique_completed_games": 7
+  }
+}

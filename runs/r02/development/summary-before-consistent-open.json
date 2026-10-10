@@ -1,0 +1,174 @@
+{
+  "accepted_main_records_exact": true,
+  "admission": {
+    "source_counts": {
+      "admitted": 7,
+      "duplicate": 1,
+      "excluded-interrupted": 1,
+      "excluded-truncated": 11
+    },
+    "training_positions": 4
+  },
+  "audited_export_sha256": "4bdd6f656e159cfe8fb46db65264e876fdee5abe6abb1fc6f85bec50cf6eedf4",
+  "base": "48bce1ecb469d07d9d5a57aff7d9cb4896a7e281",
+  "branch": "codex/r02-replay",
+  "checkout": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-replay",
+  "evidence": {
+    "runs/r02/accepted-main-audit.json": {
+      "bytes": 6810,
+      "sha256": "7d40b63ddc35a35af5b6f2b4bb396b2b05c5e3e14822780e76d79c7034dbdb74"
+    },
+    "runs/r02/accepted-main-audit.stdout.txt": {
+      "bytes": 6810,
+      "sha256": "7d40b63ddc35a35af5b6f2b4bb396b2b05c5e3e14822780e76d79c7034dbdb74"
+    },
+    "runs/r02/admission.json": {
+      "bytes": 6830,
+      "sha256": "bedbc2e40f0e26f2f3452a321bf5557a9241167a00e2dbca498deca51b04e3f2"
+    },
+    "runs/r02/finalize.py": {
+      "bytes": 4623,
+      "sha256": "6ca0885ec5238e88f65cac0ce9b7f1cc7aac278927fea2009883e2c7462662f0"
+    },
+    "runs/r02/focused.xml": {
+      "bytes": 5396,
+      "sha256": "85fba0529ff6cd2d24c6c3956d79baa4f98e51572a63119364d1d7093c7c7041"
+    },
+    "runs/r02/preservation-after.json": {
+      "bytes": 530891,
+      "sha256": "f6d2e21b842387b200009dfa4b56d84df84e8c8645db3d330f0fe7aea3195368"
+    },
+    "runs/r02/preservation-before.json": {
+      "bytes": 530891,
+      "sha256": "f6d2e21b842387b200009dfa4b56d84df84e8c8645db3d330f0fe7aea3195368"
+    },
+    "runs/r02/regression-adapter.command.json": {
+      "bytes": 5459,
+      "sha256": "f7d9005a8d665569ff79d622b556704327aa2bfa0c59eda6c41ef454c5485ad4"
+    },
+    "runs/r02/regression-adapter.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runs/r02/regression-adapter.stdout.txt": {
+      "bytes": 4368,
+      "sha256": "604f5dfc58546c5968915ae58bd0c1a0a50c5ce44810a9c71da9efab92be9ed9"
+    },
+    "runs/r02/regression-adapter.xml": {
+      "bytes": 131378,
+      "sha256": "2ec1028f6dc1058767876637808687caf516306912d6bb404b0da305ff055532"
+    },
+    "runs/r02/regression-model.command.json": {
+      "bytes": 5490,
+      "sha256": "6133bcbab248403ab72a8afde13baef787082e874120d50d20ca3faa4ed0ac5c"
+    },
+    "runs/r02/regression-model.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runs/r02/regression-model.stdout.txt": {
+      "bytes": 4324,
+      "sha256": "d6e0371202bf969bdaadbff1600ed59500047ee50c683734672e63e5e2ff1c03"
+    },
+    "runs/r02/regression-model.xml": {
+      "bytes": 184763,
+      "sha256": "409638a3242b8bb3ed1d042303ac5cad5f5b9093571c5b2c5dda4a51336572a4"
+    },
+    "runs/r02/replay.sqlite": {
+      "bytes": 2539520,
+      "sha256": "83d549f1b4cc0dc51e04e1e1012bd09c84221b93cbb34e136bc0cc2f9eb9e7b3"
+    },
+    "runs/r02/restart.json": {
+      "bytes": 6810,
+      "sha256": "7d40b63ddc35a35af5b6f2b4bb396b2b05c5e3e14822780e76d79c7034dbdb74"
+    },
+    "runs/r02/samples.jsonl": {
+      "bytes": 266498,
+      "sha256": "8b28cc5c3bf66f0ddcae505507170f0c9a79129437b7c1617b59791776bcc47a"
+    },
+    "runs/r02/verify.py": {
+      "bytes": 5235,
+      "sha256": "82017e9c76d6e427e0ba82baae7ff21187c99c9625909b70ff4002ce09f04a61"
+    }
+  },
+  "harness_development": [
+    "Preservation checker initially compared primary to historical pre-integration R01 HEAD.",
+    "Located accepted R01 main integration 48bce1e and fast-forwarded the isolated branch to that base.",
+    "Corrected preservation checks to compare the accepted restored plan bytes and current patch/index; historical pre-integration diff headers are not the current integrated diff headers."
+  ],
+  "limitations": [
+    "bounded buffer; full reaudit per operation",
+    "representative depends on first committed completed source",
+    "R01 evidence has winner/draw roots; controlled full games verify loser roots for both colors",
+    "no training or R03",
+    "no scaling, strength, GPU or hardware/power-loss claim"
+  ],
+  "local_date": "2026-10-10",
+  "manifest": {
+    "contracts": {
+      "encoding_version": "chess128-v2",
+      "ending_policy": "actual-occurrence-v1",
+      "move_vocab_version": "pair4352-v1",
+      "wdl_order": [
+        "win",
+        "draw",
+        "loss"
+      ]
+    },
+    "duplicate_policy": "first-admitted-completed-trajectory-v1",
+    "game_identity": "sha256([initial_fen, full actual moves_uci])",
+    "sample_identity": "sha256([r02-sample-v1, game_id, configuration_sha256, ply])",
+    "schema": "r02-replay-v1",
+    "source_identity": "sha256(canonical R01 configuration and game snapshot)",
+    "storage": "SQLite; one complete source/game/sample transaction; synchronous=FULL",
+    "target_type": "search-visit-distribution/exact-final-root-side-WDL"
+  },
+  "new_sources": {
+    "docs/r02-replay.md": "0c5f7c9fcd6adec86636176821484b6613f4b9ab3dc48bd4e399aa4efba51528",
+    "scripts/run_r02.py": "098f454e6976527dc9e251e735e76541f366da659326d5cc25bf8d22d08bba4b",
+    "src/chess_rl/replay.py": "973e62b843e42dfe50bd474a1f43f7b272378b8d74d10dc1f4be4e6d186163aa",
+    "tests/test_replay.py": "7c0e8ec5e46df77bc9b9422414f908f99ad0541f4b57c238f8878a78105eab45"
+  },
+  "preservation": {
+    "accepted_R01_checkout": true,
+    "accepted_main_tree": true,
+    "all_preserved": true,
+    "external_files": 76,
+    "primary_user_patch_and_index": true
+  },
+  "restart_exact": true,
+  "retained_R01_implementation": "2e31236c33a114490c59be837459803c7b4f7299",
+  "runtime": {
+    "chess": "1.11.2",
+    "numpy": "2.5.3",
+    "python": "3.12.12",
+    "sqlite": "3.50.4",
+    "torch": "2.8.0"
+  },
+  "samples_sha256": "921335a46de1efec6f6fa3a4155d54fe9956d978405fa22dfcdcf9a60b5cbd22",
+  "scope": "R02 only; pending independent review",
+  "tests": {
+    "focused.xml": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 43,
+      "skipped": 0,
+      "tests": 43
+    },
+    "regression-adapter.xml": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 1023,
+      "skipped": 13,
+      "tests": 1036
+    },
+    "regression-model.xml": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 1496,
+      "skipped": 0,
+      "tests": 1496
+    }
+  },
+  "timezone": "Asia/Kolkata"
+}

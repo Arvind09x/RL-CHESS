@@ -856,3 +856,17 @@ visits, policies and RNG. Historical implementation evidence remains intact.
 See [integration and acceptance](docs/r01-integration.md) and
 [fresh evidence](runs/r01-integration/summary.json). This accepts sequential CPU
 execution and durable move-boundary recovery; R02 and CUDA integration are pending.
+
+
+## R02 replay implementation pending independent review — 10 October 2026
+
+Completed-game finalization is implemented in the isolated `codex/r02-replay`
+branch from accepted R01 main `48bce1e`. Shared R01, adapter and search modules
+are unchanged. Full-history played roots retain masks/raw visits/search targets
+and source identities with exact root-side WDL. Transactional admission uses
+a recorded duplicate policy and stable sample IDs; unfinished records remain
+excluded and unlabeled. All 44 R02 cases and 1,497 model regressions pass;
+Torch-free regressions pass 1,023 with 13 expected skips. The preserved 20-source
+R01 evidence yields four training roots and repeats exactly after restart.
+See [R02 API and policy](docs/r02-replay.md) and [evidence](runs/r02/summary.json).
+R02 awaits independent review. R03 has not begun.

@@ -909,3 +909,29 @@ See [acceptance and integration](docs/r03-integration.md),
 [fresh evidence](runs/r03-integration/summary.json). Historical artifacts and
 the exact unstaged user plan edits are preserved. Scope stops before R04 and
 CUDA integration; no learning or strength claim is made.
+
+## R04 bounded local CPU cycle — 10 October 2026; Gate I review pending
+
+R04 is implemented and executed only in isolated `codex/r04-local-cycle` from
+accepted R03 main `2a41e27`. The plan was committed before search and the
+R03-filtered eligible membership before optimizer execution. The unchanged T03
+plumbing checkpoint generated two capped ordinary games (both unlabeled
+truncations) and two separately declared valid setup games (completed draws).
+The new R02 buffer has two eligible roots, zero duplicates and zero held-out
+exclusions. Twenty unfinished roots are excluded.
+
+Three finite mixed updates use 50% accepted D07 train replay, batch 2+2 and new
+Adam at `1e-5`, beginning at an explicit saved mixed step-zero boundary. Fresh
+prefix/resume exactly matches the uninterrupted model, optimizer, source state,
+metrics, gradients and RNG. Shared inference and final training restoration
+pass. E01 compares the actual starting and updated fixture checkpoints with
+identical search settings: four paired games, two ordinary truncations and two
+separate fixture draws. This establishes bounded plumbing and makes no strength
+claim or pretrained-P selection.
+
+All 1,553 model regressions and 1,023 Torch-free regressions pass (14 expected
+skips). The primary checkout, user edits and accepted artifacts are preserved.
+The [contract/report](docs/r04-local-cycle.md), [summary](runs/r04/summary.json)
+and [root-to-evaluation audit](runs/r04/chain-audit.json) retain the evidence.
+Stop for independent Gate I review before integration or pilot spending; R04
+remains unchecked.

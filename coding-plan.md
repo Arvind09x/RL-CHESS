@@ -1314,3 +1314,38 @@ before integration or R04; no strength or accelerator claim is made.
   plan/index backups, artifact preservation and guarded primary application.
   The original D06/D07/E01 edits remain unstaged. R04 remains unchecked and
   unstarted; CUDA integration and strength/learning claims are outside scope.
+
+### R04 bounded local cycle — 10 October 2026; independent Gate I review pending
+
+Implemented and executed only R04 on isolated `codex/r04-local-cycle`, from
+accepted R03 main `2a41e27`. Plan `cec350b` freezes the unchanged T03 checkpoint,
+openings/seeds/exploration, CPU/search caps, 50% supervised mixture, Adam at
+`1e-5`, batch 2+2, three logical updates and four-game paired E01 protocol before
+execution. Eligible-membership commit `bbd2e40` precedes optimizer execution.
+
+Both ordinary games truncate at total ply 12; their 20 roots stay unlabeled and
+excluded. The separately declared valid near-terminal White/Black setup games
+each generate one model-guided root and complete with an actual fifty-move draw.
+R02 admits two completed roots; R03 applies the protected registries and freezes
+two eligible samples, with zero held-out exclusions and zero duplicate games.
+
+A new Adam/mixed step-zero checkpoint carries exact T03 inference weights and
+no supervised optimizer/cursor state. Three finite updates consume six samples
+from each source. Full/prefix/fresh-process resume paths perform six total
+optimizer executions and reproduce all step/final fingerprints exactly. All
+new checkpoints reload through shared APIs; final training restoration is exact.
+E01 compares starting and updated fixture checkpoints at identical budget eight,
+without noise: two ordinary truncations and two separate evaluation-fixture draws.
+No pretrained P is selected and no improvement/strength claim is made.
+
+The complete root → visits → completed outcome → replay target → mixed update →
+checkpoint → evaluation chain is retained in [the audit](runs/r04/chain-audit.json)
+and [summary](runs/r04/summary.json). The first evidence audit's tuple/JSON-list
+comparison failure is preserved; its corrected canonical identity check passes
+without rerunning experiments. All 1,553 CPU model regressions and 1,023
+Torch-free regressions pass, with 14 expected skips. All primary tracked files,
+user planning edits/index and existing external artifacts remain exact.
+
+See [R04 report](docs/r04-local-cycle.md). Automated local-cycle checks pass;
+independent Gate I review and acceptance remain pending. R04 stays unchecked.
+Commit and stop before main integration, CUDA or pilot spending.

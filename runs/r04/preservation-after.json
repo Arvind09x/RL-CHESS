@@ -1,0 +1,14 @@
+{
+  "accepted_checkout_files": 2522,
+  "accepted_checkout_unchanged_except_documentation_appends": true,
+  "accepted_external_files": 5633,
+  "base_commit": "2a41e270f7c5d9f3f2f074fac07de31699194ac2",
+  "historical_external_bytes": 7079293670,
+  "original_plan_identity": {
+    "bytes": 110608,
+    "sha256": "3373f6e54f0282edbba24459a8b253088a6715f647d4f1ad7e4a5996efc93796"
+  },
+  "primary_exact": true,
+  "primary_tracked_files": 2522,
+  "user_patch_and_index_exact": true
+}

@@ -1,0 +1,75 @@
+{
+  "excluded_heldout": [],
+  "finalized_summary": [
+    {
+      "finalized_targets": 0,
+      "generated_roots": 12,
+      "outcome": null,
+      "status": "truncated"
+    },
+    {
+      "finalized_targets": 0,
+      "generated_roots": 8,
+      "outcome": null,
+      "status": "truncated"
+    },
+    {
+      "finalized_targets": 1,
+      "generated_roots": 1,
+      "outcome": "1/2-1/2",
+      "status": "completed"
+    },
+    {
+      "finalized_targets": 1,
+      "generated_roots": 1,
+      "outcome": "1/2-1/2",
+      "status": "completed"
+    }
+  ],
+  "freeze": "owned R03 membership; no replay admission, eviction or replacement during this cycle",
+  "plan_sha256": "a3adb4ac0a2dcac7c26b3d2a0f084e421d80c6c28cc94345f56dcf52ba21d149",
+  "receipts": [
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "repeated": false,
+      "source_id": "37aeec25c2f553612662a352a5efde28734e40e5ade02c6641d237760aefed80"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "repeated": false,
+      "source_id": "8ddff02a813901753d069f2b616f585731c09ee8b92b8d862201e4e2dcbb05bb"
+    },
+    {
+      "added_samples": 1,
+      "disposition": "admitted",
+      "repeated": false,
+      "source_id": "0864454fd00f03c2a5175fe0decf8474b29478f526bad1d01f7a3eb7536962f7"
+    },
+    {
+      "added_samples": 1,
+      "disposition": "admitted",
+      "repeated": false,
+      "source_id": "63cb2c9bf096eaca04f27db76279e256df4695dfbc3a37e0a16cd4e0c6300ed2"
+    }
+  ],
+  "replay_id": "9f03f9617e4823bd05d2a4b768c9a31e47150798a97a71925692550dfe637e87",
+  "replay_membership": [
+    "678fed9dd2a9867ece1692b0a79fa95cf11a3930ac0c3d30ae3bbb17a8e556a0",
+    "fd899d79cba81591dbd2f903a285ad08e2f314b7d71563403ede0681f345a2fb"
+  ],
+  "replay_summary": {
+    "source_counts": {
+      "admitted": 2,
+      "duplicate": 0,
+      "excluded-interrupted": 0,
+      "excluded-truncated": 2
+    },
+    "training_positions": 2
+  },
+  "supervised_count": 12,
+  "supervised_membership_sha256": "9f964f4a11e8fe75fd02c03a2dccb72229b1289c47f6ce57b4f732568198f8bd",
+  "supervised_source_id": "eeb787d4e9fd107edf7acde3470ad993a39a1a5ee52f2ec002b6207ed3f82f8d",
+  "updates_per_unique_eligible_root": 1.5
+}

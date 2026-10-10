@@ -1,0 +1,216 @@
+{
+  "actual_root_to_target_links": [
+    {
+      "completed_simulations": 8,
+      "configuration_sha256": "aa0450aa6e72cdd55e2a4438c84c52abaf56bbedba16cf7f5df8c5692c709ce5",
+      "consumed_by_updates": [
+        1,
+        2,
+        3
+      ],
+      "eligible": true,
+      "ending_reason": "FIFTY_MOVES",
+      "game_id": "c52960d200e69415a4a2f35b2923d326fda99032bbc2313e237395a0d887aed8",
+      "nonzero_visits": 4,
+      "opening_id": "r04-fifty-white",
+      "outcome": "1/2-1/2",
+      "played_uci": "e1d2",
+      "ply": 0,
+      "replay_wdl": [
+        0,
+        1,
+        0
+      ],
+      "root_fen": "4k3/8/8/8/8/8/8/R3K3 w - - 99 1",
+      "root_player": "white",
+      "sample_id": "678fed9dd2a9867ece1692b0a79fa95cf11a3930ac0c3d30ae3bbb17a8e556a0",
+      "source_id": "0864454fd00f03c2a5175fe0decf8474b29478f526bad1d01f7a3eb7536962f7",
+      "updated_checkpoint": {
+        "checkpoint_id": "R04-plumbing-updated-step-3",
+        "identity": {
+          "bytes": 60875843,
+          "sha256": "967dde2cd8c2d3213c3297ae5dc5871f0e4db8faa11cb8145b8e55f919d3376b"
+        },
+        "inference_and_save_rng_unchanged": true,
+        "inference_model_exact": true,
+        "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r04-local-cycle-20261010/updated-step-3.pt"
+      },
+      "visit_policy_sha256": "801cbb3d091bfe3f676d5babc835b0da5618bad0efe8857f1678b84d9a2f3415",
+      "visits_sha256": "596811c03dc0f5544d73b0084ddbc6a30855ac480f638805b80f70454c55a2dc"
+    },
+    {
+      "completed_simulations": 8,
+      "configuration_sha256": "215af0e4e61baa097c108a033cb08f3a2f4bb2def54f2f96c83af8c0990d8b44",
+      "consumed_by_updates": [
+        1,
+        2,
+        3
+      ],
+      "eligible": true,
+      "ending_reason": "FIFTY_MOVES",
+      "game_id": "6db17de7431673d185064de599706ffa62034d801b4f6168b4dceef40f396958",
+      "nonzero_visits": 3,
+      "opening_id": "r04-fifty-black",
+      "outcome": "1/2-1/2",
+      "played_uci": "e8d7",
+      "ply": 0,
+      "replay_wdl": [
+        0,
+        1,
+        0
+      ],
+      "root_fen": "r3k3/8/8/8/8/8/8/4K3 b - - 99 1",
+      "root_player": "black",
+      "sample_id": "fd899d79cba81591dbd2f903a285ad08e2f314b7d71563403ede0681f345a2fb",
+      "source_id": "63cb2c9bf096eaca04f27db76279e256df4695dfbc3a37e0a16cd4e0c6300ed2",
+      "updated_checkpoint": {
+        "checkpoint_id": "R04-plumbing-updated-step-3",
+        "identity": {
+          "bytes": 60875843,
+          "sha256": "967dde2cd8c2d3213c3297ae5dc5871f0e4db8faa11cb8145b8e55f919d3376b"
+        },
+        "inference_and_save_rng_unchanged": true,
+        "inference_model_exact": true,
+        "path": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r04-local-cycle-20261010/updated-step-3.pt"
+      },
+      "visit_policy_sha256": "867fa3f4f4cd9b3ea296576e75b20fd4154bb357f7e1f817de7cae85e20112c1",
+      "visits_sha256": "5924075df71d65455329b55cab6a2fb3c3dd518d004a973e36da036761724eff"
+    }
+  ],
+  "consumed_selfplay_ids": [
+    "fd899d79cba81591dbd2f903a285ad08e2f314b7d71563403ede0681f345a2fb",
+    "678fed9dd2a9867ece1692b0a79fa95cf11a3930ac0c3d30ae3bbb17a8e556a0",
+    "678fed9dd2a9867ece1692b0a79fa95cf11a3930ac0c3d30ae3bbb17a8e556a0",
+    "fd899d79cba81591dbd2f903a285ad08e2f314b7d71563403ede0681f345a2fb",
+    "fd899d79cba81591dbd2f903a285ad08e2f314b7d71563403ede0681f345a2fb",
+    "678fed9dd2a9867ece1692b0a79fa95cf11a3930ac0c3d30ae3bbb17a8e556a0"
+  ],
+  "continuation_exact": true,
+  "eligible_sample_ids": [
+    "678fed9dd2a9867ece1692b0a79fa95cf11a3930ac0c3d30ae3bbb17a8e556a0",
+    "fd899d79cba81591dbd2f903a285ad08e2f314b7d71563403ede0681f345a2fb"
+  ],
+  "evaluation_by_opening": [
+    {
+      "leg": 0,
+      "opening_id": "r04-eval-start",
+      "outcome": null,
+      "status": "truncated"
+    },
+    {
+      "leg": 1,
+      "opening_id": "r04-eval-start",
+      "outcome": null,
+      "status": "truncated"
+    },
+    {
+      "leg": 0,
+      "opening_id": "r04-eval-fifty",
+      "outcome": "1/2-1/2",
+      "status": "completed"
+    },
+    {
+      "leg": 1,
+      "opening_id": "r04-eval-fifty",
+      "outcome": "1/2-1/2",
+      "status": "completed"
+    }
+  ],
+  "final_training_restore_exact": true,
+  "generated_roots": 22,
+  "logical_consumed_selfplay_samples": 6,
+  "logical_consumed_supervised_samples": 6,
+  "match_audit": {
+    "completed_search_simulations": 144,
+    "games": 4,
+    "generated_plies": 18,
+    "match_id": "r04-starting-versus-updated",
+    "measured_engine_nodes": 0,
+    "pairs": 2,
+    "passed": true,
+    "schema": "e01-replay-audit-v1",
+    "summary": {
+      "complete_pair_score": 0.5,
+      "complete_pairs": 1,
+      "completed_game_denominator": 2,
+      "completed_game_score": 0.5,
+      "completed_game_wdl": {
+        "draw": 2,
+        "loss": 0,
+        "win": 0
+      },
+      "incomplete_pairs": 1,
+      "left_player_id": "r04-starting-T03",
+      "paired_uncertainty": null,
+      "pairs": 2,
+      "status_counts": {
+        "completed": 2,
+        "failed": 0,
+        "interrupted": 0,
+        "truncated": 2
+      }
+    }
+  },
+  "no_pretrained_P_selection": true,
+  "no_strength_claim": true,
+  "physical_verification_samples_per_source": 12,
+  "reserved_protocol_test_played": false,
+  "source_metrics": [
+    {
+      "selfplay": {
+        "batch_size": 2,
+        "policy_loss": 1.525580883026123,
+        "total_loss": 4.7726898193359375,
+        "wdl_loss": 3.2471089363098145
+      },
+      "selfplay_contribution": 2.3863449096679688,
+      "supervised": {
+        "batch_size": 2,
+        "policy_loss": 5.932779312133789,
+        "total_loss": 5.991616725921631,
+        "wdl_loss": 0.05883759260177612
+      },
+      "supervised_contribution": 2.9958083629608154,
+      "total_loss": 5.382153511047363
+    },
+    {
+      "selfplay": {
+        "batch_size": 2,
+        "policy_loss": 1.5215648412704468,
+        "total_loss": 4.6741414070129395,
+        "wdl_loss": 3.1525766849517822
+      },
+      "selfplay_contribution": 2.3370707035064697,
+      "supervised": {
+        "batch_size": 2,
+        "policy_loss": 0.7669142484664917,
+        "total_loss": 2.656795024871826,
+        "wdl_loss": 1.8898807764053345
+      },
+      "supervised_contribution": 1.328397512435913,
+      "total_loss": 3.665468215942383
+    },
+    {
+      "selfplay": {
+        "batch_size": 2,
+        "policy_loss": 1.516626000404358,
+        "total_loss": 4.597765922546387,
+        "wdl_loss": 3.0811400413513184
+      },
+      "selfplay_contribution": 2.2988829612731934,
+      "supervised": {
+        "batch_size": 2,
+        "policy_loss": 0.9508015513420105,
+        "total_loss": 3.3093342781066895,
+        "wdl_loss": 2.358532667160034
+      },
+      "supervised_contribution": 1.6546671390533447,
+      "total_loss": 3.953550100326538
+    }
+  ],
+  "unfinished_roots_excluded": 20,
+  "unique_consumed_selfplay_ids": [
+    "678fed9dd2a9867ece1692b0a79fa95cf11a3930ac0c3d30ae3bbb17a8e556a0",
+    "fd899d79cba81591dbd2f903a285ad08e2f314b7d71563403ede0681f345a2fb"
+  ]
+}

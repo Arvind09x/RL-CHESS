@@ -89,7 +89,7 @@ def audit():
     games=json.loads((OUT/'games.json').read_text())
     eligible=json.loads((OUT/'eligible-membership.json').read_text())
     exported=ReplayBuffer(OUT/'replay.sqlite').export()
-    assert exported==json.loads((OUT/'replay-export.json').read_text())
+    assert digest(exported)==digest(json.loads((OUT/'replay-export.json').read_text()))
     assert digest(exported)==eligible['replay_id']
     targets=[json.loads(line) for line in (OUT/'targets.jsonl').read_text().splitlines()]
     assert targets==exported['samples']
@@ -143,7 +143,7 @@ def audit():
     assert full['steps']==prefix['steps']+resume['steps'] and full['final']==resume['final']
     consumed=[]
     for step in full['steps']:
-        assert step['metrics']['supervised']['samples']==step['metrics']['selfplay']['samples']==2
+        assert step['metrics']['supervised']['batch_size']==step['metrics']['selfplay']['batch_size']==2
         assert step['metrics']['supervised_contribution']>0 and step['metrics']['selfplay_contribution']>0
         for sample_id in step['selfplay_sample_ids']:
             assert sample_id in eligible['replay_membership'];consumed.append(sample_id)
@@ -159,7 +159,36 @@ def audit():
     for player in (config['left_player'],config['right_player']):
         assert player['checkpoint']['kind']=='fixture' and player['settings']['exploration_noise'] is False
     assert config['protocol_only'] is True and config['left_player']['settings']==config['right_player']['settings']
-    save('chain-audit.json',dict(actual_root_to_target_links=links,generated_roots=root_count,
+    # Reopen and restore the final mixed checkpoint as well as its inference use.
+    from dataclasses import asdict
+    import random
+    import numpy as np
+    import torch
+    from chess_rl.supervised import open_dataset
+    from chess_rl.training.mixed_state import MixedSources,MixedSettings
+    from chess_rl.training.checkpoints import ModelConfig,restore_training,_rng_state
+    from scripts.run_r03 import tree_hash
+    torch.set_num_threads(1);torch.set_num_interop_threads(1);torch.use_deterministic_algorithms(True)
+    source_config=plan['source_config']
+    reopened=MixedSources(open_dataset(**{k:Path(v) for k,v in source_config['dataset'].items()},split='train'),
+        ReplayBuffer(source_config['replay']),heldout_games_path=source_config['heldout_games'],
+        protected_positions_path=source_config['protected_positions'])
+    expected_provenance=dict(task='R04 local plumbing only; never pretrained P',plan_sha256=digest(plan),
+        starting_checkpoint=plan['checkpoint_identity'],starting_checkpoint_id=plan['checkpoint_id'],
+        boundary='new Adam and mixed state at zero; no supervised optimizer/cursor restore',
+        membership_sha256=digest(eligible),sources=full['sources'])
+    random.seed(21);np.random.seed(22);torch.manual_seed(23)
+    restored=restore_training(resume['checkpoint']['path'],expected_config=ModelConfig(**plan['model_config']),
+        expected_provenance=expected_provenance,mixed_sources=reopened,
+        expected_mixed_settings=MixedSettings(**plan['mixed_settings']))
+    assert restored.data_order is None
+    assert tree_hash(restored.model.state_dict())==resume['final']['model_sha256']
+    assert tree_hash(restored.optimizer.state_dict())==resume['final']['optimizer_sha256']
+    assert digest(asdict(restored.mixed_state))==digest(resume['final']['mixed_state'])
+    assert asdict(restored.progress)==resume['final']['progress']
+    assert tree_hash(_rng_state())==resume['final']['rng_sha256']
+    save('chain-audit.json',dict(final_training_restore_exact=True,
+        actual_root_to_target_links=links,generated_roots=root_count,
         unfinished_roots_excluded=unfinished_roots,eligible_sample_ids=eligible['replay_membership'],
         consumed_selfplay_ids=consumed,unique_consumed_selfplay_ids=sorted(set(consumed)),
         logical_consumed_supervised_samples=6,logical_consumed_selfplay_samples=6,
@@ -193,6 +222,9 @@ def preserve():
 if __name__=='__main__':
     mode=sys.argv[1]
     if mode in ('prepare','audit','preserve'):globals()[mode]()
+    elif mode=='audit-receipt':run('chain-audit',[PYTHON,'-B','runs/r04/verify.py','audit'])
+    elif mode=='audit-final':run('chain-audit-final',[PYTHON,'-B','runs/r04/verify.py','audit'])
+    elif mode=='preserve-receipt':run('preservation-check',[PYTHON,'-B','runs/r04/verify.py','preserve'])
     elif mode=='model':run('regression-model',[PYTHON,'-B','-m','pytest','--import-mode=importlib','-p','no:cacheprovider','-p','runs.m06.diagnostic_plugin','--junitxml=runs/r04/regression-model.xml'])
     elif mode=='adapter':run('regression-adapter',[ADAPTER,'-B','-m','pytest','--import-mode=importlib','-p','no:cacheprovider','--junitxml=runs/r04/regression-adapter.xml'])
     else:run(mode,[PYTHON,'-B','scripts/run_r04.py',mode])

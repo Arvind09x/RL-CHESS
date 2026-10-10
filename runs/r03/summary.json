@@ -1,0 +1,185 @@
+{
+  "adapter_fixtures": {
+    "errors": 0,
+    "failures": 0,
+    "passed": 1023,
+    "skipped": 14,
+    "tests": 1037
+  },
+  "base_commit": "66913809a3fa79d6a7a41f8157b5dbc425684051",
+  "branch": "codex/r03-mixed-update",
+  "checkpoint": {
+    "identity": {
+      "bytes": 60874947,
+      "sha256": "be3aeda42babd2cd45da05c52d1222d6952fd2ddec2e279fbe26fd9a344af6a9"
+    },
+    "mixed_fields": [
+      "replay_id",
+      "replay_membership",
+      "sampling_rng",
+      "selfplay",
+      "settings",
+      "supervised",
+      "supervised_membership_sha256",
+      "supervised_source_id",
+      "updates",
+      "version"
+    ],
+    "path": "/private/tmp/r03-bounded-boundary-final.pt",
+    "preserved_fields": [
+      "mixed_state",
+      "optimizer",
+      "progress",
+      "rng",
+      "runtime",
+      "weights"
+    ],
+    "version": "m06-checkpoint-v2-mixed"
+  },
+  "freeze_commit": "d223be2",
+  "fresh_process": {
+    "comparison": "SHA256 over complete tensor bytes, dtype and shape; scalar metrics and state compared exactly",
+    "identical_final_model_adam_gradients_progress_sampling_rng_and_global_rng": true,
+    "identical_prefix": true,
+    "identical_updates_2_and_3": true,
+    "independent_processes": 3,
+    "synthetic_fixture": "test_exact_cpu_fresh_process_next_update crosses supervised and replay epoch boundaries"
+  },
+  "gradient_tensors": [
+    215,
+    215,
+    215
+  ],
+  "historical_diagnostics": {
+    "adapter_fixtures": "initial command mistakenly loaded Torch-only historical M05 diagnostic plugin in Torch-free environment; no production issue; corrected command omits plugin",
+    "bounded_full": "passing development receipt before adding frozen-input refusal to runner; final run supersedes it",
+    "initial_50_case_development": "50 passed; later added six contract/edge cases"
+  },
+  "losses": [
+    {
+      "actual": {
+        "selfplay": {
+          "batch_size": 2,
+          "policy_loss": 2.963029384613037,
+          "total_loss": 4.141930103302002,
+          "wdl_loss": 1.1789008378982544
+        },
+        "selfplay_contribution": 2.070965051651001,
+        "supervised": {
+          "batch_size": 2,
+          "policy_loss": 3.1409592628479004,
+          "total_loss": 4.218654632568359,
+          "wdl_loss": 1.077695608139038
+        },
+        "supervised_contribution": 2.1093273162841797,
+        "total_loss": 4.180292129516602
+      },
+      "independent": {
+        "selfplay_policy": 2.9630294279605245,
+        "selfplay_wdl": 1.1789009136038138,
+        "supervised_policy": 3.1409595111227535,
+        "supervised_wdl": 1.0776957344762244,
+        "total": 4.180292793581658
+      },
+      "update": 1
+    },
+    {
+      "actual": {
+        "selfplay": {
+          "batch_size": 2,
+          "policy_loss": 2.304577350616455,
+          "total_loss": 3.4838950634002686,
+          "wdl_loss": 1.1793177127838135
+        },
+        "selfplay_contribution": 1.7419475317001343,
+        "supervised": {
+          "batch_size": 2,
+          "policy_loss": 1.4508614540100098,
+          "total_loss": 2.352982997894287,
+          "wdl_loss": 0.9021215438842773
+        },
+        "supervised_contribution": 1.1764914989471436,
+        "total_loss": 2.9184389114379883
+      },
+      "independent": {
+        "selfplay_policy": 2.3045774326508113,
+        "selfplay_wdl": 1.1793176539934227,
+        "supervised_policy": 1.4508614472517398,
+        "supervised_wdl": 0.9021215355161056,
+        "total": 2.91843903470604
+      },
+      "update": 2
+    },
+    {
+      "actual": {
+        "selfplay": {
+          "batch_size": 2,
+          "policy_loss": 2.350893497467041,
+          "total_loss": 3.525637626647949,
+          "wdl_loss": 1.1747441291809082
+        },
+        "selfplay_contribution": 1.7628188133239746,
+        "supervised": {
+          "batch_size": 2,
+          "policy_loss": 3.593703508377075,
+          "total_loss": 4.691219329833984,
+          "wdl_loss": 1.09751558303833
+        },
+        "supervised_contribution": 2.345609664916992,
+        "total_loss": 4.108428478240967
+      },
+      "independent": {
+        "selfplay_policy": 2.350893373288209,
+        "selfplay_wdl": 1.1747440841049113,
+        "supervised_policy": 3.5937034995215598,
+        "supervised_wdl": 1.0975155700191759,
+        "total": 4.108428263466928
+      },
+      "update": 3
+    }
+  ],
+  "mixed_test_cases": 56,
+  "model_fixtures": {
+    "errors": 0,
+    "failures": 0,
+    "passed": 1553,
+    "skipped": 0,
+    "tests": 1553
+  },
+  "per_source_counts": {
+    "selfplay": 6,
+    "supervised": 6
+  },
+  "preservation": {
+    "frozen_inputs_unchanged": 16,
+    "interface_unchanged": true,
+    "primary_exact": true,
+    "primary_head": "66913809a3fa79d6a7a41f8157b5dbc425684051",
+    "primary_status": " M coding-plan.md\n",
+    "primary_tracked_files_unchanged": 2377
+  },
+  "settings": {
+    "batch_size": 4,
+    "learning_rate": 1e-05,
+    "policy_weight": 1.0,
+    "sampling": "independent-shuffled-cycles-v1",
+    "schedule": "one-update-per-full-batch-v1",
+    "supervised_batch_size": 2,
+    "supervised_fraction": 0.5,
+    "wdl_weight": 1.0
+  },
+  "sources": {
+    "excluded_heldout": [],
+    "replay_id": "4bdd6f656e159cfe8fb46db65264e876fdee5abe6abb1fc6f85bec50cf6eedf4",
+    "replay_membership": [
+      "480a8839228c697082b76bcbeb06feb0a389f2e5e6b37b9369a62104d3bdb287",
+      "8f0063881a227709c87d0516c01b07850b1b0f6692386e7098919ef8a5b775a5",
+      "a29b23ea797fdda15b2444340c8f6a14484ec2d9959b1cc8db57c6e1323d58c6",
+      "ed8861f268f1e671eafe28d5752bb2c0935af40f619e7f5b5204e8a0c13f648a"
+    ],
+    "supervised_membership_sha256": "9f964f4a11e8fe75fd02c03a2dccb72229b1289c47f6ce57b4f732568198f8bd",
+    "supervised_source_id": "eeb787d4e9fd107edf7acde3470ad993a39a1a5ee52f2ec002b6207ed3f82f8d"
+  },
+  "task": "R03 implemented; independent review pending; stop before R04",
+  "verified_at_utc": "2026-10-10T08:13:39.812349+00:00"
+}

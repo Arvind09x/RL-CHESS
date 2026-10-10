@@ -1,9 +1,12 @@
 """T02 shared, versioned M06 checkpoints at completed optimizer-step boundaries.
 
-CPU float32/float64, standard Adam, and D07 explicit single-process ordering are
-supported. No scheduler, gradient accumulation, worker prefetch, custom generators,
-or accelerator state is implied. Inference never installs saved training RNG.
+CPU float32/float64 and standard Adam are supported. Legacy v1 retains D07
+single-source ordering. Mixed v2 replaces that cursor with both source cursors,
+identities, membership, dedicated sampling RNG and frozen R03 settings.
+No scheduler, accumulation, worker prefetch or accelerator state is implied.
+Inference never installs saved training RNG or mixed sampling state.
 """
+from __future__ import annotations
 from dataclasses import asdict, dataclass
 import hashlib
 import json
@@ -13,6 +16,7 @@ from pathlib import Path
 import platform
 import random
 import tempfile
+from typing import TYPE_CHECKING
 
 import numpy as np
 import torch
@@ -23,7 +27,11 @@ from chess_rl.model import ChessNetwork
 from chess_rl.supervised import SupervisedDataset
 from .trainer import LossWeights
 
+if TYPE_CHECKING:
+    from .mixed_state import MixedState
+
 CHECKPOINT_VERSION = "m06-checkpoint-v1"
+MIXED_CHECKPOINT_VERSION = "m06-checkpoint-v2-mixed"
 MODEL_VERSION = "m06-gab-relative-qkv-v1"
 ORDER_VERSION = "d07-explicit-order-v1"
 
@@ -165,7 +173,8 @@ class TrainingCheckpoint:
     provenance: dict
     weights: LossWeights
     progress: Progress
-    data_order: DataOrder
+    data_order: DataOrder | None
+    mixed_state: MixedState | None = None
 
 
 def runtime_config():
@@ -361,7 +370,7 @@ def _read_payload(path):
 def _validate_payload(payload, expected_config=None):
     _fields(payload, ("version", "checkpoint_id", "contracts", "model_config", "model_state",
                      "model_training", "provenance", "training"), "checkpoint")
-    _require(payload["version"] == CHECKPOINT_VERSION, "incompatible checkpoint version")
+    _require(payload["version"] in (CHECKPOINT_VERSION, MIXED_CHECKPOINT_VERSION), "incompatible checkpoint version")
     _require(type(payload["checkpoint_id"]) is str and bool(payload["checkpoint_id"]), "checkpoint ID required")
     _same(payload["contracts"], asdict(AdapterConfig()), "encoding/vocabulary/WDL order/ending policy")
     _fields(payload["model_config"], ModelConfig.__dataclass_fields__, "model configuration")
@@ -376,16 +385,27 @@ def _validate_payload(payload, expected_config=None):
     _model_state(model, payload["model_state"])
     model.load_state_dict(payload["model_state"], strict=True)  # assign=False retains GAB identity
     training = payload["training"]
-    _fields(training, ("optimizer", "weights", "progress", "data_order", "rng", "runtime"), "training state")
+    mixed = payload["version"] == MIXED_CHECKPOINT_VERSION
+    _fields(training, ("optimizer", "weights", "progress", "mixed_state" if mixed else "data_order", "rng", "runtime"), "training state")
     _fields(training["progress"], Progress.__dataclass_fields__, "progress")
     progress = Progress(**training["progress"])
     _fields(training["weights"], LossWeights.__dataclass_fields__, "loss weights")
     weights = LossWeights(**training["weights"])
-    _fields(training["data_order"], DataOrder.__dataclass_fields__, "data order")
-    order = DataOrder(**training["data_order"])
-    _require(progress.epoch == order.epoch, "data epoch/progress mismatch")
-    _require(progress.samples_seen >= order.cursor, "data cursor/progress mismatch")
-    _require(progress.step != 0 or progress.samples_seen == order.cursor == 0, "initial progress mismatch")
+    if mixed:
+        from .mixed_state import MixedState
+        from .mixed import validate_optimizer_settings
+        order = MixedState.from_dict(training["mixed_state"])
+        _require(progress.step == order.updates and progress.epoch == 0
+                 and progress.samples_seen == order.supervised.samples_seen + order.selfplay.samples_seen,
+                 "mixed checkpoint progress mismatch")
+        _same(asdict(weights), asdict(order.settings.weights), "mixed loss weights")
+        validate_optimizer_settings(training["optimizer"], order.settings)
+    else:
+        _fields(training["data_order"], DataOrder.__dataclass_fields__, "data order")
+        order = DataOrder(**training["data_order"])
+        _require(progress.epoch == order.epoch, "data epoch/progress mismatch")
+        _require(progress.samples_seen >= order.cursor, "data cursor/progress mismatch")
+        _require(progress.step != 0 or progress.samples_seen == order.cursor == 0, "initial progress mismatch")
     _fields(training["runtime"], runtime_config(), "runtime")
     _json(training["runtime"])
     for key, current in runtime_config().items():
@@ -397,23 +417,31 @@ def _validate_payload(payload, expected_config=None):
     return model, optimizer, config, weights, progress, order, numpy_state
 
 
-def save_checkpoint(path, *, model, optimizer, checkpoint_id, provenance, weights, progress, data_order):
+def save_checkpoint(path, *, model, optimizer, checkpoint_id, provenance, weights, progress,
+                    data_order=None, mixed_state=None):
     """Publish an immutable file atomically; refuse an existing destination.
 
     Caller supplies a completed-update boundary and exact data cursor, with no
-    pending accumulated gradient, scheduler or prefetched data. Saved gradients
-    are unnecessary: supervised_step clears them before the next backward.
+    pending accumulated gradient, scheduler or prefetched data. Supply exactly
+    one legacy DataOrder or mixed MixedState. Saved gradients are unnecessary:
+    both training steps clear them before the next backward.
     """
     temporary = None
     try:
-        _require(type(weights) is LossWeights and type(progress) is Progress and type(data_order) is DataOrder,
-                 "save requires LossWeights, Progress and DataOrder")
+        from .mixed_state import MixedState
+        _require(type(weights) is LossWeights and type(progress) is Progress,
+                 "save requires LossWeights and Progress")
+        _require((type(data_order) is DataOrder and mixed_state is None)
+                 or (data_order is None and type(mixed_state) is MixedState),
+                 "save requires exactly one DataOrder or MixedState")
         config = _model_config(model)
-        payload = dict(version=CHECKPOINT_VERSION, checkpoint_id=checkpoint_id,
+        payload = dict(version=CHECKPOINT_VERSION if mixed_state is None else MIXED_CHECKPOINT_VERSION, checkpoint_id=checkpoint_id,
             contracts=asdict(AdapterConfig()), model_config=asdict(config), model_state=model.state_dict(),
             model_training=model.training, provenance=provenance,
             training=dict(optimizer=_optimizer_payload(model, optimizer), weights=asdict(weights),
-                          progress=asdict(progress), data_order=asdict(data_order), rng=_rng_state(), runtime=runtime_config()))
+                          progress=asdict(progress), rng=_rng_state(), runtime=runtime_config()))
+        payload["training"]["data_order" if mixed_state is None else "mixed_state"] = asdict(
+            data_order if mixed_state is None else mixed_state)
         _validate_payload(payload)
         path = Path(path)
         with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".checkpoint-", delete=False) as handle:
@@ -447,12 +475,14 @@ def load_inference(path, *, expected_config=None):
         raise CheckpointError(f"cannot load inference checkpoint {path}: {error}") from error
 
 
-def restore_training(path, *, expected_config, expected_provenance, dataset, source_id,
-                     expected_weights=None, expected_optimizer=None):
+def restore_training(path, *, expected_config, expected_provenance, dataset=None, source_id=None,
+                     expected_weights=None, expected_optimizer=None, mixed_sources=None,
+                     expected_mixed_settings=None):
     """Validate expectations first, then return model/Adam and install saved RNG.
 
     All objects are reconstructed; no caller model/optimizer is partly mutated.
-    Dataset must be opened by D07 and match saved source identity and membership.
+    V1 requires D07 dataset/source expectations. V2 requires reopened MixedSources
+    and explicit expected MixedSettings; D07-only resume is rejected.
     Caller configures the recorded CPU runtime before restoration. Failures leave
     Python, NumPy and Torch RNG unchanged. Success restores mode and RNG last.
     """
@@ -468,12 +498,22 @@ def restore_training(path, *, expected_config, expected_provenance, dataset, sou
             _same({k: v for k, v in payload["training"]["optimizer"].items() if k != "state"},
                   expected_optimizer, "optimizer configuration")
         _same(payload["training"]["runtime"], runtime_config(), "CPU resumption runtime")
-        order.validate_dataset(dataset, source_id=source_id)
+        from .mixed_state import MixedState, MixedSettings
+        if type(order) is MixedState:
+            _require(dataset is None and source_id is None and type(expected_mixed_settings) is MixedSettings,
+                     "mixed resume requires explicit mixed settings and both sources; D07-only cursor is insufficient")
+            _same(asdict(order.settings), asdict(expected_mixed_settings), "mixed settings")
+            order.validate_sources(mixed_sources)
+        else:
+            _require(mixed_sources is None and expected_mixed_settings is None,
+                     "D07 checkpoint cannot supply mixed resume state")
+            order.validate_dataset(dataset, source_id=source_id)
         model.train(payload["model_training"])
         random.setstate(payload["training"]["rng"]["python"])
         np.random.set_state(numpy_state)
         torch.set_rng_state(payload["training"]["rng"]["torch"])
         return TrainingCheckpoint(model, optimizer, config, payload["checkpoint_id"], payload["provenance"],
-                                  weights, progress, order)
+                                  weights, progress, order if type(order) is DataOrder else None,
+                                  order if type(order) is MixedState else None)
     except Exception as error:
         raise CheckpointError(f"cannot restore training checkpoint {path}: {error}") from error

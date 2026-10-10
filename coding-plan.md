@@ -1264,3 +1264,35 @@ See [integration record](docs/r02-integration.md),
 [acceptance summary](runs/r02-integration/summary.json) and the primary
 application receipt `runs/r02-integration/main-integration.json`.
 Stop after accepted R02. R03 remains unchecked; CUDA integration has not begun.
+
+## R03 mixed-update implementation — 10 October 2026
+
+Implemented only R03 on isolated `codex/r03-mixed-update`, based on accepted
+R02 main `6691380`. Independent review is pending; the R03 checkbox remains
+unchecked. Main and the user's existing planning edits are unchanged.
+
+Commit `d223be2` freezes fraction 0.5, audited D07 training source identity,
+accepted four-root R02 membership, batch composition 2+2, Adam `1e-5`, loss
+weights 1/1 and one update per full mixed batch before execution. Sampling uses
+independent shuffled source cycles and a dedicated saved RNG. No new games,
+annotation, pilot, matches or CUDA work is performed.
+
+Supervised classes/soft teacher WDL remain distinct from self-play visit
+distributions/exact final WDL. The legally masked distribution CE handles zero
+mass safely. Counts, policy/WDL losses and contributions are logged by source.
+Protected held-out games/positions are excluded before replay sampling.
+
+Shared persistence supports legacy D07 v1 and explicit mixed v2 with replay
+identity/membership, both source permutations/cursors/epochs/counts, sampling RNG,
+settings, optimizer and progress. D07-only resume cannot supply mixed state.
+
+All 56 R03 cases and 1,553 bounded CPU model fixtures pass; Torch-free fixtures
+pass 1,023 with 14 expected skips. Independent mixed-loss/gradient oracles,
+both-source contributions, finite gradients, held-out exclusion and exact CPU
+fresh-process continuation pass. The actual fixtures run three updates; the
+synthetic continuation also crosses both source epoch boundaries.
+
+See [R03 contract](docs/r03-mixed-update.md),
+[frozen plan](runs/r03/frozen-plan.json) and
+[committed evidence](runs/r03/summary.json). Stop for independent R03 review
+before integration or R04; no strength or accelerator claim is made.

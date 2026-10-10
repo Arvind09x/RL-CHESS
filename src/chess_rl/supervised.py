@@ -6,6 +6,7 @@ SupervisedBatch.to_torch(). The dataset retains compact records and joined games
 not encoded tensors; each access returns newly replayed state and arrays.
 """
 from dataclasses import asdict, dataclass
+import copy
 from datetime import datetime
 import importlib.metadata
 from pathlib import Path
@@ -281,8 +282,17 @@ class SupervisedBatch:
 
 class SupervisedDataset:
     """Use open_dataset(); labels stay in source order within the chosen split."""
-    def __init__(self, split, labels, refs, games):
+    def __init__(self, split, labels, refs, games, *, source_identity=None):
         self._split, self._labels, self._refs, self._games = split, labels, refs, games
+        self._source_identity = copy.deepcopy(source_identity)
+
+    @property
+    def source_identity(self):
+        """Verified loader provenance, independent of paths; owned JSON copy.
+
+        Manually constructed datasets have no audited source identity.
+        """
+        return copy.deepcopy(self._source_identity)
 
     @property
     def split(self):
@@ -396,6 +406,9 @@ def open_dataset(*, bundle: Path, manifest_path: Path, games_path: Path,
                "Bundle changed while loading")
         _equal(_read(bundle / "summary.json"), summary, "Summary changed while loading")
         _equal(file_identity(teacher_evidence), evidence_identity, "Teacher evidence changed while loading")
-        return SupervisedDataset(split, [r for r in labels if r["split"] == split], refs, games)
+        return SupervisedDataset(split, [r for r in labels if r["split"] == split], refs, games,
+            source_identity=dict(schema="d07-source-identity-v1", dataset_id=manifest.dataset_id,
+                split=split, authoritative=identities, bundle=bundle_identities,
+                summary=summary, teacher_evidence=evidence_identity))
     except (OSError, KeyError, TypeError, IndexError, ValueError) as error:
         raise ValueError(f"Cannot load supervised bundle {bundle}: {error}") from error

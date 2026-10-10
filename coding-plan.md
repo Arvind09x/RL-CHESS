@@ -142,7 +142,7 @@ Leela is the practical chess-search/self-play reference; AlphaZero supplies the 
 | [x] | R01 / P2 | S05, T04 | Implement model-guided self-play execution, move-boundary adjudication, completed/truncated/interrupted statuses and resumable game records using the batched evaluator. Record a deliberate temperature/root-noise schedule and opening source/seed/prefix. Initially run batch-of-one; permit independent games to contribute one pending leaf each for pilot batching. | Terminal outcomes take precedence over the ply cap. Forced interruption/reload preserves initial board, moves, ending policy, checkpoint/search settings, opening prefix and RNG. Search may rebuild; history cannot disappear. Log duplicate completed games and completion/truncation/interruption rates. |
 | [x] | R02 / Both | R01 | Finalize completed-game records into the replay buffer with per-position legal masks, root visits and exact final WDL. | Winner/loser labels flip correctly across players. Incomplete games remain unlabeled and excluded. Raw visits and normalized targets are consistent. |
 | [x] | R03 / P1 | R02, T01, T02 | Implement an RL update mixing completed-game search policy/WDL with training-split Stockfish samples. Before running, record supervised sample fraction strictly between 0 and 1, source, conservative learning rate, loss weights and replay/update schedule. | Fixed supervised and completed-game fixtures produce a finite mixed update with contributions from both sources and survive checkpoint resume with settings preserved. Verify supervised class/soft-WDL targets and self-play distribution/exact-WDL targets remain distinct; sample counts/losses are logged by source. No held-out or unfinished-game samples enter replay. |
-| [ ] | R04 / Both | R03, T03 | Run a few model-guided games, finalize any completed records, update, reload and run a short match. If all games truncate, diagnose or use a known valid near-terminal fixture for the plumbing check. | Saved artifacts show the complete position → search → game → target → update → checkpoint → evaluation path. Never relabel a truncation to pass. The overfit/plumbing checkpoint is not the project pretraining checkpoint P. |
+| [x] | R04 / Both | R03, T03 | Run a few model-guided games, finalize any completed records, update, reload and run a short match. If all games truncate, diagnose or use a known valid near-terminal fixture for the plumbing check. | Saved artifacts show the complete position → search → game → target → update → checkpoint → evaluation path. Never relabel a truncation to pass. The overfit/plumbing checkpoint is not the project pretraining checkpoint P. |
 
 **Gate I — local integration accepted:** R04 passes before spending the main training allocation. The tiny cycle establishes functioning plumbing, not improvement or strength.
 
@@ -1349,3 +1349,26 @@ user planning edits/index and existing external artifacts remain exact.
 See [R04 report](docs/r04-local-cycle.md). Automated local-cycle checks pass;
 independent Gate I review and acceptance remain pending. R04 stays unchecked.
 Commit and stop before main integration, CUDA or pilot spending.
+
+
+### R04 independent acceptance and Gate I integration — 10 October 2026
+
+- **R04 and Gate I accepted** for bounded deterministic CPU plumbing.
+  User-supplied independent review accepts original `cec350b`, `bbd2e40` and
+  `01f3c3f` against R03 `2a41e27`, with no actionable findings. Original
+  commits, freezes and evidence remain intact.
+- Fresh isolated verification passes 1,553 model tests and 1,023 Torch-free
+  tests with 14 expected skips. The complete root/search/game/target/update/
+  checkpoint/E01 chain reproduces exactly. All 20 truncated roots remain
+  excluded. Actual completed setup roots feed three mixed updates; both source
+  sampling states, RNG, gradients, Adam and complete checkpoint payloads match
+  in distinct full/prefix/resume processes. All eight checkpoint reloads pass.
+- [Supplied acceptance](runs/r04-acceptance/acceptance.json) remains distinct
+  from [fresh integration evidence](runs/r04-integration/summary.json).
+  [Integration/preservation](docs/r04-integration.md) records lossless original
+  plan/index backups and guarded restoration of the original unstaged
+  D06/D07/E01 edits.
+- Ordinary E01 games remain truncated; the two completed setup draws and single
+  complete pair establish protocol execution only. No learning or strength
+  claim and no pretrained-P selection. Stop before CUDA integration, pilot
+  execution or pretrained-P selection.

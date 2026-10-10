@@ -1,0 +1,15 @@
+**ACCEPT — bounded CPU Gate I** for `01f3c3f` against accepted R03 base `2a41e27`. Reviewed the complete `cec350b → bbd2e40 → 01f3c3f` sequence. **No actionable findings.**
+
+Independent checks confirmed:
+
+- Both freezes precede governed execution; held-out filtering and frozen membership precede optimization. [Freeze checks](</Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/scripts/run_r04.py:141>)
+- Both ordinary truncations remain unlabeled, with all **20 roots excluded**. Declared setup games retain complete setup history and use real search; both completed roots preserve visits, distribution targets and exact WDL. [Replay admission](</Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/scripts/run_r04.py:190>)
+- Exact T03 weights initialize empty Adam and zero mixed state without legacy cursor reuse. Actual roots feed all three recorded updates. [Boundary initialization](</Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/scripts/run_r04.py:239>)
+- Fresh-process continuation reproduces samples, losses, logits, gradients, model, Adam, source sampling state, RNG and progress. All original and fresh checkpoints reload completely. [Training path](</Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/scripts/run_r04.py:259>)
+- E01 reproduces exactly: reversed player colors, identical settings, no noise; **two completed fixture draws, denominator two, one complete pair**. Ordinary truncations contribute no score. No learning, strength or pretrained-P claim is made. [Interpretation](</Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/docs/r04-local-cycle.md:118>)
+
+Fresh regressions: **1,553 model tests passed; 1,023 Torch-free tests passed, 14 expected skips**.
+
+[Independent review evidence and line references](</Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-independent-review-20261010-9LCZHH/summary.json>).
+
+Historical evidence, checkpoints, user edits and index remain intact. No integration or pilot was started. Acceptance covers deterministic CPU plumbing only.

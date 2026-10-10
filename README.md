@@ -935,3 +935,18 @@ The [contract/report](docs/r04-local-cycle.md), [summary](runs/r04/summary.json)
 and [root-to-evaluation audit](runs/r04/chain-audit.json) retain the evidence.
 Stop for independent Gate I review before integration or pilot spending; R04
 remains unchecked.
+
+
+## Accepted R04 / Gate I — 10 October 2026
+
+User-supplied independent review accepts original `cec350b`, `bbd2e40` and
+`01f3c3f` with no actionable findings. Isolated integration retains all commits
+and original evidence. Fresh verification passes 1,553 model tests, 1,023
+Torch-free tests (14 expected skips), complete recorded-chain reproduction,
+all checkpoint reloads, exact fresh-process continuation and the full E01 match.
+See [acceptance and integration](docs/r04-integration.md),
+[supplied acceptance](runs/r04-acceptance/acceptance.json) and
+[fresh evidence](runs/r04-integration/summary.json). R04 and Gate I are accepted
+for bounded CPU plumbing only. Historical artifacts and original user plan edits
+are preserved. Stop before CUDA integration, pilot execution or pretrained-P
+selection; fixture outcomes establish no learning or strength.

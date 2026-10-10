@@ -1,0 +1,341 @@
+{
+  "accepted_base": "2a41e270f7c5d9f3f2f074fac07de31699194ac2",
+  "actionable_findings": [],
+  "all_requested_checks_passed": true,
+  "branch_and_historical_evidence_unchanged": true,
+  "checks": [
+    {
+      "check": "Both freezes precede their governed execution",
+      "detail": "Plan 15:37:29 IST before generation 15:37:39; membership 15:38:34 before boundary 15:38:45 and optimization 15:39:37. Frozen bytes match both original commits and HEAD.",
+      "evidence": "audit.json",
+      "line": 141,
+      "passed": true,
+      "source": "scripts/run_r04.py"
+    },
+    {
+      "check": "Ordinary truncations unlabeled; all 20 roots excluded",
+      "detail": "12 standard-start roots and 8 opening-prefix roots produce no replay targets, winner or outcome.",
+      "evidence": "audit.json",
+      "line": 3,
+      "passed": true,
+      "source": "runs/r04/eligible-membership.json"
+    },
+    {
+      "check": "Declared setup history and real search",
+      "detail": "Actual declared initial FEN, no preceding moves, complete history with one real snapshot. Native chess checks verify valid nonterminal roots and every legal child fifty-move draw. All generated configurations, roots, visits, moves and RNG exactly reproduce.",
+      "evidence": "regeneration.json",
+      "line": 84,
+      "passed": true,
+      "source": "scripts/run_r04.py"
+    },
+    {
+      "check": "Completed roots preserve visits, distributions, exact WDL",
+      "detail": "Both roots retain 8 visits, multi-action distributions (4 and 3 supported actions) and exact [0,1,0]. Fresh replay export and admission receipts match the original.",
+      "evidence": "audit.json",
+      "line": 95,
+      "passed": true,
+      "source": "src/chess_rl/replay.py"
+    },
+    {
+      "check": "Held-out filtering and frozen membership before optimization",
+      "detail": "Independent canonical whole-game and native rule-position filtering confirms two eligible roots, no held-out overlaps; reopened 12 training labels and membership hashes match the immutable freeze.",
+      "evidence": "audit.json",
+      "line": 201,
+      "passed": true,
+      "source": "src/chess_rl/training/mixed_state.py"
+    },
+    {
+      "check": "T03 weights initialize new Adam and mixed state without legacy cursor",
+      "detail": "Independently rebuilt complete step-zero payload equals the original: exact T03 model, empty Adam, zero mixed source progress; no legacy data_order field.",
+      "evidence": "boundary.json",
+      "line": 239,
+      "passed": true,
+      "source": "scripts/run_r04.py"
+    },
+    {
+      "check": "Actual roots feed recorded mixed updates",
+      "detail": "All three updates consume both eligible sample IDs; batches retain the actual visit policies and outcome WDL. References, metrics, features, logits, gradients, model, Adam, sampling state and global RNG reproduce exactly; independent CE agrees within 2e-6.",
+      "evidence": "full.json",
+      "line": 275,
+      "passed": true,
+      "source": "scripts/run_r04.py"
+    },
+    {
+      "check": "Checkpoint reload and fresh-process continuation preserve complete state",
+      "detail": "Full/prefix/resume run in distinct processes with scrambled RNG and reproduce every recorded step and complete saved payload. All four original and four fresh checkpoints pass inference and complete training restoration: mode, model, Adam, both source cursors/permutations/epochs/counts, sampling RNG, global RNG and progress.",
+      "evidence": "reload.json",
+      "line": 259,
+      "passed": true,
+      "source": "scripts/run_r04.py"
+    },
+    {
+      "check": "E01 pairing, settings and denominators",
+      "detail": "Fresh four-game match equals the entire original record. Identical openings and settings, reversed player colors, no noise; 18 plies and 144 simulations. Two ordinary truncations excluded from score; 2 completed fixture draws, denominator 2, 1 complete pair, score 0.5, no interval.",
+      "evidence": "evaluation.json",
+      "line": 312,
+      "passed": true,
+      "source": "scripts/run_r04.py"
+    },
+    {
+      "check": "No learning, strength or pretrained-P claim",
+      "detail": "Both checkpoints kind=fixture, protocol_only=true, reserved test opening unused. Documentation explicitly limits the results to plumbing and makes no learning, strength, improvement or pretrained-P assertion.",
+      "evidence": "evaluation.json",
+      "line": 118,
+      "passed": true,
+      "source": "docs/r04-local-cycle.md"
+    }
+  ],
+  "complete_sequence": [
+    "cec350b",
+    "bbd2e40",
+    "01f3c3f"
+  ],
+  "completed_at_utc": "2026-10-10T10:27:23.621120+00:00",
+  "integration_performed": false,
+  "pilot_started": false,
+  "regressions": {
+    "adapter": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 14,
+      "tests": 1037
+    },
+    "model": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 1553
+    }
+  },
+  "retained_review_harness_failure": {
+    "command": "boundary.command.json",
+    "correction": "Exact frozen Adam options; successful boundary-retry.command.json; candidate sources unchanged",
+    "reason": "Review omitted explicit weight_decay=0.0; strict mixed optimizer schema rejected PyTorch default integer 0 before save or optimization"
+  },
+  "review_file_identities": {
+    "adapter.xml": {
+      "bytes": 131735,
+      "sha256": "405f35d47bc754d798b15cdb5cba3e8a2f4097262bd1228dd50e5f4c1564f4bb"
+    },
+    "audit.command.json": {
+      "bytes": 820,
+      "sha256": "3043d2139a90dcc78c3a4b604eb970af88b48e9a6c3928e4eff39fcbd3614e94"
+    },
+    "audit.json": {
+      "bytes": 1644,
+      "sha256": "f1bbcd8e6d45b73844cadd7a0c45503c11018da3d0b7c3551a407ae5080fb034"
+    },
+    "audit.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "audit.stdout.txt": {
+      "bytes": 13,
+      "sha256": "089699aee217afc773879e208431ec77d4454243c6b0870c21e90a3796df28fa"
+    },
+    "boundary-retry.command.json": {
+      "bytes": 824,
+      "sha256": "f5e0412dd9844a0d395d974f41d31b4f133a3e28cf6761415b42f90b3f1c84c5"
+    },
+    "boundary-retry.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "boundary-retry.stdout.txt": {
+      "bytes": 16,
+      "sha256": "7d8093bdb1211ceafd34a1cc5ec38014fbda8858c6a2c4442158238d7073f072"
+    },
+    "boundary.command.json": {
+      "bytes": 824,
+      "sha256": "72436e0e63ecc781fbf720b0037e7072f1ceb9285e29f6368d9a3bbbb18fe7fe"
+    },
+    "boundary.json": {
+      "bytes": 130,
+      "sha256": "c085360ea10db7b83141f0872a25905a2f6e8cfc2d877f28dcc173f993d32dc3"
+    },
+    "boundary.stderr.txt": {
+      "bytes": 1966,
+      "sha256": "b0379accbf69e00f52178a390adc665baf50aa213a5f2c289c5029533b72da9c"
+    },
+    "boundary.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evaluate.command.json": {
+      "bytes": 823,
+      "sha256": "6997bffdc836f741a87b9e1d637e876cdb8f9e47f51bdaaa07e3eb86db9e13d9"
+    },
+    "evaluate.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evaluate.stdout.txt": {
+      "bytes": 16,
+      "sha256": "b558cf352886a49d03989cc80931554c677e5351566ab668b57730a4809bb408"
+    },
+    "evaluation.json": {
+      "bytes": 248,
+      "sha256": "706156776211e2ca0f0341fd811aa0392b5a668836a074fae5f43312ec3a1028"
+    },
+    "final.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "final.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fresh-full-step-3.pt": {
+      "bytes": 60875907,
+      "sha256": "41fb529cbc66ab0b42f2b61060c46c962cfcb080e3a8eed63c452f379a0438ab"
+    },
+    "fresh-resume-step-3.pt": {
+      "bytes": 60875971,
+      "sha256": "fec1e00c51d7afcd5af0a21f9851b38fe672e585cfcbfe7e006c238d84543f84"
+    },
+    "fresh-step-0.pt": {
+      "bytes": 20307725,
+      "sha256": "3fcb2683a232d21c00d7d9be94b549e7a2132407bf2ef7c219ffbaf28a685a27"
+    },
+    "fresh-step-1.pt": {
+      "bytes": 60875907,
+      "sha256": "6c17d9f4344633a7ce63a7868e751094155ac2886b47ccb1b9a094021f55a9ea"
+    },
+    "full.command.json": {
+      "bytes": 820,
+      "sha256": "167cadf8573c2e060611ea6f3fd1c0fb181cd9a7511b43e7523609d3d1139888"
+    },
+    "full.json": {
+      "bytes": 5776,
+      "sha256": "1612bb0523174624d9aa020e2ac1938844e60fb887cb355de684f33952164cbe"
+    },
+    "full.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "full.stdout.txt": {
+      "bytes": 12,
+      "sha256": "d1dd2292325e375ee86a52cd5b6bbed203fdf2143c8e9c3f55ec0cd70a77a2d4"
+    },
+    "model.xml": {
+      "bytes": 191956,
+      "sha256": "41559f7af195a2099d7706e73aff76fa02fe73e8dbf57630bd448861d5041fcd"
+    },
+    "prefix.command.json": {
+      "bytes": 821,
+      "sha256": "66bfef1f1e94af13c8b1b35eb265612a4f2dd217bfd22715b6d9f6990e3414ba"
+    },
+    "prefix.json": {
+      "bytes": 2088,
+      "sha256": "ba983c5f261506b17cf544d5b2c4128510d185654ca80b8734d6c10d62f2d855"
+    },
+    "prefix.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "prefix.stdout.txt": {
+      "bytes": 14,
+      "sha256": "4332b0d30e4704733721b4bccb1885ed64b3da0e4143874f1a16b25fad2ef2f2"
+    },
+    "preservation-baseline.json": {
+      "bytes": 420344,
+      "sha256": "1172bc3a1376dd2bd3953c3477004d9756c8a0f5576868b7b46596115e5954fd"
+    },
+    "regenerate.command.json": {
+      "bytes": 826,
+      "sha256": "b069766b95e6ef64e97f56a3845de905ae82e4f37b8086ec185e30de5466bed6"
+    },
+    "regenerate.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "regenerate.stdout.txt": {
+      "bytes": 18,
+      "sha256": "d158295ea7e1f2a5909982500d0c61cb5f6e48904d27d3a5894f383553ec9331"
+    },
+    "regenerated-replay.sqlite": {
+      "bytes": 1396736,
+      "sha256": "510ae0d62f12e7f4c0746022283b4e3eae7b29820e09191a8373a0a062aff1b2"
+    },
+    "regeneration.json": {
+      "bytes": 138,
+      "sha256": "96b11ea18ee79f9239ef439f384da9c180738cef320a45e39137cfd48fb2134d"
+    },
+    "regression-adapter.command.json": {
+      "bytes": 920,
+      "sha256": "ad7e68ea33c90c1b2d9de5636dc1faffe4f6f0e3c6b5a77a8eb839dea3e4a85a"
+    },
+    "regression-adapter.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "regression-adapter.stdout.txt": {
+      "bytes": 4474,
+      "sha256": "7570fd6c6adc18770948fbf77dafe14bcb38052ab174167b76b2bea5d6e9c2d7"
+    },
+    "regression-model.command.json": {
+      "bytes": 952,
+      "sha256": "9cbddf4a9524175709447f48319e55b086ed83249785c0ebaa926c905972f25d"
+    },
+    "regression-model.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "regression-model.stdout.txt": {
+      "bytes": 4497,
+      "sha256": "bd1fd39e736dfc8cc6a6090385b46e76387303f973cafbe723b181c298f38018"
+    },
+    "reload.command.json": {
+      "bytes": 822,
+      "sha256": "b42106d9db45fda6bee78ccdbfe6dd102ff870b59a213b001cdff44e4ba2b8cb"
+    },
+    "reload.json": {
+      "bytes": 2031,
+      "sha256": "cf16724d999a5e9e16a116f7f3fe3457937dc62a18a8d88b88e930a9ab0dd475"
+    },
+    "reload.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "reload.stdout.txt": {
+      "bytes": 14,
+      "sha256": "0b75b1a0ad6b8282bd5c0dbd920ae34ecccb1a50923d0bd46347632e9aa244ab"
+    },
+    "replay.sqlite": {
+      "bytes": 1396736,
+      "sha256": "510ae0d62f12e7f4c0746022283b4e3eae7b29820e09191a8373a0a062aff1b2"
+    },
+    "resume.command.json": {
+      "bytes": 822,
+      "sha256": "bb28f82de8999be97c75d20f286af150c0d07feb879b1df4c2776793825eff2f"
+    },
+    "resume.json": {
+      "bytes": 3932,
+      "sha256": "bb8e25a7e9360ac56d44cf9cb0ec6a123378440138654029a286297ef60b84bf"
+    },
+    "resume.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "resume.stdout.txt": {
+      "bytes": 14,
+      "sha256": "bc77b3f0a877120f94059d1fee58fe1ee8d4a00f479b11ee2967b21ed1cf1a85"
+    },
+    "review.py": {
+      "bytes": 27171,
+      "sha256": "8360e4c90cd0d0ec5ef36c6711ef679232c814be9f89e705a50e843a48f3eef4"
+    },
+    "run.py": {
+      "bytes": 2405,
+      "sha256": "07763f2940d51c3b94d9d70b506d59800d46f56941dd418ef469bc61e1adaade"
+    }
+  },
+  "reviewed_head": "01f3c3f581a2deb0c54569bece8d0991a6a28653",
+  "scope_limitations": [
+    "Deterministic pinned CPU float32 only",
+    "Ordinary games have zero completed outcomes",
+    "Completed replay targets and completed evaluation outcomes are setup-fixture draws only",
+    "No evidence of learning or strength; no P selected; no pilot or integration authorized by this verdict"
+  ],
+  "verdict": "ACCEPT bounded CPU Gate I"
+}

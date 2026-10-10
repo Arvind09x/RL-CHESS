@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/src/chess_rl/training/checkpoints.py", line 445, in save_checkpoint
+    _validate_payload(payload)
+  File "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/src/chess_rl/training/checkpoints.py", line 402, in _validate_payload
+    validate_optimizer_settings(training["optimizer"], order.settings)
+  File "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/src/chess_rl/training/mixed.py", line 25, in validate_optimizer_settings
+    require(type(actual) is type(value) and actual == value,
+  File "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/src/chess_rl/training/mixed_state.py", line 31, in require
+    raise ValueError(message)
+ValueError: mixed optimizer settings mismatch: weight_decay
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-independent-review-20261010-9LCZHH/review.py", line 322, in <module>
+    else: globals()[mode]()
+          ^^^^^^^^^^^^^^^^^
+  File "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-independent-review-20261010-9LCZHH/review.py", line 213, in boundary
+    save_checkpoint(OUT/'fresh-step-0.pt',model=loaded.model,optimizer=opt,checkpoint_id='R04-plumbing-step-0',provenance=provenance(),weights=state.settings.weights,progress=Progress(0,0,0),mixed_state=state)
+  File "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/src/chess_rl/training/checkpoints.py", line 458, in save_checkpoint
+    raise CheckpointError(f"cannot save checkpoint {path}: {error}") from error
+chess_rl.training.checkpoints.CheckpointError: cannot save checkpoint /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-independent-review-20261010-9LCZHH/fresh-step-0.pt: mixed optimizer settings mismatch: weight_decay

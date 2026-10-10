@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "-B",
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-independent-review-20261010-9LCZHH/review.py",
+    "evaluate"
+  ],
+  "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle",
+  "started_at_utc": "2026-10-10T10:26:16.810078+00:00",
+  "ended_at_utc": "2026-10-10T10:26:26.094914+00:00",
+  "duration_seconds": 9.284802791982656,
+  "exit_code": 0,
+  "environment_overrides": {
+    "PYTHONPATH": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/src:/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "GIT_OPTIONAL_LOCKS": "0"
+  }
+}

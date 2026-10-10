@@ -1202,3 +1202,29 @@ Primary's exact D06/D07/E01 user edits are restored after verified application.
 See [R01 integration](docs/r01-integration.md) and
 [acceptance evidence](runs/r01-integration/summary.json). R02 and CUDA integration
 remain outside scope; no subsequent milestone is begun.
+
+
+## R02 completed-game replay implementation — 10 October 2026
+
+Implemented only R02 on isolated `codex/r02-replay` from accepted R01 main
+`48bce1e`; independent review is pending and the R02 checkbox remains unchecked.
+R01 auditing and shared-adapter full-history reconstruction preserve played-root
+masks, raw visits, normalized policies and source/checkpoint identities. Exact
+final WDL is attached only to completed-game played roots. Immediate terminal
+games without played roots yield zero positions; truncated/interrupted games
+remain excluded and unlabeled. A frozen first-admitted-completed-trajectory
+policy and SHA256 sample IDs make transactional SQLite ingestion/restart
+idempotent, including failures and SIGKILL before/after commit.
+
+All 44 bounded R02 cases pass, covering both-color wins/losses/draws, history,
+corruption, target consistency, duplicate provenance and fresh-process recovery.
+Full model regression passes 1,497; adapter-only regression passes 1,023 with
+13 expected optional-Torch skips. Auditing the preserved 20 R01 snapshots yields
+7 canonical completions, 1 completed duplicate, 11 truncations, 1 interruption
+and exactly 4 training positions. Re-ingestion after restart and accepted-main
+audit preserve all sample identities/targets. Accepted code/artifacts and the
+primary user planning edits remain preserved.
+
+[API, admission policy and limits](docs/r02-replay.md) and
+[evidence](runs/r02/summary.json) are committed for independent review.
+Do not integrate this branch or begin R03 until that review is accepted.

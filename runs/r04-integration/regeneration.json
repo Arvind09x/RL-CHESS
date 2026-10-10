@@ -1,0 +1,6 @@
+{
+  "exact_all_configurations_games_rng_visits_actions": true,
+  "exact_replay_and_receipts": true,
+  "roots": 22,
+  "simulations": 176
+}

@@ -1,0 +1,12 @@
+{
+  "python": "3.12.12 (main, Feb 12 2026, 00:42:34) [Clang 21.1.4 ]",
+  "executable": "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+  "platform": "macOS-14.5-arm64-arm-64bit",
+  "isolated_package": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-integration/src/chess_rl/__init__.py",
+  "dependencies": {
+    "numpy": "2.5.3",
+    "python-chess": "1.999",
+    "chess": "1.11.2",
+    "pytest": "9.1.1"
+  }
+}

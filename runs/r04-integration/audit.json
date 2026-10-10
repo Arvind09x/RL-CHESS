@@ -1,0 +1,76 @@
+{
+  "evidence_and_checkpoints_rehashed": true,
+  "freezes": [
+    {
+      "commit": "cec350b",
+      "execution": [
+        {
+          "mode": "generate",
+          "started": "2026-10-10T10:07:39.145696+00:00"
+        },
+        {
+          "mode": "admit",
+          "started": "2026-10-10T10:08:07.787783+00:00"
+        }
+      ],
+      "time": "2026-10-10T15:37:29+05:30"
+    },
+    {
+      "commit": "bbd2e40",
+      "execution": [
+        {
+          "mode": "boundary",
+          "started": "2026-10-10T10:08:45.400127+00:00"
+        },
+        {
+          "mode": "full",
+          "started": "2026-10-10T10:09:37.535530+00:00"
+        },
+        {
+          "mode": "prefix",
+          "started": "2026-10-10T10:10:23.234837+00:00"
+        },
+        {
+          "mode": "resume",
+          "started": "2026-10-10T10:10:59.780458+00:00"
+        }
+      ],
+      "time": "2026-10-10T15:38:34+05:30"
+    }
+  ],
+  "games": [
+    {
+      "opening": "r04-start",
+      "roots": 12,
+      "setup": false,
+      "status": "truncated",
+      "targets": 0
+    },
+    {
+      "opening": "r04-open-game",
+      "roots": 8,
+      "setup": false,
+      "status": "truncated",
+      "targets": 0
+    },
+    {
+      "opening": "r04-fifty-white",
+      "roots": 1,
+      "setup": true,
+      "status": "completed",
+      "targets": 1
+    },
+    {
+      "opening": "r04-fifty-black",
+      "roots": 1,
+      "setup": true,
+      "status": "completed",
+      "targets": 1
+    }
+  ],
+  "historical_external_files_exact": 5633,
+  "historical_files_exact": 2522,
+  "inputs_rehashed": 16,
+  "membership_matches": true,
+  "primary_user_edits_exact": true
+}

@@ -1,1 +1,0 @@
-{"regressions": {"model": {"tests": 1553, "errors": 0, "failures": 0, "skipped": 0, "passed": 1553}, "adapter": {"tests": 1037, "errors": 0, "failures": 0, "skipped": 14, "passed": 1023}}, "chain_passed": true, "preservation_exact": true, "gate_I": "pending independent review"}

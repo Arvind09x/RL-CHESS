@@ -6,6 +6,9 @@ SupervisedBatch.to_torch(). The dataset retains compact records and joined games
 not encoded tensors; each access returns newly replayed state and arrays.
 """
 from dataclasses import asdict, dataclass
+from types import MappingProxyType
+from collections import OrderedDict
+from collections.abc import Mapping
 import copy
 from datetime import datetime
 import importlib.metadata
@@ -68,7 +71,7 @@ def _rows(path):
 
 
 def _key(ref):
-    if (not isinstance(ref, dict) or not isinstance(ref.get("game_id"), str)
+    if (not isinstance(ref, Mapping) or not isinstance(ref.get("game_id"), str)
             or type(ref.get("sample_ply")) is not int or ref["sample_ply"] < 0):
         raise ValueError("Malformed game/ply reference")
     return ref["game_id"], ref["sample_ply"]
@@ -102,11 +105,16 @@ def _provenance(manifest, identities, settings, teacher_evidence):
     if (teacher["python_chess"] != "1.999" or teacher["chess"] != "1.11.2"
             or importlib.metadata.version("python-chess") != "1.999" or chess.__version__ != "1.11.2"):
         raise ValueError("Pinned replay/teacher dependency mismatch")
-    return dict(kind="stockfish-root-wdl-and-pv",
+    result = dict(kind="stockfish-root-wdl-and-pv",
         **{field: identities[name]["sha256"] for field, name in (
             ("manifest_sha256", "manifest"), ("games_sha256", "games.jsonl"),
             ("samples_sha256", "samples.jsonl"), ("overlap_audit_sha256", "overlap-audit.json"))},
         executable_sha256=manifest.engine.executable_sha256, embedded_nnue=evidence["nnue"])
+    if "process_policy" in settings:
+        if settings["process_policy"] not in ("fresh-process-v1", "persistent-clear-hash-v1"):
+            raise ValueError("unsupported teacher process policy")
+        result["process_policy"] = settings["process_policy"]
+    return result
 
 
 def _ledger(refs, labels, attempts, exclusions, summary, manifest, max_attempts):
@@ -233,6 +241,10 @@ def _load_record(label, ref, game, manifest, provenance, attempt):
             EvalFileSmall=manifest.engine.embedded_nnue[1].name).items():
         name = "Skill Level" if name == "Skill_Level" else name
         _equal(returned["effective_options"].get(name), expected, f"Effective teacher {name}")
+    policy = provenance.get("process_policy", "fresh-process-v1")
+    _equal(returned.get("process_policy", "fresh-process-v1"), policy, "Teacher process policy")
+    if policy == "persistent-clear-hash-v1" and "uci_sent" not in returned:
+        raise ValueError("Persistent teacher requires raw reset/readiness evidence")
     # Early accepted D05 bundles predate raw transport capture. When capture
     # exists it must attest this exact full prefix, reset and requested budget.
     if "uci_sent" in returned:
@@ -242,14 +254,22 @@ def _load_record(label, ref, game, manifest, provenance, attempt):
         if state.board.move_stack:
             position += " moves " + " ".join(m.uci() for m in state.board.move_stack)
         go = f"go nodes {manifest.teacher.nodes}"
-        if (not isinstance(sent, list) or not sent or sent[-1] != "quit"
+        persistent = policy == "persistent-clear-hash-v1"
+        ending = "isready" if persistent else "quit"
+        if (not isinstance(sent, list) or not sent or sent[-1] != ending
                 or any(not isinstance(command, str) for command in sent)
                 or sent.count(go) != 1 or sent.count(position) != 1
                 or "setoption name Clear Hash" not in sent
                 or not sent.index("setoption name Clear Hash") < sent.index(position) < sent.index(go)
                 or any(command.startswith("go ") and command != go for command in sent)):
             raise ValueError("Attempt raw history/reset/budget mismatch")
-        _equal(returned.get("engine_exit_code"), 0, "Attempt engine exit")
+        if persistent:
+            if (returned.get("process_healthy_after_search") is not True or "ucinewgame" not in sent
+                    or not sent.index("ucinewgame") < sent.index("setoption name Clear Hash")
+                    or "isready" not in sent[sent.index("setoption name Clear Hash") + 1:sent.index(position)]):
+                raise ValueError("Persistent teacher reset/readiness mismatch")
+        else:
+            _equal(returned.get("engine_exit_code"), 0, "Attempt engine exit")
     return state
 
 
@@ -280,11 +300,42 @@ class SupervisedBatch:
                 ("features", "legal_mask", "policy_classes", "wdl")}
 
 
+def _freeze_metadata(value):
+    if isinstance(value, dict):
+        return MappingProxyType({k: _freeze_metadata(v) for k, v in value.items()})
+    if isinstance(value, (list, tuple)):
+        return tuple(_freeze_metadata(v) for v in value)
+    return value
+
+
 class SupervisedDataset:
     """Use open_dataset(); labels stay in source order within the chosen split."""
     def __init__(self, split, labels, refs, games, *, source_identity=None):
         self._split, self._labels, self._refs, self._games = split, labels, refs, games
         self._source_identity = copy.deepcopy(source_identity)
+
+    def __setattr__(self, name, value):
+        if getattr(self, "_sealed", False):
+            raise ValueError("frozen training dataset cannot be modified; reopen sources")
+        object.__setattr__(self, name, value)
+
+    def freeze(self, *, cache_bytes=64 * 1024 * 1024):
+        """Own an immutable training view; bounded decoded-sample LRU, no rescans.
+
+        Only referenced metadata is retained. Each returned sample still owns
+        its board and arrays. External artifacts are audited on source opening.
+        """
+        if type(cache_bytes) is not int or cache_bytes < 0:
+            raise ValueError("cache_bytes must be nonnegative")
+        refs = {key: self._refs[key] for key in map(_key, self._labels)}
+        games = {r["game_id"]: self._games[r["game_id"]] for r in refs.values()}
+        result = SupervisedDataset(self.split, _freeze_metadata(self._labels),
+            _freeze_metadata(refs), _freeze_metadata(games), source_identity=self.source_identity)
+        result._sample_cache = OrderedDict()
+        result._cache_budget = cache_bytes
+        result._cache_usage = [0]
+        result._sealed = True
+        return result
 
     @property
     def source_identity(self):
@@ -304,6 +355,14 @@ class SupervisedDataset:
     def __getitem__(self, index: int) -> SupervisedSample:
         if type(index) is not int:
             raise ValueError("Sample index must be an integer")
+        if not 0 <= index < len(self):
+            raise IndexError(index)
+        cache = getattr(self, "_sample_cache", None)
+        if cache is not None and index in cache:
+            sample = cache[index]
+            cache.move_to_end(index)
+            return SupervisedSample(sample.reference, sample.split, sample.state._copy_owned(),
+                sample.features.copy(), sample.legal_mask.copy(), sample.policy_class, sample.wdl.copy())
         label = self._labels[index]
         ref = self._refs[_key(label)]
         game = self._games[ref["game_id"]]
@@ -311,8 +370,34 @@ class SupervisedDataset:
         encoded, mask = encode_position(state), legal_mask(state)
         if encoded.features.shape != FEATURE_SHAPE or mask.shape != (MOVE_COUNT,):
             raise ValueError("Adapter output shape mismatch")
-        return SupervisedSample(_key(label), self.split, state, encoded.features, mask,
-                                label["best_move_id"], np.array(label["teacher_wdl"], dtype=np.float32))
+        sample = SupervisedSample(_key(label), self.split, state, encoded.features, mask,
+                                 label["best_move_id"], np.array(label["teacher_wdl"], dtype=np.float32))
+        if cache is not None:
+            # Include retained board history in the bounded cache estimate.
+            size = sample.features.nbytes + sample.legal_mask.nbytes + sample.wdl.nbytes + 256 * (len(state.board.move_stack) + 1)
+            if size <= self._cache_budget:
+                while cache and self._cache_usage[0] + size > self._cache_budget:
+                    old = cache.popitem(last=False)[1]
+                    self._cache_usage[0] -= old.features.nbytes + old.legal_mask.nbytes + old.wdl.nbytes + 256 * (len(old.state.board.move_stack) + 1)
+                cache[index] = sample
+                self._cache_usage[0] += size
+                return SupervisedSample(sample.reference, sample.split, sample.state._copy_owned(),
+                    sample.features.copy(), sample.legal_mask.copy(), sample.policy_class, sample.wdl.copy())
+        return sample
+
+    def reference(self, index):
+        """Source-order identity without replay or tensor construction."""
+        return _key(self._labels[index])
+
+    def batch(self, indices):
+        """Decode only a chosen nonempty batch, including resume cursor slices."""
+        indices = tuple(indices)
+        if not indices or any(type(i) is not int or not 0 <= i < len(self) for i in indices):
+            raise ValueError("batch indices must be nonempty valid integers")
+        samples = [self[i] for i in indices]
+        return SupervisedBatch(tuple(s.reference for s in samples), self.split,
+            np.stack([s.features for s in samples]), np.stack([s.legal_mask for s in samples]),
+            np.array([s.policy_class for s in samples], dtype=np.int64), np.stack([s.wdl for s in samples]))
 
     def batches(self, batch_size: int, *, order=None, drop_last=False) -> Iterator[SupervisedBatch]:
         """Explicit permutation only; default source order, retain partial batch."""
@@ -328,10 +413,7 @@ class SupervisedDataset:
             group = indices[start:start + batch_size]
             if drop_last and len(group) < batch_size:
                 break
-            samples = [self[i] for i in group]
-            yield SupervisedBatch(tuple(s.reference for s in samples), self.split,
-                np.stack([s.features for s in samples]), np.stack([s.legal_mask for s in samples]),
-                np.array([s.policy_class for s in samples], dtype=np.int64), np.stack([s.wdl for s in samples]))
+            yield self.batch(group)
 
 
 def open_dataset(*, bundle: Path, manifest_path: Path, games_path: Path,

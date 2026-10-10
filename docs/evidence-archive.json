@@ -1,0 +1,12 @@
+{
+  "archive": "gpu-readiness-run-evidence-20261010.tar.gz",
+  "archive_sha256": "6acc9dd2172d85c0d9f580941282d8b3c74d54d0c0ccdec5fe70c58e4d554c6d",
+  "archive_bytes": 11980471,
+  "files": 2644,
+  "uncompressed_bytes": 121672398,
+  "git_sources": [
+    "62af7ac",
+    "a97cf31"
+  ],
+  "historical_bytes_verified": true
+}

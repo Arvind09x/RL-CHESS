@@ -13,7 +13,7 @@ import sqlite3
 from chess_rl.adapter import encode_position, legal_mask, make_state, terminal_result
 from chess_rl.contracts import AdapterConfig, MOVE_COUNT
 from chess_rl.evaluation.matches import digest
-from chess_rl.selfplay import audit, _read
+from chess_rl.selfplay import audit, _read, read_game_record
 from chess_rl.training.checkpoints import ModelConfig
 
 
@@ -43,7 +43,7 @@ def read_source(directory):
     """Read checksummed R01 files without a runtime match or checkpoint inference."""
     directory = Path(directory)
     snapshot = dict(configuration=_read(directory / "configuration.json"),
-                    game=_read(directory / "boundary.json"))
+                    game=read_game_record(directory))
     finalize(snapshot)
     return snapshot
 
@@ -125,7 +125,7 @@ def finalize(snapshot):
 
 
 class ReplayBuffer:
-    """Bounded local buffer; each open/read/write reaudits stored source targets.
+    """Bounded local buffer; opening or external changes reaudit stored targets.
 
     First committed completed trajectory wins, even if later records have other
     checkpoint/search/opening identities or root coverage. Every distinct audited
@@ -136,14 +136,17 @@ class ReplayBuffer:
 
     def __init__(self, path):
         self.path = Path(path)
+        self._validated_signature = None
+        self._connection = None
         _require(self.path.is_file(), "replay buffer missing; create it explicitly")
         connection = self._connect()
         try:
             with connection:
                 connection.execute("BEGIN")
-                self._validate(connection)
-        finally:
-            connection.close()
+                self._validate_if_changed(connection)
+        except Exception:
+            self.close()
+            raise
 
     @classmethod
     def create(cls, path):
@@ -168,11 +171,38 @@ class ReplayBuffer:
         return cls(path)
 
     def _connect(self):
-        # mode=rw refuses silently recreating a buffer removed after construction.
-        connection = sqlite3.connect(self.path.resolve().as_uri() + "?mode=rw", uri=True, timeout=10)
-        connection.execute("PRAGMA foreign_keys=ON")
-        connection.execute("PRAGMA synchronous=FULL")
-        return connection
+        if self._connection is None:
+            connection = sqlite3.connect(self.path.resolve().as_uri() + "?mode=rw", uri=True, timeout=10)
+            connection.execute("PRAGMA foreign_keys=ON")
+            connection.execute("PRAGMA synchronous=FULL")
+            self._connection = connection
+        return self._connection
+
+    def close(self):
+        if self._connection is not None:
+            self._connection.close()
+            self._connection = None
+        self._validated_signature = None
+
+    def __del__(self):
+        try:
+            self.close()
+        except (AttributeError, sqlite3.Error):
+            pass
+
+    def _signature(self):
+        # The supported store uses rollback journals. WAL has a separate live
+        # file; disable this optimization if an external writer enables WAL.
+        if Path(str(self.path) + "-wal").exists():
+            return None
+        stat = self.path.stat()
+        return (self._connect().execute("PRAGMA data_version").fetchone()[0], stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+
+    def _validate_if_changed(self, connection):
+        signature = self._signature()
+        if signature is None or signature != self._validated_signature:
+            self._validate(connection)
+            self._validated_signature = signature
 
     @staticmethod
     def _validate(connection):
@@ -204,16 +234,15 @@ class ReplayBuffer:
     def ingest(self, snapshot):
         result = finalize(snapshot)
         connection = self._connect()
-        try:
-            # All audit, duplicate selection, receipts and samples share one
-            # locked transaction. An exception rolls back the entire admission.
-            with connection:
-                connection.execute("BEGIN IMMEDIATE")
-                self._validate(connection)
-                prior = connection.execute("SELECT disposition FROM sources WHERE source_id=?",
-                                           (result["source_id"],)).fetchone()
-                if prior:
-                    return dict(source_id=result["source_id"], disposition=prior[0], repeated=True, added_samples=0)
+        with connection:
+            connection.execute("BEGIN IMMEDIATE")
+            self._validate_if_changed(connection)
+            version = connection.execute("PRAGMA data_version").fetchone()[0]
+            prior = connection.execute("SELECT disposition FROM sources WHERE source_id=?",
+                                       (result["source_id"],)).fetchone()
+            if prior:
+                receipt = dict(source_id=result["source_id"], disposition=prior[0], repeated=True, added_samples=0)
+            else:
                 disposition = "excluded-" + result["status"]
                 if result["status"] == "completed":
                     disposition = "duplicate" if connection.execute("SELECT 1 FROM games WHERE game_id=?",
@@ -227,24 +256,25 @@ class ReplayBuffer:
                     for sample in result["samples"]:
                         connection.execute("INSERT INTO samples VALUES(?,?,?)",
                             (sample["sample_id"], result["game_id"], _json(sample)))
-                return dict(source_id=result["source_id"], disposition=disposition, repeated=False, added_samples=count)
-        finally:
-            connection.close()
+                receipt = dict(source_id=result["source_id"], disposition=disposition, repeated=False, added_samples=count)
+        signature = self._signature()
+        # Our persistent connection's data_version excludes its own commits.
+        # Retain the version checked under the lock so another writer racing
+        # after our commit cannot be accidentally blessed by this cache.
+        self._validated_signature = None if signature is None else (version, *signature[1:])
+        return receipt
 
     def export(self):
         connection = self._connect()
-        try:
-            with connection:
-                connection.execute("BEGIN")  # one consistent read snapshot
-                self._validate(connection)
-                sources = [dict(source_id=source, game_id=game, disposition=disposition,
-                    snapshot=json.loads(payload)) for _, source, game, disposition, payload in connection.execute(
-                        "SELECT * FROM sources ORDER BY ordinal")]
-                samples = [json.loads(payload) for (payload,) in connection.execute(
-                    "SELECT payload FROM samples ORDER BY sample_id")]
-                counts = {name: sum(s["disposition"] == name for s in sources) for name in
-                          ("admitted", "duplicate", "excluded-truncated", "excluded-interrupted")}
-                return dict(manifest=copy.deepcopy(MANIFEST), sources=sources, samples=samples,
-                            summary=dict(source_counts=counts, training_positions=len(samples)))
-        finally:
-            connection.close()
+        with connection:
+            connection.execute("BEGIN")  # one consistent read snapshot
+            self._validate_if_changed(connection)
+            sources = [dict(source_id=source, game_id=game, disposition=disposition,
+                snapshot=json.loads(payload)) for _, source, game, disposition, payload in connection.execute(
+                    "SELECT * FROM sources ORDER BY ordinal")]
+            samples = [json.loads(payload) for (payload,) in connection.execute(
+                "SELECT payload FROM samples ORDER BY sample_id")]
+            counts = {name: sum(s["disposition"] == name for s in sources) for name in
+                      ("admitted", "duplicate", "excluded-truncated", "excluded-interrupted")}
+            return dict(manifest=copy.deepcopy(MANIFEST), sources=sources, samples=samples,
+                        summary=dict(source_counts=counts, training_positions=len(samples)))

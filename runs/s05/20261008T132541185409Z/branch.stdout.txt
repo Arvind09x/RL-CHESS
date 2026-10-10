@@ -1,4 +1,0 @@
-## codex/s05-search-smoke
-?? runs/s05/
-?? src/chess_rl/search/game.py
-?? tests/test_game_runner.py

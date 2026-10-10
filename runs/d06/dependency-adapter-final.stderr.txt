@@ -1,3 +1,0 @@
-Using Python 3.12.12 environment at: /Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance
-Checked 9 packages in 3ms
-All installed packages are compatible

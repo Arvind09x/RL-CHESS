@@ -10,6 +10,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     "numpy==2.5.3",
     "python-chess==1.999",
+    "chess==1.11.2",
 ]
 
 [project.optional-dependencies]
@@ -26,6 +27,7 @@ packages = ["src/chess_rl"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+markers = ["cuda: requires one real visible NVIDIA GPU"]
 
 # Keep optional model installs CPU-only on Linux/Windows; macOS arm64 uses PyPI.
 [[tool.uv.index]]

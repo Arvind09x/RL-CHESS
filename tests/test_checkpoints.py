@@ -83,6 +83,26 @@ def restore(saved, path=None, **changes):
     return restore_training(path or saved["path"], **args)
 
 
+def test_portable_resume_policy_is_explicit_and_keeps_numeric_runtime_checks(saved, tmp_path):
+    payload = torch.load(saved["path"], weights_only=False)
+    payload["training"]["runtime"]["platform"] = "different OS description"
+    path = tmp_path / "portable.pt"
+    torch.save(payload, path)
+    before = rng_snapshot()
+    with pytest.raises(CheckpointError, match="runtime"):
+        restore(saved, path)
+    assert_rng_equal(before, rng_snapshot())
+    with pytest.warns(RuntimeWarning, match="bitwise continuation is unverified"):
+        restored = restore(saved, path, runtime_policy="compatible")
+    assert_tree_equal(restored.model.state_dict(), saved["kwargs"]["model"].state_dict())
+    payload["training"]["runtime"]["threads"] += 1
+    torch.save(payload, path)
+    before = rng_snapshot()
+    with pytest.raises(CheckpointError, match="runtime threads"):
+        restore(saved, path, runtime_policy="compatible")
+    assert_rng_equal(before, rng_snapshot())
+
+
 def test_inference_predictions_metadata_and_rng_unchanged(saved):
     before = rng_snapshot()
     loaded = load_inference(saved["path"], expected_config=saved["config"])

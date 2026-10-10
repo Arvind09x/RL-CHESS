@@ -1,3 +1,0 @@
-# Preserve exact failed-review diagnostics, including their original whitespace.
-supplied-review/probes.stdout.txt -diff
-supplied-review/probes.xml -diff

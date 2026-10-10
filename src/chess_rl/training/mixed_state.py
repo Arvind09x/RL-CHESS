@@ -18,7 +18,7 @@ from chess_rl.canonical_games import canonical_payload, game_id
 from chess_rl.evaluation.matches import digest
 from chess_rl.pgn_replay import file_identity
 from chess_rl.position_sampling import rule_position
-from chess_rl.supervised import SupervisedBatch, SupervisedDataset
+from chess_rl.supervised import SupervisedBatch, SupervisedDataset, _freeze_metadata
 from .trainer import LossWeights
 
 MIXED_VERSION = "r03-mixed-order-v1"
@@ -238,11 +238,12 @@ class MixedSources:
         require(len(samples) > 0, "no completed non-held-out replay samples")
         for name, path in paths.items():
             require(file_identity(path) == identity["authoritative"][name], "held-out registry changed while loading")
-        self.dataset = dataset
-        self._samples = copy.deepcopy(samples)
+        self.dataset = dataset.freeze()
+        self._frozen_dataset = self.dataset
+        self._samples = _freeze_metadata(samples)
         self.excluded_heldout = tuple(excluded)
         self.supervised_source_id = digest(identity)
-        self.supervised_membership_sha256 = _supervised_membership(dataset)
+        self.supervised_membership_sha256 = _supervised_membership(self.dataset)
         self.replay_id = digest(export)
         self.replay_membership = tuple(s["sample_id"] for s in samples)
 
@@ -261,7 +262,7 @@ class MixedSources:
         return supervised, replay
 
     def validate_dataset(self):
-        # Detect mutable caller-owned D07 changes before restoring RNG or updating.
-        require(digest(self.dataset.source_identity) == self.supervised_source_id
-                and _supervised_membership(self.dataset) == self.supervised_membership_sha256,
+        # Immutable owned metadata was fully fingerprinted at admission. No
+        # dataset-wide replay/encoding belongs on the optimizer hot path.
+        require(self.dataset is self._frozen_dataset and self.dataset._sealed,
                 "supervised dataset changed after membership freeze")

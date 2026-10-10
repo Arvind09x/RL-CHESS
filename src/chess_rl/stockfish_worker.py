@@ -343,6 +343,109 @@ async def engine_attempt(state, manifest, executable, timeout, trace):
                 logger.setLevel(previous_level)
 
 
+class PersistentEngine:
+    """Explicit reusable teacher backend for future, separately recorded runs.
+
+    One sequential owner. Reset and readiness precede every search; incomplete,
+    malformed or invalid responses discard the process before the next attempt.
+    Historical fresh-process annotation and its evidence remain unchanged.
+    """
+    policy = "persistent-clear-hash-v1"
+
+    def __init__(self, manifest, executable, timeout=30):
+        if not 0 < timeout <= 60:
+            raise ValueError("timeout must be in (0,60]")
+        self.manifest, self.executable, self.timeout = manifest, Path(executable), timeout
+        self.protocol = None
+        self.directory = None
+        self.busy = False
+        self.identity = file_identity(self.executable)
+        if self.identity["sha256"] != manifest.engine.executable_sha256:
+            raise ValueError("teacher executable checksum mismatch")
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, *errors):
+        await self.close()
+
+    async def close(self):
+        protocol, self.protocol = self.protocol, None
+        try:
+            if protocol is not None:
+                try:
+                    await asyncio.wait_for(protocol.quit(), 5)
+                finally:
+                    protocol.transport.close()
+        finally:
+            if self.directory is not None:
+                self.directory.cleanup()
+                self.directory = None
+
+    async def attempt(self, state, trace):
+        if self.busy:
+            raise ValueError("persistent engine supports one sequential owner")
+        self.busy = True
+        logger = logging.getLogger("chess.engine")
+        previous_level = logger.level
+        diagnostics = EngineDiagnostics(trace, state)
+        logger.setLevel(logging.DEBUG)
+        logger.addHandler(diagnostics)
+        try:
+            # Rehash only on startup; a stable stat identity guards each attempt.
+            stat = self.executable.stat()
+            current = (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+            if self.protocol is None:
+                if file_identity(self.executable) != self.identity:
+                    raise ValueError("teacher executable changed")
+                self.stat_identity = current
+                self.directory = tempfile.TemporaryDirectory(prefix="teacher-session-")
+                _, self.protocol = await asyncio.wait_for(
+                    chess.engine.popen_uci(str(self.executable), cwd=self.directory.name), self.timeout)
+            elif current != self.stat_identity:
+                raise ValueError("teacher executable changed")
+            protocol = self.protocol
+            options = configure_options(protocol, self.manifest)
+            trace["process_policy"] = self.policy
+            trace["engine_id"] = dict(protocol.id)
+            trace["option_capabilities"] = {k: asdict(v) for k,v in protocol.options.items()}
+            trace["effective_options"] = {k:v.default for k,v in protocol.options.items() if v.type != "button"}
+            trace["effective_options"].update(options, MultiPV=1, Ponder=False, UCI_Chess960=False)
+            await asyncio.wait_for(protocol.configure(options), self.timeout)
+            protocol.send_line("ucinewgame")
+            await asyncio.wait_for(protocol.configure({"Clear Hash": None}), self.timeout)
+            await asyncio.wait_for(protocol.ping(), self.timeout)
+            trace["hash_reset_completed"] = True
+            trace["returned_rows"] = []
+            async def search():
+                analysis = await protocol.analysis(state.board.copy(stack=True),
+                    chess.engine.Limit(nodes=self.manifest.teacher.nodes), multipv=1,
+                    info=chess.engine.INFO_ALL, game=object())
+                final = None
+                async for row in analysis:
+                    trace["returned_rows"].append(serialize_info(row))
+                    if row.get("multipv") == 1:
+                        final = row
+                best = await analysis.wait()
+                validate_response(state, final, best.move)
+                trace["returned_bestmove"] = serialize_info(best.move)
+                trace["returned_ponder"] = serialize_info(best.ponder)
+                return final, best.move
+            result = await asyncio.wait_for(search(), self.timeout)
+            if trace.get("transport_errors"):
+                raise AttemptFailure("Malformed/unexpected UCI response", trace["transport_errors"])
+            await asyncio.wait_for(protocol.ping(), self.timeout)
+            trace.update(completed=True, process_healthy_after_search=True)
+            return result
+        except BaseException:
+            await self.close()
+            raise
+        finally:
+            logger.removeHandler(diagnostics)
+            logger.setLevel(previous_level)
+            self.busy = False
+
+
 class AnnotationWorker:
     """Single-run accounting; sink receives every attempt before a label.
 

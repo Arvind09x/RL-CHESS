@@ -72,6 +72,12 @@ class Node:
     def __post_init__(self):
         self.state = self.state.copy()
 
+    @classmethod
+    def _from_owned_state(cls, state):
+        node = object.__new__(cls)
+        node.state, node.edges, node.result = state, {}, None
+        return node
+
     @property
     def expanded(self) -> bool:
         return self.result is not None
@@ -248,9 +254,9 @@ def traverse(root: Node, config: SearchConfig = SearchConfig(), evaluator: Evalu
     while isinstance(node.result, Evaluation):
         edge = select_edge(node, config)
         if edge.child is None:
-            state = node.state.copy()
+            state = node.state._copy_owned()
             apply_move(state, edge.move_id)
-            edge.child = Node(state)
+            edge.child = Node._from_owned_state(state)
         child = edge.child
         path.append(PathStep(node, edge, child))
         node = child

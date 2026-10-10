@@ -165,7 +165,7 @@ def test_idle_uci_verification_and_capability_rejection(manifest, tmp_path, monk
 
     # Saved real D01 transcript is the external protocol fixture; no executable
     # installation is needed. Mutations test the verifier against failed engines.
-    report = json.loads((SELECTED.parents[2] / "runs/d01/manifest-check.json").read_text())
+    report = json.loads((SELECTED.parents[2] / "tests/fixtures/provenance/manifest-check.json").read_text())
     transcript = report["teacher"]["stdout"]
     executable = tmp_path / "teacher"
     executable.write_bytes(b"synthetic executable")

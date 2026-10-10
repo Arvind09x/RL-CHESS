@@ -1,3 +1,0 @@
-*.stdout.txt whitespace=-blank-at-eof,-trailing-space
-*.stderr.txt whitespace=-blank-at-eof,-trailing-space
-*.xml whitespace=-blank-at-eof,-trailing-space

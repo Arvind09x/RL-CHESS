@@ -17,6 +17,7 @@ name = "chess-rl"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "chess" },
     { name = "numpy" },
     { name = "python-chess" },
 ]
@@ -34,6 +35,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "chess", specifier = "==1.11.2" },
     { name = "numpy", specifier = "==2.5.3" },
     { name = "python-chess", specifier = "==1.999" },
     { name = "torch", marker = "(sys_platform == 'linux' and extra == 'model') or (sys_platform == 'win32' and extra == 'model')", specifier = "==2.8.0", index = "https://download.pytorch.org/whl/cpu" },

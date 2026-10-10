@@ -1,7 +1,0 @@
-{
-  "phase": "Final evidence commit whitespace check",
-  "exit_code": 2,
-  "effect": "Acceptance commit completed; fresh evidence staged; no primary mutation",
-  "diagnostic": "Five newly created integration helper scripts have one additional blank line at EOF",
-  "correction": "Keep command-bound source bytes intact; check all staged whitespace with blank-at-eof disabled before committing. No source, checkpoint, freeze, historical evidence or test result changed."
-}

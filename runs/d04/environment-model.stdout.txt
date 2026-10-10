@@ -1,1 +1,0 @@
-{'python': '3.12.12 (main, Feb 12 2026, 00:42:34) [Clang 21.1.4 ]', 'platform': 'macOS-14.5-arm64-arm-64bit', 'machine': 'arm64', 'chess': '1.11.2', 'numpy': '2.5.3', 'torch': '2.8.0'}

@@ -10,7 +10,7 @@ from chess_rl.tensor_ops import validate_soft_wdl
 from .losses import (policy_class_cross_entropy, policy_distribution_cross_entropy,
                      soft_wdl_cross_entropy, validate_policy_classes, validate_policy_distribution)
 from .mixed_state import MixedState, MixedSettings, require
-from .trainer import StepMetrics
+from .trainer import StepMetrics, finite_tensors
 
 
 def validate_optimizer_settings(payload, settings):
@@ -77,8 +77,9 @@ def mixed_step(model, optimizer, sources, state):
     require(type(model) is ChessNetwork and all(layer.self_attn.relative is not None
             for layer in model.backbone.layers), "mixed training requires combined M06")
     parameters = list(model.parameters())
-    require(all(p.device.type == "cpu" and p.dtype == parameters[0].dtype
-                and bool(torch.isfinite(p).all()) for p in parameters), "finite uniform CPU parameters required")
+    device = parameters[0].device
+    require(device.type in ("cpu", "cuda") and all(p.device == device and p.dtype == parameters[0].dtype
+                for p in parameters) and finite_tensors(parameters), "finite uniform supported parameters required")
     payload = _optimizer_payload(model, optimizer)
     validate_optimizer_settings(payload, state.settings)
     require(len(optimizer.state) == (len(parameters) if state.updates else 0)
@@ -96,15 +97,15 @@ def mixed_step(model, optimizer, sources, state):
             require(type(value) is np.ndarray and value.shape == shape and value.dtype == dtype,
                     f"invalid mixed {name} shape/dtype")
         require(bool(np.isfinite(batch.features).all()), "mixed features must be finite")
-    tensors = supervised.to_torch()
-    r = {name: torch.tensor(getattr(replay, name)) for name in ("legal_mask", "policy_distributions", "wdl")}
+    tensors = supervised.to_torch(device=device)
+    r = {name: torch.tensor(getattr(replay, name), device=device) for name in ("legal_mask", "policy_distributions", "wdl")}
     validate_policy_classes(tensors["legal_mask"], tensors["policy_classes"])
     validate_policy_distribution(r["legal_mask"], r["policy_distributions"])
     dtype = parameters[0].dtype
-    validate_soft_wdl(tensors["wdl"], torch.zeros((ns, 3), dtype=dtype))
-    validate_soft_wdl(r["wdl"], torch.zeros((nr, 3), dtype=dtype))
+    validate_soft_wdl(tensors["wdl"], torch.zeros((ns, 3), dtype=dtype, device=device))
+    validate_soft_wdl(r["wdl"], torch.zeros((nr, 3), dtype=dtype, device=device))
     require(bool(((r["wdl"] == 0) | (r["wdl"] == 1)).all()), "exact final WDL required")
-    features = torch.tensor(np.concatenate((supervised.features, replay.features)), dtype=dtype)
+    features = torch.tensor(np.concatenate((supervised.features, replay.features)), dtype=dtype, device=device)
     model.train()
     optimizer.zero_grad(set_to_none=True)
     try:
@@ -113,10 +114,10 @@ def mixed_step(model, optimizer, sources, state):
             classes=tensors["policy_classes"], teacher_wdl=tensors["wdl"], selfplay_mask=r["legal_mask"],
             visits=r["policy_distributions"], final_wdl=r["wdl"], settings=state.settings)
         loss.backward()
-        require(all(p.grad is not None and bool(torch.isfinite(p.grad).all()) for p in parameters),
+        require(all(p.grad is not None for p in parameters) and finite_tensors(p.grad for p in parameters),
                 "every combined-model parameter requires a finite mixed gradient")
         optimizer.step()
-        require(all(bool(torch.isfinite(p).all()) for p in parameters), "nonfinite mixed optimizer result")
+        require(finite_tensors(parameters), "nonfinite mixed optimizer result")
         return metrics, next_state
     except Exception:
         optimizer.zero_grad(set_to_none=True)

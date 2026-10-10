@@ -1,9 +1,0 @@
-============================= test session starts ==============================
-platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.6.0
-rootdir: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2
-collected 11 items
-
-../independent-review-20261010/test_r01_review.py ...........            [100%]
-
-- generated xml file: /Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/independent-review-20261010/r01-independent.xml -
-============================== 11 passed in 2.11s ==============================

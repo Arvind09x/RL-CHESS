@@ -8,7 +8,11 @@ from torch import nn
 
 from chess_rl.adapter import encode_position, make_state
 from chess_rl.contracts import WDL_ORDER
-from chess_rl.model import ChessNetwork, EncoderBackbone, PairPolicyHead, WDLHead
+from functools import partial
+from chess_rl.model import ChessNetwork as CombinedNetwork, EncoderBackbone, PairPolicyHead, WDLHead
+
+# Explicit historical M05 configuration; production M06 has its own independent tests.
+ChessNetwork = partial(CombinedNetwork, relative_enabled=False)
 from .backbone_checks import asymmetric_input, independent_reference, objective, TOLERANCES
 from .policy_checks import component_reference
 from .wdl_checks import numpy_reference

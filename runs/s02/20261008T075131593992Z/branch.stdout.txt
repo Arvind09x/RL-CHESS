@@ -1,5 +1,0 @@
-## codex/s02-puct-tree
- M docs/s01-evaluator.md
-?? runs/s02/
-?? src/chess_rl/search/puct.py
-?? tests/test_puct.py

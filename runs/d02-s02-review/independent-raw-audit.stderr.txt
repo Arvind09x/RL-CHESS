@@ -1,5 +1,0 @@
-Traceback (most recent call last):
-  File "/private/tmp/rl-chess-d02-s02-review/runs/d02-s02-review/audit_raw.py", line 13, in <module>
-    PATHS = [Path('/private/tmp'/name) for name in (
-                  ~~~~~~~~~~~~~~^~~~~
-TypeError: unsupported operand type(s) for /: 'str' and 'str'

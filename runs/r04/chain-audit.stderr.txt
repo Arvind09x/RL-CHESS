@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/runs/r04/verify.py", line 224, in <module>
-    if mode in ('prepare','audit','preserve'):globals()[mode]()
-                                              ^^^^^^^^^^^^^^^^^
-  File "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-local-cycle/runs/r04/verify.py", line 92, in audit
-    assert exported==json.loads((OUT/'replay-export.json').read_text())
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError

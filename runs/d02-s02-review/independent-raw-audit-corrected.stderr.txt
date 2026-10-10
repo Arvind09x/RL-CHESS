@@ -1,5 +1,0 @@
-Traceback (most recent call last):
-  File "/private/tmp/rl-chess-d02-s02-review/runs/d02-s02-review/audit_raw.py", line 76, in <module>
-    assert dict(game.headers) == row['pgn_headers']
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError

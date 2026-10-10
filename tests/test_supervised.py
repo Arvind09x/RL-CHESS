@@ -19,7 +19,7 @@ from chess_rl.stockfish_worker import replay_identity
 from chess_rl.supervised import BUNDLE_FILES, open_dataset
 
 ROOT = Path(__file__).resolve().parents[1]
-EVIDENCE = ROOT / 'runs/d01/stockfish-provenance.json'
+EVIDENCE = ROOT / 'tests/fixtures/provenance/stockfish.json'
 
 
 def write_rows(path, rows):

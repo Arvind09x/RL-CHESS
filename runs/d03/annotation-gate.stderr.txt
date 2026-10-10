@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/private/tmp/rl-chess-d03-canonical-splits/scripts/check_d01.py", line 99, in <module>
-    main()
-  File "/private/tmp/rl-chess-d03-canonical-splits/scripts/check_d01.py", line 84, in main
-    manifest.require_annotation_ready()
-  File "/private/tmp/rl-chess-d03-canonical-splits/src/chess_rl/data_manifest.py", line 242, in require_annotation_ready
-    raise ValueError("Manifest is preparation-ready only; annotation blocked by: " + ", ".join(missing))
-ValueError: Manifest is preparation-ready only; annotation blocked by: preparation.sampling_algorithm, preparation.phase_boundaries, preparation.overlap_audit_sha256, preparation.protected_heldout_registry_sha256

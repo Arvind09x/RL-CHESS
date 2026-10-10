@@ -319,7 +319,7 @@ def test_failed_update_does_not_advance_cursor_or_call_step(sources,failure):
     if failure == 'lr': opt.param_groups[0]['lr'] = 1e-4
     elif failure == 'gradient': next(model.parameters()).register_hook(lambda g:g*torch.nan)
     elif failure == 'output': model.register_forward_hook(lambda m,a,o:(o[0]*torch.nan,o[1]))
-    elif failure == 'dataset_mutation': data.dataset._labels[0]['best_move_id'] += 1
+    elif failure == 'dataset_mutation': data.dataset = data.dataset.freeze()
     elif failure == 'partial_adam': opt.state[next(model.parameters())] = {'step':torch.tensor(1.)}
     calls = []
     opt.register_step_pre_hook(lambda *args:calls.append(True))

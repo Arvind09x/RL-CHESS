@@ -1,7 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/scripts/check_d08_preservation.py", line 60, in <module>
-    main()
-  File "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/d08-initial-labels/scripts/check_d08_preservation.py", line 25, in main
-    assert git("status", "--porcelain", cwd=PRIMARY) == b""
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError

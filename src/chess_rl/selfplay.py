@@ -75,9 +75,9 @@ class Settings:
         return cls(**value)
 
 
-def runtime():
+def runtime(device="cpu"):
     """Exact continuation is limited to the same recorded deterministic CPU runtime."""
-    return dict(python=platform.python_version(), platform=platform.platform(),
+    result = dict(python=platform.python_version(), platform=platform.platform(),
                 machine=platform.machine(), numpy=np.__version__, torch=str(torch.__version__),
                 chess=__import__("chess").__version__, device="cpu", batch_size=1,
                 threads=torch.get_num_threads(), interop_threads=torch.get_num_interop_threads(),
@@ -85,6 +85,13 @@ def runtime():
                 deterministic_warn_only=torch.is_deterministic_algorithms_warn_only_enabled(),
                 mkldnn_enabled=torch.backends.mkldnn.enabled,
                 float32_matmul_precision=torch.get_float32_matmul_precision())
+    if device != "cpu":
+        from chess_rl.training.checkpoints import ModelConfig, cuda_runtime_config, _validate_cuda_runtime
+        ModelConfig(device=device)
+        result["device"] = device
+        result["cuda_runtime"] = cuda_runtime_config()
+        _validate_cuda_runtime(result["cuda_runtime"])
+    return result
 
 
 def _json(value):
@@ -120,6 +127,18 @@ def _read(path):
     if set(envelope) != {"sha256", "content"} or digest(envelope["content"]) != envelope["sha256"]:
         raise ValueError("record checksum mismatch")
     return envelope["content"]
+
+
+def read_game_record(directory):
+    """Read legacy full snapshots or an atomic pointer to immutable move files."""
+    directory = Path(directory)
+    record = _read(directory / "boundary.json")
+    count = record.pop("journal_positions", None)
+    if count is not None:
+        if type(count) is not int or count < 0 or record["positions"]:
+            raise ValueError("invalid move journal boundary")
+        record["positions"] = [_read(directory / "moves" / f"{i:06d}.json") for i in range(count)]
+    return record
 
 
 def _checkpoint(path, evaluator):
@@ -223,17 +242,17 @@ class Session:
 
     @classmethod
     def create(cls, directory, checkpoint_path, opening: Opening, *, settings: Settings,
-               seed: int, opening_selection_seed: int):
+               seed: int, opening_selection_seed: int, device="cpu", journal=False):
         _integer(seed, "seed")
         _integer(opening_selection_seed, "opening_selection_seed")
         if not isinstance(opening, Opening) or not opening.history_complete:
             raise ValueError("self-play requires a complete Opening")
         if not isinstance(settings, Settings):
             raise ValueError("settings must be Settings")
-        current_runtime = runtime()
+        current_runtime = runtime(device)
         if not current_runtime["deterministic"] or current_runtime["deterministic_warn_only"]:
             raise ValueError("enable strict deterministic CPU algorithms before creation")
-        evaluator = RealEvaluator(checkpoint_path)
+        evaluator = RealEvaluator(checkpoint_path) if device == "cpu" else RealEvaluator(checkpoint_path, device=device)
         checkpoint = _checkpoint(checkpoint_path, evaluator)
         rng = np.random.Generator(np.random.PCG64(seed))
         configuration = json.loads(_json(dict(schema="r01-config-v1", checkpoint=checkpoint,
@@ -242,30 +261,39 @@ class Session:
             rng=dict(algorithm="numpy-PCG64", seed=seed, initial_state=rng.bit_generator.state,
                      python_global="unused", numpy_global="unused",
                      torch_cpu="unused by eval/inference; dropout disabled"),
-            execution="sequential CPU; batch-of-one; fresh tree per move",
-            boundary="atomic full-history + committed search/move + post-move PCG64 state")))
+            execution=f"sequential {'CPU' if device == 'cpu' else device}; batch-of-one; fresh tree per move",
+            boundary=("immutable-move-journal-v2" if journal else "atomic full-history + committed search/move + post-move PCG64 state"))))
         record = dict(schema="r01-game-v1", configuration_sha256=digest(configuration),
                       positions=[], interruptions=[], rng_state=rng.bit_generator.state)
         _adjudicate(record, opening.state(), settings.ply_cap)
         directory = Path(directory)
         directory.mkdir(parents=True, exist_ok=False)
         _write(directory / "configuration.json", configuration)
-        _write(directory / "boundary.json", record)
-        return cls(directory, configuration, record, evaluator)
+        session = cls(directory, configuration, record, evaluator)
+        if journal:
+            (directory / "moves").mkdir()
+            header = {**record, "positions": [], "journal_positions": 0}
+            _write(directory / "boundary.json", header)
+        else:
+            _write(directory / "boundary.json", record)
+        return session
 
     @classmethod
-    def load(cls, directory):
+    def load(cls, directory, *, checkpoint_path=None):
         directory = Path(directory)
         configuration = _read(directory / "configuration.json")
-        record = _read(directory / "boundary.json")
+        record = read_game_record(directory)
         audit(configuration, record)
-        if configuration["runtime"] != runtime():
+        if configuration["runtime"] != runtime(configuration["runtime"]["device"]):
             raise ValueError("resume runtime differs from recorded CPU runtime")
-        path = configuration["checkpoint"]["path"]
+        path = checkpoint_path or configuration["checkpoint"]["path"]
         if hashlib.sha256(Path(path).read_bytes()).hexdigest() != configuration["checkpoint"]["sha256"]:
             raise ValueError("checkpoint bytes changed")
-        evaluator = RealEvaluator(path)
-        if json.loads(_json(_checkpoint(path, evaluator))) != configuration["checkpoint"]:
+        device = configuration["runtime"]["device"]
+        evaluator = RealEvaluator(path) if device == "cpu" else RealEvaluator(path, device=device)
+        actual = json.loads(_json(_checkpoint(path, evaluator)))
+        actual["path"] = configuration["checkpoint"]["path"]
+        if actual != configuration["checkpoint"]:
             raise ValueError("checkpoint identity/configuration changed")
         return cls(directory, configuration, record, evaluator)
 
@@ -279,7 +307,19 @@ class Session:
         return copy.deepcopy(dict(configuration=self.configuration, game=self.record))
 
     def _publish(self, record):
-        _write(self.directory / "boundary.json", record, replace=True)
+        if self.configuration["boundary"] == "immutable-move-journal-v2":
+            for i in range(len(self.record["positions"]), len(record["positions"])):
+                path = self.directory / "moves" / f"{i:06d}.json"
+                # A crash may have published the move but not the pointer.
+                if path.exists():
+                    if _read(path) != record["positions"][i]:
+                        raise ValueError("orphan move journal differs from deterministic retry")
+                else:
+                    _write(path, record["positions"][i])
+            header = {**record, "positions": [], "journal_positions": len(record["positions"])}
+            _write(self.directory / "boundary.json", header, replace=True)
+        else:
+            _write(self.directory / "boundary.json", record, replace=True)
         self.record = record
 
     def run(self, *, stop_after_moves=None):
@@ -294,10 +334,9 @@ class Session:
             _integer(stop_after_moves, "stop_after_moves")
         with open(self.directory / ".writer.lock", "a+b") as lock:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-            if _read(self.directory / "configuration.json") != self.configuration or _read(
-                    self.directory / "boundary.json") != self.record:
+            if _read(self.directory / "configuration.json") != self.configuration or read_game_record(self.directory) != self.record:
                 raise ValueError("stale session; reload durable boundary")
-            if runtime() != self.configuration["runtime"]:
+            if runtime(self.configuration["runtime"]["device"]) != self.configuration["runtime"]:
                 raise ValueError("execution runtime changed")
             settings = Settings.from_dict(self.configuration["settings"])
             state = audit(self.configuration, self.record)
@@ -308,14 +347,14 @@ class Session:
                     record["interruptions"].append(dict(kind="cooperative", ply=len(state.board.move_stack)))
                     self._publish(record)
                     break
-                root = Node(state.copy())
+                root = Node(state)
                 rng = _rng(self.record["rng_state"])
                 ply = len(state.board.move_stack)
                 try:
                     result = search(root, settings.simulation_budget,
                         config=SearchConfig(settings.c_puct, settings.unvisited_value),
                         evaluator=self.evaluator, exploration=settings.exploration(ply), rng=rng)
-                    candidate = state.copy()
+                    candidate = state._copy_owned()
                     apply_move(candidate, result.move_id)
                     position = dict(ply=ply, root_fen=state.board.fen(en_passant="fen"),
                         root_promoted=int(state.board.promoted), side_to_move="white" if state.board.turn else "black",
@@ -333,8 +372,7 @@ class Session:
                         discarded_visits=[[i, e.visit_count] for i, e in sorted(root.edges.items()) if e.visit_count]))
                     self._publish(record)
                     break
-                record = copy.deepcopy(self.record)
-                record["positions"].append(position)
+                record = {**self.record, "positions": [*self.record["positions"], position]}
                 record["rng_state"] = rng.bit_generator.state
                 _adjudicate(record, candidate, settings.ply_cap)
                 # Do not catch publication exceptions and roll back an uncertain

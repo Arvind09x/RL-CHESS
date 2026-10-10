@@ -35,6 +35,12 @@ class StepMetrics:
     total_loss: float
 
 
+def finite_tensors(values):
+    """One host synchronization for a collection of tensors on one device."""
+    values = tuple(values)
+    return bool(values) and bool(torch.stack([torch.isfinite(value).all() for value in values]).all())
+
+
 def supervised_step(model: ChessNetwork, optimizer: torch.optim.Optimizer,
                     batch: SupervisedBatch, *, weights: LossWeights = LossWeights()) -> StepMetrics:
     """Validate the owned batch, train both heads, and update unique parameters.
@@ -65,7 +71,7 @@ def supervised_step(model: ChessNetwork, optimizer: torch.optim.Optimizer,
             raise ValueError(f"invalid D07 batch {name} shape/dtype or empty batch")
     if not np.isfinite(batch.features).all():
         raise ValueError("features must be finite")
-    if not all(torch.isfinite(p).all() for p in parameters):
+    if not finite_tensors(parameters):
         raise ValueError("model parameters must be finite")
     device, dtype = parameters[0].device, parameters[0].dtype
     tensors = batch.to_torch(device=device)
@@ -82,11 +88,11 @@ def supervised_step(model: ChessNetwork, optimizer: torch.optim.Optimizer,
         if not torch.isfinite(total):
             raise ValueError("combined loss must be finite")
         total.backward()
-        if any(p.grad is None or not torch.isfinite(p.grad).all() for p in parameters):
+        if any(p.grad is None for p in parameters) or not finite_tensors(p.grad for p in parameters):
             raise ValueError("every combined-model parameter requires a finite gradient")
         metrics = StepMetrics(size, float(policy_loss.detach()), float(wdl_loss.detach()), float(total.detach()))
         optimizer.step()
-        if not all(torch.isfinite(p).all() for p in parameters):
+        if not finite_tensors(parameters):
             raise ValueError("optimizer produced nonfinite parameters")
         return metrics
     except Exception:

@@ -1,3 +1,0 @@
-*.stdout.txt -whitespace
-*.stderr.txt -whitespace
-*.xml -whitespace

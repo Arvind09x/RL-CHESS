@@ -1,7 +1,0 @@
-{
-  "argv": ["/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python", "-B", "runs/r04-integration/finalize.py"],
-  "exit_code": 1,
-  "stderr": "  File \"/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r04-integration/runs/r04-integration/finalize.py\", line 130\n    plan+=b\"\"\"\n          ^^^^\nSyntaxError: bytes can only contain ASCII literal characters\n",
-  "effect": "Parser rejected integration documentation script before any execution; no Git, evidence or documentation mutation",
-  "correction": "Encode Unicode documentation string explicitly; no production source or original freeze change"
-}

@@ -1,1 +1,0 @@
-{"matches": 24, "planned_games": 48, "real_checkpoints_available": false}

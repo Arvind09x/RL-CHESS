@@ -177,7 +177,7 @@ def intake(tmp_path, games):
     manifest = DatasetManifest.load(ROOT/'data/manifests/elite-2025-01-v1.json')
     path = tmp_path/'games.jsonl'
     path.write_text(''.join(json_line(g) for g in games))
-    audit = json.loads((ROOT/'runs/d03/split-audit.json').read_text())
+    audit = json.loads((ROOT/'tests/fixtures/provenance/split-audit.json').read_text())
     audit['outputs']['games.jsonl'] = file_identity(path)
     audit['actual_split_counts'] = {s: dict(games=sum(g['split']==s for g in games),
         plies=sum(len(g['moves_uci']) for g in games if g['split']==s),

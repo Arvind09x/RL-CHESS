@@ -1,7 +1,0 @@
-Final staged diff check: passed
-Scope: M01 AI acceptance record and M02 only
-Original planning hashes, historical evidence, adapter, M01 math, pins/notices/dependencies: unchanged
-M01 documentation: append only
-Reports: 157 model passes; 119 adapter-only passes, 2 expected skips; 6 M02/12 M01 numerical cases
-All 182 backbone parameter gradients plus input verified in each numerical case
-Adapter replay outputs: byte-identical across environments

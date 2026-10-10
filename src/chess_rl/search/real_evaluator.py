@@ -18,15 +18,15 @@ from chess_rl.training.checkpoints import ModelConfig, load_inference
 class RealEvaluator:
     """Callable search evaluator with ``evaluate(states)`` in original order.
 
-    Checkpoints use T02's supported CPU float32/float64 combined M06 model.
+    Checkpoints use the shared combined M06 loader; device defaults to CPU.
     Public adapter results own float32 arrays, including for float64 inference.
     Nonterminal states share one forward call per invocation. No model work is
     performed for empty or entirely terminal input. A caller must serialize
     access to this owned model and avoid changing its parameters/configuration.
     """
 
-    def __init__(self, checkpoint_path, *, expected_config: ModelConfig | None = None):
-        self.checkpoint = load_inference(checkpoint_path, expected_config=expected_config)
+    def __init__(self, checkpoint_path, *, expected_config: ModelConfig | None = None, device="cpu"):
+        self.checkpoint = load_inference(checkpoint_path, expected_config=expected_config, device=device)
 
     def __call__(self, states: Sequence[ChessState]) -> list[Evaluation | TerminalResult]:
         return self.evaluate(states)
@@ -44,11 +44,12 @@ class RealEvaluator:
         if not pending:
             return results
 
-        masks = torch.from_numpy(np.stack([legal_mask(state) for _, state in pending]))
+        device = next(self.checkpoint.model.parameters()).device
+        masks = torch.from_numpy(np.stack([legal_mask(state) for _, state in pending])).to(device=device)
         validate_legal_support(masks)
         features = torch.from_numpy(np.stack([
             encode_position(state).features for _, state in pending
-        ])).to(dtype=getattr(torch, self.checkpoint.config.dtype))
+        ])).to(device=device, dtype=getattr(torch, self.checkpoint.config.dtype))
 
         with torch.inference_mode():
             model = self.checkpoint.model
@@ -58,8 +59,8 @@ class RealEvaluator:
             finite_matrix(wdl_logits, "WDL logits", len(WDL_ORDER))
             if policy_logits.shape[0] != len(pending) or wdl_logits.shape[0] != len(pending):
                 raise ValueError("model output batch must match nonterminal inputs")
-            priors = legal_policy_probs(policy_logits, masks).to(torch.float32).numpy()
-            wdl = torch.softmax(wdl_logits, dim=1).to(torch.float32).numpy()
+            priors = legal_policy_probs(policy_logits, masks).to(device="cpu", dtype=torch.float32).numpy()
+            wdl = torch.softmax(wdl_logits, dim=1).to(device="cpu", dtype=torch.float32).numpy()
             for row, (index, _) in enumerate(pending):
                 results[index] = Evaluation(priors[row], wdl[row],
                                             float(wdl[row, 0] - wdl[row, 2]))

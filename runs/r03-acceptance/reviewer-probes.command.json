@@ -1,0 +1,37 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "-B",
+    "-m",
+    "pytest",
+    "-s",
+    "--import-mode=importlib",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/independent-review-r03-20261010/probe-temp",
+    "--junitxml=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/independent-review-r03-20261010/reviewer-probes.xml",
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/independent-review-r03-20261010/test_reviewer_probes.py"
+  ],
+  "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r03-mixed-update",
+  "environment": {
+    "PYTHONPATH": "src:.",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "started_at_utc": "2026-10-10T08:24:57.827690+00:00",
+  "finished_at_utc": "2026-10-10T08:25:15.062662+00:00",
+  "duration_seconds": 17.234542749996763,
+  "exit_code": 0,
+  "stdout": {
+    "bytes": 621,
+    "sha256": "d8bc74b44f2735a4057f7bbc27e86066786de1b5c42d70065609eb83d2d6a55d"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

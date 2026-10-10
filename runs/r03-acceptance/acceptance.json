@@ -1,0 +1,60 @@
+{
+  "actionable_findings": [],
+  "base": "66913809a3fa79d6a7a41f8157b5dbc425684051",
+  "cuda_integrated": false,
+  "documented_failure_boundary": "Rejected gradients leave parameters/cursors unchanged but may consume dropout RNG; partial optimizer failures require checkpoint restoration",
+  "first_retained_mixed_execution_at": "2026-10-10T08:08:59.472193+00:00",
+  "freeze": "d223be26457aea7aa5e7f9b489ba8cee817fdf10",
+  "freeze_committed_at": "2026-10-10T13:30:29+05:30",
+  "freeze_precedes_execution": true,
+  "independent_results": {
+    "adapter": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 1023,
+      "skipped": 14,
+      "tests": 1037
+    },
+    "failure-boundary": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 1,
+      "skipped": 0,
+      "tests": 1
+    },
+    "focused_mixed_cases": 56,
+    "model": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 1553,
+      "skipped": 0,
+      "tests": 1553
+    },
+    "reviewer-probes": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 21,
+      "skipped": 0,
+      "tests": 21
+    }
+  },
+  "independent_review_thread": "01a124e6-875e-7090-9ff4-855e4566b4d2",
+  "independent_review_title": "Review R03 mixed-update commits",
+  "integration_evidence_separate": "runs/r03-integration",
+  "local_date": "2026-10-10",
+  "new_independent_review_commissioned": false,
+  "r04_started": false,
+  "report_identity": {
+    "bytes": 7199,
+    "sha256": "c5df2938c5e3392c2f584a66c4146807d4fa708fdcdfc4f91ab597e2518f305f"
+  },
+  "review_summary_identity": {
+    "bytes": 2438,
+    "sha256": "59e7d194fa85f21603c173e2da4ac30b8c2cf10586701462e697c2aac491adb0"
+  },
+  "reviewed": "9fefb55f31a6a941f454d12c049c9aac8c5c3cac",
+  "scope": "Bounded deterministic CPU mixed-update and persistence correctness; no learning, chess strength, accelerator, concurrent-source or pilot/main-run claim",
+  "supplied_by_user": true,
+  "timezone": "Asia/Kolkata",
+  "verdict": "ACCEPTED"
+}

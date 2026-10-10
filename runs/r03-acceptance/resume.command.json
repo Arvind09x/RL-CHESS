@@ -1,0 +1,35 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "-B",
+    "scripts/run_r03.py",
+    "--mode",
+    "resume",
+    "--output",
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/independent-review-r03-20261010/resume.json",
+    "--checkpoint",
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/independent-review-r03-20261010/boundary.pt"
+  ],
+  "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r03-mixed-update",
+  "environment": {
+    "PYTHONPATH": "src:.",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "started_at_utc": "2026-10-10T08:25:03.986212+00:00",
+  "finished_at_utc": "2026-10-10T08:25:19.135849+00:00",
+  "duration_seconds": 15.149575749994256,
+  "exit_code": 0,
+  "stdout": {
+    "bytes": 118,
+    "sha256": "c24535ef002a0ded4dca2fae41995c169b53dff4ed126c9707db388a45ed2166"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

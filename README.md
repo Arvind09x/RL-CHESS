@@ -893,3 +893,19 @@ processes verify exact next-update continuation. See
 [the contract and evidence](docs/r03-mixed-update.md) and
 [verification summary](runs/r03/summary.json). Independent review is pending;
 R03 remains unchecked and work stops before R04. Main and user edits are preserved.
+
+
+## Accepted R03 mixed-update integration — 10 October 2026
+
+The independently reviewed freeze `d223be2` and implementation `9fefb55` are
+accepted for bounded deterministic CPU mixed-update and persistence correctness.
+Both original commits are retained. Fresh isolated verification passed 1,553
+model tests, 1,023 Torch-free adapter tests (14 expected skips), 22 supplied
+reviewer probes, both frozen adapter replays, legacy checkpoint continuation
+and exact mixed continuation through updates two and three. Reopened accepted
+D07/R02 sources, protected exclusions and both sampling states match the freeze.
+See [acceptance and integration](docs/r03-integration.md),
+[supplied acceptance](runs/r03-acceptance/acceptance.json) and
+[fresh evidence](runs/r03-integration/summary.json). Historical artifacts and
+the exact unstaged user plan edits are preserved. Scope stops before R04 and
+CUDA integration; no learning or strength claim is made.

@@ -141,7 +141,7 @@ Leela is the practical chess-search/self-play reference; AlphaZero supplies the 
 |---|---|---|---|---|
 | [x] | R01 / P2 | S05, T04 | Implement model-guided self-play execution, move-boundary adjudication, completed/truncated/interrupted statuses and resumable game records using the batched evaluator. Record a deliberate temperature/root-noise schedule and opening source/seed/prefix. Initially run batch-of-one; permit independent games to contribute one pending leaf each for pilot batching. | Terminal outcomes take precedence over the ply cap. Forced interruption/reload preserves initial board, moves, ending policy, checkpoint/search settings, opening prefix and RNG. Search may rebuild; history cannot disappear. Log duplicate completed games and completion/truncation/interruption rates. |
 | [x] | R02 / Both | R01 | Finalize completed-game records into the replay buffer with per-position legal masks, root visits and exact final WDL. | Winner/loser labels flip correctly across players. Incomplete games remain unlabeled and excluded. Raw visits and normalized targets are consistent. |
-| [ ] | R03 / P1 | R02, T01, T02 | Implement an RL update mixing completed-game search policy/WDL with training-split Stockfish samples. Before running, record supervised sample fraction strictly between 0 and 1, source, conservative learning rate, loss weights and replay/update schedule. | Fixed supervised and completed-game fixtures produce a finite mixed update with contributions from both sources and survive checkpoint resume with settings preserved. Verify supervised class/soft-WDL targets and self-play distribution/exact-WDL targets remain distinct; sample counts/losses are logged by source. No held-out or unfinished-game samples enter replay. |
+| [x] | R03 / P1 | R02, T01, T02 | Implement an RL update mixing completed-game search policy/WDL with training-split Stockfish samples. Before running, record supervised sample fraction strictly between 0 and 1, source, conservative learning rate, loss weights and replay/update schedule. | Fixed supervised and completed-game fixtures produce a finite mixed update with contributions from both sources and survive checkpoint resume with settings preserved. Verify supervised class/soft-WDL targets and self-play distribution/exact-WDL targets remain distinct; sample counts/losses are logged by source. No held-out or unfinished-game samples enter replay. |
 | [ ] | R04 / Both | R03, T03 | Run a few model-guided games, finalize any completed records, update, reload and run a short match. If all games truncate, diagnose or use a known valid near-terminal fixture for the plumbing check. | Saved artifacts show the complete position → search → game → target → update → checkpoint → evaluation path. Never relabel a truncation to pass. The overfit/plumbing checkpoint is not the project pretraining checkpoint P. |
 
 **Gate I — local integration accepted:** R04 passes before spending the main training allocation. The tiny cycle establishes functioning plumbing, not improvement or strength.
@@ -1296,3 +1296,21 @@ See [R03 contract](docs/r03-mixed-update.md),
 [frozen plan](runs/r03/frozen-plan.json) and
 [committed evidence](runs/r03/summary.json). Stop for independent R03 review
 before integration or R04; no strength or accelerator claim is made.
+
+
+### R03 independent acceptance and integration — 10 October 2026
+
+- **R03 accepted:** User-supplied independent AI review accepts freeze `d223be2`
+  and implementation `9fefb55` for bounded deterministic CPU mixed-update and
+  persistence correctness, with no actionable findings. Original commits are
+  retained; [supplied attribution](runs/r03-acceptance/acceptance.json) is
+  separate from [fresh integration evidence](runs/r03-integration/summary.json).
+- Fresh isolated checks pass 1,553 model tests, 1,023 adapter tests with 14 expected
+  skips, 22 supplied reviewer probes, both frozen replays, legacy compatibility
+  and fresh-process continuation. Accepted D07/R02 identities, held-out
+  exclusions and both sampling permutations/cursors/epochs/RNG match. Mixed
+  full/prefix/resume reproduce exact historical steps and checkpoint bytes.
+- [Integration and preservation](docs/r03-integration.md) records exact original
+  plan/index backups, artifact preservation and guarded primary application.
+  The original D06/D07/E01 edits remain unstaged. R04 remains unchecked and
+  unstarted; CUDA integration and strength/learning claims are outside scope.

@@ -1,0 +1,11 @@
+{
+  "executable": "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+  "python": "3.12.12",
+  "packages": {
+    "numpy": "2.5.3",
+    "python-chess": "1.999",
+    "chess": "1.11.2",
+    "pytest": "9.1.1"
+  },
+  "torch_present": false
+}

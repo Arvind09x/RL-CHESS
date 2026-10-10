@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "-B",
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/independent-review-r03-20261010/audit_evidence.py"
+  ],
+  "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r03-mixed-update",
+  "environment": {
+    "PYTHONPATH": "src:.",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "started_at_utc": "2026-10-10T08:28:04.465763+00:00",
+  "finished_at_utc": "2026-10-10T08:28:04.594188+00:00",
+  "duration_seconds": 0.1283861250267364,
+  "exit_code": 0,
+  "stdout": {
+    "bytes": 2438,
+    "sha256": "d6509eb6d37b6f0da7239b0d5804c60fd99143fcf0dcf9aa0678a6ae5e83f2c9"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -880,3 +880,16 @@ independent four-root archive/restart verification pass. See
 [the integration record](docs/r02-integration.md) and
 [separate evidence](runs/r02-integration/summary.json). R03 and CUDA integration
 remain pending.
+
+## R03 mixed update — 10 October 2026
+
+Implemented only R03 in isolated `codex/r03-mixed-update` after accepted R02.
+The frozen 50% supervised mixture uses audited D07 training classes/soft WDL
+and completed R02 visit distributions/exact WDL, with separate source metrics.
+Shared checkpoints retain both source identities, memberships, cursors, sampling
+RNG and mixed settings alongside Adam/model/progress; legacy D07 remains supported.
+All 56 R03 cases and 1,553 bounded model fixtures pass. Three independent CPU
+processes verify exact next-update continuation. See
+[the contract and evidence](docs/r03-mixed-update.md) and
+[verification summary](runs/r03/summary.json). Independent review is pending;
+R03 remains unchecked and work stops before R04. Main and user edits are preserved.

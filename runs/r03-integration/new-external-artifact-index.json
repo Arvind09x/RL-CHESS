@@ -1,0 +1,26 @@
+{
+  "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/legacy-continuation/resumed.json": {
+    "bytes": 247012,
+    "sha256": "9ea631482c2816e2045cb14d9cbb8a082df29225eba546e7cfd71a0fab3cba05"
+  },
+  "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/legacy-continuation/step-1.pt": {
+    "bytes": 60871811,
+    "sha256": "c1291c167003ee3cb3fd8f3c9c4b9dd1ee1d2d607ec8e2a3954e012b041f7dbc"
+  },
+  "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/legacy-continuation/summary.json": {
+    "bytes": 1797,
+    "sha256": "e1e868de5347f810fb4ec732a19c292178c822beab900f1c952a32658908f0a5"
+  },
+  "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/legacy-continuation/uninterrupted.json": {
+    "bytes": 247012,
+    "sha256": "9ea631482c2816e2045cb14d9cbb8a082df29225eba546e7cfd71a0fab3cba05"
+  },
+  "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/legacy-continuation/warmup.json": {
+    "bytes": 3530,
+    "sha256": "e663be398e1564831759eb471b59b94e5441155a2266f2eeb1d83fdd4f01f2e7"
+  },
+  "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/mixed-boundary.pt": {
+    "bytes": 60874947,
+    "sha256": "be3aeda42babd2cd45da05c52d1222d6952fd2ddec2e279fbe26fd9a344af6a9"
+  }
+}

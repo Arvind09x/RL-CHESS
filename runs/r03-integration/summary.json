@@ -1,0 +1,296 @@
+{
+  "acceptance_commit": "4fabcb87e9ad2eddf39eb2f291cdd1689b3a1e3a",
+  "base": "66913809a3fa79d6a7a41f8157b5dbc425684051",
+  "commands": {
+    "adapter-replay.command.json": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "-B",
+        "scripts/check_adapter.py"
+      ],
+      "duration_seconds": 0.10942433300078847,
+      "exit_code": 0,
+      "sources_unchanged": true
+    },
+    "adapter.command.json": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/adapter-temp",
+        "--junitxml=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r03-integration/runs/r03-integration/adapter.xml"
+      ],
+      "duration_seconds": 16.55895179201616,
+      "exit_code": 0,
+      "sources_unchanged": true
+    },
+    "legacy-continuation.command.json": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "scripts/check_t02.py",
+        "--directory",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/legacy-continuation"
+      ],
+      "duration_seconds": 29.542157374991802,
+      "exit_code": 0,
+      "sources_unchanged": true
+    },
+    "mixed-full.command.json": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "scripts/run_r03.py",
+        "--mode",
+        "full",
+        "--output",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r03-integration/runs/r03-integration/full.json",
+        "--checkpoint",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/mixed-boundary.pt"
+      ],
+      "duration_seconds": 14.793217417027336,
+      "exit_code": 0,
+      "sources_unchanged": true
+    },
+    "mixed-prefix.command.json": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "scripts/run_r03.py",
+        "--mode",
+        "prefix",
+        "--output",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r03-integration/runs/r03-integration/prefix.json",
+        "--checkpoint",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/mixed-boundary.pt"
+      ],
+      "duration_seconds": 14.332132292009192,
+      "exit_code": 0,
+      "sources_unchanged": true
+    },
+    "mixed-resume.command.json": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "scripts/run_r03.py",
+        "--mode",
+        "resume",
+        "--output",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r03-integration/runs/r03-integration/resume.json",
+        "--checkpoint",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/mixed-boundary.pt"
+      ],
+      "duration_seconds": 14.628985999996075,
+      "exit_code": 0,
+      "sources_unchanged": true
+    },
+    "model-replay.command.json": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "scripts/check_adapter.py"
+      ],
+      "duration_seconds": 0.11587870900984854,
+      "exit_code": 0,
+      "sources_unchanged": true
+    },
+    "model.command.json": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/model-temp",
+        "--junitxml=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r03-integration/runs/r03-integration/model.xml",
+        "-p",
+        "runs.m06.diagnostic_plugin"
+      ],
+      "duration_seconds": 112.49381570800324,
+      "exit_code": 0,
+      "sources_unchanged": true
+    },
+    "source-and-legacy-audit.command.json": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r03-integration/runs/r03-integration/audit_sources.py"
+      ],
+      "duration_seconds": 15.940651999990223,
+      "exit_code": 0,
+      "sources_unchanged": true
+    },
+    "supplied-probes.command.json": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/external-artifacts/r03-integration-20261010/probes-temp",
+        "--junitxml=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r03-integration/runs/r03-integration/supplied-probes.xml",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r03-integration/runs/r03-acceptance/test_reviewer_probes.py",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r03-integration/runs/r03-acceptance/test_failure_boundary.py"
+      ],
+      "duration_seconds": 17.458397042006254,
+      "exit_code": 0,
+      "sources_unchanged": true
+    }
+  },
+  "cuda_integrated": false,
+  "freeze": "d223be26457aea7aa5e7f9b489ba8cee817fdf10",
+  "implementation": "9fefb55f31a6a941f454d12c049c9aac8c5c3cac",
+  "legacy_continuation": {
+    "changed_parameter_tensors": 214,
+    "checkpoint": {
+      "bytes": 60871811,
+      "sha256": "c1291c167003ee3cb3fd8f3c9c4b9dd1ee1d2d607ec8e2a3954e012b041f7dbc"
+    },
+    "compared_fields": [
+      "batch",
+      "before_predictions",
+      "changed_parameter_tensors",
+      "config",
+      "draws",
+      "gradients",
+      "indices",
+      "metrics",
+      "optimizer",
+      "optimizer_defaults",
+      "parameters",
+      "post_update_predictions",
+      "random_state_after_update",
+      "references",
+      "runtime",
+      "shared_bank_identity",
+      "training_forward"
+    ],
+    "dropout": 0.1,
+    "exact_match": true,
+    "gradient_tensors": 215,
+    "limitations": "local pinned CPU float32 correctness only; two updates total; no T03/T04, fit, P, pilot, RL or accelerator claim",
+    "metrics": {
+      "batch_size": 2,
+      "policy_loss": 2.8774099349975586,
+      "total_loss": 3.6107428073883057,
+      "wdl_loss": 1.228119969367981
+    },
+    "optimizer_states": 215,
+    "outputs": {
+      "resumed.json": {
+        "bytes": 247012,
+        "sha256": "9ea631482c2816e2045cb14d9cbb8a082df29225eba546e7cfd71a0fab3cba05"
+      },
+      "uninterrupted.json": {
+        "bytes": 247012,
+        "sha256": "9ea631482c2816e2045cb14d9cbb8a082df29225eba546e7cfd71a0fab3cba05"
+      },
+      "warmup.json": {
+        "bytes": 3530,
+        "sha256": "e663be398e1564831759eb471b59b94e5441155a2266f2eeb1d83fdd4f01f2e7"
+      }
+    },
+    "parameter_tensors": 215,
+    "runtime": {
+      "default_dtype": "torch.float32",
+      "deterministic": true,
+      "deterministic_warn_only": false,
+      "interop_threads": 1,
+      "machine": "arm64",
+      "matmul_precision": "highest",
+      "mkldnn": true,
+      "numpy": "2.5.3",
+      "platform": "macOS-14.5-arm64-arm-64bit",
+      "python": "3.12.12",
+      "threads": 1,
+      "torch": "2.8.0"
+    },
+    "separate_python_process": true,
+    "tolerance": 0
+  },
+  "legacy_historical_checkpoints_verified": 6,
+  "merge": "0a45bc81bcf6808df7930f9839495cf1eab8e9de",
+  "mixed_continuation": {
+    "checkpoint_matches_historical": true,
+    "continuation_exact": true,
+    "final_exact": true,
+    "historical_final_exact": true,
+    "historical_steps_exact": true,
+    "prefix_exact": true
+  },
+  "preservation": {
+    "historical_external_files": 93,
+    "review_files": 47,
+    "source_tracked": 2421
+  },
+  "primary_verification": {
+    "accepted_tree_exact": true,
+    "historical_external_files": 93,
+    "primary_bytes_and_patch_exact": true,
+    "primary_raw_index_exact": true,
+    "review_files": 47,
+    "source_tracked": 2421
+  },
+  "r03_marked_accepted": true,
+  "r04_started": false,
+  "scope": "Bounded deterministic CPU mixed-update and persistence correctness; no learning, chess strength, accelerator, concurrent-source or pilot/main-run claim",
+  "source_audit": {
+    "actual_three_update_sampling_state_exact": true,
+    "excluded_heldout": [],
+    "frozen_inputs_verified": 16,
+    "heldout_games": 28910,
+    "protected_rule_positions": 203908,
+    "receipt_counts": {
+      "source_counts": {
+        "admitted": 7,
+        "duplicate": 1,
+        "excluded-interrupted": 1,
+        "excluded-truncated": 11
+      },
+      "training_positions": 4
+    },
+    "replay_id": "4bdd6f656e159cfe8fb46db65264e876fdee5abe6abb1fc6f85bec50cf6eedf4",
+    "replay_membership": [
+      "480a8839228c697082b76bcbeb06feb0a389f2e5e6b37b9369a62104d3bdb287",
+      "8f0063881a227709c87d0516c01b07850b1b0f6692386e7098919ef8a5b775a5",
+      "a29b23ea797fdda15b2444340c8f6a14484ec2d9959b1cc8db57c6e1323d58c6",
+      "ed8861f268f1e671eafe28d5752bb2c0935af40f619e7f5b5204e8a0c13f648a"
+    ],
+    "sampler_updates_independently_reproduced": 101,
+    "supervised_count": 12,
+    "unfinished_receipts_unlabeled": 12
+  },
+  "suites": {
+    "adapter": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 1023,
+      "skipped": 14,
+      "tests": 1037
+    },
+    "model": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 1553,
+      "skipped": 0,
+      "tests": 1553
+    },
+    "supplied-probes": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 22,
+      "skipped": 0,
+      "tests": 22
+    }
+  },
+  "verdict": "ACCEPTED",
+  "verified_at_utc": "2026-10-10T08:43:30.483272+00:00"
+}

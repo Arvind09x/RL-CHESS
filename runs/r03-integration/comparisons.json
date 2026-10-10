@@ -1,0 +1,8 @@
+{
+  "checkpoint_matches_historical": true,
+  "continuation_exact": true,
+  "final_exact": true,
+  "historical_final_exact": true,
+  "historical_steps_exact": true,
+  "prefix_exact": true
+}

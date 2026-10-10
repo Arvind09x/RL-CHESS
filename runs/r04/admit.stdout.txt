@@ -1,0 +1,1 @@
+{"replay": {"source_counts": {"admitted": 2, "duplicate": 0, "excluded-truncated": 2, "excluded-interrupted": 0}, "training_positions": 2}, "eligible": 2, "excluded": 0}

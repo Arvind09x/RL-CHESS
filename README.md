@@ -870,3 +870,13 @@ Torch-free regressions pass 1,023 with 13 expected skips. The preserved 20-sourc
 R01 evidence yields four training roots and repeats exactly after restart.
 See [R02 API and policy](docs/r02-replay.md) and [evidence](runs/r02/summary.json).
 R02 awaits independent review. R03 has not begun.
+
+
+## Accepted R02 integration — 10 October 2026
+
+R02 `2e57474` is independently AI-review accepted for bounded CPU completed-game
+replay and integrated with its original commit retained. Fresh regressions and
+independent four-root archive/restart verification pass. See
+[the integration record](docs/r02-integration.md) and
+[separate evidence](runs/r02-integration/summary.json). R03 and CUDA integration
+remain pending.

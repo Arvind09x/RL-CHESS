@@ -1,0 +1,225 @@
+{
+  "audited_export_sha256": "4bdd6f656e159cfe8fb46db65264e876fdee5abe6abb1fc6f85bec50cf6eedf4",
+  "manifest": {
+    "contracts": {
+      "encoding_version": "chess128-v2",
+      "ending_policy": "actual-occurrence-v1",
+      "move_vocab_version": "pair4352-v1",
+      "wdl_order": [
+        "win",
+        "draw",
+        "loss"
+      ]
+    },
+    "duplicate_policy": "first-admitted-completed-trajectory-v1",
+    "game_identity": "sha256([initial_fen, full actual moves_uci])",
+    "sample_identity": "sha256([r02-sample-v1, game_id, configuration_sha256, ply])",
+    "schema": "r02-replay-v1",
+    "source_identity": "sha256(canonical R01 configuration and game snapshot)",
+    "storage": "SQLite; one complete source/game/sample transaction; synchronous=FULL",
+    "target_type": "search-visit-distribution/exact-final-root-side-WDL"
+  },
+  "receipts": [
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "fixture": "standard-a",
+      "repeated": false,
+      "source_id": "2944bfdd8180116db1670ef4b28b00651b1500c278488091bb9491f86ec6820c"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "fixture": "standard-b",
+      "repeated": false,
+      "source_id": "824638598cfb09654e92541b303879acd49f65c59c55142a5ab903a6fe727bed"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "fixture": "opening-e4",
+      "repeated": false,
+      "source_id": "6f5059c01bb2350f3f68d414d410868509669d5cb8aae9f05a8cb6b2bb8a7753"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "fixture": "long-history",
+      "repeated": false,
+      "source_id": "ea04b38b48793825f5804e813329069f3826152841543cb7b26aabd876318b45"
+    },
+    {
+      "added_samples": 1,
+      "disposition": "admitted",
+      "fixture": "white-mate-cap",
+      "repeated": false,
+      "source_id": "e1021f6d0ec1632c63f220c9e71db5443de344d0f641cd0c2f16a468c5646461"
+    },
+    {
+      "added_samples": 1,
+      "disposition": "admitted",
+      "fixture": "black-mate-cap",
+      "repeated": false,
+      "source_id": "019f7393261ffadc516a78c190fa0d4aad13fbd6e4c8cbce75e6cf26c7e15e69"
+    },
+    {
+      "added_samples": 1,
+      "disposition": "admitted",
+      "fixture": "fifty-cap-w",
+      "repeated": false,
+      "source_id": "8f805fab5460e94ff0a5f6badcef7b8d4ad56d6a8aa66fbe9917d535b534149e"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "fixture": "castling-w",
+      "repeated": false,
+      "source_id": "a088365db707774c909b450274c0e553875cd4098cc8186eb3e29462e49f7ff7"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "fixture": "promotion-w",
+      "repeated": false,
+      "source_id": "d5997dc055d748e888511bbc78e5ebf37242f2e419f21eb7672559b74191469b"
+    },
+    {
+      "added_samples": 1,
+      "disposition": "admitted",
+      "fixture": "fifty-cap-b",
+      "repeated": false,
+      "source_id": "c50461fc37a23c6c3efc0030dc456b740b10e4b857ab03f278a24b6b63dd522e"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "fixture": "castling-b",
+      "repeated": false,
+      "source_id": "1d69cb08932016a71e37c29db69b0cf7ef171841bf5839db9864b21da37036cd"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "fixture": "promotion-b",
+      "repeated": false,
+      "source_id": "e72c9ba3807ff5fd105f25461ce4ae6f461b54c190eb37fa746e65ac8d3b30f6"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "fixture": "ep-white",
+      "repeated": false,
+      "source_id": "05aaedcd0246e93b2cd474fa254ce1e9c6d8b0e7ca469a3a27b5620ecfd45fb9"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "fixture": "ep-black",
+      "repeated": false,
+      "source_id": "6e47321ac399599779da0ad517f5d38563fa9a4703a3f8d65288e48391dbc0f3"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "admitted",
+      "fixture": "terminal-mate",
+      "repeated": false,
+      "source_id": "a0caab881c747ab758561a51e2886fd6327bbeee7ccd24107f3bec0eaa7690df"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "duplicate",
+      "fixture": "terminal-mate-duplicate",
+      "repeated": false,
+      "source_id": "974c878a21a432efd10f74c6f8516e36fa7da8b9a87c11c6103d42504be4664c"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "admitted",
+      "fixture": "terminal-stalemate",
+      "repeated": false,
+      "source_id": "8887499da0e94958e87bcf1f7f7423fc523b73fad0c930d08d7cc2563ca9d3a5"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "admitted",
+      "fixture": "reached-threefold",
+      "repeated": false,
+      "source_id": "9ca8f7aba8b07a1c9aae73c789f02fd94cc28b00173dc603327a303a16212f98"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "excluded-truncated",
+      "fixture": "intended-threefold-only",
+      "repeated": false,
+      "source_id": "6b9b8f8ed320a2e5f334b4e42c8bd694241963fa9d216e40f8dc32f260753cb0"
+    },
+    {
+      "added_samples": 0,
+      "disposition": "excluded-interrupted",
+      "fixture": "forced-interruption-before-resume",
+      "repeated": false,
+      "source_id": "36182fe1b276f9dcc7d0fbd7209203a51e934d614cdfd11c1a105e236bc20a6f"
+    }
+  ],
+  "records_sha256": "769455c14fa63154c6bf9f09ada61b215925bbae9d07542258738db1a918c0cb",
+  "sample_labels": [
+    {
+      "checkpoint_id": "T03-plumbing-step-26",
+      "outcome": "1/2-1/2",
+      "ply": 0,
+      "sample_id": "480a8839228c697082b76bcbeb06feb0a389f2e5e6b37b9369a62104d3bdb287",
+      "side_to_move": "white",
+      "wdl": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "checkpoint_id": "T03-plumbing-step-26",
+      "outcome": "0-1",
+      "ply": 0,
+      "sample_id": "8f0063881a227709c87d0516c01b07850b1b0f6692386e7098919ef8a5b775a5",
+      "side_to_move": "black",
+      "wdl": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "checkpoint_id": "T03-plumbing-step-26",
+      "outcome": "1-0",
+      "ply": 0,
+      "sample_id": "a29b23ea797fdda15b2444340c8f6a14484ec2d9959b1cc8db57c6e1323d58c6",
+      "side_to_move": "white",
+      "wdl": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "checkpoint_id": "T03-plumbing-step-26",
+      "outcome": "1/2-1/2",
+      "ply": 0,
+      "sample_id": "ed8861f268f1e671eafe28d5752bb2c0935af40f619e7f5b5204e8a0c13f648a",
+      "side_to_move": "black",
+      "wdl": [
+        0,
+        1,
+        0
+      ]
+    }
+  ],
+  "samples_sha256": "921335a46de1efec6f6fa3a4155d54fe9956d978405fa22dfcdcf9a60b5cbd22",
+  "summary": {
+    "source_counts": {
+      "admitted": 7,
+      "duplicate": 1,
+      "excluded-interrupted": 1,
+      "excluded-truncated": 11
+    },
+    "training_positions": 4
+  }
+}

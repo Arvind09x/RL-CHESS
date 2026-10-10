@@ -1,0 +1,264 @@
+{
+  "acceptance_script_harness_correction": {
+    "correction": "Encode the documentation append as UTF-8 instead of a non-ASCII bytes literal.",
+    "error": "SyntaxError: bytes can only contain ASCII literal characters",
+    "failed_parse_attempts": 2,
+    "initial_exit_code": 1,
+    "no_data_written_by_failed_attempt": true,
+    "production_changes": false
+  },
+  "accepted_implementation_commit": "2e574740d980084f1dea2da59eae13c87e052d10",
+  "accepted_r01_main_base": "48bce1ecb469d07d9d5a57aff7d9cb4896a7e281",
+  "archive_verification": {
+    "accepted_archive": {
+      "bytes": 8485502,
+      "sha256": "769455c14fa63154c6bf9f09ada61b215925bbae9d07542258738db1a918c0cb"
+    },
+    "audited_export_sha256": "4bdd6f656e159cfe8fb46db65264e876fdee5abe6abb1fc6f85bec50cf6eedf4",
+    "derivation": "Direct python-chess actual history and independently spelled canonical SHA256; no R02 finalize/audit for expected targets",
+    "fresh_process_receipts_exact": true,
+    "original_archive_exact": true,
+    "records": 20,
+    "restart_database_bytes_and_rows_exact": true,
+    "samples_sha256": "921335a46de1efec6f6fa3a4155d54fe9956d978405fa22dfcdcf9a60b5cbd22",
+    "source_game_sample_identities_and_targets_exact": true,
+    "summary": {
+      "source_counts": {
+        "admitted": 7,
+        "duplicate": 1,
+        "excluded-interrupted": 1,
+        "excluded-truncated": 11
+      },
+      "training_positions": 4
+    }
+  },
+  "commands": {
+    "adapter": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/tmp/adapter",
+        "--junitxml=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/adapter.xml"
+      ],
+      "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration",
+      "duration_seconds": 17.545544749998953,
+      "environment": {
+        "GIT_OPTIONAL_LOCKS": "0",
+        "MKL_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:.",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "exit_code": 0,
+      "extra_environment": {}
+    },
+    "archive-admission": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "scripts/run_r02.py",
+        "--records",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r01-integration/real/games.json",
+        "--buffer",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/fresh-replay.sqlite",
+        "--report",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/archive-admission.json",
+        "--samples",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/archive-admission.jsonl",
+        "--create"
+      ],
+      "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration",
+      "duration_seconds": 3.7543786249880213,
+      "environment": {
+        "GIT_OPTIONAL_LOCKS": "0",
+        "MKL_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:.",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "exit_code": 0,
+      "extra_environment": {}
+    },
+    "archive-original-repeat": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "scripts/run_r02.py",
+        "--records",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r01/real/games.json",
+        "--buffer",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/fresh-replay.sqlite",
+        "--report",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/archive-original-repeat.json",
+        "--samples",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/archive-original-repeat.jsonl"
+      ],
+      "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration",
+      "duration_seconds": 4.704433457984123,
+      "environment": {
+        "GIT_OPTIONAL_LOCKS": "0",
+        "MKL_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:.",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "exit_code": 0,
+      "extra_environment": {}
+    },
+    "archive-restart": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "scripts/run_r02.py",
+        "--records",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r01-integration/real/games.json",
+        "--buffer",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/fresh-replay.sqlite",
+        "--report",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/archive-restart.json",
+        "--samples",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/archive-restart.jsonl"
+      ],
+      "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration",
+      "duration_seconds": 4.390325499989558,
+      "environment": {
+        "GIT_OPTIONAL_LOCKS": "0",
+        "MKL_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:.",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "exit_code": 0,
+      "extra_environment": {}
+    },
+    "model": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/tmp/model",
+        "--junitxml=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/model.xml",
+        "-p",
+        "runs.m06.diagnostic_plugin"
+      ],
+      "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration",
+      "duration_seconds": 85.81896945802146,
+      "environment": {
+        "GIT_OPTIONAL_LOCKS": "0",
+        "MKL_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:.",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "exit_code": 0,
+      "extra_environment": {}
+    },
+    "supplied-probes": {
+      "argv": [
+        "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "--import-mode=importlib",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/tmp/supplied-probes",
+        "--junitxml=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/supplied-probes.xml",
+        "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/test_supplied_review.py"
+      ],
+      "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration",
+      "duration_seconds": 17.25136449999991,
+      "environment": {
+        "GIT_OPTIONAL_LOCKS": "0",
+        "MKL_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src:.",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "exit_code": 0,
+      "extra_environment": {
+        "REVIEW_OUTPUT": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/supplied-probes-artifacts"
+      }
+    }
+  },
+  "cuda_integrated": false,
+  "implementation_retained_by_merge": true,
+  "index_policy": "Original raw index preserved exactly until primary application and retained losslessly in preservation-before.json; updated main index must match new HEAD with the same empty staged patch.",
+  "integration_merge": "37cf16890ad923314386fbf25586af20ae656a53",
+  "limitations": [
+    "bounded local CPU replay correctness",
+    "no large-scale replay performance or capacity claim",
+    "SIGKILL/transaction crash checks do not establish hardware power-loss behavior",
+    "first admitted completed source determines the representative",
+    "checkpoint identities are retained source claims; weight authentication is outside R02",
+    "no learning update, GPU validation or playing-strength claim"
+  ],
+  "local_date": "2026-10-10",
+  "preservation": {
+    "accepted_candidate_tree_exact": true,
+    "external_artifacts_exact": 76,
+    "original_r01_tree_exact": true,
+    "original_r02_tree_exact": true,
+    "primary_original_bytes_patch_and_index_exact": true,
+    "review_files_exact": 44
+  },
+  "production_tree_exact_to_reviewed_candidate": true,
+  "r02_cases_within_model_suite": 44,
+  "r03_started": false,
+  "review": {
+    "actionable_findings": 0,
+    "chat_id": "01a124bd-bb57-7a92-b75f-4c11eaae3c37",
+    "chat_title": "Review R02 replay implementation",
+    "exact_review_files": 44,
+    "review_sha256": "254d0089c6a862a2a07aa93bf81d71fdc28dc919b3c8c5174d448a9014ecb55c",
+    "source": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-replay/runs/r02-review-20261010",
+    "verdict": "accept for bounded CPU R02"
+  },
+  "scope": "bounded local CPU R02 completed-game replay",
+  "suites": {
+    "adapter": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 1023,
+      "skipped": 13,
+      "tests": 1036
+    },
+    "model": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 1497,
+      "skipped": 0,
+      "tests": 1497
+    },
+    "supplied-probes": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 17,
+      "skipped": 0,
+      "tests": 17
+    }
+  },
+  "timezone": "Asia/Kolkata",
+  "verdict": "ACCEPTED"
+}

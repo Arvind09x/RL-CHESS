@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "-B",
+    "-m",
+    "pytest",
+    "--import-mode=importlib",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/tmp/supplied-probes",
+    "--junitxml=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/supplied-probes.xml",
+    "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/test_supplied_review.py"
+  ],
+  "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration",
+  "duration_seconds": 17.25136449999991,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "src:.",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "extra_environment": {
+    "REVIEW_OUTPUT": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/supplied-probes-artifacts"
+  }
+}

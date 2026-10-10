@@ -140,7 +140,7 @@ Leela is the practical chess-search/self-play reference; AlphaZero supplies the 
 | Done | ID / owner | Prerequisites | Build | Acceptance check |
 |---|---|---|---|---|
 | [x] | R01 / P2 | S05, T04 | Implement model-guided self-play execution, move-boundary adjudication, completed/truncated/interrupted statuses and resumable game records using the batched evaluator. Record a deliberate temperature/root-noise schedule and opening source/seed/prefix. Initially run batch-of-one; permit independent games to contribute one pending leaf each for pilot batching. | Terminal outcomes take precedence over the ply cap. Forced interruption/reload preserves initial board, moves, ending policy, checkpoint/search settings, opening prefix and RNG. Search may rebuild; history cannot disappear. Log duplicate completed games and completion/truncation/interruption rates. |
-| [ ] | R02 / Both | R01 | Finalize completed-game records into the replay buffer with per-position legal masks, root visits and exact final WDL. | Winner/loser labels flip correctly across players. Incomplete games remain unlabeled and excluded. Raw visits and normalized targets are consistent. |
+| [x] | R02 / Both | R01 | Finalize completed-game records into the replay buffer with per-position legal masks, root visits and exact final WDL. | Winner/loser labels flip correctly across players. Incomplete games remain unlabeled and excluded. Raw visits and normalized targets are consistent. |
 | [ ] | R03 / P1 | R02, T01, T02 | Implement an RL update mixing completed-game search policy/WDL with training-split Stockfish samples. Before running, record supervised sample fraction strictly between 0 and 1, source, conservative learning rate, loss weights and replay/update schedule. | Fixed supervised and completed-game fixtures produce a finite mixed update with contributions from both sources and survive checkpoint resume with settings preserved. Verify supervised class/soft-WDL targets and self-play distribution/exact-WDL targets remain distinct; sample counts/losses are logged by source. No held-out or unfinished-game samples enter replay. |
 | [ ] | R04 / Both | R03, T03 | Run a few model-guided games, finalize any completed records, update, reload and run a short match. If all games truncate, diagnose or use a known valid near-terminal fixture for the plumbing check. | Saved artifacts show the complete position → search → game → target → update → checkpoint → evaluation path. Never relabel a truncation to pass. The overfit/plumbing checkpoint is not the project pretraining checkpoint P. |
 
@@ -1228,3 +1228,39 @@ primary user planning edits remain preserved.
 [API, admission policy and limits](docs/r02-replay.md) and
 [evidence](runs/r02/summary.json) are committed for independent review.
 Do not integrate this branch or begin R03 until that review is accepted.
+
+
+## R02 independent review acceptance and integration — 10 October 2026
+
+Accepted `2e57474` from `codex/r02-replay` for bounded local CPU R02 against
+accepted R01 main `48bce1e`. The supplied independent AI review in chat
+"Review R02 replay implementation" has no actionable findings. This dated
+acceptance supersedes the implementation entry's pending-review status.
+
+An isolated `codex/r02-integration` clone retains the original implementation
+commit through a merge whose tree exactly equals the reviewed candidate.
+Fresh model regression: 1,497 passed, including all 44 R02 cases. Torch-free
+adapter regression: 1,023 passed, 13 expected optional-Torch skips. The supplied
+17 independent probes pass again. No production code or dependency changes.
+
+Independent direct chess-history and canonical SHA256 derivation of accepted
+R01's 20 snapshots yields the same four roots: White win, Black win, White draw
+and Black draw. All original position masks/visits/policies and complete sample
+payloads match. Three fresh CLI processes verify admission, restart and original
+archive repetition; source/game/sample identities, targets, database rows and
+restart database bytes remain exact. Counts: 7 admitted completions, 1 duplicate,
+11 excluded truncations and 1 excluded interruption. Export SHA256 remains
+`4bdd6f656e159cfe8fb46db65264e876fdee5abe6abb1fc6f85bec50cf6eedf4`.
+
+Fresh evidence and exact copied review live only under `runs/r02-integration`;
+original R01/R02 evidence remains unchanged. Primary's complete original plan,
+binary patch and raw index are saved losslessly and remain exact throughout
+verification. Application refuses drift, fast-forwards main to the verified
+commit, restores the exact D06/D07/E01 user patch and verifies the clean staged
+state against the new HEAD. The original raw index remains in the preservation
+record; the updated index records the new integrated tree.
+
+See [integration record](docs/r02-integration.md),
+[acceptance summary](runs/r02-integration/summary.json) and the primary
+application receipt `runs/r02-integration/main-integration.json`.
+Stop after accepted R02. R03 remains unchecked; CUDA integration has not begun.

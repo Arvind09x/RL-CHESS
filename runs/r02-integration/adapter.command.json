@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv-acceptance/bin/python",
+    "-B",
+    "-m",
+    "pytest",
+    "--import-mode=importlib",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/tmp/adapter",
+    "--junitxml=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration/runs/r02-integration/adapter.xml"
+  ],
+  "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-integration",
+  "duration_seconds": 17.545544749998953,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "src:.",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "extra_environment": {}
+}

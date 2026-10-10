@@ -1,0 +1,7 @@
+{
+  "initial_exit_code": 1,
+  "error": "SyntaxError: bytes can only contain ASCII literal characters",
+  "correction": "Encode the documentation append as UTF-8 instead of a non-ASCII bytes literal.",
+  "no_data_written_by_failed_attempt": true,
+  "production_changes": false
+}

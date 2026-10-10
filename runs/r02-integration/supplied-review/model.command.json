@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "/Users/arvindsrinivass/Desktop/RL-Chess/.venv/bin/python",
+    "-B",
+    "-m",
+    "pytest",
+    "--import-mode=importlib",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-replay/runs/r02-review-20261010/model.xml",
+    "-p",
+    "runs.m06.diagnostic_plugin"
+  ],
+  "cwd": "/Users/arvindsrinivass/Documents/ChatGPT/RL Project 2/r02-replay",
+  "duration_seconds": 79.81405099999392,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "src:."
+  },
+  "exit_code": 0
+}

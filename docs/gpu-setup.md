@@ -57,6 +57,12 @@ The reported training samples per second includes validation and checkpoint time
 
 Checkpoint inference can move from GPU to CPU; optimizer continuation requires the original backend/runtime. A separate explicit library `runtime_policy="compatible"` allows OS descriptions and Python patch versions to differ, with a warning that bitwise continuation is unverified. Normal commands use exact restoration.
 
+Compatible restoration records the opt-in, saved/current runtime, parent
+checkpoint ID and changed fields in `provenance.resume_runtime_history`, even
+when no fields differ. Subsequent checkpoint saves retain that history. Python
+major/minor, machine, numerical libraries, backend and all determinism settings
+must still match; compatibility mode does not relax CUDA runtime requirements.
+
 ## 4. Search and reinforcement-learning pilot
 
 `run_r01.py` accepts `--device cuda:0`. A creation plan's checkpoint path resolves relative to the plan file. CLI sessions write an immutable move journal plus a small boundary record; recovery verifies every referenced move file. Resume can supply `--checkpoint PATH` when the original weights moved, but their bytes and identity must match.

@@ -28,6 +28,7 @@ import torch
 from chess_rl.adapter import make_state, terminal_result
 from chess_rl.canonical_games import assign_split, canonical_payload, game_id
 from chess_rl.replay import ReplayBuffer
+from chess_rl.evaluation.matches import digest
 from chess_rl.selfplay import Phase, Session, Settings
 from chess_rl.supervised import open_dataset
 from chess_rl.training.checkpoints import DataOrder, ModelConfig, Progress, save_checkpoint
@@ -187,15 +188,19 @@ def selfplay_profile(out,checkpoint):
         if len(states[0].board.move_stack)<512 else __import__('chess_rl.search.evaluator',fromlist=['evaluate']).evaluate(states))
     publication=session._publish
     publish_times=[]
+    move_times=[]
     checkpoints=[]
     positions_id=id(session.record['positions'])
+    last_boundary=time.perf_counter()
     def publish(record,**kwargs):
+        nonlocal last_boundary
         ply=len(record['moves_uci'])
         tracked=ply in (1,32,64,128,256,384,480,512)
         if tracked: tracemalloc.start()
         start=time.perf_counter()
         publication(record,**kwargs)
         elapsed=(time.perf_counter()-start)*1000
+        move_times.append((time.perf_counter()-last_boundary)*1000)
         publish_times.append(elapsed)
         assert id(session.record['positions'])==positions_id
         if tracked:
@@ -203,6 +208,7 @@ def selfplay_profile(out,checkpoint):
             tracemalloc.stop()
             checkpoints.append(dict(ply=ply,publish_ms=elapsed,publish_peak_bytes=peak,
                 retained_record_bytes=deep_size(session.record),boundary_bytes=(session.directory/'boundary.json').stat().st_size))
+        last_boundary=time.perf_counter()  # exclude diagnostic deep_size work
     session._publish=publish
     start=time.perf_counter()
     snapshot=session.run()
@@ -223,22 +229,28 @@ def selfplay_profile(out,checkpoint):
     assert recovered.snapshot()==snapshot
     return dict(plies=512,ending_reason='ply_limit',dummy_evaluator=True,total_run_s=duration,
         windows={str(a)+'-'+str(b):stats(publish_times[a-1:b]) for a,b in ((1,32),(65,128),(257,384),(481,512))},
+        full_move_windows={str(a)+'-'+str(b):stats(move_times[a-1:b]) for a,b in ((1,32),(65,128),(257,384),(481,512))},
         checkpoints=checkpoints,positions_list_identity_stable=True,
         historical_deepcopy_cost=old_copy,recovery_audit_s=recovery_s,
+        game_sha256=digest(snapshot['game']),configuration_sha256=digest(snapshot['configuration']),
         final_snapshot_copies_full_record_once=True)
 
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,default=ROOT/'artifacts/stage1/performance')
+    parser.add_argument('--selfplay-checkpoint',type=Path,help='profile self-play only using an existing measurement fixture')
     args=parser.parse_args()
     torch.set_num_threads(1); torch.use_deterministic_algorithms(True)
     out=args.output.resolve()
     out.mkdir(parents=True,exist_ok=False)
     (out/'criterion.json').write_text(json.dumps(CRITERION,indent=2)+'\n')
     print('Criterion fixed:',json.dumps(CRITERION),flush=True)
-    data,checkpoint=dataset_benchmark(out)
-    print('Dataset:',json.dumps(data),flush=True)
+    if args.selfplay_checkpoint:
+        data,checkpoint=None,args.selfplay_checkpoint.resolve()
+    else:
+        data,checkpoint=dataset_benchmark(out)
+        print('Dataset:',json.dumps(data),flush=True)
     profile=selfplay_profile(out,checkpoint)
     result=dict(source_revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         source_diff_sha256=__import__('hashlib').sha256(subprocess.check_output(['git','diff','HEAD'],cwd=ROOT)).hexdigest(),
@@ -247,7 +259,7 @@ def main():
         criterion=CRITERION,dataset=data,selfplay=profile)
     (out/'measurements.json').write_text(json.dumps(result,indent=2)+'\n')
     print('Self-play:',json.dumps(profile),flush=True)
-    assert data['acceptance'],'predeclared dataset scaling criterion failed'
+    assert data is None or data['acceptance'],'predeclared dataset scaling criterion failed'
 
 
 if __name__=='__main__': main()

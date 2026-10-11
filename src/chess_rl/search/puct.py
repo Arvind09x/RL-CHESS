@@ -115,6 +115,13 @@ def _child_node(parent, move_id):
     return node
 
 
+def _fresh_root(node):
+    """Start a fresh tree from an owned child without replaying legal history."""
+    result = object.__new__(Node)
+    result._state, result.edges, result.result = _copy_search_state(node), {}, None
+    return result
+
+
 def expand(node: Node, evaluator: Evaluator = evaluate) -> LeafResult:
     """Idempotent expansion. Publish edges/result only after successful checks."""
     if node.result is not None:

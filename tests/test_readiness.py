@@ -177,6 +177,15 @@ def test_mixed_sources_reject_metadata_assignment_and_deletion(sources):
         data._samples[0]["position"]["legal_mask"][0] = True
 
 
+def test_selfplay_does_not_replay_owned_root_history_per_move(tmp_path, fixture_checkpoint, monkeypatch):
+    session = Session.create(tmp_path / "owned-roots", fixture_checkpoint, opening(),
+        settings=Settings(2, 5), seed=8, opening_selection_seed=9, journal=True)
+    monkeypatch.setattr("chess_rl.adapter.state.require_legal_move",
+                        lambda *a: pytest.fail("owned root history replayed"))
+    snapshot = session.run()
+    assert len(snapshot["game"]["positions"]) == 5
+
+
 def test_resume_reopens_and_rejects_changed_source_bytes(tmp_path, sources):
     from .test_mixed_update import save_mixed, open_sources
     from chess_rl.training.checkpoints import restore_training, CheckpointError

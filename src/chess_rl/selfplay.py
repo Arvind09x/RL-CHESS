@@ -20,7 +20,7 @@ import torch
 from chess_rl.adapter import apply_move, id_to_move, legal_mask, terminal_result
 from chess_rl.contracts import AdapterConfig, MOVE_COUNT
 from chess_rl.evaluation.matches import Opening, digest, state_trace
-from chess_rl.search.puct import Node, SearchConfig
+from chess_rl.search.puct import Node, SearchConfig, _fresh_root
 from chess_rl.search.real_evaluator import RealEvaluator
 from chess_rl.search.runner import SearchFailure, TrainingExploration, search
 
@@ -351,13 +351,14 @@ class Session:
             settings = Settings.from_dict(self.configuration["settings"])
             state = audit(self.configuration, self.record)
             commits = 0
+            owned_root = None
             while self.record["status"] == "interrupted":
                 if stop_after_moves is not None and commits >= stop_after_moves:
                     record = {**self.record, "interruptions": list(self.record["interruptions"])}
                     record["interruptions"].append(dict(kind="cooperative", ply=len(state.board.move_stack)))
                     self._publish(record)
                     break
-                root = Node(state)
+                root = Node(state) if owned_root is None else _fresh_root(owned_root)
                 rng = _rng(self.record["rng_state"])
                 ply = len(state.board.move_stack)
                 try:
@@ -390,6 +391,7 @@ class Session:
                 # commit. Disk always holds one entire old or new boundary.
                 self._publish(record, position=position)
                 state = candidate
+                owned_root = root.edges[result.move_id].child
                 commits += 1
             return self.snapshot()
 

@@ -4,7 +4,8 @@ Run from the repository root: .venv/bin/python scripts/check_stage1_performance.
 The predeclared criterion is median 10k/1k <=1.25 and bootstrap upper 95% <=1.35.
 Setup and steady-state timings are separate. No neural self-play throughput claim.
 """
-from dataclasses import asdict
+from dataclasses import replace
+import argparse
 import copy
 import gc
 import json
@@ -111,7 +112,12 @@ def dataset_benchmark(out):
         setups[count]['freeze_and_membership_s']=time.perf_counter()-start
         torch.manual_seed(481)
         live=config.build()
-        instances[count]=[live,optimizer(live,settings),sources,MixedState.initial(sources,settings,seed=32)]
+        state=MixedState.initial(sources,settings,seed=32)
+        # Supervised shuffles consume different RNG counts. The timed window
+        # never wraps either supervised cursor; align the replay stream explicitly.
+        state=replace(state,selfplay=type(state.selfplay)(tuple(range(len(sources.replay_membership)))),
+                      sampling_rng=random.Random(91).getstate())
+        instances[count]=[live,optimizer(live,settings),sources,state]
     buffer.close()
     def update(count):
         live,opt,sources,state=instances[count]
@@ -223,8 +229,11 @@ def selfplay_profile(out,checkpoint):
 
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output',type=Path,default=ROOT/'artifacts/stage1/performance')
+    args=parser.parse_args()
     torch.set_num_threads(1); torch.use_deterministic_algorithms(True)
-    out=ROOT/'artifacts/stage1/performance'
+    out=args.output.resolve()
     out.mkdir(parents=True,exist_ok=False)
     (out/'criterion.json').write_text(json.dumps(CRITERION,indent=2)+'\n')
     print('Criterion fixed:',json.dumps(CRITERION),flush=True)

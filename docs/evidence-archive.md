@@ -1,8 +1,8 @@
 # Historical evidence and artifact storage
 
-Historical run evidence was copied into an external compressed archive and every archived file was checked against its original SHA-256. The compact inventory in [evidence-archive.json](evidence-archive.json) records the archive hash, size, source revisions, and file count. The archive and its full per-file manifest are held outside the repository in the project workspace's `external-artifacts/` folder.
+Historical run evidence was copied into a repository-external compressed archive on the laptop and every archived file was checked against its original SHA-256. The compact inventory in [evidence-archive.json](evidence-archive.json) records the archive hash, size, source revisions, and file count. The archive and its full per-file manifest are held outside the repository in the project workspace's `external-artifacts/` folder. This does not establish an off-laptop backup. Follow [artifact restoration](artifact-restoration.md) for versioned backup, independent checksum anchors, destination verification and CPU checks; external backup and college restoration remain pending.
 
-The active `runs/` tree is removed from tracking. Its original files remain in the preserved local `artifacts-historical-runs/` directory, the verified external archive, and Git ancestors. This is a source-tree cleanup, not a history rewrite. Previously committed identifiers and paths remain in Git history.
+The active `runs/` tree is removed from tracking. Its original files remain in the preserved local `artifacts-historical-runs/` directory, the verified repository-external archive, and Git ancestors. This is a source-tree cleanup, not a history rewrite. Previously committed identifiers and paths remain in Git history.
 
 The archive is named `gpu-readiness-run-evidence-20261010.tar.gz`; its detailed manifest is `gpu-readiness-run-evidence-20261010.tar.manifest.json`. Back up both alongside institutional project artifacts.
 

@@ -2,6 +2,10 @@
 
 The first supported target is Linux x86-64 with one visible NVIDIA GPU. No CUDA result has been established by the local CPU verification. Ask the college administrator for the allocated machine, driver information, storage location, and scheduler instructions. Respect the scheduler's `CUDA_VISIBLE_DEVICES`; select one permitted GPU if using an unscheduled machine with several devices.
 
+## 0. Restore and verify artifacts on CPU
+
+Complete [backup, restoration and CPU artifact verification](artifact-restoration.md) first. That guide specifies the versioned transfer payload, independent anchors, exact source revision, full D08/legacy dependencies, restored-file hashes and executable train-only batch/inference checks. Repository-external laptop storage is not an off-laptop backup. Both external backup and college restoration remain pending until verified at their destinations. CUDA checks and pilots below are subsequent work and are not Stage 2 restoration commands.
+
 ## 1. Environment and hardware checks
 
 From a fresh checkout, with `uv` installed:
@@ -21,6 +25,8 @@ Preflight runs the actual M06 network. The separate-process smoke covers supervi
 
 ## 2. Portable data
 
+For the prepared Stage 2 transfer, use the restored `data/d08/data-config.json` from section 0; no original laptop source path is needed. The staging procedure below is for preparing a new payload from authoritative source bytes. Staging alone neither backs it up off-laptop nor verifies restoration. Preserve the complete original D08 evidence and checkpoint sidecars as specified in the restoration guide.
+
 Make an ignored `artifacts/local-source.json` following `configs/data.example.json`. Its six fields must point to the authoritative accepted label bundle, manifest, games, split audit, prepared samples/protected registries, and teacher evidence. These source files must already be present. Do not substitute only the labels or omit held-out protection files.
 
 Stage the bytes on the machine holding the data:
@@ -29,7 +35,7 @@ Stage the bytes on the machine holding the data:
 uv run --locked --extra model python scripts/stage_cuda_data.py   --config artifacts/local-source.json --destination artifacts/data
 ```
 
-The destination must be new. Staging verifies the dataset before and after copying, records per-file hashes, and writes `data-config.json` with relative paths. An optional `--checkpoint PATH` also copies weights. Copy the whole staged folder to the college machine through the college-approved transfer route, then run:
+The destination must be new. Staging verifies the dataset before and after copying, records per-file hashes, and writes `data-config.json` with relative paths. An optional `--checkpoint PATH` also copies weights, but does not include all checkpoint dependencies and sidecars. Seal, back up, verify the backup destination and restore the complete payload through the restoration guide before the later CUDA preflight:
 
 ```sh
 .venv-cuda-cu126/bin/python scripts/gpu_preflight.py   --device cuda:0 --data-config artifacts/data/data-config.json

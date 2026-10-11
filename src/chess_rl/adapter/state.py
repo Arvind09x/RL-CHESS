@@ -1,5 +1,6 @@
 """Actual-coordinate board ownership and history provenance."""
 from dataclasses import dataclass
+import copy
 from numbers import Integral
 
 import chess
@@ -33,22 +34,13 @@ class ChessState:
             raise ValueError("Current board must match its retained legal history")
         self.initial_fen = initial.fen(en_passant="fen")
         self.board = self.board.copy(stack=True)
+        # python-chess copies the stack list but shares mutable _BoardState
+        # entries. Own these too, so later caller edits cannot alter provenance.
+        self.board._stack = [copy.copy(item) for item in self.board._stack]
 
     def copy(self) -> "ChessState":
         """Independent board copy retaining every move and provenance."""
         return ChessState(self.board, self.initial_fen, self.history_complete)
-
-    def _copy_owned(self) -> "ChessState":
-        """Internal copy of an already validated, exclusively owned state.
-
-        Search uses this only after its public admission validation. Imported
-        boards and caller-mutated states must still use the checked constructor.
-        """
-        result = object.__new__(ChessState)
-        result.board = self.board.copy(stack=True)
-        result.initial_fen = self.initial_fen
-        result.history_complete = self.history_complete
-        return result
 
 
 def make_state(start_fen=None, moves_uci=(), *, history_complete=None) -> ChessState:

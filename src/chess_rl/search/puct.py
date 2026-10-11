@@ -1,5 +1,6 @@
 """History-preserving PUCT traversal and parent-perspective value backup."""
 from collections.abc import Callable, Sequence
+import copy
 from dataclasses import dataclass, field
 from math import isfinite, sqrt
 from numbers import Real
@@ -57,7 +58,7 @@ class Edge:
             raise ValueError("value_sum must be finite with abs(value_sum) <= visit_count")
 
 
-@dataclass(eq=False)
+@dataclass(eq=False, init=False)
 class Node:
     """Owns a full-stack state copy and a side-to-move leaf evaluation.
 
@@ -65,18 +66,21 @@ class Node:
     edge statistics are intended for S03 mutation. No independent node N/W
     is stored: parent visits are the sum of outgoing completed edge visits.
     """
-    state: ChessState
+    _state: ChessState = field(repr=False)
     edges: dict[int, Edge] = field(default_factory=dict, init=False)
     result: LeafResult | None = field(default=None, init=False)
 
-    def __post_init__(self):
-        self.state = self.state.copy()
+    def __init__(self, state):
+        if not isinstance(state, ChessState):
+            raise ValueError("search admission requires ChessState")
+        # Do not dispatch a caller-overridden copy method at the trust boundary.
+        self._state = ChessState(state.board, state.initial_fen, state.history_complete)
+        self.edges, self.result = {}, None
 
-    @classmethod
-    def _from_owned_state(cls, state):
-        node = object.__new__(cls)
-        node.state, node.edges, node.result = state, {}, None
-        return node
+    @property
+    def state(self):
+        """Independent snapshot; public board mutation cannot change the tree."""
+        return _copy_search_state(self)
 
     @property
     def expanded(self) -> bool:
@@ -87,11 +91,35 @@ class Node:
         return sum(edge.visit_count for edge in self.edges.values())
 
 
+def _copy_search_state(node: Node) -> ChessState:
+    """Trusted copying accepts only a search owner, never a public ChessState.
+
+    The private state is admitted once and advanced only by legal traversal.
+    Neither evaluators nor public snapshots receive its board storage.
+    """
+    if type(node) is not Node:
+        raise ValueError("trusted copy requires a search-owned node")
+    state = node._state
+    result = object.__new__(ChessState)
+    result.board = state.board.copy(stack=True)
+    result.board._stack = [copy.copy(item) for item in result.board._stack]
+    result.initial_fen, result.history_complete = state.initial_fen, state.history_complete
+    return result
+
+
+def _child_node(parent, move_id):
+    state = _copy_search_state(parent)
+    apply_move(state, move_id)
+    node = object.__new__(Node)
+    node._state, node.edges, node.result = state, {}, None
+    return node
+
+
 def expand(node: Node, evaluator: Evaluator = evaluate) -> LeafResult:
     """Idempotent expansion. Publish edges/result only after successful checks."""
     if node.result is not None:
         return node.result
-    outcome = terminal_result(node.state)
+    outcome = terminal_result(node._state)
     if outcome is not None:
         node.result = outcome
         return outcome
@@ -99,7 +127,7 @@ def expand(node: Node, evaluator: Evaluator = evaluate) -> LeafResult:
     if len(results) != 1 or not isinstance(results[0], Evaluation):
         raise ValueError("Nonterminal evaluate([state]) must return one Evaluation")
     result = results[0]
-    mask = legal_mask(node.state)
+    mask = legal_mask(node._state)
     ids = np.flatnonzero(mask)
     if not len(ids):
         raise ValueError("Nonterminal node must have at least one legal move")
@@ -203,7 +231,7 @@ def backup(resolved: TraversalResult) -> int:
                 or step.parent is not node or not isinstance(step.parent.result, Evaluation)
                 or step.parent.edges.get(step.edge.move_id) is not step.edge
                 or step.edge.child is not step.child or not step.child.expanded
-                or step.parent.state.board.turn == step.child.state.board.turn
+                or step.parent._state.board.turn == step.child._state.board.turn
                 or id(step.child) in nodes or id(step.edge) in edges):
             raise ValueError("Backup path must be connected, resolved and owned by its edges")
         nodes.add(id(step.child))
@@ -254,9 +282,7 @@ def traverse(root: Node, config: SearchConfig = SearchConfig(), evaluator: Evalu
     while isinstance(node.result, Evaluation):
         edge = select_edge(node, config)
         if edge.child is None:
-            state = node.state._copy_owned()
-            apply_move(state, edge.move_id)
-            edge.child = Node._from_owned_state(state)
+            edge.child = _child_node(node, edge.move_id)
         child = edge.child
         path.append(PathStep(node, edge, child))
         node = child

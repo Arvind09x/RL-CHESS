@@ -516,6 +516,9 @@ def save_checkpoint(path, *, model, optimizer, checkpoint_id, provenance, weight
                  or (data_order is None and type(mixed_state) is MixedState),
                  "save requires exactly one DataOrder or MixedState")
         config = _model_config(model)
+        history = getattr(model, "_resume_runtime_history", None)
+        if history:
+            provenance = {**provenance, "resume_runtime_history": json.loads(_json(history))}
         cuda = config.device == "cuda:0"
         if cuda:
             _cuda_available()
@@ -634,12 +637,21 @@ def restore_training(path, *, expected_config, expected_provenance, dataset=None
                 _require(all(t.device == parameter.device for n, t in values.items() if n != "step"),
                          "Adam moments must follow model device")
         model.train(payload["model_training"])
+        provenance = json.loads(_json(payload["provenance"]))
+        history = provenance.get("resume_runtime_history", [])
+        if runtime_policy == "compatible":
+            history.append(dict(policy="compatible", checkpoint_id=payload["checkpoint_id"],
+                saved_runtime=saved_runtime, restored_runtime=current_runtime,
+                differences=[k for k in saved_runtime if saved_runtime[k] != current_runtime[k]],
+                bitwise_continuation_verified=False))
+            provenance["resume_runtime_history"] = history
+        model._resume_runtime_history = history
         if config.device == "cuda:0":
             torch.cuda.set_rng_state(state, 0)
         random.setstate(payload["training"]["rng"]["python"])
         np.random.set_state(numpy_state)
         torch.set_rng_state(payload["training"]["rng"]["torch"])
-        return TrainingCheckpoint(model, optimizer, config, payload["checkpoint_id"], payload["provenance"],
+        return TrainingCheckpoint(model, optimizer, config, payload["checkpoint_id"], provenance,
                                   weights, progress, order if type(order) is DataOrder else None,
                                   order if type(order) is MixedState else None)
     except Exception as error:

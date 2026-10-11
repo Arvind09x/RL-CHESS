@@ -8,14 +8,44 @@ The archive is named `gpu-readiness-run-evidence-20261010.tar.gz`; its detailed 
 
 ## Recovery from Git history
 
-The original main evidence can be recovered into the ignored `runs/` directory:
+Restore into a fresh isolated directory first, from the repository root:
 
 ```sh
-git archive 62af7ac runs | tar -x
-git archive a97cf31 runs/cuda-support | tar -x
+restore_dir=$(mktemp -d)
+git archive 62af7ac runs/r01 | tar -x -C "$restore_dir"
+# For the CUDA preparation campaign instead:
+# git archive a97cf31 runs/cuda-support | tar -x -C "$restore_dir"
 ```
 
-The second revision is retained as a merge parent. For a specific accepted campaign, select its subdirectory in the archive command. Original README, coding-plan, and CUDA preparation documentation are preserved under `docs/history/`. Their links use their original locations and may need the restored `runs/` tree or original Git revision when reading historical evidence.
+Both revisions are retained as ancestors. Select another campaign by changing
+the subdirectory. Verify every restored file against the external per-file
+manifest before using it; the manifest maps repository-relative paths to
+`{"bytes": N, "sha256": "..."}`. For example (Python 3.12):
+
+```sh
+python - "$restore_dir" /path/to/gpu-readiness-run-evidence-20261010.tar.manifest.json <<'PY'
+import hashlib, json, pathlib, sys
+root = pathlib.Path(sys.argv[1])
+manifest = json.loads(pathlib.Path(sys.argv[2]).read_text())
+expected = {k: v for k, v in manifest.items() if k.startswith("runs/r01/")}
+actual = {str(p.relative_to(root)): {"bytes": p.stat().st_size,
+          "sha256": hashlib.sha256(p.read_bytes()).hexdigest()}
+          for p in (root / "runs/r01").rglob("*") if p.is_file()}
+assert actual == expected, "restored contents or membership mismatch"
+print(f"verified {len(actual)} files")
+PY
+```
+
+If the external manifest is unavailable, compare restored bytes with
+`git show 62af7ac:<repository-relative-path>` for each file and compare membership
+with `git ls-tree -r --name-only 62af7ac runs/r01`. The compressed archive itself
+must match the SHA-256 and byte count in `evidence-archive.json` before extraction.
+When ready, historical tools may need the restored campaign under ignored
+`runs/`; use a separate historical checkout and preserve the isolated restore.
+
+Original README, coding-plan, and CUDA preparation documentation are preserved
+under `docs/history/`. Their links use their original locations and may need the
+restored `runs/` tree or original Git revision when reading historical evidence.
 
 ## Future runs
 

@@ -48,7 +48,7 @@ def assert_target(state, result, total):
 def test_exact_completed_budget_and_pending_work(budget, black, monkeypatch):
     state = make_state(moves_uci=["h2h3"] if black else [])
     root = Node(state)
-    before = snapshot(state), snapshot(root.state)
+    before = snapshot(state), snapshot(root._state)
     rec = Recorder()
     completions, lengths = [], []
     def checked_backup(resolved):
@@ -64,7 +64,7 @@ def test_exact_completed_budget_and_pending_work(budget, black, monkeypatch):
     assert result.requested_simulations == result.completed_simulations == budget
     assert len(completions) == budget and sum(lengths) >= budget
     assert len(rec.calls) == budget + 1  # Root preparation is extra, never counted.
-    assert (snapshot(state), snapshot(root.state)) == before
+    assert (snapshot(state), snapshot(root._state)) == before
     assert_target(state, result, budget)
     assert result.move_id == min(i for i, n in enumerate(result.root_visits) if n == max(result.root_visits))
 
@@ -148,7 +148,7 @@ def test_explicit_rng_validation_precedes_mutation(exploration, rng):
 ])
 def test_terminal_roots_skip_everything(state, reason, budget):
     root = Node(state)
-    before = snapshot(state), snapshot(root.state)
+    before = snapshot(state), snapshot(root._state)
     rng = np.random.default_rng(3)
     before_rng = deepcopy(rng.bit_generator.state)
     result = search(root, budget, evaluator=lambda _: pytest.fail("Terminal evaluation"),
@@ -157,7 +157,7 @@ def test_terminal_roots_skip_everything(state, reason, budget):
     assert result.completed_simulations == 0 and not result.root_visits.any()
     assert result.training_policy is result.move_id is result.move is None
     assert training_policy(root) is select_move(root) is None
-    assert (snapshot(state), snapshot(root.state)) == before
+    assert (snapshot(state), snapshot(root._state)) == before
     assert rng.bit_generator.state == before_rng
     if reason in {"FIFTY_MOVES", "THREEFOLD_REPETITION", "FIVEFOLD_REPETITION", "SEVENTYFIVE_MOVES"}:
         assert legal_mask(state).any()
@@ -175,7 +175,7 @@ SPECIAL += [("4k3/8/8/3pP3/8/8/8/4K3 w - d6 0 1", "e5d6"),
 def test_special_action_legality_roundtrip_full_history(fen, uci):
     state = make_state(fen)
     root = Node(state)
-    before = snapshot(state), snapshot(root.state)
+    before = snapshot(state), snapshot(root._state)
     result = search(root, 1, evaluator=Recorder([uci]))
     assert_target(state, result, 1)
     assert result.move.uci() == uci
@@ -184,7 +184,7 @@ def test_special_action_legality_roundtrip_full_history(fen, uci):
     child = root.edges[result.move_id].child
     assert fingerprint(copied) == fingerprint(child.state)
     assert child.state.history_complete is False
-    assert (snapshot(state), snapshot(root.state)) == before
+    assert (snapshot(state), snapshot(root._state)) == before
 
 
 @pytest.mark.parametrize("complete", [True, False])
@@ -193,10 +193,10 @@ def test_long_caller_history_and_every_retained_child_prefix(complete):
     state = make_state(moves_uci=line, history_complete=complete)
     features = encode_position(state).features.copy()
     root = Node(state)
-    before = snapshot(state), snapshot(root.state)
+    before = snapshot(state), snapshot(root._state)
     result = search(root, 24, exploration=TrainingExploration(noise_fraction=.25), rng=np.random.default_rng(23))
     assert_target(state, result, 24)
-    assert (snapshot(state), snapshot(root.state)) == before
+    assert (snapshot(state), snapshot(root._state)) == before
     np.testing.assert_array_equal(encode_position(state).features, features)
     def inspect(node):
         assert node.state.initial_fen == state.initial_fen
@@ -313,7 +313,7 @@ def test_leaf_failure_reports_exact_partial_preserves_earlier_work(prior_complet
     expand(root)
     if prior_completed:
         search(root, prior_completed)
-    before = snapshot(state), snapshot(root.state)
+    before = snapshot(state), snapshot(root._state)
     calls = 0
     failure = RuntimeError("Controlled leaf failure")
     def evaluator(states):
@@ -335,7 +335,7 @@ def test_leaf_failure_reports_exact_partial_preserves_earlier_work(prior_complet
         assert_target(state, partial, root.parent_visits)
     else:
         assert partial.training_policy is None
-    assert (snapshot(state), snapshot(root.state)) == before
+    assert (snapshot(state), snapshot(root._state)) == before
     assert all(e.prior == float(root.result.priors[i]) for i, e in root.edges.items())
     repaired = search(root, 2)
     assert repaired.completed_simulations == 2

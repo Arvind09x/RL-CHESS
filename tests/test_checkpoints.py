@@ -95,10 +95,65 @@ def test_portable_resume_policy_is_explicit_and_keeps_numeric_runtime_checks(sav
     with pytest.warns(RuntimeWarning, match="bitwise continuation is unverified"):
         restored = restore(saved, path, runtime_policy="compatible")
     assert_tree_equal(restored.model.state_dict(), saved["kwargs"]["model"].state_dict())
+    event = restored.provenance["resume_runtime_history"][-1]
+    assert event["policy"] == "compatible" and event["differences"] == ["platform"]
+    subsequent = tmp_path / "subsequent.pt"
+    # Even a caller supplying its original provenance must retain the opt-in.
+    save_checkpoint(subsequent, model=restored.model, optimizer=restored.optimizer,
+        checkpoint_id="after-portable", provenance=saved["kwargs"]["provenance"],
+        weights=restored.weights, progress=restored.progress, data_order=restored.data_order)
+    assert load_inference(subsequent).provenance == restored.provenance
     payload["training"]["runtime"]["threads"] += 1
     torch.save(payload, path)
     before = rng_snapshot()
     with pytest.raises(CheckpointError, match="runtime threads"):
+        restore(saved, path, runtime_policy="compatible")
+    assert_rng_equal(before, rng_snapshot())
+
+
+@pytest.mark.parametrize("field,value", [
+    ("python", "3.13.0"), ("numpy", "0.0.0"), ("torch", "0.0.0"),
+    ("machine", "other-architecture"), ("threads", 999), ("interop_threads", 999),
+    ("default_dtype", "torch.float16"), ("matmul_precision", "medium"),
+    ("deterministic", "toggle"), ("deterministic_warn_only", "toggle"), ("mkldnn", "toggle")])
+def test_compatible_resume_rejects_unsupported_runtime_differences(saved, tmp_path, field, value):
+    payload = torch.load(saved["path"], weights_only=True)
+    runtime = payload["training"]["runtime"]
+    runtime[field] = not runtime[field] if value == "toggle" else value
+    path = tmp_path / "unsupported.pt"
+    torch.save(payload, path)
+    before = rng_snapshot()
+    with pytest.raises(CheckpointError, match="runtime"):
+        restore(saved, path, runtime_policy="compatible")
+    assert_rng_equal(before, rng_snapshot())
+
+
+def test_compatible_python_patch_change_records_opt_in_even_on_same_runtime(saved, tmp_path):
+    payload = torch.load(saved["path"], weights_only=True)
+    version = payload["training"]["runtime"]["python"].split(".")
+    version[-1] = str(int(version[-1]) + 1)
+    payload["training"]["runtime"]["python"] = ".".join(version)
+    path = tmp_path / "python-patch.pt"
+    torch.save(payload, path)
+    with pytest.raises(CheckpointError, match="runtime"):
+        restore(saved, path)
+    with pytest.warns(RuntimeWarning):
+        restored = restore(saved, path, runtime_policy="compatible")
+    assert restored.provenance["resume_runtime_history"][-1]["differences"] == ["python"]
+    same = restore(saved, runtime_policy="compatible")
+    assert same.provenance["resume_runtime_history"][-1]["differences"] == []
+
+
+def test_compatible_resume_keeps_backend_contract(saved, tmp_path):
+    before = rng_snapshot()
+    with pytest.raises(CheckpointError, match="model configuration"):
+        restore(saved, runtime_policy="compatible", expected_config=replace(saved["config"], device="cuda:0"))
+    assert_rng_equal(before, rng_snapshot())
+    payload = torch.load(saved["path"], weights_only=True)
+    payload["model_config"]["device"] = "cuda:0"
+    path = tmp_path / "backend-mismatch.pt"
+    torch.save(payload, path)
+    with pytest.raises(CheckpointError, match="version/backend"):
         restore(saved, path, runtime_policy="compatible")
     assert_rng_equal(before, rng_snapshot())
 

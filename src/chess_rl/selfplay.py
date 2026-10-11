@@ -155,9 +155,12 @@ def _rng(value):
     return rng
 
 
-def _adjudicate(record, state, cap):
+def _adjudicate(record, state, cap, *, moves_uci=None):
     terminal = terminal_result(state)
-    record.update(state_trace(state), winner=None, outcome=None)
+    trace = (state_trace(state) if moves_uci is None else dict(initial_fen=state.initial_fen,
+        moves_uci=moves_uci, history_complete=state.history_complete,
+        final_fen=state.board.fen(en_passant="fen"), final_promoted=int(state.board.promoted)))
+    record.update(trace, winner=None, outcome=None)
     if terminal is not None:
         winner = None if terminal.winner is None else "white" if terminal.winner else "black"
         record.update(status="completed", ending_reason=terminal.ending_reason, winner=winner,
@@ -306,19 +309,26 @@ class Session:
     def snapshot(self):
         return copy.deepcopy(dict(configuration=self.configuration, game=self.record))
 
-    def _publish(self, record):
+    def _publish(self, record, *, position=None):
         if self.configuration["boundary"] == "immutable-move-journal-v2":
-            for i in range(len(self.record["positions"]), len(record["positions"])):
+            count = len(record["positions"]) + (position is not None)
+            additions = ([position] if position is not None else
+                         record["positions"][len(self.record["positions"]):])
+            for i, value in enumerate(additions, start=len(self.record["positions"])):
                 path = self.directory / "moves" / f"{i:06d}.json"
                 # A crash may have published the move but not the pointer.
                 if path.exists():
-                    if _read(path) != record["positions"][i]:
+                    if _read(path) != value:
                         raise ValueError("orphan move journal differs from deterministic retry")
                 else:
-                    _write(path, record["positions"][i])
-            header = {**record, "positions": [], "journal_positions": len(record["positions"])}
+                    _write(path, value)
+            header = {**record, "positions": [], "journal_positions": count}
             _write(self.directory / "boundary.json", header, replace=True)
+            if position is not None:
+                record["positions"].append(position)  # only after durable pointer publication
         else:
+            if position is not None:
+                record = {**record, "positions": [*record["positions"], position]}
             _write(self.directory / "boundary.json", record, replace=True)
         self.record = record
 
@@ -343,7 +353,7 @@ class Session:
             commits = 0
             while self.record["status"] == "interrupted":
                 if stop_after_moves is not None and commits >= stop_after_moves:
-                    record = copy.deepcopy(self.record)
+                    record = {**self.record, "interruptions": list(self.record["interruptions"])}
                     record["interruptions"].append(dict(kind="cooperative", ply=len(state.board.move_stack)))
                     self._publish(record)
                     break
@@ -354,7 +364,7 @@ class Session:
                     result = search(root, settings.simulation_budget,
                         config=SearchConfig(settings.c_puct, settings.unvisited_value),
                         evaluator=self.evaluator, exploration=settings.exploration(ply), rng=rng)
-                    candidate = state._copy_owned()
+                    candidate = root.state
                     apply_move(candidate, result.move_id)
                     position = dict(ply=ply, root_fen=state.board.fen(en_passant="fen"),
                         root_promoted=int(state.board.promoted), side_to_move="white" if state.board.turn else "black",
@@ -364,7 +374,7 @@ class Session:
                         rng_before=copy.deepcopy(self.record["rng_state"]), rng_after=rng.bit_generator.state)
                 except (Exception, KeyboardInterrupt, SystemExit) as exc:
                     cause = exc.__cause__ if isinstance(exc, SearchFailure) else exc
-                    record = copy.deepcopy(self.record)
+                    record = {**self.record, "interruptions": list(self.record["interruptions"])}
                     record["interruptions"].append(dict(kind="soft-interrupt" if isinstance(
                         cause, (KeyboardInterrupt, SystemExit)) else "execution-error", ply=ply,
                         error_type=type(cause).__name__, error_message=str(cause),
@@ -372,12 +382,13 @@ class Session:
                         discarded_visits=[[i, e.visit_count] for i, e in sorted(root.edges.items()) if e.visit_count]))
                     self._publish(record)
                     break
-                record = {**self.record, "positions": [*self.record["positions"], position]}
+                record = dict(self.record)
                 record["rng_state"] = rng.bit_generator.state
-                _adjudicate(record, candidate, settings.ply_cap)
+                _adjudicate(record, candidate, settings.ply_cap,
+                            moves_uci=[*self.record["moves_uci"], position["move_uci"]])
                 # Do not catch publication exceptions and roll back an uncertain
                 # commit. Disk always holds one entire old or new boundary.
-                self._publish(record)
+                self._publish(record, position=position)
                 state = candidate
                 commits += 1
             return self.snapshot()

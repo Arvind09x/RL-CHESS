@@ -254,8 +254,9 @@ def test_mixed_resume_rejects_drift_before_rng_install(sources,tmp_path,bad):
         args.pop('mixed_sources'); args.pop('expected_mixed_settings')
         args.update(dataset=data.dataset,source_id='old-D07-only-cursor')
     elif bad == 'expected_settings': args['expected_mixed_settings'] = MixedSettings(learning_rate=2e-5)
-    elif bad == 'source_membership': data.replay_membership = tuple(reversed(data.replay_membership))
-    elif bad == 'source_identity': data.replay_id = '0'*64
+    # Simulate damaged internals; normal assignment is separately rejected.
+    elif bad == 'source_membership': object.__setattr__(data,'replay_membership',tuple(reversed(data.replay_membership)))
+    elif bad == 'source_identity': object.__setattr__(data,'replay_id','0'*64)
     torch.save(payload,path)
     before = rng_snapshot()
     with pytest.raises(CheckpointError): restore_training(path,**args)
@@ -319,7 +320,7 @@ def test_failed_update_does_not_advance_cursor_or_call_step(sources,failure):
     if failure == 'lr': opt.param_groups[0]['lr'] = 1e-4
     elif failure == 'gradient': next(model.parameters()).register_hook(lambda g:g*torch.nan)
     elif failure == 'output': model.register_forward_hook(lambda m,a,o:(o[0]*torch.nan,o[1]))
-    elif failure == 'dataset_mutation': data.dataset = data.dataset.freeze()
+    elif failure == 'dataset_mutation': object.__setattr__(data,'dataset',data.dataset.freeze())
     elif failure == 'partial_adam': opt.state[next(model.parameters())] = {'step':torch.tensor(1.)}
     calls = []
     opt.register_step_pre_hook(lambda *args:calls.append(True))

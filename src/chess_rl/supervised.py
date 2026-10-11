@@ -10,10 +10,12 @@ from types import MappingProxyType
 from collections import OrderedDict
 from collections.abc import Mapping
 import copy
+import hashlib
 from datetime import datetime
 import importlib.metadata
 from pathlib import Path
 from typing import Iterator
+from weakref import WeakKeyDictionary
 
 import chess
 import chess.engine
@@ -301,11 +303,25 @@ class SupervisedBatch:
 
 
 def _freeze_metadata(value):
-    if isinstance(value, dict):
+    if isinstance(value, Mapping):
         return MappingProxyType({k: _freeze_metadata(v) for k, v in value.items()})
     if isinstance(value, (list, tuple)):
         return tuple(_freeze_metadata(v) for v in value)
+    if type(value) not in (str, int, float, bool, type(None)):
+        raise ValueError("metadata must contain immutable JSON values")
     return value
+
+
+def _thaw_metadata(value):
+    if isinstance(value, Mapping):
+        return {k: _thaw_metadata(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_thaw_metadata(v) for v in value]
+    return value
+
+
+# Decoded boards/arrays are private implementation storage, never dataset attributes.
+_decoded_caches = WeakKeyDictionary()
 
 
 class SupervisedDataset:
@@ -313,11 +329,31 @@ class SupervisedDataset:
     def __init__(self, split, labels, refs, games, *, source_identity=None):
         self._split, self._labels, self._refs, self._games = split, labels, refs, games
         self._source_identity = copy.deepcopy(source_identity)
+        self._admission_fingerprint = None
+
+    def _metadata_fingerprint(self):
+        checksum = hashlib.sha256()
+        values = [self.split, self.source_identity]
+        games = set()
+        for label in self._labels:
+            ref = self._refs[_key(label)]
+            values.extend((label, ref))
+            games.add(ref["game_id"])
+        values.extend(self._games[key] for key in sorted(games))
+        for value in values:
+            checksum.update(canonical_json(_thaw_metadata(value)).encode())
+            checksum.update(b"\n")
+        return checksum.hexdigest()
 
     def __setattr__(self, name, value):
         if getattr(self, "_sealed", False):
             raise ValueError("frozen training dataset cannot be modified; reopen sources")
         object.__setattr__(self, name, value)
+
+    def __delattr__(self, name):
+        if getattr(self, "_sealed", False):
+            raise ValueError("frozen training dataset cannot be modified; reopen sources")
+        object.__delattr__(self, name)
 
     def freeze(self, *, cache_bytes=64 * 1024 * 1024):
         """Own an immutable training view; bounded decoded-sample LRU, no rescans.
@@ -327,15 +363,33 @@ class SupervisedDataset:
         """
         if type(cache_bytes) is not int or cache_bytes < 0:
             raise ValueError("cache_bytes must be nonnegative")
+        if (self._admission_fingerprint is not None
+                and self._metadata_fingerprint() != self._admission_fingerprint):
+            raise ValueError("dataset metadata changed after source validation; reopen sources")
         refs = {key: self._refs[key] for key in map(_key, self._labels)}
         games = {r["game_id"]: self._games[r["game_id"]] for r in refs.values()}
         result = SupervisedDataset(self.split, _freeze_metadata(self._labels),
             _freeze_metadata(refs), _freeze_metadata(games), source_identity=self.source_identity)
-        result._sample_cache = OrderedDict()
-        result._cache_budget = cache_bytes
-        result._cache_usage = [0]
+        result._source_identity = _freeze_metadata(result._source_identity)
+        # Admission/freezing performs the complete decoded-target check once.
+        for i in range(len(result)):
+            sample = result[i]
+            if (sample.split != result.split or type(sample.policy_class) is not int
+                    or not 0 <= sample.policy_class < MOVE_COUNT
+                    or not sample.legal_mask[sample.policy_class]
+                    or sample.wdl.shape != (3,) or not np.isfinite(sample.wdl).all()
+                    or np.any(sample.wdl < 0) or not np.isclose(sample.wdl.sum(), 1)):
+                raise ValueError("invalid frozen sample target")
+        _decoded_caches[result] = [OrderedDict(), cache_bytes, 0]
+        result._admission_fingerprint = result._metadata_fingerprint()
         result._sealed = True
         return result
+
+    @property
+    def cache_info(self):
+        """Read-only (entries, payload estimate, budget); no storage exposure."""
+        info = _decoded_caches.get(self)
+        return (len(info[0]), info[2], info[1]) if info is not None else (0, 0, 0)
 
     @property
     def source_identity(self):
@@ -343,7 +397,7 @@ class SupervisedDataset:
 
         Manually constructed datasets have no audited source identity.
         """
-        return copy.deepcopy(self._source_identity)
+        return _thaw_metadata(self._source_identity)
 
     @property
     def split(self):
@@ -357,11 +411,12 @@ class SupervisedDataset:
             raise ValueError("Sample index must be an integer")
         if not 0 <= index < len(self):
             raise IndexError(index)
-        cache = getattr(self, "_sample_cache", None)
+        info = _decoded_caches.get(self)
+        cache = info[0] if info is not None else None
         if cache is not None and index in cache:
             sample = cache[index]
             cache.move_to_end(index)
-            return SupervisedSample(sample.reference, sample.split, sample.state._copy_owned(),
+            return SupervisedSample(sample.reference, sample.split, sample.state.copy(),
                 sample.features.copy(), sample.legal_mask.copy(), sample.policy_class, sample.wdl.copy())
         label = self._labels[index]
         ref = self._refs[_key(label)]
@@ -375,13 +430,13 @@ class SupervisedDataset:
         if cache is not None:
             # Include retained board history in the bounded cache estimate.
             size = sample.features.nbytes + sample.legal_mask.nbytes + sample.wdl.nbytes + 256 * (len(state.board.move_stack) + 1)
-            if size <= self._cache_budget:
-                while cache and self._cache_usage[0] + size > self._cache_budget:
+            if size <= info[1]:
+                while cache and info[2] + size > info[1]:
                     old = cache.popitem(last=False)[1]
-                    self._cache_usage[0] -= old.features.nbytes + old.legal_mask.nbytes + old.wdl.nbytes + 256 * (len(old.state.board.move_stack) + 1)
+                    info[2] -= old.features.nbytes + old.legal_mask.nbytes + old.wdl.nbytes + 256 * (len(old.state.board.move_stack) + 1)
                 cache[index] = sample
-                self._cache_usage[0] += size
-                return SupervisedSample(sample.reference, sample.split, sample.state._copy_owned(),
+                info[2] += size
+                return SupervisedSample(sample.reference, sample.split, sample.state.copy(),
                     sample.features.copy(), sample.legal_mask.copy(), sample.policy_class, sample.wdl.copy())
         return sample
 
@@ -488,9 +543,11 @@ def open_dataset(*, bundle: Path, manifest_path: Path, games_path: Path,
                "Bundle changed while loading")
         _equal(_read(bundle / "summary.json"), summary, "Summary changed while loading")
         _equal(file_identity(teacher_evidence), evidence_identity, "Teacher evidence changed while loading")
-        return SupervisedDataset(split, [r for r in labels if r["split"] == split], refs, games,
+        dataset = SupervisedDataset(split, [r for r in labels if r["split"] == split], refs, games,
             source_identity=dict(schema="d07-source-identity-v1", dataset_id=manifest.dataset_id,
                 split=split, authoritative=identities, bundle=bundle_identities,
                 summary=summary, teacher_evidence=evidence_identity))
+        dataset._admission_fingerprint = dataset._metadata_fingerprint()
+        return dataset
     except (OSError, KeyError, TypeError, IndexError, ValueError) as error:
         raise ValueError(f"Cannot load supervised bundle {bundle}: {error}") from error

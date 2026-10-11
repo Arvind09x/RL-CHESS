@@ -4,7 +4,7 @@ No model execution, game generation or replay mutation. Frozen training views
 must be reopened and matched on resume; adding data requires a new cycle.
 """
 import copy
-from dataclasses import asdict, dataclass, replace
+from dataclasses import asdict, dataclass
 import hashlib
 import json
 import math
@@ -170,10 +170,19 @@ class MixedState:
                     order, cursor, epoch = tuple(order), 0, epoch + 1
                 indices.append(order[cursor])
                 cursor += 1
-            return tuple(indices), SourceCursor(order, cursor, epoch, source.samples_seen + count)
+            # A draw changes counters only; its immutable permutation is already
+            # validated at construction/resume (or freshly shuffled here).
+            result = object.__new__(SourceCursor)
+            for name, value in dict(order=order, cursor=cursor, epoch=epoch,
+                                    samples_seen=source.samples_seen + count).items():
+                object.__setattr__(result, name, value)
+            return tuple(indices), result
         supervised, s = draw(self.supervised, self.settings.supervised_batch_size)
         selfplay, r = draw(self.selfplay, self.settings.selfplay_batch_size)
-        state = replace(self, supervised=s, selfplay=r, sampling_rng=rng.getstate(), updates=self.updates + 1)
+        state = object.__new__(MixedState)
+        changes = dict(supervised=s, selfplay=r, sampling_rng=rng.getstate(), updates=self.updates + 1)
+        for name in self.__dataclass_fields__:
+            object.__setattr__(state, name, changes.get(name, getattr(self, name)))
         return supervised, selfplay, state
 
 
@@ -204,7 +213,16 @@ class MixedSources:
     happens before any shuffle. Registries must match D07's verified identities.
     Reopen sources for restoration; in-memory views are owned by the caller.
     """
-    def __init__(self, dataset, buffer, *, heldout_games_path, protected_positions_path):
+    def __setattr__(self, name, value):
+        require(not getattr(self, "_sealed", False), "frozen mixed sources cannot be modified")
+        object.__setattr__(self, name, value)
+
+    def __delattr__(self, name):
+        require(not getattr(self, "_sealed", False), "frozen mixed sources cannot be modified")
+        object.__delattr__(self, name)
+
+    def __init__(self, dataset, buffer, *, heldout_games_path, protected_positions_path,
+                 cache_bytes=64 * 1024 * 1024):
         from chess_rl.replay import ReplayBuffer
         require(type(dataset) is SupervisedDataset and dataset.split == "train" and len(dataset) > 0,
                 "mixed sources require nonempty audited D07 training split")
@@ -238,7 +256,7 @@ class MixedSources:
         require(len(samples) > 0, "no completed non-held-out replay samples")
         for name, path in paths.items():
             require(file_identity(path) == identity["authoritative"][name], "held-out registry changed while loading")
-        self.dataset = dataset.freeze()
+        self.dataset = dataset.freeze(cache_bytes=cache_bytes)
         self._frozen_dataset = self.dataset
         self._samples = _freeze_metadata(samples)
         self.excluded_heldout = tuple(excluded)
@@ -246,6 +264,7 @@ class MixedSources:
         self.supervised_membership_sha256 = _supervised_membership(self.dataset)
         self.replay_id = digest(export)
         self.replay_membership = tuple(s["sample_id"] for s in samples)
+        self._sealed = True
 
     def batches(self, supervised_indices, replay_indices):
         self.validate_dataset()

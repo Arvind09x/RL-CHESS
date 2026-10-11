@@ -177,14 +177,14 @@ def test_exact_terminal_values_and_repeated_visits_without_evaluator(state, line
 ])
 def test_terminal_root_empty_paths_never_complete(state):
     root = Node(state)
-    before = state_snapshot(state), state_snapshot(root.state)
+    before = state_snapshot(state), state_snapshot(root._state)
     expand(root, forbidden)
     for _ in range(3):
         resolved = traverse(root, evaluator=forbidden)
         assert resolved.path == () and not resolved.completed
         assert backup(resolved) == backup(resolved) == 0
         assert not resolved.completed and root.parent_visits == 0
-    assert (state_snapshot(state), state_snapshot(root.state)) == before
+    assert (state_snapshot(state), state_snapshot(root._state)) == before
 
 
 def test_duplicate_and_shallow_copy_share_completion_and_cannot_add_visits():
@@ -267,7 +267,7 @@ def test_invalid_topology_or_resolution_is_atomic(corruption):
     elif corruption == "wrong-result":
         resolved.leaf.result = evaluate([resolved.leaf.state])[0]
     elif corruption == "wrong-turn":
-        step.child.state.board.turn = step.parent.state.board.turn
+        step.child._state.board.turn = step.parent._state.board.turn
     elif corruption == "disconnected":
         object.__setattr__(step, "parent", root)
     elif corruption == "cycle":

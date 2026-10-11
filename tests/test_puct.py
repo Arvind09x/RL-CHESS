@@ -139,7 +139,7 @@ def test_initial_selection_uses_highest_prior_and_exact_ties_ignore_insertion():
 ])
 def test_legal_expansion_retains_priors_zero_edges_and_value_perspective(state):
     root = Node(state)
-    before = snapshot(state), snapshot(root.state)
+    before = snapshot(state), snapshot(root._state)
     recorder = Recorder(value=0.6)
     result = expand(root, recorder)
     expected_ids = {move_to_id(state, move) for move in state.board.generate_legal_moves()}
@@ -152,7 +152,7 @@ def test_legal_expansion_retains_priors_zero_edges_and_value_perspective(state):
     edges = root.edges
     assert expand(root, recorder) is result and root.edges is edges
     assert len(recorder.calls) == 1
-    assert (snapshot(state), snapshot(root.state)) == before
+    assert (snapshot(state), snapshot(root._state)) == before
 
 
 def terminal_fixtures():
@@ -172,11 +172,11 @@ def terminal_fixtures():
 @pytest.mark.parametrize("state,reason,winner", terminal_fixtures())
 def test_terminal_bypasses_evaluator_and_mask_preserves_exact_adapter_result(state, reason, winner, monkeypatch):
     root = Node(state)
-    before = snapshot(state), snapshot(root.state)
+    before = snapshot(state), snapshot(root._state)
     expected = terminal_result(root.state)
     def forbidden(*args):
         raise AssertionError("Terminal entered evaluator/legal expansion")
-    monkeypatch.setattr(puct, "terminal_result", lambda candidate: expected if candidate is root.state else forbidden())
+    monkeypatch.setattr(puct, "terminal_result", lambda candidate: expected if candidate is root._state else forbidden())
     monkeypatch.setattr(puct, "legal_mask", forbidden)
     assert expand(root, forbidden) is expected
     assert expand(root, forbidden) is expected
@@ -187,7 +187,7 @@ def test_terminal_bypasses_evaluator_and_mask_preserves_exact_adapter_result(sta
     assert expected.value == (0 if winner is None else -1)
     np.testing.assert_array_equal(expected.wdl, [0, 1, 0] if winner is None else [0, 0, 1])
     assert expected.priors is None and root.edges == {} and root.parent_visits == 0
-    assert (snapshot(state), snapshot(root.state)) == before
+    assert (snapshot(state), snapshot(root._state)) == before
     with pytest.raises(ValueError, match="expanded nonterminal"):
         select_edge(root)
 
@@ -206,17 +206,17 @@ def test_root_preparation_is_separate_from_traversals_no_statistics_writes(state
     recorder = Recorder(["e2e4", "e7e5", "g1f3"], value=0.6)
     expand(root, recorder)
     assert root.parent_visits == 0 and len(recorder.calls) == 1
-    before = snapshot(state), snapshot(root.state), stats(root)
+    before = snapshot(state), snapshot(root._state), stats(root)
     first = traverse(root, evaluator=recorder)
-    child_before = snapshot(first.leaf.state), stats(first.leaf)
+    child_before = snapshot(first.leaf._state), stats(first.leaf)
     second = traverse(root, evaluator=recorder)
     assert len(first.path) == 1 and len(second.path) == 2
     assert second.path[0].edge is first.path[0].edge
     assert second.path[0].child is first.leaf
     assert second.path[1].parent is first.leaf
     assert first.result.value == second.result.value == 0.6  # Leaf player's perspective.
-    assert (snapshot(first.leaf.state), stats(first.leaf)) == child_before
-    assert (snapshot(state), snapshot(root.state), stats(root)) == before
+    assert (snapshot(first.leaf._state), stats(first.leaf)) == child_before
+    assert (snapshot(state), snapshot(root._state), stats(root)) == before
     for step in second.path:
         assert step.edge.visit_count == step.edge.value_sum == 0
         assert step.child.state.board.move_stack[:-1] == step.parent.state.board.move_stack
@@ -253,7 +253,7 @@ def test_special_move_traversal_and_every_prefix_preserved(state, uci):
     before = snapshot(state)
     features = encode_position(state).features.copy()
     root = Node(state)
-    root_before = snapshot(root.state)
+    root_before = snapshot(root._state)
     recorder = Recorder([uci])
     expand(root, recorder)
     selected = traverse(root, evaluator=recorder)
@@ -271,7 +271,7 @@ def test_special_move_traversal_and_every_prefix_preserved(state, uci):
     prefix = leaf.copy()
     prefix.board.pop()
     assert fingerprint(prefix) == fingerprint(state)
-    assert snapshot(state) == before and snapshot(root.state) == root_before
+    assert snapshot(state) == before and snapshot(root._state) == root_before
     np.testing.assert_array_equal(encode_position(state).features, features)
     assert len(root.edges) == len(list(state.board.legal_moves))  # Includes zero-prior legal edges.
     assert all(edge.visit_count == edge.value_sum == 0 for edge in root.edges.values())
@@ -286,14 +286,14 @@ def test_terminal_leaf_bypass_repeat_and_no_visit_completion(state, uci, reason)
     root = Node(state)
     recorder = Recorder([uci])
     expand(root, recorder)
-    before = snapshot(root.state)
+    before = snapshot(root._state)
     first = traverse(root, evaluator=recorder)
     second = traverse(root, evaluator=recorder)
     assert first.leaf is second.leaf and first.result is second.result
     assert len(first.path) == len(second.path) == 1
     assert isinstance(first.result, TerminalResult) and first.result.ending_reason == reason
     assert len(recorder.calls) == 1 and first.leaf.edges == {}
-    assert root.parent_visits == 0 and snapshot(root.state) == before
+    assert root.parent_visits == 0 and snapshot(root._state) == before
     if reason != "CHECKMATE":
         assert list(first.leaf.state.board.legal_moves)
 
@@ -348,23 +348,23 @@ def test_failed_leaf_evaluation_never_completes_visits_and_retry_is_safe():
     expand(root, recorder)
     selected = select_edge(root)
     selected.visit_count, selected.value_sum = 2, 1.0
-    before = snapshot(root.state), stats(root)
+    before = snapshot(root._state), stats(root)
     def interrupted(states):
         raise RuntimeError("controlled evaluation interruption")
     with pytest.raises(RuntimeError, match="interruption"):
         traverse(root, evaluator=interrupted)
-    assert (snapshot(root.state), stats(root)) == before
+    assert (snapshot(root._state), stats(root)) == before
     child = select_edge(root).child
     assert child is not None and not child.expanded and child.edges == {}
     result = traverse(root, evaluator=recorder)
     assert result.leaf is child and len(result.path) == 1
-    assert (snapshot(root.state), stats(root)) == before
+    assert (snapshot(root._state), stats(root)) == before
 
 
 @pytest.mark.parametrize("bad", ["empty", "extra", "terminal", "illegal"])
 def test_failed_expansion_is_unpublished_and_retryable(bad):
     root = Node(make_state())
-    before = snapshot(root.state)
+    before = snapshot(root._state)
     valid = evaluate([root.state])[0]
     if bad == "empty":
         result = []
@@ -379,7 +379,7 @@ def test_failed_expansion_is_unpublished_and_retryable(bad):
     with pytest.raises(ValueError):
         expand(root, lambda states: result)
     assert not root.expanded and root.edges == {} and root.parent_visits == 0
-    assert snapshot(root.state) == before
+    assert snapshot(root._state) == before
     assert expand(root) is not None
 
 

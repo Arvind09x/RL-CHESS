@@ -1,6 +1,6 @@
 """T02 shared, versioned M06 checkpoints at completed optimizer-step boundaries.
 
-CPU float32/float64 and standard Adam are supported. Legacy v1 retains D07
+CPU float32/float64 with standard Adam or grouped AdamW are supported. Legacy v1 retains D07
 single-source ordering. Mixed v2 replaces that cursor with both source cursors,
 identities, membership, dedicated sampling RNG and frozen R03 settings.
 Single cuda:0 float32 has separately versioned supervised and mixed formats.
@@ -225,7 +225,7 @@ class InferenceCheckpoint:
 @dataclass(frozen=True)
 class TrainingCheckpoint:
     model: ChessNetwork
-    optimizer: torch.optim.Adam
+    optimizer: torch.optim.Optimizer
     config: ModelConfig
     checkpoint_id: str
     provenance: dict
@@ -289,7 +289,11 @@ def _model_state(model, state):
         _require(buffer.device.type == "cpu", f"invalid model buffer device: {name}")
 
 
-def _adam_options(options):
+OPTIMIZER_CLASSES = {"Adam": torch.optim.Adam, "AdamW": torch.optim.AdamW}
+
+
+def _adam_options(options, kind="Adam"):
+    """Adam ('Adam', coupled L2 or none) and AdamW ('AdamW', decoupled decay) share one schema."""
     fields = {"lr", "betas", "eps", "weight_decay", "amsgrad", "maximize", "foreach",
               "capturable", "differentiable", "fused", "decoupled_weight_decay"}
     _fields(options, fields, "Adam configuration")
@@ -305,13 +309,21 @@ def _adam_options(options):
         _require(type(options[name]) is bool, f"invalid Adam {name}")
     for name in ("foreach", "fused"):
         _require(options[name] is None or type(options[name]) is bool, f"invalid Adam {name}")
-    _require(not options["capturable"] and not options["differentiable"]
-             and options["fused"] is not True and not options["decoupled_weight_decay"],
-             "only standard nonfused noncapturable Adam is supported")
+    _require(not options["capturable"] and not options["differentiable"] and options["fused"] is not True,
+             "only nonfused noncapturable Adam/AdamW is supported")
+    _require(kind in OPTIMIZER_CLASSES and options["decoupled_weight_decay"] == (kind == "AdamW"),
+             "decoupled weight decay must match the optimizer kind")
+
+
+def _optimizer_kind(optimizer):
+    for kind, cls in OPTIMIZER_CLASSES.items():
+        if type(optimizer) is cls:
+            return kind
+    raise CheckpointError("checkpoint supports standard Adam or AdamW only")
 
 
 def _optimizer_payload(model, optimizer):
-    _require(type(optimizer) is torch.optim.Adam, "checkpoint currently supports standard Adam only")
+    kind = _optimizer_kind(optimizer)
     names = {id(p): n for n, p in model.named_parameters()}
     supplied = [p for g in optimizer.param_groups for p in g["params"]]
     _require(len(supplied) == len(names) and {id(p) for p in supplied} == set(names),
@@ -319,17 +331,18 @@ def _optimizer_payload(model, optimizer):
     groups = []
     for group in optimizer.param_groups:
         options = {k: v for k, v in group.items() if k != "params"}
-        _adam_options(options)
+        _adam_options(options, kind)
         groups.append(dict(names=[names[id(p)] for p in group["params"]], options=options))
     defaults = dict(optimizer.defaults)
-    _adam_options(defaults)
-    return dict(kind="Adam", defaults=defaults, groups=groups, state=optimizer.state_dict())
+    _adam_options(defaults, kind)
+    return dict(kind=kind, defaults=defaults, groups=groups, state=optimizer.state_dict())
 
 
 def _restore_optimizer(model, payload, progress):
     _fields(payload, ("kind", "defaults", "groups", "state"), "optimizer")
-    _require(payload["kind"] == "Adam", "unsupported optimizer version/configuration")
-    _adam_options(payload["defaults"])
+    kind = payload["kind"]
+    _require(kind in OPTIMIZER_CLASSES, "unsupported optimizer version/configuration")
+    _adam_options(payload["defaults"], kind)
     groups = payload["groups"]
     _require(type(groups) is list and bool(groups), "invalid optimizer groups")
     named = dict(model.named_parameters())
@@ -337,7 +350,7 @@ def _restore_optimizer(model, payload, progress):
     actual_groups = []
     for group in groups:
         _fields(group, ("names", "options"), "optimizer group")
-        _adam_options(group["options"])
+        _adam_options(group["options"], kind)
         names = group["names"]
         _require(type(names) is list and bool(names) and all(type(n) is str and n in named for n in names),
                  "invalid optimizer parameter names")
@@ -380,7 +393,10 @@ def _restore_optimizer(model, payload, progress):
                 _require(bool((tensor >= 0).all()), f"negative Adam {name}")
         if options["amsgrad"]:
             _require(bool((state["max_exp_avg_sq"] >= state["exp_avg_sq"]).all()), "invalid Adam AMSGrad maximum")
-    optimizer = torch.optim.Adam(actual_groups, **payload["defaults"])
+    defaults = dict(payload["defaults"])
+    if kind == "AdamW":
+        defaults.pop("decoupled_weight_decay")  # AdamW fixes it True and rejects the keyword
+    optimizer = OPTIMIZER_CLASSES[kind](actual_groups, **defaults)
     optimizer.load_state_dict(saved)
     return optimizer
 

@@ -1,5 +1,6 @@
 """R03 one mixed update on two audited, frozen training sources."""
 from dataclasses import dataclass
+import math
 
 import numpy as np
 import torch
@@ -14,16 +15,25 @@ from .trainer import StepMetrics, finite_tensors
 
 
 def validate_optimizer_settings(payload, settings):
-    """R03 constant standard Adam choices; common persistence owns full schema."""
-    require(payload["kind"] == "Adam", "mixed updates require Adam")
+    """R03 constant Adam-family choices; common persistence owns full schema.
+
+    Standard Adam carries zero decay. Grouped AdamW carries nonnegative decoupled
+    decay per group; the exact decay values are the caller's recorded choice,
+    checked through restore_training's expected_optimizer rather than here.
+    """
+    require(payload["kind"] in ("Adam", "AdamW"), "mixed updates require Adam or AdamW")
+    decoupled = payload["kind"] == "AdamW"
     expected = dict(lr=settings.learning_rate, betas=(0.9, 0.999), eps=1e-8,
-        weight_decay=0.0, amsgrad=False, maximize=False, foreach=False,
-        capturable=False, differentiable=False, fused=False, decoupled_weight_decay=False)
+        amsgrad=False, maximize=False, foreach=False,
+        capturable=False, differentiable=False, fused=False, decoupled_weight_decay=decoupled)
     for options in [payload["defaults"], *[g["options"] for g in payload["groups"]]]:
         for key, value in expected.items():
             actual = tuple(options[key]) if key == "betas" else options[key]
             require(type(actual) is type(value) and actual == value,
                     f"mixed optimizer settings mismatch: {key}")
+        decay = options["weight_decay"]
+        require(type(decay) in (int, float) and decay >= 0 and (decoupled or decay == 0),
+                "mixed optimizer settings mismatch: weight_decay")
 
 
 @dataclass(frozen=True)
@@ -33,6 +43,8 @@ class MixedMetrics:
     supervised_contribution: float
     selfplay_contribution: float
     total_loss: float
+    gradient_norm: float | None = None  # global L2 norm before any clipping
+    clipped: bool = False
 
 
 def mixed_losses(policy, wdl, *, supervised_mask, classes, teacher_wdl,
@@ -64,14 +76,20 @@ def mixed_losses(policy, wdl, *, supervised_mask, classes, teacher_wdl,
     return total, metrics
 
 
-def mixed_step(model, optimizer, sources, state):
+def mixed_step(model, optimizer, sources, state, *, max_gradient_norm=None):
     """Return metrics and candidate committed state after one optimizer step.
 
     Input/loss/gradient failures prevent optimizer execution and do not advance
     sampling. Arbitrary optimizer failure is not transactional: restore the last
     immutable checkpoint after such a failure. Sources never mutate replay.
+    max_gradient_norm optionally clips the global gradient norm before the step;
+    the caller records that choice in its run configuration.
     """
+    from dataclasses import replace
     from .checkpoints import _optimizer_payload
+    from .optimizers import clip_gradients
+    require(max_gradient_norm is None or (type(max_gradient_norm) in (int, float)
+            and math.isfinite(max_gradient_norm) and max_gradient_norm > 0), "invalid max_gradient_norm")
     require(type(state) is MixedState, "MixedState required; a D07 cursor is insufficient")
     state.validate_sources(sources)
     require(type(model) is ChessNetwork and all(layer.self_attn.relative is not None
@@ -116,6 +134,8 @@ def mixed_step(model, optimizer, sources, state):
         loss.backward()
         require(all(p.grad is not None for p in parameters) and finite_tensors(p.grad for p in parameters),
                 "every combined-model parameter requires a finite mixed gradient")
+        norm, clipped = clip_gradients(parameters, max_gradient_norm)
+        metrics = replace(metrics, gradient_norm=norm, clipped=clipped)
         optimizer.step()
         require(finite_tensors(parameters), "nonfinite mixed optimizer result")
         return metrics, next_state

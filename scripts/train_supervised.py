@@ -19,15 +19,17 @@ from chess_rl.supervised import open_dataset
 from chess_rl.training.checkpoints import (DataOrder, ModelConfig, Progress,
     restore_training, runtime_config, save_checkpoint)
 from chess_rl.training.losses import policy_class_cross_entropy, soft_wdl_cross_entropy
+from chess_rl.training.optimizers import (OptimizerSettings, ScheduleSettings, build_optimizer,
+    describe, set_learning_rate)
 from chess_rl.training.trainer import LossWeights, supervised_step
 from chess_rl.training.curves import write_learning_curves
 
 
 def gradient_norm(model):
-    """Global L2 norm of the last backward gradients; shared parameters count once.
+    """Global L2 norm of the gradients currently stored; shared parameters count once.
 
-    Adam leaves these gradients unchanged, so this is the norm before its update.
-    No clipping or other gradient modification is applied.
+    Diagnostic only: the runner logs the unclipped norm that supervised_step
+    returns, measured before any clipping modified the stored gradients.
     """
     gradients = [p.grad for p in model.parameters()]
     if not gradients or any(g is None for g in gradients):
@@ -72,13 +74,26 @@ def main():
     p.add_argument("--steps", type=int, required=True, help="target total update count, including resumed progress")
     p.add_argument("--batch-size", type=int, default=32)
     p.add_argument("--threads", type=int, default=1, help="positive Torch intraop thread count; recorded and checked on resume")
-    p.add_argument("--learning-rate", type=float, default=1e-4)
+    p.add_argument("--learning-rate", type=float, default=1e-4, help="peak AdamW learning rate")
+    p.add_argument("--weight-decay", type=float, default=0.01, help="decoupled decay on matrix weights only")
+    p.add_argument("--max-gradient-norm", type=float, default=10.0, help="global-norm clip; 0 disables")
+    p.add_argument("--warmup-steps", type=int, default=500, help="linear warmup updates before cosine decay")
+    p.add_argument("--final-lr-fraction", type=float, default=0.1, help="cosine floor as a fraction of peak at the schedule horizon")
+    p.add_argument("--schedule-total-steps", type=int, help="schedule horizon in updates; defaults to --steps and must repeat on resume")
     p.add_argument("--validation-every", type=int, default=100)
     p.add_argument("--seed", type=int, default=20261010)
     p.add_argument("--resume", type=Path)
     args = p.parse_args()
     if min(args.steps, args.batch_size, args.validation_every, args.threads) < 1 or not np.isfinite(args.learning_rate) or args.learning_rate <= 0:
         p.error("steps/batch-size/validation-every/threads and learning-rate must be positive")
+    try:
+        optimizer_settings = OptimizerSettings(learning_rate=args.learning_rate, weight_decay=args.weight_decay,
+            max_gradient_norm=args.max_gradient_norm if args.max_gradient_norm > 0 else None)
+        schedule = ScheduleSettings(warmup_steps=args.warmup_steps,
+            total_steps=args.schedule_total_steps if args.schedule_total_steps is not None else args.steps,
+            final_fraction=args.final_lr_fraction)
+    except ValueError as error:
+        p.error(str(error))
     if args.output.exists():
         p.error("output must be a fresh directory; resume into a new directory")
     configure(args.device, threads=args.threads)
@@ -87,8 +102,10 @@ def main():
     validation = open_dataset(**paths, split="validation").freeze()
     source = hashlib.sha256(json.dumps(train.source_identity, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     config = ModelConfig(device=args.device)
+    # Resume compares provenance exactly, so optimizer and schedule settings must repeat.
     provenance = dict(purpose="supervised pilot; P selection remains a separate decision",
-        source_id=source, seed=args.seed, batch_size=args.batch_size, learning_rate=args.learning_rate)
+        source_id=source, seed=args.seed, batch_size=args.batch_size, learning_rate=args.learning_rate,
+        optimizer=describe(optimizer_settings, schedule))
     weights = LossWeights()
     if args.resume:
         loaded = restore_training(args.resume, expected_config=config, expected_provenance=provenance,
@@ -99,7 +116,7 @@ def main():
         np.random.seed(args.seed)
         torch.manual_seed(args.seed)
         model = config.build()
-        optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate, foreach=False, fused=False)
+        optimizer = build_optimizer(model, optimizer_settings)
         order = DataOrder(source, DataOrder.reference_hash(train), tuple(map(int, np.random.permutation(len(train)))),
                           0, args.batch_size, False, 0)
         progress = Progress(0, 0, 0)
@@ -131,11 +148,14 @@ def main():
             if not order.next_indices():
                 order = replace(order, order=tuple(map(int, np.random.permutation(len(train)))), cursor=0, epoch=order.epoch + 1)
             indices = order.next_indices()
-            metrics = supervised_step(model, optimizer, train.batch(indices), weights=weights)
+            learning_rate = args.learning_rate * schedule.multiplier(progress.step)
+            set_learning_rate(optimizer, learning_rate)
+            metrics = supervised_step(model, optimizer, train.batch(indices), weights=weights,
+                                      max_gradient_norm=optimizer_settings.max_gradient_norm)
             order = replace(order, cursor=order.cursor + len(indices))
             progress = Progress(progress.step + 1, order.epoch, progress.samples_seen + len(indices))
             record = dict(step=progress.step, epoch=progress.epoch, event="update",
-                train=asdict(metrics) | {"gradient_norm": gradient_norm(model)}, elapsed_seconds=time.perf_counter() - start)
+                train=asdict(metrics) | {"learning_rate": learning_rate}, elapsed_seconds=time.perf_counter() - start)
             if progress.step % args.validation_every == 0 or progress.step == args.steps:
                 record["validation"] = validate(model, validation, args.batch_size)
                 last_checkpoint = args.output / f"step-{progress.step:06d}.pt"

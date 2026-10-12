@@ -5,7 +5,7 @@ This is the active plan. The original detailed plan is preserved byte-for-byte i
 | Stage | Status | What this establishes |
 | --- | --- | --- |
 | F / A: foundations and adapter | Accepted on CPU | Legal history, action mapping, and features |
-| M / T: network and training primitives | Accepted on CPU | M06 architecture, losses, Adam updates, checkpoint continuation |
+| M / T: network and training primitives | Accepted on CPU | M06 architecture, losses, AdamW updates with clipping and warmup/cosine schedule, checkpoint continuation |
 | D: data and Stockfish label pipeline | Accepted CPU artifacts | Protected game splits and 9,000 / 500 / 500 labels |
 | S / R through R04 | Accepted on CPU | Search, durable self-play, replay, mixed updates, and evaluation plumbing |
 | E01 and bounded Gate I | Accepted CPU fixture evidence | End-to-end connectivity; no strength claim |

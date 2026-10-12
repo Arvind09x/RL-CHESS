@@ -307,7 +307,7 @@ def test_supervised_cli_fresh_process_resume_matches_full(tmp_path):
         out = tmp_path / name
         cmd = [sys.executable, "scripts/train_supervised.py", "--device", "cpu", "--data-config", str(config),
                "--output", str(out), "--steps", str(steps), "--batch-size", "2", "--validation-every", "1",
-               "--threads", str(threads)]
+               "--threads", str(threads), "--schedule-total-steps", "3"]
         if resume:
             cmd += ["--resume", str(resume)]
         result = subprocess.run(cmd, cwd=root, env=env, capture_output=True, text=True, timeout=120)
@@ -339,7 +339,10 @@ def test_supervised_cli_fresh_process_resume_matches_full(tmp_path):
         for output, row in zip(exported[1:], rows[1:]):
             assert float(output["train_gradient_norm"]) == row["train"]["gradient_norm"]
         plot = ElementTree.parse(directory / "learning-curves.svg")
-        assert len(plot.findall(".//{http://www.w3.org/2000/svg}polyline")) == 8
+        assert len(plot.findall(".//{http://www.w3.org/2000/svg}polyline")) == 9
+        assert settings["provenance"]["optimizer"]["kind"] == "AdamW"
+        assert settings["provenance"]["optimizer"]["schedule"]["total_steps"] == 3
+        assert all(row["train"]["learning_rate"] > 0 and row["train"]["clipped"] in (True, False) for row in rows[1:])
     initial = torch.load(full / "step-000000.pt", weights_only=True)
     assert initial["training"]["progress"]["step"] == 0
     assert not initial["training"]["optimizer"]["state"]["state"]
@@ -349,7 +352,13 @@ def test_supervised_cli_fresh_process_resume_matches_full(tmp_path):
     assert_tree_equal(a, torch.load(from_baseline / "step-000003.pt", weights_only=True))
     command = [sys.executable, "scripts/train_supervised.py", "--device", "cpu", "--data-config", str(config),
                "--output", str(tmp_path / "wrong-threads"), "--steps", "3", "--batch-size", "2",
-               "--resume", str(prefix / "step-000001.pt"), "--threads", "1"]
+               "--resume", str(prefix / "step-000001.pt"), "--threads", "1", "--schedule-total-steps", "3"]
     failed = subprocess.run(command, cwd=root, env=env, capture_output=True, text=True, timeout=120)
     assert failed.returncode != 0 and "runtime" in failed.stderr
     assert not (tmp_path / "wrong-threads").exists()
+    command = [sys.executable, "scripts/train_supervised.py", "--device", "cpu", "--data-config", str(config),
+               "--output", str(tmp_path / "wrong-schedule"), "--steps", "3", "--batch-size", "2",
+               "--resume", str(prefix / "step-000001.pt"), "--threads", "2", "--schedule-total-steps", "4"]
+    failed = subprocess.run(command, cwd=root, env=env, capture_output=True, text=True, timeout=120)
+    assert failed.returncode != 0 and "provenance" in failed.stderr
+    assert not (tmp_path / "wrong-schedule").exists()

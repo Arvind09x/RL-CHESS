@@ -33,6 +33,8 @@ class StepMetrics:
     policy_loss: float
     wdl_loss: float
     total_loss: float
+    gradient_norm: float | None = None  # global L2 norm before any clipping
+    clipped: bool = False
 
 
 def finite_tensors(values):
@@ -42,15 +44,21 @@ def finite_tensors(values):
 
 
 def supervised_step(model: ChessNetwork, optimizer: torch.optim.Optimizer,
-                    batch: SupervisedBatch, *, weights: LossWeights = LossWeights()) -> StepMetrics:
+                    batch: SupervisedBatch, *, weights: LossWeights = LossWeights(),
+                    max_gradient_norm: float | None = None) -> StepMetrics:
     """Validate the owned batch, train both heads, and update unique parameters.
 
-    Returns pre-update scalar losses. Leaves batch arrays/references untouched.
-    On input/loss/gradient failure no optimizer step is attempted. Gradients are
-    cleared before backward and on backward failure; no rollback of an arbitrary
-    optimizer is promised. Runtime settings and optimizer choices are explicit
-    caller responsibilities, recorded by the bounded T01 check.
+    Returns pre-update scalar losses and the unclipped global gradient norm.
+    With max_gradient_norm set, gradients are scaled to that global L2 norm
+    before the optimizer step (Leela-CF style clipping); None leaves them as is.
+    Leaves batch arrays/references untouched. On input/loss/gradient failure no
+    optimizer step is attempted. Gradients are cleared before backward and on
+    backward failure; no rollback of an arbitrary optimizer is promised. Runtime
+    settings and optimizer choices are explicit caller responsibilities.
     """
+    if max_gradient_norm is not None and (type(max_gradient_norm) not in (int, float)
+            or not math.isfinite(max_gradient_norm) or max_gradient_norm <= 0):
+        raise ValueError("max_gradient_norm must be None or finite positive")
     if not isinstance(model, ChessNetwork) or any(layer.self_attn.relative is None for layer in model.backbone.layers):
         raise ValueError("supervised training requires the combined GAB + Q/K/V network")
     if not isinstance(weights, LossWeights):
@@ -90,7 +98,10 @@ def supervised_step(model: ChessNetwork, optimizer: torch.optim.Optimizer,
         total.backward()
         if any(p.grad is None for p in parameters) or not finite_tensors(p.grad for p in parameters):
             raise ValueError("every combined-model parameter requires a finite gradient")
-        metrics = StepMetrics(size, float(policy_loss.detach()), float(wdl_loss.detach()), float(total.detach()))
+        from .optimizers import clip_gradients
+        norm, clipped = clip_gradients(parameters, max_gradient_norm)
+        metrics = StepMetrics(size, float(policy_loss.detach()), float(wdl_loss.detach()), float(total.detach()),
+                              norm, clipped)
         optimizer.step()
         if not finite_tensors(parameters):
             raise ValueError("optimizer produced nonfinite parameters")

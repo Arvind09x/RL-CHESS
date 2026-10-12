@@ -9,7 +9,8 @@ def write_learning_curves(directory):
     directory = Path(directory)
     rows = [json.loads(line) for line in (directory / "metrics.jsonl").read_text().splitlines()]
     fields = ["step", "epoch", "event", "elapsed_seconds"]
-    fields += [f"train_{key}" for key in ("batch_size", "total_loss", "policy_loss", "wdl_loss", "gradient_norm")]
+    fields += [f"train_{key}" for key in ("batch_size", "total_loss", "policy_loss", "wdl_loss", "gradient_norm",
+                                          "clipped", "learning_rate")]
     fields += [f"validation_{key}" for key in ("total_loss", "policy_loss", "wdl_loss", "policy_accuracy", "positions")]
     with (directory / "learning-curves.csv").open("x", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
@@ -24,13 +25,14 @@ def write_learning_curves(directory):
               ("Policy loss", "policy_loss", ("train", "validation")),
               ("WDL loss", "wdl_loss", ("train", "validation")),
               ("Validation policy accuracy", "policy_accuracy", ("validation",)),
-              ("Global gradient L2 norm (no clipping)", "gradient_norm", ("train",))]
+              ("Global gradient L2 norm (before clipping)", "gradient_norm", ("train",)),
+              ("Learning rate", "learning_rate", ("train",))]
     colors = {"train": "#2563eb", "validation": "#c2410c"}
     xmin, xmax = min(row["step"] for row in rows), max(row["step"] for row in rows)
     baseline = rows[0]
     label = "Untrained baseline" if baseline["event"] == "untrained_baseline" else "Resumed baseline"
-    svg = ['<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1100" viewBox="0 0 1000 1100">',
-           '<rect width="1000" height="1100" fill="white"/>',
+    svg = ['<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1300" viewBox="0 0 1000 1300">',
+           '<rect width="1000" height="1300" fill="white"/>',
            '<g font-family="sans-serif" fill="#172033">',
            '<text x="80" y="30" font-size="20">Supervised learning curves — this run segment</text>',
            f'<text x="80" y="54" font-size="13">{label} at step {baseline["step"]}; training losses are per-update batches, validation uses the full split.</text>']

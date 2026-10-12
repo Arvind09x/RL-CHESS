@@ -45,7 +45,7 @@ class Checkpoint:
     def __post_init__(self):
         text_id(self.checkpoint_id, "checkpoint_id")
         text_id(self.path, "checkpoint path")
-        if self.kind not in ("fixture", "pretrained-P", "rl-R"):
+        if self.kind not in ("fixture", "pretrained-P", "rl-R", "supervised-candidate", "untrained"):
             raise ValueError("Unknown checkpoint kind")
         if len(self.sha256) != 64 or any(c not in "0123456789abcdef" for c in self.sha256):
             raise ValueError("checkpoint sha256 must be a lowercase SHA-256")
@@ -113,14 +113,15 @@ class SearchPlayer:
     def __post_init__(self):
         text_id(self.player_id, "player_id")
         text_id(self.evaluator_id, "evaluator_id")
-        if self.role not in ("P", "R", "fixture") or not callable(self.evaluator):
+        if self.role not in ("P", "R", "fixture", "supervised-candidate", "untrained") or not callable(self.evaluator):
             raise ValueError("Explicit role and callable evaluator required")
         if not isinstance(self.settings, SearchSettings):
             raise ValueError("settings must be SearchSettings")
         if self.checkpoint is not None:
             if not isinstance(self.checkpoint, Checkpoint):
                 raise ValueError("checkpoint must be Checkpoint or None")
-            expected = {"P": "pretrained-P", "R": "rl-R"}.get(self.role)
+            expected = {"P": "pretrained-P", "R": "rl-R",
+                        "supervised-candidate": "supervised-candidate", "untrained": "untrained"}.get(self.role)
             if self.checkpoint.kind != "fixture" and self.checkpoint.kind != expected:
                 raise ValueError("Checkpoint kind does not match player role")
 

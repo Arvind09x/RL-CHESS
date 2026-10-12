@@ -1,0 +1,4372 @@
+{
+  "checkpoints": {
+    "supervised-candidate": {
+      "checkpoint_id": "pilot-step-1410",
+      "kind": "supervised-candidate",
+      "path": "artifacts/p02-cpu-001/step-001410.pt",
+      "sha256": "115ba5be9cb9c4689bd70d8dd548b94bb140b0b839ad0b695d70695cdaf8e26a"
+    },
+    "untrained": {
+      "checkpoint_id": "pilot-step-0",
+      "kind": "untrained",
+      "path": "artifacts/p02-cpu-001/step-000000.pt",
+      "sha256": "e0efbf441a00ef8d801cff6f0d18e940ba0b93c1bd9ce53e9d0c113082ca2f8c"
+    }
+  },
+  "comparison": "supervised-candidate-versus-untrained",
+  "match_id": "p02-cpu-001-strength-dev-v1",
+  "openings": [
+    {
+      "family": "italian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1c4",
+        "f8c5",
+        "c2c3"
+      ],
+      "opening_id": "italian-1",
+      "replay_sha256": "4d7f66746bdbbf53d8db6d207cb84418e374bce6b74e67703cebc042430c9183",
+      "san": "e4 e5 Nf3 Nc6 Bc4 Bc5 c3",
+      "source": "independently-authored-development-v1:italian; no corpus/labels"
+    },
+    {
+      "family": "italian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1c4",
+        "f8c5",
+        "d2d3"
+      ],
+      "opening_id": "italian-2",
+      "replay_sha256": "4c8ec3c2011d25e7642db0703a97aa861b38557953f9c7f19658fd8decdf35df",
+      "san": "e4 e5 Nf3 Nc6 Bc4 Bc5 d3",
+      "source": "independently-authored-development-v1:italian; no corpus/labels"
+    },
+    {
+      "family": "italian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1c4",
+        "f8c5",
+        "e1g1"
+      ],
+      "opening_id": "italian-3",
+      "replay_sha256": "05a7a2971add84d668f2052e2fab58419d3a2fbe78f4628d0f02c1d45958768f",
+      "san": "e4 e5 Nf3 Nc6 Bc4 Bc5 O-O",
+      "source": "independently-authored-development-v1:italian; no corpus/labels"
+    },
+    {
+      "family": "italian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1c4",
+        "f8c5",
+        "b2b4"
+      ],
+      "opening_id": "italian-4",
+      "replay_sha256": "7ff542e1ce4a91155f63114621e0868945674c002cd52ddec5a8fbbe9b6a0f38",
+      "san": "e4 e5 Nf3 Nc6 Bc4 Bc5 b4",
+      "source": "independently-authored-development-v1:italian; no corpus/labels"
+    },
+    {
+      "family": "ruy-lopez",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1b5",
+        "a7a6",
+        "b5a4"
+      ],
+      "opening_id": "ruy-lopez-1",
+      "replay_sha256": "c0a8dbccf74741d8a17a28fc70ef0bcc3aeb1a7a97cd94f77d2372c647135a4f",
+      "san": "e4 e5 Nf3 Nc6 Bb5 a6 Ba4",
+      "source": "independently-authored-development-v1:ruy-lopez; no corpus/labels"
+    },
+    {
+      "family": "ruy-lopez",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1b5",
+        "a7a6",
+        "b5c6"
+      ],
+      "opening_id": "ruy-lopez-2",
+      "replay_sha256": "1a1947d41976acea17d88134b3539ed193752871a7bab01d4cf458fcad3b2f30",
+      "san": "e4 e5 Nf3 Nc6 Bb5 a6 Bxc6",
+      "source": "independently-authored-development-v1:ruy-lopez; no corpus/labels"
+    },
+    {
+      "family": "ruy-lopez",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1b5",
+        "a7a6",
+        "b5c4"
+      ],
+      "opening_id": "ruy-lopez-3",
+      "replay_sha256": "e8399a21ee35e7f6c1e0f5a6afaeea6b543207f9539d5fe014488ac7b4269b0e",
+      "san": "e4 e5 Nf3 Nc6 Bb5 a6 Bc4",
+      "source": "independently-authored-development-v1:ruy-lopez; no corpus/labels"
+    },
+    {
+      "family": "ruy-lopez",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "f1b5",
+        "a7a6",
+        "b5e2"
+      ],
+      "opening_id": "ruy-lopez-4",
+      "replay_sha256": "fbf615d3d12b0bc3bc4c8f5724985d60fd87fa27ab185591a5aec6b2c9be8bfa",
+      "san": "e4 e5 Nf3 Nc6 Bb5 a6 Be2",
+      "source": "independently-authored-development-v1:ruy-lopez; no corpus/labels"
+    },
+    {
+      "family": "scotch",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "d2d4",
+        "e5d4",
+        "f3d4",
+        "g8f6",
+        "b1c3"
+      ],
+      "opening_id": "scotch-1",
+      "replay_sha256": "d1545fd9c1a95b9955dee40415ea5a98f4fcae3458dd7a32409b4963e3c8f688",
+      "san": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nc3",
+      "source": "independently-authored-development-v1:scotch; no corpus/labels"
+    },
+    {
+      "family": "scotch",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "d2d4",
+        "e5d4",
+        "f3d4",
+        "g8f6",
+        "d4c6"
+      ],
+      "opening_id": "scotch-2",
+      "replay_sha256": "a7687eeeac7816b48f89aa3abdde140fbb19a22840098a930e7421911279061e",
+      "san": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nxc6",
+      "source": "independently-authored-development-v1:scotch; no corpus/labels"
+    },
+    {
+      "family": "scotch",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "d2d4",
+        "e5d4",
+        "f3d4",
+        "g8f6",
+        "c1e3"
+      ],
+      "opening_id": "scotch-3",
+      "replay_sha256": "8c067801970c9ac615cf1a4132acdc4aefdd71f521ee45a3148d6897ccc8e6f6",
+      "san": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Be3",
+      "source": "independently-authored-development-v1:scotch; no corpus/labels"
+    },
+    {
+      "family": "scotch",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "b8c6",
+        "d2d4",
+        "e5d4",
+        "f3d4",
+        "g8f6",
+        "d4b3"
+      ],
+      "opening_id": "scotch-4",
+      "replay_sha256": "e6d2d29b79cc0c189343a18281eabced040ae48f60fb540dce27b6c122d83ff0",
+      "san": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nb3",
+      "source": "independently-authored-development-v1:scotch; no corpus/labels"
+    },
+    {
+      "family": "petrov",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "g8f6",
+        "f3e5",
+        "d7d6",
+        "e5f3",
+        "f6e4",
+        "d2d4"
+      ],
+      "opening_id": "petrov-1",
+      "replay_sha256": "3708b0c5b504c3220c2d240d2fcaeaeaf04bf372cbd997d818d7d91f7229ef10",
+      "san": "e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 d4",
+      "source": "independently-authored-development-v1:petrov; no corpus/labels"
+    },
+    {
+      "family": "petrov",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "g8f6",
+        "f3e5",
+        "d7d6",
+        "e5f3",
+        "f6e4",
+        "b1c3"
+      ],
+      "opening_id": "petrov-2",
+      "replay_sha256": "a29b2513a36616f5f4b341300556cc06a5bbbdd9fef4256a4fd3d80ac2b136a0",
+      "san": "e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 Nc3",
+      "source": "independently-authored-development-v1:petrov; no corpus/labels"
+    },
+    {
+      "family": "petrov",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "g8f6",
+        "f3e5",
+        "d7d6",
+        "e5f3",
+        "f6e4",
+        "d1e2"
+      ],
+      "opening_id": "petrov-3",
+      "replay_sha256": "ca206973ef2feda9ddcde4e1ce373bff58df00bfcd7303878c25fc8852ce1ab3",
+      "san": "e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 Qe2",
+      "source": "independently-authored-development-v1:petrov; no corpus/labels"
+    },
+    {
+      "family": "petrov",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e5",
+        "g1f3",
+        "g8f6",
+        "f3e5",
+        "d7d6",
+        "e5f3",
+        "f6e4",
+        "f1d3"
+      ],
+      "opening_id": "petrov-4",
+      "replay_sha256": "4f8bb5d63ed7966a56deb4c1f9ed140ecefd1935517cadef80646d8476aa3757",
+      "san": "e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 Bd3",
+      "source": "independently-authored-development-v1:petrov; no corpus/labels"
+    },
+    {
+      "family": "sicilian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "c7c5",
+        "g1f3",
+        "d7d6",
+        "d2d4",
+        "c5d4",
+        "f3d4",
+        "g8f6",
+        "b1c3",
+        "a7a6",
+        "c1e3"
+      ],
+      "opening_id": "sicilian-1",
+      "replay_sha256": "f121a92e658c9bf930ac05869f0b4131915bcca55c73256bad1d63e1e366690d",
+      "san": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be3",
+      "source": "independently-authored-development-v1:sicilian; no corpus/labels"
+    },
+    {
+      "family": "sicilian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "c7c5",
+        "g1f3",
+        "d7d6",
+        "d2d4",
+        "c5d4",
+        "f3d4",
+        "g8f6",
+        "b1c3",
+        "a7a6",
+        "c1g5"
+      ],
+      "opening_id": "sicilian-2",
+      "replay_sha256": "ce048f49ef862c1bdd5ab21cd9e7f2fda9d6c8b68f999e83017580835dd52cc1",
+      "san": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Bg5",
+      "source": "independently-authored-development-v1:sicilian; no corpus/labels"
+    },
+    {
+      "family": "sicilian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "c7c5",
+        "g1f3",
+        "d7d6",
+        "d2d4",
+        "c5d4",
+        "f3d4",
+        "g8f6",
+        "b1c3",
+        "a7a6",
+        "f1e2"
+      ],
+      "opening_id": "sicilian-3",
+      "replay_sha256": "780879ba9df5b3ac89cf2fdaafaeceae2114374112924dfac6c1811af75aeca1",
+      "san": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be2",
+      "source": "independently-authored-development-v1:sicilian; no corpus/labels"
+    },
+    {
+      "family": "sicilian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "c7c5",
+        "g1f3",
+        "d7d6",
+        "d2d4",
+        "c5d4",
+        "f3d4",
+        "g8f6",
+        "b1c3",
+        "a7a6",
+        "f1c4"
+      ],
+      "opening_id": "sicilian-4",
+      "replay_sha256": "6d550935d67629a02e7cdcaf61fba5997685064344cfa352399e14995c9cf7aa",
+      "san": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Bc4",
+      "source": "independently-authored-development-v1:sicilian; no corpus/labels"
+    },
+    {
+      "family": "french",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e6",
+        "d2d4",
+        "d7d5",
+        "b1c3"
+      ],
+      "opening_id": "french-1",
+      "replay_sha256": "9e4305a8cf79dc78754178702339dc82002faa1d07b6e8474f83c04bc01e745d",
+      "san": "e4 e6 d4 d5 Nc3",
+      "source": "independently-authored-development-v1:french; no corpus/labels"
+    },
+    {
+      "family": "french",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e6",
+        "d2d4",
+        "d7d5",
+        "b1d2"
+      ],
+      "opening_id": "french-2",
+      "replay_sha256": "72cdc34e5b549fa56477a7c4da9c9a05c72c21338596160b9e4bf3927482cbcc",
+      "san": "e4 e6 d4 d5 Nd2",
+      "source": "independently-authored-development-v1:french; no corpus/labels"
+    },
+    {
+      "family": "french",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e6",
+        "d2d4",
+        "d7d5",
+        "e4e5"
+      ],
+      "opening_id": "french-3",
+      "replay_sha256": "69acba13887aef4f69e68f4269390874810f6dcdd1b84063e7c95d6dbc247cbd",
+      "san": "e4 e6 d4 d5 e5",
+      "source": "independently-authored-development-v1:french; no corpus/labels"
+    },
+    {
+      "family": "french",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "e7e6",
+        "d2d4",
+        "d7d5",
+        "e4d5"
+      ],
+      "opening_id": "french-4",
+      "replay_sha256": "4917a7ab63b601e486bfd6e92cc78e740fdba822dd7208040d78dd8e5f2b9e54",
+      "san": "e4 e6 d4 d5 exd5",
+      "source": "independently-authored-development-v1:french; no corpus/labels"
+    },
+    {
+      "family": "caro-kann",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "c7c6",
+        "d2d4",
+        "d7d5",
+        "b1c3"
+      ],
+      "opening_id": "caro-kann-1",
+      "replay_sha256": "1f801448a9a5c05486e1c6cfac4d3a176f4c2112db2b6b41bc892cfc713ec1b1",
+      "san": "e4 c6 d4 d5 Nc3",
+      "source": "independently-authored-development-v1:caro-kann; no corpus/labels"
+    },
+    {
+      "family": "caro-kann",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "c7c6",
+        "d2d4",
+        "d7d5",
+        "b1d2"
+      ],
+      "opening_id": "caro-kann-2",
+      "replay_sha256": "f2482e7d3f616270b40487512e39f1cb2dabb113eb66586fc5f47e55d91cd856",
+      "san": "e4 c6 d4 d5 Nd2",
+      "source": "independently-authored-development-v1:caro-kann; no corpus/labels"
+    },
+    {
+      "family": "caro-kann",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "c7c6",
+        "d2d4",
+        "d7d5",
+        "e4e5"
+      ],
+      "opening_id": "caro-kann-3",
+      "replay_sha256": "829ae704804c8260d94e16a375804657e53efbf9919fb20ceb54556f0517fbcf",
+      "san": "e4 c6 d4 d5 e5",
+      "source": "independently-authored-development-v1:caro-kann; no corpus/labels"
+    },
+    {
+      "family": "caro-kann",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "c7c6",
+        "d2d4",
+        "d7d5",
+        "e4d5"
+      ],
+      "opening_id": "caro-kann-4",
+      "replay_sha256": "a824b52db313c07d64224d695f2b0051c7ec1a5abb76cbfd5d75ab9cf128ecfb",
+      "san": "e4 c6 d4 d5 exd5",
+      "source": "independently-authored-development-v1:caro-kann; no corpus/labels"
+    },
+    {
+      "family": "pirc",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "d7d6",
+        "d2d4",
+        "g8f6",
+        "b1c3",
+        "g7g6",
+        "f2f4"
+      ],
+      "opening_id": "pirc-1",
+      "replay_sha256": "64ead75e6c8cb586ab1d26726009451b5fed25a68be721a096e0baeae8ead19c",
+      "san": "e4 d6 d4 Nf6 Nc3 g6 f4",
+      "source": "independently-authored-development-v1:pirc; no corpus/labels"
+    },
+    {
+      "family": "pirc",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "d7d6",
+        "d2d4",
+        "g8f6",
+        "b1c3",
+        "g7g6",
+        "g1f3"
+      ],
+      "opening_id": "pirc-2",
+      "replay_sha256": "a51a4fe542c76319e865169c0e905af50b77d0783335cb720d3007fddb865b17",
+      "san": "e4 d6 d4 Nf6 Nc3 g6 Nf3",
+      "source": "independently-authored-development-v1:pirc; no corpus/labels"
+    },
+    {
+      "family": "pirc",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "d7d6",
+        "d2d4",
+        "g8f6",
+        "b1c3",
+        "g7g6",
+        "c1e3"
+      ],
+      "opening_id": "pirc-3",
+      "replay_sha256": "3e55cd84e328d0058942c46ada1121b5280563a45dd2159892ed60f262ab29a5",
+      "san": "e4 d6 d4 Nf6 Nc3 g6 Be3",
+      "source": "independently-authored-development-v1:pirc; no corpus/labels"
+    },
+    {
+      "family": "pirc",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "e2e4",
+        "d7d6",
+        "d2d4",
+        "g8f6",
+        "b1c3",
+        "g7g6",
+        "c1g5"
+      ],
+      "opening_id": "pirc-4",
+      "replay_sha256": "66ccccbecea3cfdd64f2bd51465f963615a90317c6794ef9b55b471a928fbe94",
+      "san": "e4 d6 d4 Nf6 Nc3 g6 Bg5",
+      "source": "independently-authored-development-v1:pirc; no corpus/labels"
+    },
+    {
+      "family": "queens-gambit-declined",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "e7e6",
+        "b1c3",
+        "g8f6",
+        "c1g5"
+      ],
+      "opening_id": "queens-gambit-declined-1",
+      "replay_sha256": "c67178efdbbb4a289a606bd4d86ae5b94286ab8568671e2dcb367435bf1089dd",
+      "san": "d4 d5 c4 e6 Nc3 Nf6 Bg5",
+      "source": "independently-authored-development-v1:queens-gambit-declined; no corpus/labels"
+    },
+    {
+      "family": "queens-gambit-declined",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "e7e6",
+        "b1c3",
+        "g8f6",
+        "g1f3"
+      ],
+      "opening_id": "queens-gambit-declined-2",
+      "replay_sha256": "bcda894fd2158d21fb8f139eca9ffa43f505e2b2d2c26be17877e3713c6d64d8",
+      "san": "d4 d5 c4 e6 Nc3 Nf6 Nf3",
+      "source": "independently-authored-development-v1:queens-gambit-declined; no corpus/labels"
+    },
+    {
+      "family": "queens-gambit-declined",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "e7e6",
+        "b1c3",
+        "g8f6",
+        "c4d5"
+      ],
+      "opening_id": "queens-gambit-declined-3",
+      "replay_sha256": "4856bc7d4be3bfd88bba66fbbe6898ddd1dc0a32dc854a04b808685b4376f726",
+      "san": "d4 d5 c4 e6 Nc3 Nf6 cxd5",
+      "source": "independently-authored-development-v1:queens-gambit-declined; no corpus/labels"
+    },
+    {
+      "family": "queens-gambit-declined",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "e7e6",
+        "b1c3",
+        "g8f6",
+        "c1f4"
+      ],
+      "opening_id": "queens-gambit-declined-4",
+      "replay_sha256": "3e1afd0060d220e5b77361a15314b14803d6e0fff53b50a59ac73cff38931a5e",
+      "san": "d4 d5 c4 e6 Nc3 Nf6 Bf4",
+      "source": "independently-authored-development-v1:queens-gambit-declined; no corpus/labels"
+    },
+    {
+      "family": "slav",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "c7c6",
+        "g1f3",
+        "g8f6",
+        "b1c3"
+      ],
+      "opening_id": "slav-1",
+      "replay_sha256": "169e9fe6d91018a6005b3123733a3a52ef9f2216a8a687493c49bfe509b1d035",
+      "san": "d4 d5 c4 c6 Nf3 Nf6 Nc3",
+      "source": "independently-authored-development-v1:slav; no corpus/labels"
+    },
+    {
+      "family": "slav",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "c7c6",
+        "g1f3",
+        "g8f6",
+        "e2e3"
+      ],
+      "opening_id": "slav-2",
+      "replay_sha256": "540f94ae3bd1476804b4bcbdab95d3e2c3cd277051a6c28eab3806a37287a83b",
+      "san": "d4 d5 c4 c6 Nf3 Nf6 e3",
+      "source": "independently-authored-development-v1:slav; no corpus/labels"
+    },
+    {
+      "family": "slav",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "c7c6",
+        "g1f3",
+        "g8f6",
+        "c4d5"
+      ],
+      "opening_id": "slav-3",
+      "replay_sha256": "1279ddd5221a701f2294af8ed1e92d6005f1a62876118b5d460f69d8414ebc3c",
+      "san": "d4 d5 c4 c6 Nf3 Nf6 cxd5",
+      "source": "independently-authored-development-v1:slav; no corpus/labels"
+    },
+    {
+      "family": "slav",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "c7c6",
+        "g1f3",
+        "g8f6",
+        "d1c2"
+      ],
+      "opening_id": "slav-4",
+      "replay_sha256": "0028c06cc0017894b38adeec5c6398eca49b872e48decc4bf4a3fae9df60c90c",
+      "san": "d4 d5 c4 c6 Nf3 Nf6 Qc2",
+      "source": "independently-authored-development-v1:slav; no corpus/labels"
+    },
+    {
+      "family": "queens-gambit-accepted",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "d5c4",
+        "g1f3",
+        "g8f6",
+        "e2e3"
+      ],
+      "opening_id": "queens-gambit-accepted-1",
+      "replay_sha256": "04bb6f0d54c7d66eb7bedded06d7e3fb04516786c1b78d12fb082c71520fc75b",
+      "san": "d4 d5 c4 dxc4 Nf3 Nf6 e3",
+      "source": "independently-authored-development-v1:queens-gambit-accepted; no corpus/labels"
+    },
+    {
+      "family": "queens-gambit-accepted",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "d5c4",
+        "g1f3",
+        "g8f6",
+        "b1c3"
+      ],
+      "opening_id": "queens-gambit-accepted-2",
+      "replay_sha256": "7469472c2de5e8f16c136cc2fb8593f4ee73fe68e560fa682dc38d5b14a04e1c",
+      "san": "d4 d5 c4 dxc4 Nf3 Nf6 Nc3",
+      "source": "independently-authored-development-v1:queens-gambit-accepted; no corpus/labels"
+    },
+    {
+      "family": "queens-gambit-accepted",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "d5c4",
+        "g1f3",
+        "g8f6",
+        "d1a4"
+      ],
+      "opening_id": "queens-gambit-accepted-3",
+      "replay_sha256": "e80de6348f8886ee719921dee3b715a5a5eb36728666337ec9fe50c402a16f72",
+      "san": "d4 d5 c4 dxc4 Nf3 Nf6 Qa4+",
+      "source": "independently-authored-development-v1:queens-gambit-accepted; no corpus/labels"
+    },
+    {
+      "family": "queens-gambit-accepted",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "d7d5",
+        "c2c4",
+        "d5c4",
+        "g1f3",
+        "g8f6",
+        "g2g3"
+      ],
+      "opening_id": "queens-gambit-accepted-4",
+      "replay_sha256": "8d68db2ab416452c326b99b0916f8b8518bdfa5d8b421bf72df63c78e98a61ca",
+      "san": "d4 d5 c4 dxc4 Nf3 Nf6 g3",
+      "source": "independently-authored-development-v1:queens-gambit-accepted; no corpus/labels"
+    },
+    {
+      "family": "nimzo-indian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "e7e6",
+        "b1c3",
+        "f8b4",
+        "e2e3"
+      ],
+      "opening_id": "nimzo-indian-1",
+      "replay_sha256": "3e22b47340162abca663a357077c7a3a3c2796ac05d48bb8117c8fa45fb10acb",
+      "san": "d4 Nf6 c4 e6 Nc3 Bb4 e3",
+      "source": "independently-authored-development-v1:nimzo-indian; no corpus/labels"
+    },
+    {
+      "family": "nimzo-indian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "e7e6",
+        "b1c3",
+        "f8b4",
+        "d1c2"
+      ],
+      "opening_id": "nimzo-indian-2",
+      "replay_sha256": "580c55fa46dbcf16d662eb834a952c9bcf4324bc0fd0aa57004ce9c36afac6a9",
+      "san": "d4 Nf6 c4 e6 Nc3 Bb4 Qc2",
+      "source": "independently-authored-development-v1:nimzo-indian; no corpus/labels"
+    },
+    {
+      "family": "nimzo-indian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "e7e6",
+        "b1c3",
+        "f8b4",
+        "a2a3"
+      ],
+      "opening_id": "nimzo-indian-3",
+      "replay_sha256": "13fbaf6a1c97c9973ec3f4da97777d51a9e48508b87924a3dd6826bb27e80118",
+      "san": "d4 Nf6 c4 e6 Nc3 Bb4 a3",
+      "source": "independently-authored-development-v1:nimzo-indian; no corpus/labels"
+    },
+    {
+      "family": "nimzo-indian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "e7e6",
+        "b1c3",
+        "f8b4",
+        "f2f3"
+      ],
+      "opening_id": "nimzo-indian-4",
+      "replay_sha256": "496770cd46340e3f64799b8962fa4a8a7709428edfaf4fe152006f7520c05a53",
+      "san": "d4 Nf6 c4 e6 Nc3 Bb4 f3",
+      "source": "independently-authored-development-v1:nimzo-indian; no corpus/labels"
+    },
+    {
+      "family": "english",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "c2c4",
+        "e7e5",
+        "b1c3",
+        "g8f6",
+        "g2g3"
+      ],
+      "opening_id": "english-1",
+      "replay_sha256": "7cd2054a1c64a20663c011ad5ba83016aa1460d6b29c29c524704859e28514f2",
+      "san": "c4 e5 Nc3 Nf6 g3",
+      "source": "independently-authored-development-v1:english; no corpus/labels"
+    },
+    {
+      "family": "english",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "c2c4",
+        "e7e5",
+        "b1c3",
+        "g8f6",
+        "g1f3"
+      ],
+      "opening_id": "english-2",
+      "replay_sha256": "a8c08af650144c4b04fda842c321ea3167dd203de73ce2d772862265fc01c31b",
+      "san": "c4 e5 Nc3 Nf6 Nf3",
+      "source": "independently-authored-development-v1:english; no corpus/labels"
+    },
+    {
+      "family": "english",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "c2c4",
+        "e7e5",
+        "b1c3",
+        "g8f6",
+        "e2e3"
+      ],
+      "opening_id": "english-3",
+      "replay_sha256": "50933018440748c0a454251380c75f36266b94ba5c4467fb8d5485f43ed95a82",
+      "san": "c4 e5 Nc3 Nf6 e3",
+      "source": "independently-authored-development-v1:english; no corpus/labels"
+    },
+    {
+      "family": "english",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "c2c4",
+        "e7e5",
+        "b1c3",
+        "g8f6",
+        "d2d3"
+      ],
+      "opening_id": "english-4",
+      "replay_sha256": "a0571931d66c9a1afc2d08460af9c735a0933d738ac6ab4d421e097e4fbcdf55",
+      "san": "c4 e5 Nc3 Nf6 d3",
+      "source": "independently-authored-development-v1:english; no corpus/labels"
+    },
+    {
+      "family": "reti",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "g1f3",
+        "d7d5",
+        "g2g3",
+        "g8f6",
+        "f1g2",
+        "e7e6",
+        "e1g1"
+      ],
+      "opening_id": "reti-1",
+      "replay_sha256": "3a32fdc5cf630a99d5207d1af4c54dc19d2a6ce42368f9bf3432f3c8ce3e9274",
+      "san": "Nf3 d5 g3 Nf6 Bg2 e6 O-O",
+      "source": "independently-authored-development-v1:reti; no corpus/labels"
+    },
+    {
+      "family": "reti",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "g1f3",
+        "d7d5",
+        "g2g3",
+        "g8f6",
+        "f1g2",
+        "e7e6",
+        "c2c4"
+      ],
+      "opening_id": "reti-2",
+      "replay_sha256": "fb803f8e13a6a4ae1bdcf92621e10785b78c814cb2466d1ed7ec37769004590c",
+      "san": "Nf3 d5 g3 Nf6 Bg2 e6 c4",
+      "source": "independently-authored-development-v1:reti; no corpus/labels"
+    },
+    {
+      "family": "reti",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "g1f3",
+        "d7d5",
+        "g2g3",
+        "g8f6",
+        "f1g2",
+        "e7e6",
+        "d2d3"
+      ],
+      "opening_id": "reti-3",
+      "replay_sha256": "0848de311896a66a4c18385ea09447b59fc21fabd6ea4c5cc93b59d7c8ebb5d2",
+      "san": "Nf3 d5 g3 Nf6 Bg2 e6 d3",
+      "source": "independently-authored-development-v1:reti; no corpus/labels"
+    },
+    {
+      "family": "reti",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "g1f3",
+        "d7d5",
+        "g2g3",
+        "g8f6",
+        "f1g2",
+        "e7e6",
+        "b2b3"
+      ],
+      "opening_id": "reti-4",
+      "replay_sha256": "c96b103ea4f67432eddb207aa1c3c0b18040aa1db00c24974a3f6a177f1f86f4",
+      "san": "Nf3 d5 g3 Nf6 Bg2 e6 b3",
+      "source": "independently-authored-development-v1:reti; no corpus/labels"
+    },
+    {
+      "family": "kings-indian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "g7g6",
+        "b1c3",
+        "f8g7",
+        "e2e4",
+        "d7d6",
+        "g1f3"
+      ],
+      "opening_id": "kings-indian-1",
+      "replay_sha256": "0fa61ef3a1bc88cd4b04b319e916df7f4ecbd772f19f4eb65edbd89cdf2bbaa9",
+      "san": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3",
+      "source": "independently-authored-development-v1:kings-indian; no corpus/labels"
+    },
+    {
+      "family": "kings-indian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "g7g6",
+        "b1c3",
+        "f8g7",
+        "e2e4",
+        "d7d6",
+        "f2f3"
+      ],
+      "opening_id": "kings-indian-2",
+      "replay_sha256": "7a96364d7e94477c559f80195d69b8c217ce7609d824b536d22d5eb47ba0b020",
+      "san": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 f3",
+      "source": "independently-authored-development-v1:kings-indian; no corpus/labels"
+    },
+    {
+      "family": "kings-indian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "g7g6",
+        "b1c3",
+        "f8g7",
+        "e2e4",
+        "d7d6",
+        "f2f4"
+      ],
+      "opening_id": "kings-indian-3",
+      "replay_sha256": "6b36f5000bd4f9a1a9cdcce86673b97936b9f0e4733d0c5142671b6151b9fb7b",
+      "san": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 f4",
+      "source": "independently-authored-development-v1:kings-indian; no corpus/labels"
+    },
+    {
+      "family": "kings-indian",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "g8f6",
+        "c2c4",
+        "g7g6",
+        "b1c3",
+        "f8g7",
+        "e2e4",
+        "d7d6",
+        "f1e2"
+      ],
+      "opening_id": "kings-indian-4",
+      "replay_sha256": "d647842e0394b2af6d13173416915bce1d1a569514c74fd98ad055d4f0d19e02",
+      "san": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Be2",
+      "source": "independently-authored-development-v1:kings-indian; no corpus/labels"
+    },
+    {
+      "family": "dutch",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "f7f5",
+        "c2c4",
+        "g8f6",
+        "g2g3"
+      ],
+      "opening_id": "dutch-1",
+      "replay_sha256": "e6547f785b822e92693a9f1cc3c939ad97a7316581bc502c68b3a2bbb5440ae1",
+      "san": "d4 f5 c4 Nf6 g3",
+      "source": "independently-authored-development-v1:dutch; no corpus/labels"
+    },
+    {
+      "family": "dutch",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "f7f5",
+        "c2c4",
+        "g8f6",
+        "b1c3"
+      ],
+      "opening_id": "dutch-2",
+      "replay_sha256": "34b829523a17fc553cb879ba014c19f2c071d7d6b21a095dc56ad4fa96101bdc",
+      "san": "d4 f5 c4 Nf6 Nc3",
+      "source": "independently-authored-development-v1:dutch; no corpus/labels"
+    },
+    {
+      "family": "dutch",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "f7f5",
+        "c2c4",
+        "g8f6",
+        "g1f3"
+      ],
+      "opening_id": "dutch-3",
+      "replay_sha256": "546632b23f780ad7429b864495e2e3f7c5c56a106db1f0c2ddbb90e889477b4c",
+      "san": "d4 f5 c4 Nf6 Nf3",
+      "source": "independently-authored-development-v1:dutch; no corpus/labels"
+    },
+    {
+      "family": "dutch",
+      "history_complete": true,
+      "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves_uci": [
+        "d2d4",
+        "f7f5",
+        "c2c4",
+        "g8f6",
+        "e2e3"
+      ],
+      "opening_id": "dutch-4",
+      "replay_sha256": "1fb802a7dc4a1f5532b67682158764d5d1ce76351bf45eb14fc294b4fad59942",
+      "san": "d4 f5 c4 Nf6 e3",
+      "source": "independently-authored-development-v1:dutch; no corpus/labels"
+    }
+  ],
+  "pairing": "identical-replay-root; candidate-white-leg0; candidate-black-leg1",
+  "planned_games": 128,
+  "planned_pairs": 64,
+  "ply_cap": 512,
+  "preservation": {
+    "path": "artifacts/p02-cpu-001-preserved/manifest.json",
+    "sha256": "f8c17d0261f13910e63fbae8fa0dec8589302c59ec4cb78e2547c5b5e86b2ffc"
+  },
+  "project_P_selected": false,
+  "runtime": {
+    "chess": "1.11.2",
+    "deterministic": true,
+    "device": "cpu",
+    "dtype": "float32",
+    "interop_threads": 1,
+    "machine": "arm64",
+    "matmul_precision": "highest",
+    "numpy": "2.5.3",
+    "platform": "macOS-14.5-arm64-arm-64bit",
+    "python": "3.12.12",
+    "threads": 1,
+    "torch": "2.8.0"
+  },
+  "schedule": [
+    {
+      "game_id": "italian-1:leg0",
+      "game_seed": 468125427321076473,
+      "leg": 0,
+      "opening": {
+        "family": "italian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1c4",
+          "f8c5",
+          "c2c3"
+        ],
+        "opening_id": "italian-1",
+        "replay_sha256": "4d7f66746bdbbf53d8db6d207cb84418e374bce6b74e67703cebc042430c9183",
+        "san": "e4 e5 Nf3 Nc6 Bc4 Bc5 c3",
+        "source": "independently-authored-development-v1:italian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:italian-1"
+    },
+    {
+      "game_id": "italian-1:leg1",
+      "game_seed": 6143547787573789239,
+      "leg": 1,
+      "opening": {
+        "family": "italian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1c4",
+          "f8c5",
+          "c2c3"
+        ],
+        "opening_id": "italian-1",
+        "replay_sha256": "4d7f66746bdbbf53d8db6d207cb84418e374bce6b74e67703cebc042430c9183",
+        "san": "e4 e5 Nf3 Nc6 Bc4 Bc5 c3",
+        "source": "independently-authored-development-v1:italian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:italian-1"
+    },
+    {
+      "game_id": "italian-2:leg0",
+      "game_seed": 10618984795040067128,
+      "leg": 0,
+      "opening": {
+        "family": "italian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1c4",
+          "f8c5",
+          "d2d3"
+        ],
+        "opening_id": "italian-2",
+        "replay_sha256": "4c8ec3c2011d25e7642db0703a97aa861b38557953f9c7f19658fd8decdf35df",
+        "san": "e4 e5 Nf3 Nc6 Bc4 Bc5 d3",
+        "source": "independently-authored-development-v1:italian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:italian-2"
+    },
+    {
+      "game_id": "italian-2:leg1",
+      "game_seed": 2677660255181793654,
+      "leg": 1,
+      "opening": {
+        "family": "italian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1c4",
+          "f8c5",
+          "d2d3"
+        ],
+        "opening_id": "italian-2",
+        "replay_sha256": "4c8ec3c2011d25e7642db0703a97aa861b38557953f9c7f19658fd8decdf35df",
+        "san": "e4 e5 Nf3 Nc6 Bc4 Bc5 d3",
+        "source": "independently-authored-development-v1:italian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:italian-2"
+    },
+    {
+      "game_id": "italian-3:leg0",
+      "game_seed": 17225772033898551393,
+      "leg": 0,
+      "opening": {
+        "family": "italian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1c4",
+          "f8c5",
+          "e1g1"
+        ],
+        "opening_id": "italian-3",
+        "replay_sha256": "05a7a2971add84d668f2052e2fab58419d3a2fbe78f4628d0f02c1d45958768f",
+        "san": "e4 e5 Nf3 Nc6 Bc4 Bc5 O-O",
+        "source": "independently-authored-development-v1:italian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:italian-3"
+    },
+    {
+      "game_id": "italian-3:leg1",
+      "game_seed": 12320118796370562217,
+      "leg": 1,
+      "opening": {
+        "family": "italian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1c4",
+          "f8c5",
+          "e1g1"
+        ],
+        "opening_id": "italian-3",
+        "replay_sha256": "05a7a2971add84d668f2052e2fab58419d3a2fbe78f4628d0f02c1d45958768f",
+        "san": "e4 e5 Nf3 Nc6 Bc4 Bc5 O-O",
+        "source": "independently-authored-development-v1:italian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:italian-3"
+    },
+    {
+      "game_id": "italian-4:leg0",
+      "game_seed": 9299883819959445046,
+      "leg": 0,
+      "opening": {
+        "family": "italian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1c4",
+          "f8c5",
+          "b2b4"
+        ],
+        "opening_id": "italian-4",
+        "replay_sha256": "7ff542e1ce4a91155f63114621e0868945674c002cd52ddec5a8fbbe9b6a0f38",
+        "san": "e4 e5 Nf3 Nc6 Bc4 Bc5 b4",
+        "source": "independently-authored-development-v1:italian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:italian-4"
+    },
+    {
+      "game_id": "italian-4:leg1",
+      "game_seed": 610678123250007350,
+      "leg": 1,
+      "opening": {
+        "family": "italian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1c4",
+          "f8c5",
+          "b2b4"
+        ],
+        "opening_id": "italian-4",
+        "replay_sha256": "7ff542e1ce4a91155f63114621e0868945674c002cd52ddec5a8fbbe9b6a0f38",
+        "san": "e4 e5 Nf3 Nc6 Bc4 Bc5 b4",
+        "source": "independently-authored-development-v1:italian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:italian-4"
+    },
+    {
+      "game_id": "ruy-lopez-1:leg0",
+      "game_seed": 13069364940493742588,
+      "leg": 0,
+      "opening": {
+        "family": "ruy-lopez",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1b5",
+          "a7a6",
+          "b5a4"
+        ],
+        "opening_id": "ruy-lopez-1",
+        "replay_sha256": "c0a8dbccf74741d8a17a28fc70ef0bcc3aeb1a7a97cd94f77d2372c647135a4f",
+        "san": "e4 e5 Nf3 Nc6 Bb5 a6 Ba4",
+        "source": "independently-authored-development-v1:ruy-lopez; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:ruy-lopez-1"
+    },
+    {
+      "game_id": "ruy-lopez-1:leg1",
+      "game_seed": 4768897035870625982,
+      "leg": 1,
+      "opening": {
+        "family": "ruy-lopez",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1b5",
+          "a7a6",
+          "b5a4"
+        ],
+        "opening_id": "ruy-lopez-1",
+        "replay_sha256": "c0a8dbccf74741d8a17a28fc70ef0bcc3aeb1a7a97cd94f77d2372c647135a4f",
+        "san": "e4 e5 Nf3 Nc6 Bb5 a6 Ba4",
+        "source": "independently-authored-development-v1:ruy-lopez; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:ruy-lopez-1"
+    },
+    {
+      "game_id": "ruy-lopez-2:leg0",
+      "game_seed": 1805520243595137931,
+      "leg": 0,
+      "opening": {
+        "family": "ruy-lopez",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1b5",
+          "a7a6",
+          "b5c6"
+        ],
+        "opening_id": "ruy-lopez-2",
+        "replay_sha256": "1a1947d41976acea17d88134b3539ed193752871a7bab01d4cf458fcad3b2f30",
+        "san": "e4 e5 Nf3 Nc6 Bb5 a6 Bxc6",
+        "source": "independently-authored-development-v1:ruy-lopez; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:ruy-lopez-2"
+    },
+    {
+      "game_id": "ruy-lopez-2:leg1",
+      "game_seed": 11325550352321388257,
+      "leg": 1,
+      "opening": {
+        "family": "ruy-lopez",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1b5",
+          "a7a6",
+          "b5c6"
+        ],
+        "opening_id": "ruy-lopez-2",
+        "replay_sha256": "1a1947d41976acea17d88134b3539ed193752871a7bab01d4cf458fcad3b2f30",
+        "san": "e4 e5 Nf3 Nc6 Bb5 a6 Bxc6",
+        "source": "independently-authored-development-v1:ruy-lopez; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:ruy-lopez-2"
+    },
+    {
+      "game_id": "ruy-lopez-3:leg0",
+      "game_seed": 4621228617102016330,
+      "leg": 0,
+      "opening": {
+        "family": "ruy-lopez",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1b5",
+          "a7a6",
+          "b5c4"
+        ],
+        "opening_id": "ruy-lopez-3",
+        "replay_sha256": "e8399a21ee35e7f6c1e0f5a6afaeea6b543207f9539d5fe014488ac7b4269b0e",
+        "san": "e4 e5 Nf3 Nc6 Bb5 a6 Bc4",
+        "source": "independently-authored-development-v1:ruy-lopez; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:ruy-lopez-3"
+    },
+    {
+      "game_id": "ruy-lopez-3:leg1",
+      "game_seed": 2475307488979385203,
+      "leg": 1,
+      "opening": {
+        "family": "ruy-lopez",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1b5",
+          "a7a6",
+          "b5c4"
+        ],
+        "opening_id": "ruy-lopez-3",
+        "replay_sha256": "e8399a21ee35e7f6c1e0f5a6afaeea6b543207f9539d5fe014488ac7b4269b0e",
+        "san": "e4 e5 Nf3 Nc6 Bb5 a6 Bc4",
+        "source": "independently-authored-development-v1:ruy-lopez; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:ruy-lopez-3"
+    },
+    {
+      "game_id": "ruy-lopez-4:leg0",
+      "game_seed": 9818446552359772922,
+      "leg": 0,
+      "opening": {
+        "family": "ruy-lopez",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1b5",
+          "a7a6",
+          "b5e2"
+        ],
+        "opening_id": "ruy-lopez-4",
+        "replay_sha256": "fbf615d3d12b0bc3bc4c8f5724985d60fd87fa27ab185591a5aec6b2c9be8bfa",
+        "san": "e4 e5 Nf3 Nc6 Bb5 a6 Be2",
+        "source": "independently-authored-development-v1:ruy-lopez; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:ruy-lopez-4"
+    },
+    {
+      "game_id": "ruy-lopez-4:leg1",
+      "game_seed": 12542549810246493244,
+      "leg": 1,
+      "opening": {
+        "family": "ruy-lopez",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1b5",
+          "a7a6",
+          "b5e2"
+        ],
+        "opening_id": "ruy-lopez-4",
+        "replay_sha256": "fbf615d3d12b0bc3bc4c8f5724985d60fd87fa27ab185591a5aec6b2c9be8bfa",
+        "san": "e4 e5 Nf3 Nc6 Bb5 a6 Be2",
+        "source": "independently-authored-development-v1:ruy-lopez; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:ruy-lopez-4"
+    },
+    {
+      "game_id": "scotch-1:leg0",
+      "game_seed": 17657395735223089635,
+      "leg": 0,
+      "opening": {
+        "family": "scotch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "d2d4",
+          "e5d4",
+          "f3d4",
+          "g8f6",
+          "b1c3"
+        ],
+        "opening_id": "scotch-1",
+        "replay_sha256": "d1545fd9c1a95b9955dee40415ea5a98f4fcae3458dd7a32409b4963e3c8f688",
+        "san": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nc3",
+        "source": "independently-authored-development-v1:scotch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:scotch-1"
+    },
+    {
+      "game_id": "scotch-1:leg1",
+      "game_seed": 14566703606613133066,
+      "leg": 1,
+      "opening": {
+        "family": "scotch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "d2d4",
+          "e5d4",
+          "f3d4",
+          "g8f6",
+          "b1c3"
+        ],
+        "opening_id": "scotch-1",
+        "replay_sha256": "d1545fd9c1a95b9955dee40415ea5a98f4fcae3458dd7a32409b4963e3c8f688",
+        "san": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nc3",
+        "source": "independently-authored-development-v1:scotch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:scotch-1"
+    },
+    {
+      "game_id": "scotch-2:leg0",
+      "game_seed": 2749286907483951503,
+      "leg": 0,
+      "opening": {
+        "family": "scotch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "d2d4",
+          "e5d4",
+          "f3d4",
+          "g8f6",
+          "d4c6"
+        ],
+        "opening_id": "scotch-2",
+        "replay_sha256": "a7687eeeac7816b48f89aa3abdde140fbb19a22840098a930e7421911279061e",
+        "san": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nxc6",
+        "source": "independently-authored-development-v1:scotch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:scotch-2"
+    },
+    {
+      "game_id": "scotch-2:leg1",
+      "game_seed": 14121253341572867546,
+      "leg": 1,
+      "opening": {
+        "family": "scotch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "d2d4",
+          "e5d4",
+          "f3d4",
+          "g8f6",
+          "d4c6"
+        ],
+        "opening_id": "scotch-2",
+        "replay_sha256": "a7687eeeac7816b48f89aa3abdde140fbb19a22840098a930e7421911279061e",
+        "san": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nxc6",
+        "source": "independently-authored-development-v1:scotch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:scotch-2"
+    },
+    {
+      "game_id": "scotch-3:leg0",
+      "game_seed": 6239185713674704459,
+      "leg": 0,
+      "opening": {
+        "family": "scotch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "d2d4",
+          "e5d4",
+          "f3d4",
+          "g8f6",
+          "c1e3"
+        ],
+        "opening_id": "scotch-3",
+        "replay_sha256": "8c067801970c9ac615cf1a4132acdc4aefdd71f521ee45a3148d6897ccc8e6f6",
+        "san": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Be3",
+        "source": "independently-authored-development-v1:scotch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:scotch-3"
+    },
+    {
+      "game_id": "scotch-3:leg1",
+      "game_seed": 8217504875025018265,
+      "leg": 1,
+      "opening": {
+        "family": "scotch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "d2d4",
+          "e5d4",
+          "f3d4",
+          "g8f6",
+          "c1e3"
+        ],
+        "opening_id": "scotch-3",
+        "replay_sha256": "8c067801970c9ac615cf1a4132acdc4aefdd71f521ee45a3148d6897ccc8e6f6",
+        "san": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Be3",
+        "source": "independently-authored-development-v1:scotch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:scotch-3"
+    },
+    {
+      "game_id": "scotch-4:leg0",
+      "game_seed": 10217777103364429937,
+      "leg": 0,
+      "opening": {
+        "family": "scotch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "d2d4",
+          "e5d4",
+          "f3d4",
+          "g8f6",
+          "d4b3"
+        ],
+        "opening_id": "scotch-4",
+        "replay_sha256": "e6d2d29b79cc0c189343a18281eabced040ae48f60fb540dce27b6c122d83ff0",
+        "san": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nb3",
+        "source": "independently-authored-development-v1:scotch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:scotch-4"
+    },
+    {
+      "game_id": "scotch-4:leg1",
+      "game_seed": 15132401558071115000,
+      "leg": 1,
+      "opening": {
+        "family": "scotch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "d2d4",
+          "e5d4",
+          "f3d4",
+          "g8f6",
+          "d4b3"
+        ],
+        "opening_id": "scotch-4",
+        "replay_sha256": "e6d2d29b79cc0c189343a18281eabced040ae48f60fb540dce27b6c122d83ff0",
+        "san": "e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nb3",
+        "source": "independently-authored-development-v1:scotch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:scotch-4"
+    },
+    {
+      "game_id": "petrov-1:leg0",
+      "game_seed": 6581521501155702256,
+      "leg": 0,
+      "opening": {
+        "family": "petrov",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "g8f6",
+          "f3e5",
+          "d7d6",
+          "e5f3",
+          "f6e4",
+          "d2d4"
+        ],
+        "opening_id": "petrov-1",
+        "replay_sha256": "3708b0c5b504c3220c2d240d2fcaeaeaf04bf372cbd997d818d7d91f7229ef10",
+        "san": "e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 d4",
+        "source": "independently-authored-development-v1:petrov; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:petrov-1"
+    },
+    {
+      "game_id": "petrov-1:leg1",
+      "game_seed": 6112619086565631465,
+      "leg": 1,
+      "opening": {
+        "family": "petrov",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "g8f6",
+          "f3e5",
+          "d7d6",
+          "e5f3",
+          "f6e4",
+          "d2d4"
+        ],
+        "opening_id": "petrov-1",
+        "replay_sha256": "3708b0c5b504c3220c2d240d2fcaeaeaf04bf372cbd997d818d7d91f7229ef10",
+        "san": "e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 d4",
+        "source": "independently-authored-development-v1:petrov; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:petrov-1"
+    },
+    {
+      "game_id": "petrov-2:leg0",
+      "game_seed": 3130916837352079231,
+      "leg": 0,
+      "opening": {
+        "family": "petrov",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "g8f6",
+          "f3e5",
+          "d7d6",
+          "e5f3",
+          "f6e4",
+          "b1c3"
+        ],
+        "opening_id": "petrov-2",
+        "replay_sha256": "a29b2513a36616f5f4b341300556cc06a5bbbdd9fef4256a4fd3d80ac2b136a0",
+        "san": "e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 Nc3",
+        "source": "independently-authored-development-v1:petrov; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:petrov-2"
+    },
+    {
+      "game_id": "petrov-2:leg1",
+      "game_seed": 3541290031593036544,
+      "leg": 1,
+      "opening": {
+        "family": "petrov",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "g8f6",
+          "f3e5",
+          "d7d6",
+          "e5f3",
+          "f6e4",
+          "b1c3"
+        ],
+        "opening_id": "petrov-2",
+        "replay_sha256": "a29b2513a36616f5f4b341300556cc06a5bbbdd9fef4256a4fd3d80ac2b136a0",
+        "san": "e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 Nc3",
+        "source": "independently-authored-development-v1:petrov; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:petrov-2"
+    },
+    {
+      "game_id": "petrov-3:leg0",
+      "game_seed": 1183524863955140830,
+      "leg": 0,
+      "opening": {
+        "family": "petrov",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "g8f6",
+          "f3e5",
+          "d7d6",
+          "e5f3",
+          "f6e4",
+          "d1e2"
+        ],
+        "opening_id": "petrov-3",
+        "replay_sha256": "ca206973ef2feda9ddcde4e1ce373bff58df00bfcd7303878c25fc8852ce1ab3",
+        "san": "e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 Qe2",
+        "source": "independently-authored-development-v1:petrov; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:petrov-3"
+    },
+    {
+      "game_id": "petrov-3:leg1",
+      "game_seed": 9941592404185886992,
+      "leg": 1,
+      "opening": {
+        "family": "petrov",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "g8f6",
+          "f3e5",
+          "d7d6",
+          "e5f3",
+          "f6e4",
+          "d1e2"
+        ],
+        "opening_id": "petrov-3",
+        "replay_sha256": "ca206973ef2feda9ddcde4e1ce373bff58df00bfcd7303878c25fc8852ce1ab3",
+        "san": "e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 Qe2",
+        "source": "independently-authored-development-v1:petrov; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:petrov-3"
+    },
+    {
+      "game_id": "petrov-4:leg0",
+      "game_seed": 7050616010308679525,
+      "leg": 0,
+      "opening": {
+        "family": "petrov",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "g8f6",
+          "f3e5",
+          "d7d6",
+          "e5f3",
+          "f6e4",
+          "f1d3"
+        ],
+        "opening_id": "petrov-4",
+        "replay_sha256": "4f8bb5d63ed7966a56deb4c1f9ed140ecefd1935517cadef80646d8476aa3757",
+        "san": "e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 Bd3",
+        "source": "independently-authored-development-v1:petrov; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:petrov-4"
+    },
+    {
+      "game_id": "petrov-4:leg1",
+      "game_seed": 3526655570142186828,
+      "leg": 1,
+      "opening": {
+        "family": "petrov",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "g8f6",
+          "f3e5",
+          "d7d6",
+          "e5f3",
+          "f6e4",
+          "f1d3"
+        ],
+        "opening_id": "petrov-4",
+        "replay_sha256": "4f8bb5d63ed7966a56deb4c1f9ed140ecefd1935517cadef80646d8476aa3757",
+        "san": "e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 Bd3",
+        "source": "independently-authored-development-v1:petrov; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:petrov-4"
+    },
+    {
+      "game_id": "sicilian-1:leg0",
+      "game_seed": 7635052228312800797,
+      "leg": 0,
+      "opening": {
+        "family": "sicilian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c5",
+          "g1f3",
+          "d7d6",
+          "d2d4",
+          "c5d4",
+          "f3d4",
+          "g8f6",
+          "b1c3",
+          "a7a6",
+          "c1e3"
+        ],
+        "opening_id": "sicilian-1",
+        "replay_sha256": "f121a92e658c9bf930ac05869f0b4131915bcca55c73256bad1d63e1e366690d",
+        "san": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be3",
+        "source": "independently-authored-development-v1:sicilian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:sicilian-1"
+    },
+    {
+      "game_id": "sicilian-1:leg1",
+      "game_seed": 14661178362804848214,
+      "leg": 1,
+      "opening": {
+        "family": "sicilian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c5",
+          "g1f3",
+          "d7d6",
+          "d2d4",
+          "c5d4",
+          "f3d4",
+          "g8f6",
+          "b1c3",
+          "a7a6",
+          "c1e3"
+        ],
+        "opening_id": "sicilian-1",
+        "replay_sha256": "f121a92e658c9bf930ac05869f0b4131915bcca55c73256bad1d63e1e366690d",
+        "san": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be3",
+        "source": "independently-authored-development-v1:sicilian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:sicilian-1"
+    },
+    {
+      "game_id": "sicilian-2:leg0",
+      "game_seed": 283544287676862776,
+      "leg": 0,
+      "opening": {
+        "family": "sicilian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c5",
+          "g1f3",
+          "d7d6",
+          "d2d4",
+          "c5d4",
+          "f3d4",
+          "g8f6",
+          "b1c3",
+          "a7a6",
+          "c1g5"
+        ],
+        "opening_id": "sicilian-2",
+        "replay_sha256": "ce048f49ef862c1bdd5ab21cd9e7f2fda9d6c8b68f999e83017580835dd52cc1",
+        "san": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Bg5",
+        "source": "independently-authored-development-v1:sicilian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:sicilian-2"
+    },
+    {
+      "game_id": "sicilian-2:leg1",
+      "game_seed": 10876966904333908481,
+      "leg": 1,
+      "opening": {
+        "family": "sicilian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c5",
+          "g1f3",
+          "d7d6",
+          "d2d4",
+          "c5d4",
+          "f3d4",
+          "g8f6",
+          "b1c3",
+          "a7a6",
+          "c1g5"
+        ],
+        "opening_id": "sicilian-2",
+        "replay_sha256": "ce048f49ef862c1bdd5ab21cd9e7f2fda9d6c8b68f999e83017580835dd52cc1",
+        "san": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Bg5",
+        "source": "independently-authored-development-v1:sicilian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:sicilian-2"
+    },
+    {
+      "game_id": "sicilian-3:leg0",
+      "game_seed": 17942285694474429596,
+      "leg": 0,
+      "opening": {
+        "family": "sicilian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c5",
+          "g1f3",
+          "d7d6",
+          "d2d4",
+          "c5d4",
+          "f3d4",
+          "g8f6",
+          "b1c3",
+          "a7a6",
+          "f1e2"
+        ],
+        "opening_id": "sicilian-3",
+        "replay_sha256": "780879ba9df5b3ac89cf2fdaafaeceae2114374112924dfac6c1811af75aeca1",
+        "san": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be2",
+        "source": "independently-authored-development-v1:sicilian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:sicilian-3"
+    },
+    {
+      "game_id": "sicilian-3:leg1",
+      "game_seed": 16269908548900755371,
+      "leg": 1,
+      "opening": {
+        "family": "sicilian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c5",
+          "g1f3",
+          "d7d6",
+          "d2d4",
+          "c5d4",
+          "f3d4",
+          "g8f6",
+          "b1c3",
+          "a7a6",
+          "f1e2"
+        ],
+        "opening_id": "sicilian-3",
+        "replay_sha256": "780879ba9df5b3ac89cf2fdaafaeceae2114374112924dfac6c1811af75aeca1",
+        "san": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be2",
+        "source": "independently-authored-development-v1:sicilian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:sicilian-3"
+    },
+    {
+      "game_id": "sicilian-4:leg0",
+      "game_seed": 13815980166614337153,
+      "leg": 0,
+      "opening": {
+        "family": "sicilian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c5",
+          "g1f3",
+          "d7d6",
+          "d2d4",
+          "c5d4",
+          "f3d4",
+          "g8f6",
+          "b1c3",
+          "a7a6",
+          "f1c4"
+        ],
+        "opening_id": "sicilian-4",
+        "replay_sha256": "6d550935d67629a02e7cdcaf61fba5997685064344cfa352399e14995c9cf7aa",
+        "san": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Bc4",
+        "source": "independently-authored-development-v1:sicilian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:sicilian-4"
+    },
+    {
+      "game_id": "sicilian-4:leg1",
+      "game_seed": 14554438578856233617,
+      "leg": 1,
+      "opening": {
+        "family": "sicilian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c5",
+          "g1f3",
+          "d7d6",
+          "d2d4",
+          "c5d4",
+          "f3d4",
+          "g8f6",
+          "b1c3",
+          "a7a6",
+          "f1c4"
+        ],
+        "opening_id": "sicilian-4",
+        "replay_sha256": "6d550935d67629a02e7cdcaf61fba5997685064344cfa352399e14995c9cf7aa",
+        "san": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Bc4",
+        "source": "independently-authored-development-v1:sicilian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:sicilian-4"
+    },
+    {
+      "game_id": "french-1:leg0",
+      "game_seed": 4866001817171720298,
+      "leg": 0,
+      "opening": {
+        "family": "french",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e6",
+          "d2d4",
+          "d7d5",
+          "b1c3"
+        ],
+        "opening_id": "french-1",
+        "replay_sha256": "9e4305a8cf79dc78754178702339dc82002faa1d07b6e8474f83c04bc01e745d",
+        "san": "e4 e6 d4 d5 Nc3",
+        "source": "independently-authored-development-v1:french; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:french-1"
+    },
+    {
+      "game_id": "french-1:leg1",
+      "game_seed": 2621176227758344427,
+      "leg": 1,
+      "opening": {
+        "family": "french",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e6",
+          "d2d4",
+          "d7d5",
+          "b1c3"
+        ],
+        "opening_id": "french-1",
+        "replay_sha256": "9e4305a8cf79dc78754178702339dc82002faa1d07b6e8474f83c04bc01e745d",
+        "san": "e4 e6 d4 d5 Nc3",
+        "source": "independently-authored-development-v1:french; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:french-1"
+    },
+    {
+      "game_id": "french-2:leg0",
+      "game_seed": 4365145654370537070,
+      "leg": 0,
+      "opening": {
+        "family": "french",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e6",
+          "d2d4",
+          "d7d5",
+          "b1d2"
+        ],
+        "opening_id": "french-2",
+        "replay_sha256": "72cdc34e5b549fa56477a7c4da9c9a05c72c21338596160b9e4bf3927482cbcc",
+        "san": "e4 e6 d4 d5 Nd2",
+        "source": "independently-authored-development-v1:french; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:french-2"
+    },
+    {
+      "game_id": "french-2:leg1",
+      "game_seed": 5751081875315289215,
+      "leg": 1,
+      "opening": {
+        "family": "french",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e6",
+          "d2d4",
+          "d7d5",
+          "b1d2"
+        ],
+        "opening_id": "french-2",
+        "replay_sha256": "72cdc34e5b549fa56477a7c4da9c9a05c72c21338596160b9e4bf3927482cbcc",
+        "san": "e4 e6 d4 d5 Nd2",
+        "source": "independently-authored-development-v1:french; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:french-2"
+    },
+    {
+      "game_id": "french-3:leg0",
+      "game_seed": 9514184909222197320,
+      "leg": 0,
+      "opening": {
+        "family": "french",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e6",
+          "d2d4",
+          "d7d5",
+          "e4e5"
+        ],
+        "opening_id": "french-3",
+        "replay_sha256": "69acba13887aef4f69e68f4269390874810f6dcdd1b84063e7c95d6dbc247cbd",
+        "san": "e4 e6 d4 d5 e5",
+        "source": "independently-authored-development-v1:french; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:french-3"
+    },
+    {
+      "game_id": "french-3:leg1",
+      "game_seed": 1962824155223269108,
+      "leg": 1,
+      "opening": {
+        "family": "french",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e6",
+          "d2d4",
+          "d7d5",
+          "e4e5"
+        ],
+        "opening_id": "french-3",
+        "replay_sha256": "69acba13887aef4f69e68f4269390874810f6dcdd1b84063e7c95d6dbc247cbd",
+        "san": "e4 e6 d4 d5 e5",
+        "source": "independently-authored-development-v1:french; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:french-3"
+    },
+    {
+      "game_id": "french-4:leg0",
+      "game_seed": 13172753554755919487,
+      "leg": 0,
+      "opening": {
+        "family": "french",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e6",
+          "d2d4",
+          "d7d5",
+          "e4d5"
+        ],
+        "opening_id": "french-4",
+        "replay_sha256": "4917a7ab63b601e486bfd6e92cc78e740fdba822dd7208040d78dd8e5f2b9e54",
+        "san": "e4 e6 d4 d5 exd5",
+        "source": "independently-authored-development-v1:french; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:french-4"
+    },
+    {
+      "game_id": "french-4:leg1",
+      "game_seed": 14977588842143768184,
+      "leg": 1,
+      "opening": {
+        "family": "french",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "e7e6",
+          "d2d4",
+          "d7d5",
+          "e4d5"
+        ],
+        "opening_id": "french-4",
+        "replay_sha256": "4917a7ab63b601e486bfd6e92cc78e740fdba822dd7208040d78dd8e5f2b9e54",
+        "san": "e4 e6 d4 d5 exd5",
+        "source": "independently-authored-development-v1:french; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:french-4"
+    },
+    {
+      "game_id": "caro-kann-1:leg0",
+      "game_seed": 4227254674168451281,
+      "leg": 0,
+      "opening": {
+        "family": "caro-kann",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c6",
+          "d2d4",
+          "d7d5",
+          "b1c3"
+        ],
+        "opening_id": "caro-kann-1",
+        "replay_sha256": "1f801448a9a5c05486e1c6cfac4d3a176f4c2112db2b6b41bc892cfc713ec1b1",
+        "san": "e4 c6 d4 d5 Nc3",
+        "source": "independently-authored-development-v1:caro-kann; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:caro-kann-1"
+    },
+    {
+      "game_id": "caro-kann-1:leg1",
+      "game_seed": 15698102212186872089,
+      "leg": 1,
+      "opening": {
+        "family": "caro-kann",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c6",
+          "d2d4",
+          "d7d5",
+          "b1c3"
+        ],
+        "opening_id": "caro-kann-1",
+        "replay_sha256": "1f801448a9a5c05486e1c6cfac4d3a176f4c2112db2b6b41bc892cfc713ec1b1",
+        "san": "e4 c6 d4 d5 Nc3",
+        "source": "independently-authored-development-v1:caro-kann; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:caro-kann-1"
+    },
+    {
+      "game_id": "caro-kann-2:leg0",
+      "game_seed": 11834892087891686168,
+      "leg": 0,
+      "opening": {
+        "family": "caro-kann",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c6",
+          "d2d4",
+          "d7d5",
+          "b1d2"
+        ],
+        "opening_id": "caro-kann-2",
+        "replay_sha256": "f2482e7d3f616270b40487512e39f1cb2dabb113eb66586fc5f47e55d91cd856",
+        "san": "e4 c6 d4 d5 Nd2",
+        "source": "independently-authored-development-v1:caro-kann; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:caro-kann-2"
+    },
+    {
+      "game_id": "caro-kann-2:leg1",
+      "game_seed": 139132946388571109,
+      "leg": 1,
+      "opening": {
+        "family": "caro-kann",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c6",
+          "d2d4",
+          "d7d5",
+          "b1d2"
+        ],
+        "opening_id": "caro-kann-2",
+        "replay_sha256": "f2482e7d3f616270b40487512e39f1cb2dabb113eb66586fc5f47e55d91cd856",
+        "san": "e4 c6 d4 d5 Nd2",
+        "source": "independently-authored-development-v1:caro-kann; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:caro-kann-2"
+    },
+    {
+      "game_id": "caro-kann-3:leg0",
+      "game_seed": 3316698409976411689,
+      "leg": 0,
+      "opening": {
+        "family": "caro-kann",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c6",
+          "d2d4",
+          "d7d5",
+          "e4e5"
+        ],
+        "opening_id": "caro-kann-3",
+        "replay_sha256": "829ae704804c8260d94e16a375804657e53efbf9919fb20ceb54556f0517fbcf",
+        "san": "e4 c6 d4 d5 e5",
+        "source": "independently-authored-development-v1:caro-kann; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:caro-kann-3"
+    },
+    {
+      "game_id": "caro-kann-3:leg1",
+      "game_seed": 8373243683862365607,
+      "leg": 1,
+      "opening": {
+        "family": "caro-kann",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c6",
+          "d2d4",
+          "d7d5",
+          "e4e5"
+        ],
+        "opening_id": "caro-kann-3",
+        "replay_sha256": "829ae704804c8260d94e16a375804657e53efbf9919fb20ceb54556f0517fbcf",
+        "san": "e4 c6 d4 d5 e5",
+        "source": "independently-authored-development-v1:caro-kann; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:caro-kann-3"
+    },
+    {
+      "game_id": "caro-kann-4:leg0",
+      "game_seed": 1763494032220918145,
+      "leg": 0,
+      "opening": {
+        "family": "caro-kann",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c6",
+          "d2d4",
+          "d7d5",
+          "e4d5"
+        ],
+        "opening_id": "caro-kann-4",
+        "replay_sha256": "a824b52db313c07d64224d695f2b0051c7ec1a5abb76cbfd5d75ab9cf128ecfb",
+        "san": "e4 c6 d4 d5 exd5",
+        "source": "independently-authored-development-v1:caro-kann; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:caro-kann-4"
+    },
+    {
+      "game_id": "caro-kann-4:leg1",
+      "game_seed": 15341260789968350538,
+      "leg": 1,
+      "opening": {
+        "family": "caro-kann",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "c7c6",
+          "d2d4",
+          "d7d5",
+          "e4d5"
+        ],
+        "opening_id": "caro-kann-4",
+        "replay_sha256": "a824b52db313c07d64224d695f2b0051c7ec1a5abb76cbfd5d75ab9cf128ecfb",
+        "san": "e4 c6 d4 d5 exd5",
+        "source": "independently-authored-development-v1:caro-kann; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:caro-kann-4"
+    },
+    {
+      "game_id": "pirc-1:leg0",
+      "game_seed": 9247456820458880185,
+      "leg": 0,
+      "opening": {
+        "family": "pirc",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "d7d6",
+          "d2d4",
+          "g8f6",
+          "b1c3",
+          "g7g6",
+          "f2f4"
+        ],
+        "opening_id": "pirc-1",
+        "replay_sha256": "64ead75e6c8cb586ab1d26726009451b5fed25a68be721a096e0baeae8ead19c",
+        "san": "e4 d6 d4 Nf6 Nc3 g6 f4",
+        "source": "independently-authored-development-v1:pirc; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:pirc-1"
+    },
+    {
+      "game_id": "pirc-1:leg1",
+      "game_seed": 9628114785374209097,
+      "leg": 1,
+      "opening": {
+        "family": "pirc",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "d7d6",
+          "d2d4",
+          "g8f6",
+          "b1c3",
+          "g7g6",
+          "f2f4"
+        ],
+        "opening_id": "pirc-1",
+        "replay_sha256": "64ead75e6c8cb586ab1d26726009451b5fed25a68be721a096e0baeae8ead19c",
+        "san": "e4 d6 d4 Nf6 Nc3 g6 f4",
+        "source": "independently-authored-development-v1:pirc; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:pirc-1"
+    },
+    {
+      "game_id": "pirc-2:leg0",
+      "game_seed": 10573224531939466746,
+      "leg": 0,
+      "opening": {
+        "family": "pirc",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "d7d6",
+          "d2d4",
+          "g8f6",
+          "b1c3",
+          "g7g6",
+          "g1f3"
+        ],
+        "opening_id": "pirc-2",
+        "replay_sha256": "a51a4fe542c76319e865169c0e905af50b77d0783335cb720d3007fddb865b17",
+        "san": "e4 d6 d4 Nf6 Nc3 g6 Nf3",
+        "source": "independently-authored-development-v1:pirc; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:pirc-2"
+    },
+    {
+      "game_id": "pirc-2:leg1",
+      "game_seed": 5942676863846514601,
+      "leg": 1,
+      "opening": {
+        "family": "pirc",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "d7d6",
+          "d2d4",
+          "g8f6",
+          "b1c3",
+          "g7g6",
+          "g1f3"
+        ],
+        "opening_id": "pirc-2",
+        "replay_sha256": "a51a4fe542c76319e865169c0e905af50b77d0783335cb720d3007fddb865b17",
+        "san": "e4 d6 d4 Nf6 Nc3 g6 Nf3",
+        "source": "independently-authored-development-v1:pirc; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:pirc-2"
+    },
+    {
+      "game_id": "pirc-3:leg0",
+      "game_seed": 7878607642920318690,
+      "leg": 0,
+      "opening": {
+        "family": "pirc",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "d7d6",
+          "d2d4",
+          "g8f6",
+          "b1c3",
+          "g7g6",
+          "c1e3"
+        ],
+        "opening_id": "pirc-3",
+        "replay_sha256": "3e55cd84e328d0058942c46ada1121b5280563a45dd2159892ed60f262ab29a5",
+        "san": "e4 d6 d4 Nf6 Nc3 g6 Be3",
+        "source": "independently-authored-development-v1:pirc; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:pirc-3"
+    },
+    {
+      "game_id": "pirc-3:leg1",
+      "game_seed": 2966482891147850482,
+      "leg": 1,
+      "opening": {
+        "family": "pirc",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "d7d6",
+          "d2d4",
+          "g8f6",
+          "b1c3",
+          "g7g6",
+          "c1e3"
+        ],
+        "opening_id": "pirc-3",
+        "replay_sha256": "3e55cd84e328d0058942c46ada1121b5280563a45dd2159892ed60f262ab29a5",
+        "san": "e4 d6 d4 Nf6 Nc3 g6 Be3",
+        "source": "independently-authored-development-v1:pirc; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:pirc-3"
+    },
+    {
+      "game_id": "pirc-4:leg0",
+      "game_seed": 13642267473043427685,
+      "leg": 0,
+      "opening": {
+        "family": "pirc",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "d7d6",
+          "d2d4",
+          "g8f6",
+          "b1c3",
+          "g7g6",
+          "c1g5"
+        ],
+        "opening_id": "pirc-4",
+        "replay_sha256": "66ccccbecea3cfdd64f2bd51465f963615a90317c6794ef9b55b471a928fbe94",
+        "san": "e4 d6 d4 Nf6 Nc3 g6 Bg5",
+        "source": "independently-authored-development-v1:pirc; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:pirc-4"
+    },
+    {
+      "game_id": "pirc-4:leg1",
+      "game_seed": 1268032448666315568,
+      "leg": 1,
+      "opening": {
+        "family": "pirc",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "e2e4",
+          "d7d6",
+          "d2d4",
+          "g8f6",
+          "b1c3",
+          "g7g6",
+          "c1g5"
+        ],
+        "opening_id": "pirc-4",
+        "replay_sha256": "66ccccbecea3cfdd64f2bd51465f963615a90317c6794ef9b55b471a928fbe94",
+        "san": "e4 d6 d4 Nf6 Nc3 g6 Bg5",
+        "source": "independently-authored-development-v1:pirc; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:pirc-4"
+    },
+    {
+      "game_id": "queens-gambit-declined-1:leg0",
+      "game_seed": 9140128061003692088,
+      "leg": 0,
+      "opening": {
+        "family": "queens-gambit-declined",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "g8f6",
+          "c1g5"
+        ],
+        "opening_id": "queens-gambit-declined-1",
+        "replay_sha256": "c67178efdbbb4a289a606bd4d86ae5b94286ab8568671e2dcb367435bf1089dd",
+        "san": "d4 d5 c4 e6 Nc3 Nf6 Bg5",
+        "source": "independently-authored-development-v1:queens-gambit-declined; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-declined-1"
+    },
+    {
+      "game_id": "queens-gambit-declined-1:leg1",
+      "game_seed": 4800639691009952266,
+      "leg": 1,
+      "opening": {
+        "family": "queens-gambit-declined",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "g8f6",
+          "c1g5"
+        ],
+        "opening_id": "queens-gambit-declined-1",
+        "replay_sha256": "c67178efdbbb4a289a606bd4d86ae5b94286ab8568671e2dcb367435bf1089dd",
+        "san": "d4 d5 c4 e6 Nc3 Nf6 Bg5",
+        "source": "independently-authored-development-v1:queens-gambit-declined; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-declined-1"
+    },
+    {
+      "game_id": "queens-gambit-declined-2:leg0",
+      "game_seed": 587883707693084337,
+      "leg": 0,
+      "opening": {
+        "family": "queens-gambit-declined",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "g8f6",
+          "g1f3"
+        ],
+        "opening_id": "queens-gambit-declined-2",
+        "replay_sha256": "bcda894fd2158d21fb8f139eca9ffa43f505e2b2d2c26be17877e3713c6d64d8",
+        "san": "d4 d5 c4 e6 Nc3 Nf6 Nf3",
+        "source": "independently-authored-development-v1:queens-gambit-declined; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-declined-2"
+    },
+    {
+      "game_id": "queens-gambit-declined-2:leg1",
+      "game_seed": 16767111308705238805,
+      "leg": 1,
+      "opening": {
+        "family": "queens-gambit-declined",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "g8f6",
+          "g1f3"
+        ],
+        "opening_id": "queens-gambit-declined-2",
+        "replay_sha256": "bcda894fd2158d21fb8f139eca9ffa43f505e2b2d2c26be17877e3713c6d64d8",
+        "san": "d4 d5 c4 e6 Nc3 Nf6 Nf3",
+        "source": "independently-authored-development-v1:queens-gambit-declined; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-declined-2"
+    },
+    {
+      "game_id": "queens-gambit-declined-3:leg0",
+      "game_seed": 2221641069363845881,
+      "leg": 0,
+      "opening": {
+        "family": "queens-gambit-declined",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "g8f6",
+          "c4d5"
+        ],
+        "opening_id": "queens-gambit-declined-3",
+        "replay_sha256": "4856bc7d4be3bfd88bba66fbbe6898ddd1dc0a32dc854a04b808685b4376f726",
+        "san": "d4 d5 c4 e6 Nc3 Nf6 cxd5",
+        "source": "independently-authored-development-v1:queens-gambit-declined; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-declined-3"
+    },
+    {
+      "game_id": "queens-gambit-declined-3:leg1",
+      "game_seed": 11072075192713042984,
+      "leg": 1,
+      "opening": {
+        "family": "queens-gambit-declined",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "g8f6",
+          "c4d5"
+        ],
+        "opening_id": "queens-gambit-declined-3",
+        "replay_sha256": "4856bc7d4be3bfd88bba66fbbe6898ddd1dc0a32dc854a04b808685b4376f726",
+        "san": "d4 d5 c4 e6 Nc3 Nf6 cxd5",
+        "source": "independently-authored-development-v1:queens-gambit-declined; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-declined-3"
+    },
+    {
+      "game_id": "queens-gambit-declined-4:leg0",
+      "game_seed": 831384986680126614,
+      "leg": 0,
+      "opening": {
+        "family": "queens-gambit-declined",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "g8f6",
+          "c1f4"
+        ],
+        "opening_id": "queens-gambit-declined-4",
+        "replay_sha256": "3e1afd0060d220e5b77361a15314b14803d6e0fff53b50a59ac73cff38931a5e",
+        "san": "d4 d5 c4 e6 Nc3 Nf6 Bf4",
+        "source": "independently-authored-development-v1:queens-gambit-declined; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-declined-4"
+    },
+    {
+      "game_id": "queens-gambit-declined-4:leg1",
+      "game_seed": 12521123165517352109,
+      "leg": 1,
+      "opening": {
+        "family": "queens-gambit-declined",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "g8f6",
+          "c1f4"
+        ],
+        "opening_id": "queens-gambit-declined-4",
+        "replay_sha256": "3e1afd0060d220e5b77361a15314b14803d6e0fff53b50a59ac73cff38931a5e",
+        "san": "d4 d5 c4 e6 Nc3 Nf6 Bf4",
+        "source": "independently-authored-development-v1:queens-gambit-declined; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-declined-4"
+    },
+    {
+      "game_id": "slav-1:leg0",
+      "game_seed": 989744969381829514,
+      "leg": 0,
+      "opening": {
+        "family": "slav",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "c7c6",
+          "g1f3",
+          "g8f6",
+          "b1c3"
+        ],
+        "opening_id": "slav-1",
+        "replay_sha256": "169e9fe6d91018a6005b3123733a3a52ef9f2216a8a687493c49bfe509b1d035",
+        "san": "d4 d5 c4 c6 Nf3 Nf6 Nc3",
+        "source": "independently-authored-development-v1:slav; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:slav-1"
+    },
+    {
+      "game_id": "slav-1:leg1",
+      "game_seed": 15053987439474218413,
+      "leg": 1,
+      "opening": {
+        "family": "slav",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "c7c6",
+          "g1f3",
+          "g8f6",
+          "b1c3"
+        ],
+        "opening_id": "slav-1",
+        "replay_sha256": "169e9fe6d91018a6005b3123733a3a52ef9f2216a8a687493c49bfe509b1d035",
+        "san": "d4 d5 c4 c6 Nf3 Nf6 Nc3",
+        "source": "independently-authored-development-v1:slav; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:slav-1"
+    },
+    {
+      "game_id": "slav-2:leg0",
+      "game_seed": 15875097516488675600,
+      "leg": 0,
+      "opening": {
+        "family": "slav",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "c7c6",
+          "g1f3",
+          "g8f6",
+          "e2e3"
+        ],
+        "opening_id": "slav-2",
+        "replay_sha256": "540f94ae3bd1476804b4bcbdab95d3e2c3cd277051a6c28eab3806a37287a83b",
+        "san": "d4 d5 c4 c6 Nf3 Nf6 e3",
+        "source": "independently-authored-development-v1:slav; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:slav-2"
+    },
+    {
+      "game_id": "slav-2:leg1",
+      "game_seed": 11775891774866082025,
+      "leg": 1,
+      "opening": {
+        "family": "slav",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "c7c6",
+          "g1f3",
+          "g8f6",
+          "e2e3"
+        ],
+        "opening_id": "slav-2",
+        "replay_sha256": "540f94ae3bd1476804b4bcbdab95d3e2c3cd277051a6c28eab3806a37287a83b",
+        "san": "d4 d5 c4 c6 Nf3 Nf6 e3",
+        "source": "independently-authored-development-v1:slav; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:slav-2"
+    },
+    {
+      "game_id": "slav-3:leg0",
+      "game_seed": 7011709869476493008,
+      "leg": 0,
+      "opening": {
+        "family": "slav",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "c7c6",
+          "g1f3",
+          "g8f6",
+          "c4d5"
+        ],
+        "opening_id": "slav-3",
+        "replay_sha256": "1279ddd5221a701f2294af8ed1e92d6005f1a62876118b5d460f69d8414ebc3c",
+        "san": "d4 d5 c4 c6 Nf3 Nf6 cxd5",
+        "source": "independently-authored-development-v1:slav; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:slav-3"
+    },
+    {
+      "game_id": "slav-3:leg1",
+      "game_seed": 6673547909364768386,
+      "leg": 1,
+      "opening": {
+        "family": "slav",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "c7c6",
+          "g1f3",
+          "g8f6",
+          "c4d5"
+        ],
+        "opening_id": "slav-3",
+        "replay_sha256": "1279ddd5221a701f2294af8ed1e92d6005f1a62876118b5d460f69d8414ebc3c",
+        "san": "d4 d5 c4 c6 Nf3 Nf6 cxd5",
+        "source": "independently-authored-development-v1:slav; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:slav-3"
+    },
+    {
+      "game_id": "slav-4:leg0",
+      "game_seed": 7360888665843639859,
+      "leg": 0,
+      "opening": {
+        "family": "slav",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "c7c6",
+          "g1f3",
+          "g8f6",
+          "d1c2"
+        ],
+        "opening_id": "slav-4",
+        "replay_sha256": "0028c06cc0017894b38adeec5c6398eca49b872e48decc4bf4a3fae9df60c90c",
+        "san": "d4 d5 c4 c6 Nf3 Nf6 Qc2",
+        "source": "independently-authored-development-v1:slav; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:slav-4"
+    },
+    {
+      "game_id": "slav-4:leg1",
+      "game_seed": 15653245216598436060,
+      "leg": 1,
+      "opening": {
+        "family": "slav",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "c7c6",
+          "g1f3",
+          "g8f6",
+          "d1c2"
+        ],
+        "opening_id": "slav-4",
+        "replay_sha256": "0028c06cc0017894b38adeec5c6398eca49b872e48decc4bf4a3fae9df60c90c",
+        "san": "d4 d5 c4 c6 Nf3 Nf6 Qc2",
+        "source": "independently-authored-development-v1:slav; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:slav-4"
+    },
+    {
+      "game_id": "queens-gambit-accepted-1:leg0",
+      "game_seed": 18079967550033723815,
+      "leg": 0,
+      "opening": {
+        "family": "queens-gambit-accepted",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "d5c4",
+          "g1f3",
+          "g8f6",
+          "e2e3"
+        ],
+        "opening_id": "queens-gambit-accepted-1",
+        "replay_sha256": "04bb6f0d54c7d66eb7bedded06d7e3fb04516786c1b78d12fb082c71520fc75b",
+        "san": "d4 d5 c4 dxc4 Nf3 Nf6 e3",
+        "source": "independently-authored-development-v1:queens-gambit-accepted; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-accepted-1"
+    },
+    {
+      "game_id": "queens-gambit-accepted-1:leg1",
+      "game_seed": 16319930492707663971,
+      "leg": 1,
+      "opening": {
+        "family": "queens-gambit-accepted",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "d5c4",
+          "g1f3",
+          "g8f6",
+          "e2e3"
+        ],
+        "opening_id": "queens-gambit-accepted-1",
+        "replay_sha256": "04bb6f0d54c7d66eb7bedded06d7e3fb04516786c1b78d12fb082c71520fc75b",
+        "san": "d4 d5 c4 dxc4 Nf3 Nf6 e3",
+        "source": "independently-authored-development-v1:queens-gambit-accepted; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-accepted-1"
+    },
+    {
+      "game_id": "queens-gambit-accepted-2:leg0",
+      "game_seed": 8236408918599313354,
+      "leg": 0,
+      "opening": {
+        "family": "queens-gambit-accepted",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "d5c4",
+          "g1f3",
+          "g8f6",
+          "b1c3"
+        ],
+        "opening_id": "queens-gambit-accepted-2",
+        "replay_sha256": "7469472c2de5e8f16c136cc2fb8593f4ee73fe68e560fa682dc38d5b14a04e1c",
+        "san": "d4 d5 c4 dxc4 Nf3 Nf6 Nc3",
+        "source": "independently-authored-development-v1:queens-gambit-accepted; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-accepted-2"
+    },
+    {
+      "game_id": "queens-gambit-accepted-2:leg1",
+      "game_seed": 4709025345665629020,
+      "leg": 1,
+      "opening": {
+        "family": "queens-gambit-accepted",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "d5c4",
+          "g1f3",
+          "g8f6",
+          "b1c3"
+        ],
+        "opening_id": "queens-gambit-accepted-2",
+        "replay_sha256": "7469472c2de5e8f16c136cc2fb8593f4ee73fe68e560fa682dc38d5b14a04e1c",
+        "san": "d4 d5 c4 dxc4 Nf3 Nf6 Nc3",
+        "source": "independently-authored-development-v1:queens-gambit-accepted; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-accepted-2"
+    },
+    {
+      "game_id": "queens-gambit-accepted-3:leg0",
+      "game_seed": 10425514792390718079,
+      "leg": 0,
+      "opening": {
+        "family": "queens-gambit-accepted",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "d5c4",
+          "g1f3",
+          "g8f6",
+          "d1a4"
+        ],
+        "opening_id": "queens-gambit-accepted-3",
+        "replay_sha256": "e80de6348f8886ee719921dee3b715a5a5eb36728666337ec9fe50c402a16f72",
+        "san": "d4 d5 c4 dxc4 Nf3 Nf6 Qa4+",
+        "source": "independently-authored-development-v1:queens-gambit-accepted; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-accepted-3"
+    },
+    {
+      "game_id": "queens-gambit-accepted-3:leg1",
+      "game_seed": 17264324652113819507,
+      "leg": 1,
+      "opening": {
+        "family": "queens-gambit-accepted",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "d5c4",
+          "g1f3",
+          "g8f6",
+          "d1a4"
+        ],
+        "opening_id": "queens-gambit-accepted-3",
+        "replay_sha256": "e80de6348f8886ee719921dee3b715a5a5eb36728666337ec9fe50c402a16f72",
+        "san": "d4 d5 c4 dxc4 Nf3 Nf6 Qa4+",
+        "source": "independently-authored-development-v1:queens-gambit-accepted; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-accepted-3"
+    },
+    {
+      "game_id": "queens-gambit-accepted-4:leg0",
+      "game_seed": 5044034690577781323,
+      "leg": 0,
+      "opening": {
+        "family": "queens-gambit-accepted",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "d5c4",
+          "g1f3",
+          "g8f6",
+          "g2g3"
+        ],
+        "opening_id": "queens-gambit-accepted-4",
+        "replay_sha256": "8d68db2ab416452c326b99b0916f8b8518bdfa5d8b421bf72df63c78e98a61ca",
+        "san": "d4 d5 c4 dxc4 Nf3 Nf6 g3",
+        "source": "independently-authored-development-v1:queens-gambit-accepted; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-accepted-4"
+    },
+    {
+      "game_id": "queens-gambit-accepted-4:leg1",
+      "game_seed": 6993206138409609479,
+      "leg": 1,
+      "opening": {
+        "family": "queens-gambit-accepted",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "d7d5",
+          "c2c4",
+          "d5c4",
+          "g1f3",
+          "g8f6",
+          "g2g3"
+        ],
+        "opening_id": "queens-gambit-accepted-4",
+        "replay_sha256": "8d68db2ab416452c326b99b0916f8b8518bdfa5d8b421bf72df63c78e98a61ca",
+        "san": "d4 d5 c4 dxc4 Nf3 Nf6 g3",
+        "source": "independently-authored-development-v1:queens-gambit-accepted; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:queens-gambit-accepted-4"
+    },
+    {
+      "game_id": "nimzo-indian-1:leg0",
+      "game_seed": 14408891313429907903,
+      "leg": 0,
+      "opening": {
+        "family": "nimzo-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "f8b4",
+          "e2e3"
+        ],
+        "opening_id": "nimzo-indian-1",
+        "replay_sha256": "3e22b47340162abca663a357077c7a3a3c2796ac05d48bb8117c8fa45fb10acb",
+        "san": "d4 Nf6 c4 e6 Nc3 Bb4 e3",
+        "source": "independently-authored-development-v1:nimzo-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:nimzo-indian-1"
+    },
+    {
+      "game_id": "nimzo-indian-1:leg1",
+      "game_seed": 3959475698232009452,
+      "leg": 1,
+      "opening": {
+        "family": "nimzo-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "f8b4",
+          "e2e3"
+        ],
+        "opening_id": "nimzo-indian-1",
+        "replay_sha256": "3e22b47340162abca663a357077c7a3a3c2796ac05d48bb8117c8fa45fb10acb",
+        "san": "d4 Nf6 c4 e6 Nc3 Bb4 e3",
+        "source": "independently-authored-development-v1:nimzo-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:nimzo-indian-1"
+    },
+    {
+      "game_id": "nimzo-indian-2:leg0",
+      "game_seed": 17544301152257002762,
+      "leg": 0,
+      "opening": {
+        "family": "nimzo-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "f8b4",
+          "d1c2"
+        ],
+        "opening_id": "nimzo-indian-2",
+        "replay_sha256": "580c55fa46dbcf16d662eb834a952c9bcf4324bc0fd0aa57004ce9c36afac6a9",
+        "san": "d4 Nf6 c4 e6 Nc3 Bb4 Qc2",
+        "source": "independently-authored-development-v1:nimzo-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:nimzo-indian-2"
+    },
+    {
+      "game_id": "nimzo-indian-2:leg1",
+      "game_seed": 1785894784769134064,
+      "leg": 1,
+      "opening": {
+        "family": "nimzo-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "f8b4",
+          "d1c2"
+        ],
+        "opening_id": "nimzo-indian-2",
+        "replay_sha256": "580c55fa46dbcf16d662eb834a952c9bcf4324bc0fd0aa57004ce9c36afac6a9",
+        "san": "d4 Nf6 c4 e6 Nc3 Bb4 Qc2",
+        "source": "independently-authored-development-v1:nimzo-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:nimzo-indian-2"
+    },
+    {
+      "game_id": "nimzo-indian-3:leg0",
+      "game_seed": 17654085668300213845,
+      "leg": 0,
+      "opening": {
+        "family": "nimzo-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "f8b4",
+          "a2a3"
+        ],
+        "opening_id": "nimzo-indian-3",
+        "replay_sha256": "13fbaf6a1c97c9973ec3f4da97777d51a9e48508b87924a3dd6826bb27e80118",
+        "san": "d4 Nf6 c4 e6 Nc3 Bb4 a3",
+        "source": "independently-authored-development-v1:nimzo-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:nimzo-indian-3"
+    },
+    {
+      "game_id": "nimzo-indian-3:leg1",
+      "game_seed": 9108111621609047765,
+      "leg": 1,
+      "opening": {
+        "family": "nimzo-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "f8b4",
+          "a2a3"
+        ],
+        "opening_id": "nimzo-indian-3",
+        "replay_sha256": "13fbaf6a1c97c9973ec3f4da97777d51a9e48508b87924a3dd6826bb27e80118",
+        "san": "d4 Nf6 c4 e6 Nc3 Bb4 a3",
+        "source": "independently-authored-development-v1:nimzo-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:nimzo-indian-3"
+    },
+    {
+      "game_id": "nimzo-indian-4:leg0",
+      "game_seed": 16256885428918342117,
+      "leg": 0,
+      "opening": {
+        "family": "nimzo-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "f8b4",
+          "f2f3"
+        ],
+        "opening_id": "nimzo-indian-4",
+        "replay_sha256": "496770cd46340e3f64799b8962fa4a8a7709428edfaf4fe152006f7520c05a53",
+        "san": "d4 Nf6 c4 e6 Nc3 Bb4 f3",
+        "source": "independently-authored-development-v1:nimzo-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:nimzo-indian-4"
+    },
+    {
+      "game_id": "nimzo-indian-4:leg1",
+      "game_seed": 17678943893831145842,
+      "leg": 1,
+      "opening": {
+        "family": "nimzo-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "e7e6",
+          "b1c3",
+          "f8b4",
+          "f2f3"
+        ],
+        "opening_id": "nimzo-indian-4",
+        "replay_sha256": "496770cd46340e3f64799b8962fa4a8a7709428edfaf4fe152006f7520c05a53",
+        "san": "d4 Nf6 c4 e6 Nc3 Bb4 f3",
+        "source": "independently-authored-development-v1:nimzo-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:nimzo-indian-4"
+    },
+    {
+      "game_id": "english-1:leg0",
+      "game_seed": 4003008478166435156,
+      "leg": 0,
+      "opening": {
+        "family": "english",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "c2c4",
+          "e7e5",
+          "b1c3",
+          "g8f6",
+          "g2g3"
+        ],
+        "opening_id": "english-1",
+        "replay_sha256": "7cd2054a1c64a20663c011ad5ba83016aa1460d6b29c29c524704859e28514f2",
+        "san": "c4 e5 Nc3 Nf6 g3",
+        "source": "independently-authored-development-v1:english; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:english-1"
+    },
+    {
+      "game_id": "english-1:leg1",
+      "game_seed": 8190878183986037330,
+      "leg": 1,
+      "opening": {
+        "family": "english",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "c2c4",
+          "e7e5",
+          "b1c3",
+          "g8f6",
+          "g2g3"
+        ],
+        "opening_id": "english-1",
+        "replay_sha256": "7cd2054a1c64a20663c011ad5ba83016aa1460d6b29c29c524704859e28514f2",
+        "san": "c4 e5 Nc3 Nf6 g3",
+        "source": "independently-authored-development-v1:english; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:english-1"
+    },
+    {
+      "game_id": "english-2:leg0",
+      "game_seed": 13187543259505999107,
+      "leg": 0,
+      "opening": {
+        "family": "english",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "c2c4",
+          "e7e5",
+          "b1c3",
+          "g8f6",
+          "g1f3"
+        ],
+        "opening_id": "english-2",
+        "replay_sha256": "a8c08af650144c4b04fda842c321ea3167dd203de73ce2d772862265fc01c31b",
+        "san": "c4 e5 Nc3 Nf6 Nf3",
+        "source": "independently-authored-development-v1:english; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:english-2"
+    },
+    {
+      "game_id": "english-2:leg1",
+      "game_seed": 15319451853631774586,
+      "leg": 1,
+      "opening": {
+        "family": "english",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "c2c4",
+          "e7e5",
+          "b1c3",
+          "g8f6",
+          "g1f3"
+        ],
+        "opening_id": "english-2",
+        "replay_sha256": "a8c08af650144c4b04fda842c321ea3167dd203de73ce2d772862265fc01c31b",
+        "san": "c4 e5 Nc3 Nf6 Nf3",
+        "source": "independently-authored-development-v1:english; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:english-2"
+    },
+    {
+      "game_id": "english-3:leg0",
+      "game_seed": 863367948307477940,
+      "leg": 0,
+      "opening": {
+        "family": "english",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "c2c4",
+          "e7e5",
+          "b1c3",
+          "g8f6",
+          "e2e3"
+        ],
+        "opening_id": "english-3",
+        "replay_sha256": "50933018440748c0a454251380c75f36266b94ba5c4467fb8d5485f43ed95a82",
+        "san": "c4 e5 Nc3 Nf6 e3",
+        "source": "independently-authored-development-v1:english; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:english-3"
+    },
+    {
+      "game_id": "english-3:leg1",
+      "game_seed": 12168734796716194181,
+      "leg": 1,
+      "opening": {
+        "family": "english",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "c2c4",
+          "e7e5",
+          "b1c3",
+          "g8f6",
+          "e2e3"
+        ],
+        "opening_id": "english-3",
+        "replay_sha256": "50933018440748c0a454251380c75f36266b94ba5c4467fb8d5485f43ed95a82",
+        "san": "c4 e5 Nc3 Nf6 e3",
+        "source": "independently-authored-development-v1:english; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:english-3"
+    },
+    {
+      "game_id": "english-4:leg0",
+      "game_seed": 15612358610233897455,
+      "leg": 0,
+      "opening": {
+        "family": "english",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "c2c4",
+          "e7e5",
+          "b1c3",
+          "g8f6",
+          "d2d3"
+        ],
+        "opening_id": "english-4",
+        "replay_sha256": "a0571931d66c9a1afc2d08460af9c735a0933d738ac6ab4d421e097e4fbcdf55",
+        "san": "c4 e5 Nc3 Nf6 d3",
+        "source": "independently-authored-development-v1:english; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:english-4"
+    },
+    {
+      "game_id": "english-4:leg1",
+      "game_seed": 10635322389069843809,
+      "leg": 1,
+      "opening": {
+        "family": "english",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "c2c4",
+          "e7e5",
+          "b1c3",
+          "g8f6",
+          "d2d3"
+        ],
+        "opening_id": "english-4",
+        "replay_sha256": "a0571931d66c9a1afc2d08460af9c735a0933d738ac6ab4d421e097e4fbcdf55",
+        "san": "c4 e5 Nc3 Nf6 d3",
+        "source": "independently-authored-development-v1:english; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:english-4"
+    },
+    {
+      "game_id": "reti-1:leg0",
+      "game_seed": 7858489672863365624,
+      "leg": 0,
+      "opening": {
+        "family": "reti",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "g1f3",
+          "d7d5",
+          "g2g3",
+          "g8f6",
+          "f1g2",
+          "e7e6",
+          "e1g1"
+        ],
+        "opening_id": "reti-1",
+        "replay_sha256": "3a32fdc5cf630a99d5207d1af4c54dc19d2a6ce42368f9bf3432f3c8ce3e9274",
+        "san": "Nf3 d5 g3 Nf6 Bg2 e6 O-O",
+        "source": "independently-authored-development-v1:reti; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:reti-1"
+    },
+    {
+      "game_id": "reti-1:leg1",
+      "game_seed": 11912639329816715136,
+      "leg": 1,
+      "opening": {
+        "family": "reti",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "g1f3",
+          "d7d5",
+          "g2g3",
+          "g8f6",
+          "f1g2",
+          "e7e6",
+          "e1g1"
+        ],
+        "opening_id": "reti-1",
+        "replay_sha256": "3a32fdc5cf630a99d5207d1af4c54dc19d2a6ce42368f9bf3432f3c8ce3e9274",
+        "san": "Nf3 d5 g3 Nf6 Bg2 e6 O-O",
+        "source": "independently-authored-development-v1:reti; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:reti-1"
+    },
+    {
+      "game_id": "reti-2:leg0",
+      "game_seed": 1053673164288293656,
+      "leg": 0,
+      "opening": {
+        "family": "reti",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "g1f3",
+          "d7d5",
+          "g2g3",
+          "g8f6",
+          "f1g2",
+          "e7e6",
+          "c2c4"
+        ],
+        "opening_id": "reti-2",
+        "replay_sha256": "fb803f8e13a6a4ae1bdcf92621e10785b78c814cb2466d1ed7ec37769004590c",
+        "san": "Nf3 d5 g3 Nf6 Bg2 e6 c4",
+        "source": "independently-authored-development-v1:reti; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:reti-2"
+    },
+    {
+      "game_id": "reti-2:leg1",
+      "game_seed": 2596382258643798150,
+      "leg": 1,
+      "opening": {
+        "family": "reti",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "g1f3",
+          "d7d5",
+          "g2g3",
+          "g8f6",
+          "f1g2",
+          "e7e6",
+          "c2c4"
+        ],
+        "opening_id": "reti-2",
+        "replay_sha256": "fb803f8e13a6a4ae1bdcf92621e10785b78c814cb2466d1ed7ec37769004590c",
+        "san": "Nf3 d5 g3 Nf6 Bg2 e6 c4",
+        "source": "independently-authored-development-v1:reti; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:reti-2"
+    },
+    {
+      "game_id": "reti-3:leg0",
+      "game_seed": 6666800153833944570,
+      "leg": 0,
+      "opening": {
+        "family": "reti",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "g1f3",
+          "d7d5",
+          "g2g3",
+          "g8f6",
+          "f1g2",
+          "e7e6",
+          "d2d3"
+        ],
+        "opening_id": "reti-3",
+        "replay_sha256": "0848de311896a66a4c18385ea09447b59fc21fabd6ea4c5cc93b59d7c8ebb5d2",
+        "san": "Nf3 d5 g3 Nf6 Bg2 e6 d3",
+        "source": "independently-authored-development-v1:reti; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:reti-3"
+    },
+    {
+      "game_id": "reti-3:leg1",
+      "game_seed": 14104694700201237022,
+      "leg": 1,
+      "opening": {
+        "family": "reti",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "g1f3",
+          "d7d5",
+          "g2g3",
+          "g8f6",
+          "f1g2",
+          "e7e6",
+          "d2d3"
+        ],
+        "opening_id": "reti-3",
+        "replay_sha256": "0848de311896a66a4c18385ea09447b59fc21fabd6ea4c5cc93b59d7c8ebb5d2",
+        "san": "Nf3 d5 g3 Nf6 Bg2 e6 d3",
+        "source": "independently-authored-development-v1:reti; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:reti-3"
+    },
+    {
+      "game_id": "reti-4:leg0",
+      "game_seed": 718772602763581921,
+      "leg": 0,
+      "opening": {
+        "family": "reti",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "g1f3",
+          "d7d5",
+          "g2g3",
+          "g8f6",
+          "f1g2",
+          "e7e6",
+          "b2b3"
+        ],
+        "opening_id": "reti-4",
+        "replay_sha256": "c96b103ea4f67432eddb207aa1c3c0b18040aa1db00c24974a3f6a177f1f86f4",
+        "san": "Nf3 d5 g3 Nf6 Bg2 e6 b3",
+        "source": "independently-authored-development-v1:reti; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:reti-4"
+    },
+    {
+      "game_id": "reti-4:leg1",
+      "game_seed": 13585291217403775130,
+      "leg": 1,
+      "opening": {
+        "family": "reti",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "g1f3",
+          "d7d5",
+          "g2g3",
+          "g8f6",
+          "f1g2",
+          "e7e6",
+          "b2b3"
+        ],
+        "opening_id": "reti-4",
+        "replay_sha256": "c96b103ea4f67432eddb207aa1c3c0b18040aa1db00c24974a3f6a177f1f86f4",
+        "san": "Nf3 d5 g3 Nf6 Bg2 e6 b3",
+        "source": "independently-authored-development-v1:reti; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:reti-4"
+    },
+    {
+      "game_id": "kings-indian-1:leg0",
+      "game_seed": 15090722840569208114,
+      "leg": 0,
+      "opening": {
+        "family": "kings-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "g7g6",
+          "b1c3",
+          "f8g7",
+          "e2e4",
+          "d7d6",
+          "g1f3"
+        ],
+        "opening_id": "kings-indian-1",
+        "replay_sha256": "0fa61ef3a1bc88cd4b04b319e916df7f4ecbd772f19f4eb65edbd89cdf2bbaa9",
+        "san": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3",
+        "source": "independently-authored-development-v1:kings-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:kings-indian-1"
+    },
+    {
+      "game_id": "kings-indian-1:leg1",
+      "game_seed": 10710189234207986036,
+      "leg": 1,
+      "opening": {
+        "family": "kings-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "g7g6",
+          "b1c3",
+          "f8g7",
+          "e2e4",
+          "d7d6",
+          "g1f3"
+        ],
+        "opening_id": "kings-indian-1",
+        "replay_sha256": "0fa61ef3a1bc88cd4b04b319e916df7f4ecbd772f19f4eb65edbd89cdf2bbaa9",
+        "san": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3",
+        "source": "independently-authored-development-v1:kings-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:kings-indian-1"
+    },
+    {
+      "game_id": "kings-indian-2:leg0",
+      "game_seed": 9234355298728649005,
+      "leg": 0,
+      "opening": {
+        "family": "kings-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "g7g6",
+          "b1c3",
+          "f8g7",
+          "e2e4",
+          "d7d6",
+          "f2f3"
+        ],
+        "opening_id": "kings-indian-2",
+        "replay_sha256": "7a96364d7e94477c559f80195d69b8c217ce7609d824b536d22d5eb47ba0b020",
+        "san": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 f3",
+        "source": "independently-authored-development-v1:kings-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:kings-indian-2"
+    },
+    {
+      "game_id": "kings-indian-2:leg1",
+      "game_seed": 7528326546591924167,
+      "leg": 1,
+      "opening": {
+        "family": "kings-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "g7g6",
+          "b1c3",
+          "f8g7",
+          "e2e4",
+          "d7d6",
+          "f2f3"
+        ],
+        "opening_id": "kings-indian-2",
+        "replay_sha256": "7a96364d7e94477c559f80195d69b8c217ce7609d824b536d22d5eb47ba0b020",
+        "san": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 f3",
+        "source": "independently-authored-development-v1:kings-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:kings-indian-2"
+    },
+    {
+      "game_id": "kings-indian-3:leg0",
+      "game_seed": 187123930877506170,
+      "leg": 0,
+      "opening": {
+        "family": "kings-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "g7g6",
+          "b1c3",
+          "f8g7",
+          "e2e4",
+          "d7d6",
+          "f2f4"
+        ],
+        "opening_id": "kings-indian-3",
+        "replay_sha256": "6b36f5000bd4f9a1a9cdcce86673b97936b9f0e4733d0c5142671b6151b9fb7b",
+        "san": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 f4",
+        "source": "independently-authored-development-v1:kings-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:kings-indian-3"
+    },
+    {
+      "game_id": "kings-indian-3:leg1",
+      "game_seed": 9649633973682622444,
+      "leg": 1,
+      "opening": {
+        "family": "kings-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "g7g6",
+          "b1c3",
+          "f8g7",
+          "e2e4",
+          "d7d6",
+          "f2f4"
+        ],
+        "opening_id": "kings-indian-3",
+        "replay_sha256": "6b36f5000bd4f9a1a9cdcce86673b97936b9f0e4733d0c5142671b6151b9fb7b",
+        "san": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 f4",
+        "source": "independently-authored-development-v1:kings-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:kings-indian-3"
+    },
+    {
+      "game_id": "kings-indian-4:leg0",
+      "game_seed": 16376635026985334824,
+      "leg": 0,
+      "opening": {
+        "family": "kings-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "g7g6",
+          "b1c3",
+          "f8g7",
+          "e2e4",
+          "d7d6",
+          "f1e2"
+        ],
+        "opening_id": "kings-indian-4",
+        "replay_sha256": "d647842e0394b2af6d13173416915bce1d1a569514c74fd98ad055d4f0d19e02",
+        "san": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Be2",
+        "source": "independently-authored-development-v1:kings-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:kings-indian-4"
+    },
+    {
+      "game_id": "kings-indian-4:leg1",
+      "game_seed": 5405579656939871630,
+      "leg": 1,
+      "opening": {
+        "family": "kings-indian",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "g8f6",
+          "c2c4",
+          "g7g6",
+          "b1c3",
+          "f8g7",
+          "e2e4",
+          "d7d6",
+          "f1e2"
+        ],
+        "opening_id": "kings-indian-4",
+        "replay_sha256": "d647842e0394b2af6d13173416915bce1d1a569514c74fd98ad055d4f0d19e02",
+        "san": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Be2",
+        "source": "independently-authored-development-v1:kings-indian; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:kings-indian-4"
+    },
+    {
+      "game_id": "dutch-1:leg0",
+      "game_seed": 9625606383145462534,
+      "leg": 0,
+      "opening": {
+        "family": "dutch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "f7f5",
+          "c2c4",
+          "g8f6",
+          "g2g3"
+        ],
+        "opening_id": "dutch-1",
+        "replay_sha256": "e6547f785b822e92693a9f1cc3c939ad97a7316581bc502c68b3a2bbb5440ae1",
+        "san": "d4 f5 c4 Nf6 g3",
+        "source": "independently-authored-development-v1:dutch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:dutch-1"
+    },
+    {
+      "game_id": "dutch-1:leg1",
+      "game_seed": 5200118162400924368,
+      "leg": 1,
+      "opening": {
+        "family": "dutch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "f7f5",
+          "c2c4",
+          "g8f6",
+          "g2g3"
+        ],
+        "opening_id": "dutch-1",
+        "replay_sha256": "e6547f785b822e92693a9f1cc3c939ad97a7316581bc502c68b3a2bbb5440ae1",
+        "san": "d4 f5 c4 Nf6 g3",
+        "source": "independently-authored-development-v1:dutch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:dutch-1"
+    },
+    {
+      "game_id": "dutch-2:leg0",
+      "game_seed": 17973304073917131883,
+      "leg": 0,
+      "opening": {
+        "family": "dutch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "f7f5",
+          "c2c4",
+          "g8f6",
+          "b1c3"
+        ],
+        "opening_id": "dutch-2",
+        "replay_sha256": "34b829523a17fc553cb879ba014c19f2c071d7d6b21a095dc56ad4fa96101bdc",
+        "san": "d4 f5 c4 Nf6 Nc3",
+        "source": "independently-authored-development-v1:dutch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:dutch-2"
+    },
+    {
+      "game_id": "dutch-2:leg1",
+      "game_seed": 9551437153533839327,
+      "leg": 1,
+      "opening": {
+        "family": "dutch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "f7f5",
+          "c2c4",
+          "g8f6",
+          "b1c3"
+        ],
+        "opening_id": "dutch-2",
+        "replay_sha256": "34b829523a17fc553cb879ba014c19f2c071d7d6b21a095dc56ad4fa96101bdc",
+        "san": "d4 f5 c4 Nf6 Nc3",
+        "source": "independently-authored-development-v1:dutch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:dutch-2"
+    },
+    {
+      "game_id": "dutch-3:leg0",
+      "game_seed": 1922113365969882444,
+      "leg": 0,
+      "opening": {
+        "family": "dutch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "f7f5",
+          "c2c4",
+          "g8f6",
+          "g1f3"
+        ],
+        "opening_id": "dutch-3",
+        "replay_sha256": "546632b23f780ad7429b864495e2e3f7c5c56a106db1f0c2ddbb90e889477b4c",
+        "san": "d4 f5 c4 Nf6 Nf3",
+        "source": "independently-authored-development-v1:dutch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:dutch-3"
+    },
+    {
+      "game_id": "dutch-3:leg1",
+      "game_seed": 5133484883560556569,
+      "leg": 1,
+      "opening": {
+        "family": "dutch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "f7f5",
+          "c2c4",
+          "g8f6",
+          "g1f3"
+        ],
+        "opening_id": "dutch-3",
+        "replay_sha256": "546632b23f780ad7429b864495e2e3f7c5c56a106db1f0c2ddbb90e889477b4c",
+        "san": "d4 f5 c4 Nf6 Nf3",
+        "source": "independently-authored-development-v1:dutch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:dutch-3"
+    },
+    {
+      "game_id": "dutch-4:leg0",
+      "game_seed": 5728566909610149811,
+      "leg": 0,
+      "opening": {
+        "family": "dutch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "f7f5",
+          "c2c4",
+          "g8f6",
+          "e2e3"
+        ],
+        "opening_id": "dutch-4",
+        "replay_sha256": "1fb802a7dc4a1f5532b67682158764d5d1ce76351bf45eb14fc294b4fad59942",
+        "san": "d4 f5 c4 Nf6 e3",
+        "source": "independently-authored-development-v1:dutch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:dutch-4"
+    },
+    {
+      "game_id": "dutch-4:leg1",
+      "game_seed": 8952815726161742998,
+      "leg": 1,
+      "opening": {
+        "family": "dutch",
+        "history_complete": true,
+        "initial_fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        "moves_uci": [
+          "d2d4",
+          "f7f5",
+          "c2c4",
+          "g8f6",
+          "e2e3"
+        ],
+        "opening_id": "dutch-4",
+        "replay_sha256": "1fb802a7dc4a1f5532b67682158764d5d1ce76351bf45eb14fc294b4fad59942",
+        "san": "d4 f5 c4 Nf6 e3",
+        "source": "independently-authored-development-v1:dutch; no corpus/labels"
+      },
+      "pair_id": "p02-cpu-001-strength-dev-v1:dutch-4"
+    }
+  ],
+  "schema": "p02-strength-plan-v1",
+  "seed": 2026101202,
+  "seed_algorithm": "sha256(match_id,master_seed,opening_id,leg)-v1",
+  "settings": {
+    "c_puct": 1.5,
+    "exploration": null,
+    "exploration_noise": false,
+    "fresh_root": true,
+    "selection": "evaluation-max-visits-smallest-id",
+    "simulation_budget": 32,
+    "unvisited_value": 0.0
+  },
+  "sha256": "1c2b22dec9dc1bf08c9573b05ac6886a088ed4fbc9f4b2b2a7d99bb77f03cdae",
+  "sources": {
+    "pyproject.toml": "9e36929b5fc33e8daa8d1271eba78a4e5c195639e9983a891d878b37f9b4a170",
+    "scripts/check_p02_strength.py": "25b5aecec8e8952efdef522b8b2859941c5376d54295bd0f7b63a3f4cc6f83fb",
+    "src/chess_rl/__init__.py": "1e1c3b4161c049bc83c61475cd2913030ceb0b2d725abee0c87850bddd1b72d4",
+    "src/chess_rl/adapter/__init__.py": "26bcebc798f1cf05bf44ec69dc1e054e60fa80635071d27caadac2b230db2946",
+    "src/chess_rl/adapter/coordinates.py": "c5d062a91d3096a9b66bbfb775e25698becb9d3eafd9a717ba03d13803a6ac15",
+    "src/chess_rl/adapter/encoding.py": "8730c02649d931611d3a5a68dfe56171329324445f42e109f64eaaa573e6edb9",
+    "src/chess_rl/adapter/history.py": "d3ef97361ee65584b753e4d079b663322aff592906c2fc36404971c5eb23c89b",
+    "src/chess_rl/adapter/moves.py": "d6c51bae847e2efc8ed6d5acb3196453da55051b32c9508cf8dcc8bd37afd8a3",
+    "src/chess_rl/adapter/outcomes.py": "0f341a1dd10c9a2fc1e7d9d1fbdbe99cd9029a8a6736b828a7edb57a133fe682",
+    "src/chess_rl/adapter/results.py": "caaabfa84a26d2aaceeb5a82f440454c5610b085ad685a40f04d55168615b863",
+    "src/chess_rl/adapter/state.py": "4f80a7213d62b58851bd3911db9bf9d9687db12fc71352535691f232b3b426d8",
+    "src/chess_rl/annotation_benchmark.py": "067253ea900031c76fa416e59a151163d56e22b8bcadd3593ea3068c7898a4fb",
+    "src/chess_rl/canonical_games.py": "2a2d8557726011fc5520ff7beeba0de1ef4b5319f7467f842bb905b52ea6d5b4",
+    "src/chess_rl/contracts.py": "ff483c6f80df2057be47aa816b7bd47ff5b48ea196fac250100fd013b5fe658e",
+    "src/chess_rl/data_manifest.py": "cde69d64839b99a9715d728c33a89f4f2ec8fa42e953badc8ef497605678a084",
+    "src/chess_rl/evaluation/__init__.py": "a9526bc116892c99939ef485b6f1114c3d7f74043f4b310f7bcc53e6c8a8c6db",
+    "src/chess_rl/evaluation/matches.py": "ac444a0cb91e499e99ce2541fed94733fd19011816ef02b3d83b0dbfc69c3616",
+    "src/chess_rl/evaluation/pilot.py": "e07c4fae517f3cb43e3d99763c1a144dc84e3c7c71e2e868ad4eb3fedda6f2c9",
+    "src/chess_rl/evaluation/players.py": "6bc45927cb59305d66bec8e5b33ffa467b25101d2954785504782e476080c819",
+    "src/chess_rl/evaluation/replay.py": "94d958ac222ca57b3f7dc3fe0171894a7b413f713a6b09964d400a98795287fb",
+    "src/chess_rl/initial_labels.py": "b18113dce9358c09572187efba4dee23515fc29335f64fe86351f9962ac801e4",
+    "src/chess_rl/model/__init__.py": "28b8e14f9597cf40e6e65523ea6d834e59000b3bcf720b3fcc91b93b3894b5b4",
+    "src/chess_rl/model/attention.py": "0de59a9fe2ffa364829d5840c8dca3477769d2edbc467270c63e2c84edcd1c78",
+    "src/chess_rl/model/backbone.py": "760fabe41db47443f08b1ecec551fc99b945df6f84dfc0ec5b8b406e8a9dffc1",
+    "src/chess_rl/model/gab.py": "52a53ab1eba95b11ae606f450a3c9e6eb75ed191232b5ef6ce236aed9b5adcda",
+    "src/chess_rl/model/network.py": "960debb64f4abdbac16b0e8661545f916c13a3089281a75a63e61bea6c1c08d5",
+    "src/chess_rl/model/policy.py": "53c281aad4c0a679134d662943d167e979f835a83d345208c43c6e51596f4fa6",
+    "src/chess_rl/model/relative.py": "47614c9b069fe04a8792aadafc4f06d65c26c6bcde84535d9b25dc09c95388e0",
+    "src/chess_rl/model/wdl.py": "fbf0c4ca46f3b2682ff6bae266e523a340a4dbf4871e63fbc0b57d612357cc66",
+    "src/chess_rl/pgn_replay.py": "6bec39f70fad3aadb642f5cfbd308a00c717020781aa14860d08df715a0f80fa",
+    "src/chess_rl/position_expansion.py": "0de7d94c259028c6fd7dc13dd8e4622339ad4690296cfea01f1c27569b58560b",
+    "src/chess_rl/position_sampling.py": "8c11f082354b19dc9f7afbc884be57df3a6b9b0949dc28e3e27c3416cecc2321",
+    "src/chess_rl/replay.py": "cd7dd27be6284818730b0b5847b879ce44be58b408a4f1634ca54b0e50e8f1d2",
+    "src/chess_rl/runtime.py": "bf680a7166420df940d4779cde96166ad851df30d96bd529d20f0754bc924c94",
+    "src/chess_rl/search/__init__.py": "8f200d82a3327e449031a9b6ec1530400e882747b111327a26bff54ef3fb2a7c",
+    "src/chess_rl/search/evaluator.py": "d1920c64a4b4a318967dc4126b87273c09cd10a597cdc85d2d43dd6cecabec65",
+    "src/chess_rl/search/game.py": "ffb3d69ead183b5786067f0ed5ec114979bf0320301ab9ee0375ac83352ef007",
+    "src/chess_rl/search/puct.py": "cad69419afb03415aecee5271f637cb939b1e7e113fb81e5fd70fe34b26b50cf",
+    "src/chess_rl/search/real_evaluator.py": "a970235b66e21b49819628a41b9e009c3093ef4bff412afe514516d48c9bbe2b",
+    "src/chess_rl/search/runner.py": "eef6b3afa5cd96b4b217a5742e6e0ca41c760c399cb0febb3d08051b602135d9",
+    "src/chess_rl/selfplay.py": "4ab45f00a8bdeee59d02b57b462d8f41ebf2caf961ec4ae713158d4faf8b43c3",
+    "src/chess_rl/stockfish_worker.py": "023320c0721d17e8218f9ac87bfce380a15939dc53f244c8e063f590075cc128",
+    "src/chess_rl/supervised.py": "81244fc55209eb26098699829967622cd3fc59e2483f569859ad23b71aa2ddc2",
+    "src/chess_rl/tensor_ops.py": "23d4540120eacb7ce6faa203026ae9751b3d49890e233cf207f3d857b8614da1",
+    "src/chess_rl/training/__init__.py": "c3e4a843262e14a9b2f0f0612a3f4937746bb5dca6749543834d1a5322dd11d2",
+    "src/chess_rl/training/checkpoints.py": "10d564a959d00a2c9797b0a34a01fb34cb1ebc3e062097177155ffa824ce43c6",
+    "src/chess_rl/training/curves.py": "a6d2bcc1145124ab2e1b3d4f67a6954f800c0b1dac856dd961a00345600a59fb",
+    "src/chess_rl/training/losses.py": "d205b59700ffbfeb0d1aa1842bb00c2542fcdf88d6f332d1c8af3498411e3f3b",
+    "src/chess_rl/training/mixed.py": "449249420ca62f37305b196aa57a4e0420ecdec7cf8b3410c41bfbf65c934ef1",
+    "src/chess_rl/training/mixed_state.py": "da694ee8267f81b566614d72faf11a1b75f59205f1b9c2f47cf6a2e5f3b82946",
+    "src/chess_rl/training/tiny_overfit.py": "490f358ac87939175797d81e115be2e4845b3c2e5885ab56936c321b6bca9927",
+    "src/chess_rl/training/trainer.py": "a0a274a3468d3660b7a9ffa24d0c3f0695d2407c2f06a181be8fd28c0bce7d88",
+    "uv.lock": "0e0e00a89e8a3b050815e3e46f8494e4a8ebc4d0eb64c70d16459c08cdca6d25"
+  },
+  "split": "development",
+  "statistics": {
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 2026101203,
+    "confidence": 0.95,
+    "scoring": "completed-rule-outcomes-only; complete-pairs-only for uncertainty",
+    "stopping": "fixed 128 scheduled games; no replacements or outcome-dependent stopping",
+    "target_score": 0.7,
+    "unit": "opening-pair"
+  },
+  "workers": 4
+}

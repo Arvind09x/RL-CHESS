@@ -303,10 +303,11 @@ def test_supervised_cli_fresh_process_resume_matches_full(tmp_path):
     config.write_text(json.dumps(dict(version="cuda-portable-data-v1",
         paths={k:str(v) for k,v in fixture_bundle(fixture).items()})))
     env = dict(os.environ, PYTHONPATH="src:.", PYTHONDONTWRITEBYTECODE="1")
-    def run(name, steps, resume=None):
+    def run(name, steps, resume=None, threads=2):
         out = tmp_path / name
         cmd = [sys.executable, "scripts/train_supervised.py", "--device", "cpu", "--data-config", str(config),
-               "--output", str(out), "--steps", str(steps), "--batch-size", "2", "--validation-every", "1"]
+               "--output", str(out), "--steps", str(steps), "--batch-size", "2", "--validation-every", "1",
+               "--threads", str(threads)]
         if resume:
             cmd += ["--resume", str(resume)]
         result = subprocess.run(cmd, cwd=root, env=env, capture_output=True, text=True, timeout=120)
@@ -318,3 +319,37 @@ def test_supervised_cli_fresh_process_resume_matches_full(tmp_path):
     a, b = [torch.load(p / "step-000003.pt", weights_only=True) for p in (full, resumed)]
     assert_tree_equal(a, b)
     assert json.loads((resumed / "summary.json").read_text())["test_split_used"] is False
+    from csv import DictReader
+    from xml.etree import ElementTree
+    for directory, initial_step, event in ((full, 0, "untrained_baseline"), (resumed, 1, "resumed_baseline")):
+        settings = json.loads((directory / "config.json").read_text())
+        assert settings["runtime"]["threads"] == 2
+        rows = [json.loads(line) for line in (directory / "metrics.jsonl").read_text().splitlines()]
+        baseline = json.loads((directory / "baseline.json").read_text())
+        assert baseline == rows[0]
+        assert baseline["event"] == event and baseline["step"] == initial_step
+        assert "train" not in baseline
+        assert baseline["validation"]["positions"] == settings["validation_positions"]
+        assert all(np.isfinite(row["train"]["gradient_norm"]) and row["train"]["gradient_norm"] > 0 for row in rows[1:])
+        with (directory / "learning-curves.csv").open() as handle:
+            exported = list(DictReader(handle))
+        assert [int(row["step"]) for row in exported] == [row["step"] for row in rows]
+        assert exported[0]["train_gradient_norm"] == ""
+        assert float(exported[0]["validation_total_loss"]) == baseline["validation"]["total_loss"]
+        for output, row in zip(exported[1:], rows[1:]):
+            assert float(output["train_gradient_norm"]) == row["train"]["gradient_norm"]
+        plot = ElementTree.parse(directory / "learning-curves.svg")
+        assert len(plot.findall(".//{http://www.w3.org/2000/svg}polyline")) == 8
+    initial = torch.load(full / "step-000000.pt", weights_only=True)
+    assert initial["training"]["progress"]["step"] == 0
+    assert not initial["training"]["optimizer"]["state"]["state"]
+    assert any(not torch.equal(initial["model_state"][key], a["model_state"][key]) for key in initial["model_state"])
+    # A step-zero continuation must reproduce a fresh run, including dropout RNG.
+    from_baseline = run("from-baseline", 3, full / "step-000000.pt")
+    assert_tree_equal(a, torch.load(from_baseline / "step-000003.pt", weights_only=True))
+    command = [sys.executable, "scripts/train_supervised.py", "--device", "cpu", "--data-config", str(config),
+               "--output", str(tmp_path / "wrong-threads"), "--steps", "3", "--batch-size", "2",
+               "--resume", str(prefix / "step-000001.pt"), "--threads", "1"]
+    failed = subprocess.run(command, cwd=root, env=env, capture_output=True, text=True, timeout=120)
+    assert failed.returncode != 0 and "runtime" in failed.stderr
+    assert not (tmp_path / "wrong-threads").exists()

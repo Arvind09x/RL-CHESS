@@ -51,7 +51,7 @@ Start with a small run to measure performance and memory:
 .venv-cuda-cu126/bin/python scripts/train_supervised.py   --device cuda:0 --data-config artifacts/data/data-config.json   --output artifacts/pilot-001 --steps 100 --batch-size 16 --validation-every 50
 ```
 
-Resume at a completed update boundary into a fresh directory, keeping data, backend, seed, batch size, learning rate, and runtime unchanged:
+`--threads N` controls Torch intraop threads (default 1; interop remains 1). The chosen count is saved in the runtime configuration. Resume at a completed update boundary into a fresh directory, keeping data, backend, seed, batch size, learning rate, thread count, and runtime unchanged:
 
 ```sh
 .venv-cuda-cu126/bin/python scripts/train_supervised.py   --device cuda:0 --data-config artifacts/data/data-config.json   --resume artifacts/pilot-001/step-000100.pt --output artifacts/pilot-002   --steps 200 --batch-size 16 --validation-every 50
@@ -59,7 +59,11 @@ Resume at a completed update boundary into a fresh directory, keeping data, back
 
 `--steps` is the target total count including restored progress. Metrics and summary contain training/validation results, elapsed time, and peak GPU allocation. Throughput can be calculated from samples processed and elapsed time. Validation checkpoints are immutable. The best checkpoint in a resumed directory means best within that segment, so compare validation records across segments before selecting P. The reserved test split is not opened.
 
-The reported training samples per second includes validation and checkpoint time, making it a conservative whole-run measurement.
+Fresh runs evaluate the full validation split before any update, recording `baseline.json`, the first `metrics.jsonl` row (`untrained_baseline`, step 0), and a resumable `step-000000.pt` with empty optimizer state. Resumed runs instead record a `resumed_baseline` at the restored step and save that starting state in the fresh output directory. Baseline evaluation preserves the model's mode and RNG. Starting baselines are reference measurements and are excluded from the segment's best trained checkpoint selection.
+
+Every update records `train.gradient_norm`, the global L2 norm over unique parameter gradients with no clipping. Completed segments export `learning-curves.csv` and a standalone `learning-curves.svg` covering total/policy/WDL losses, validation policy accuracy and gradient norms. The CSV retains every update and the initial baseline; validation points occur at the configured interval and final step. Train losses describe the update batch before its optimizer step, while validation losses describe the full split after updates. Curve exports cover only the current segment; the flushed JSONL remains the source if a run is interrupted.
+
+The reported training samples per second includes baseline evaluation, gradient diagnostics, validation and checkpoint time, making it a conservative whole-run measurement. Dataset opening and model setup precede this timing.
 
 Checkpoint inference can move from GPU to CPU; optimizer continuation requires the original backend/runtime. A separate explicit library `runtime_policy="compatible"` allows OS descriptions and Python patch versions to differ, with a warning that bitwise continuation is unverified. Normal commands use exact restoration.
 

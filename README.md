@@ -34,7 +34,7 @@ export CUBLAS_WORKSPACE_CONFIG=:4096:8
 .venv-cuda-cu126/bin/python scripts/train_supervised.py   --device cuda:0 --data-config artifacts/data/data-config.json   --output artifacts/pilot-001 --steps 100 --batch-size 16 --validation-every 50
 ```
 
-The runner records training/validation losses, validation policy accuracy, throughput, GPU memory, and resumable checkpoints. It never opens the reserved test split or designates P automatically. Choose the actual pilot size and batch size after measuring the college GPU.
+The runner accepts `--threads` (default 1), records the actual Torch runtime, and requires the same thread count on resume. It logs a global, unclipped gradient L2 norm for every update. Before the first update it saves an untrained validation baseline and immutable `step-000000.pt`; a resumed segment labels its initial evaluation as a resumed baseline. Each completed run exports `learning-curves.csv` and `learning-curves.svg` from `metrics.jsonl`, including losses, validation policy accuracy, and gradient norms. Throughput, GPU memory, and resumable checkpoints are also recorded. It never opens the reserved test split or designates P automatically. Choose the actual pilot size and batch size after measuring the college GPU.
 
 ## Project map
 

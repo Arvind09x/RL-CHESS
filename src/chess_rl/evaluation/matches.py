@@ -167,6 +167,28 @@ def _run_game(opening, white, black, *, metadata, pair_id, leg, game_seed, ply_c
                       error=error)
 
 
+def play_game(opening: Opening, white: Player, black: Player, *, pair_id: str,
+              leg: int, game_seed: int, ply_cap: int) -> dict:
+    """Public single-game API for externally frozen, durably scheduled pairs.
+
+    The caller owns checkpoint loading, pairing and publication. This reuses
+    the E01 game loop, including actual rule outcomes and unscored truncation.
+    """
+    if not isinstance(opening, Opening):
+        raise ValueError("Opening required")
+    text_id(pair_id, "pair_id")
+    integer(leg, "leg")
+    if leg not in (0, 1):
+        raise ValueError("leg must be 0 or 1")
+    integer(game_seed, "game_seed")
+    integer(ply_cap, "ply_cap")
+    metadata = dict(white=snapshot(white.metadata()), black=snapshot(black.metadata()))
+    if metadata["white"]["player_id"] == metadata["black"]["player_id"]:
+        raise ValueError("Player identities must differ")
+    return _run_game(opening, white, black, metadata=metadata, pair_id=pair_id,
+                     leg=leg, game_seed=game_seed, ply_cap=ply_cap)
+
+
 def run_match(left: Player, right: Player, openings: OpeningSets, *, split: str,
               match_id: str, comparison: str, seed: int, ply_cap: int,
               protocol_only: bool = False) -> MatchRecord:
@@ -233,7 +255,7 @@ def run_match(left: Player, right: Player, openings: OpeningSets, *, split: str,
     return MatchRecord(configuration, tuple(games))
 
 
-def summarize(games, left_id, *, seed=0, bootstrap_samples=2000):
+def summarize(games, left_id, *, seed=0, bootstrap_samples=2000, allow_partial=False):
     """Descriptive pair bootstrap; no Elo or significance/strength assertion.
 
     Resample opening pairs, not correlated legs. Omit incomplete pairs from
@@ -262,9 +284,11 @@ def summarize(games, left_id, *, seed=0, bootstrap_samples=2000):
         scores[(game["pair_id"], game["leg"])] = {"win": 1.0, "draw": 0.5, "loss": 0.0}[label]
     pair_scores = []
     for pair_id, pair in pairs.items():
-        if len(pair) != 2 or {g["leg"] for g in pair} != {0, 1}:
+        legs = [g["leg"] for g in pair]
+        if (len(legs) != len(set(legs)) or not set(legs) <= {0, 1}
+                or (not allow_partial and set(legs) != {0, 1})):
             raise ValueError("Every pair must retain exactly legs 0 and 1")
-        if all(g["status"] == "completed" for g in pair):
+        if len(pair) == 2 and all(g["status"] == "completed" for g in pair):
             pair_scores.append((scores[(pair_id, 0)] + scores[(pair_id, 1)]) / 2)
     n = counts["completed"]
     uncertainty = None

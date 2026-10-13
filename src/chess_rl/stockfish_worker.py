@@ -195,15 +195,37 @@ def validate_response(state, info, bestmove):
         returned_search=serialize_info(info), returned_bestmove_uci=bestmove.uci())
 
 
+ALTERNATE_BUILD_FIELDS = ("release_tag", "source_commit", "source_archive_sha256")
+
+
+def alternate_build_record(manifest, evidence, executable_sha256):
+    """Provenance for an attested build of the pinned source other than the manifest's binary.
+
+    Returns None for the manifest's reference binary. An alternate build must
+    attest the same release tag, source commit and source archive; embedded
+    networks are checked by the caller. Attestation establishes provenance
+    only; label equivalence is demonstrated separately on overlapping references.
+    """
+    if executable_sha256 == manifest.engine.executable_sha256:
+        return None
+    attested = evidence.get("alternate_build")
+    expected = dict(release_tag=manifest.engine.release_tag, source_commit=manifest.engine.source_commit,
+                    source_archive_sha256=manifest.engine.package_sha256)
+    if (not isinstance(attested, dict) or set(attested) < set(ALTERNATE_BUILD_FIELDS)
+            or any(attested[k] != v for k, v in expected.items())):
+        raise ValueError("Teacher executable differs from the manifest and carries no matching source attestation")
+    return dict(reference_executable_sha256=manifest.engine.executable_sha256, **expected,
+                platform=str(attested.get("platform", "")), build=str(attested.get("build", "")))
+
+
 def verify_teacher_bytes(manifest, executable, build_evidence):
     if importlib.metadata.version("python-chess") != "1.999" or chess.__version__ != "1.11.2":
         raise ValueError("Pinned python-chess transport mismatch")
     identity = file_identity(executable)
-    if identity["sha256"] != manifest.engine.executable_sha256:
-        raise ValueError("Teacher executable SHA-256 mismatch")
     evidence = load_json(build_evidence.read_bytes())
     if evidence["executable_sha256"] != identity["sha256"]:
         raise ValueError("Teacher build evidence mismatch")
+    alternate = alternate_build_record(manifest, evidence, identity["sha256"])
     binary = executable.read_bytes()
     assets = []
     for asset, saved in zip(manifest.engine.embedded_nnue, evidence["nnue"], strict=True):
@@ -211,9 +233,23 @@ def verify_teacher_bytes(manifest, executable, build_evidence):
         if asset.name != saved["name"] or asset.sha256 != saved["sha256"] or hashlib.sha256(blob).hexdigest() != asset.sha256:
             raise ValueError("Embedded NNUE identity mismatch")
         assets.append(saved)
-    return dict(executable=str(executable.resolve()), executable_identity=identity,
+    record = dict(executable=str(executable.resolve()), executable_identity=identity,
         embedded_nnue=assets, build_evidence=file_identity(build_evidence),
         python_chess="1.999", chess=chess.__version__)
+    if alternate is not None:
+        record["alternate_build"] = alternate
+    return record
+
+
+def teacher_provenance(identities, teacher):
+    """Label target provenance fields shared by annotation and the loader."""
+    record = dict(manifest_sha256=identities["manifest"]["sha256"],
+        games_sha256=identities["games.jsonl"]["sha256"], samples_sha256=identities["samples.jsonl"]["sha256"],
+        overlap_audit_sha256=identities["overlap-audit.json"]["sha256"],
+        executable_sha256=teacher["executable_identity"]["sha256"], embedded_nnue=teacher["embedded_nnue"])
+    if teacher.get("alternate_build"):
+        record["alternate_build"] = teacher["alternate_build"]
+    return record
 
 
 def configure_options(protocol, manifest):

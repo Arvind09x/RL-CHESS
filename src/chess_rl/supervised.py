@@ -27,7 +27,7 @@ from chess_rl.contracts import FEATURE_SHAPE, MOVE_COUNT
 from chess_rl.data_manifest import DatasetManifest
 from chess_rl.pgn_replay import file_identity
 from chess_rl.position_sampling import RECORD_VERSION, phase, rule_position, validate_game
-from chess_rl.stockfish_worker import replay_identity, validate_response, verify_artifacts
+from chess_rl.stockfish_worker import alternate_build_record, replay_identity, validate_response, verify_artifacts
 
 LABEL_VERSION = "stockfish-label-v1"
 REFERENCE_FIELDS = {"record_version", "game_id", "split", "sample_ply", "phase", "rule_position"}
@@ -96,10 +96,13 @@ def _provenance(manifest, identities, settings, teacher_evidence):
     _equal(settings["artifact_identities"], identities, "Bundle artifact provenance")
     _equal(settings["requested_settings"], asdict(manifest.teacher), "Bundle teacher settings")
     teacher = settings["teacher"]
-    expected_binary = dict(bytes=evidence["executable_bytes"], sha256=manifest.engine.executable_sha256)
-    _equal(evidence["executable_sha256"], manifest.engine.executable_sha256, "Teacher evidence executable")
+    actual = teacher["executable_identity"]["sha256"]
+    expected_binary = dict(bytes=evidence["executable_bytes"], sha256=actual)
+    _equal(evidence["executable_sha256"], actual, "Teacher evidence executable")
     _equal(teacher["executable_identity"], expected_binary, "Teacher executable identity")
     _equal(teacher["build_evidence"], file_identity(teacher_evidence), "Teacher build evidence")
+    alternate = alternate_build_record(manifest, evidence, actual)
+    _equal(teacher.get("alternate_build"), alternate, "Teacher alternate build attestation")
     _equal(teacher["embedded_nnue"], evidence["nnue"], "Teacher embedded assets")
     for saved, asset in zip(evidence["nnue"], manifest.engine.embedded_nnue, strict=True):
         _equal({k: saved[k] for k in ("name", "sha256", "source_url")},
@@ -111,7 +114,9 @@ def _provenance(manifest, identities, settings, teacher_evidence):
         **{field: identities[name]["sha256"] for field, name in (
             ("manifest_sha256", "manifest"), ("games_sha256", "games.jsonl"),
             ("samples_sha256", "samples.jsonl"), ("overlap_audit_sha256", "overlap-audit.json"))},
-        executable_sha256=manifest.engine.executable_sha256, embedded_nnue=evidence["nnue"])
+        executable_sha256=actual, embedded_nnue=evidence["nnue"])
+    if alternate is not None:
+        result["alternate_build"] = alternate
     if "process_policy" in settings:
         if settings["process_policy"] not in ("fresh-process-v1", "persistent-clear-hash-v1"):
             raise ValueError("unsupported teacher process policy")

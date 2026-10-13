@@ -81,8 +81,10 @@ def seal_bundle(out):
     (out/'summary.json').write_text(json.dumps(summary))
 
 
-def fixture_bundle(tmp_path, specifications=None):
+def fixture_bundle(tmp_path, specifications=None, engine=None):
     manifest = DatasetManifest.load(ROOT/'data/manifests/elite-2025-01-d04-v1.json')
+    if engine is not None:
+        manifest = replace(manifest, engine=engine)  #tests with a fake teacher binary
     if specifications is None:
         specifications = [
             ('train', chess.STARTING_FEN, ['e2e4','e7e5','g1f3','b8c6'], [1,2,3], None),

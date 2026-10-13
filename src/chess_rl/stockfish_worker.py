@@ -388,7 +388,8 @@ class PersistentEngine:
     """
     policy = "persistent-clear-hash-v1"
 
-    def __init__(self, manifest, executable, timeout=30):
+    def __init__(self, manifest, executable, timeout=30, *, expected_sha256=None):
+        """expected_sha256 names an attested alternate build; default is the manifest's binary."""
         if not 0 < timeout <= 60:
             raise ValueError("timeout must be in (0,60]")
         self.manifest, self.executable, self.timeout = manifest, Path(executable), timeout
@@ -396,7 +397,8 @@ class PersistentEngine:
         self.directory = None
         self.busy = False
         self.identity = file_identity(self.executable)
-        if self.identity["sha256"] != manifest.engine.executable_sha256:
+        expected = manifest.engine.executable_sha256 if expected_sha256 is None else expected_sha256
+        if self.identity["sha256"] != expected:
             raise ValueError("teacher executable checksum mismatch")
 
     async def __aenter__(self):

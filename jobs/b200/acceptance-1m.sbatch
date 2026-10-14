@@ -3,7 +3,7 @@
 #SBATCH --account=student
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=96G
-#SBATCH --time=02:00:00
+#SBATCH --time=06:00:00
 #SBATCH --job-name=acceptance-1m
 #SBATCH --output=artifacts/slurm/%x-%j.out
 # Loader acceptance for bundle-1m. CPU/RAM only. The guarded sbatch takes no job arguments,

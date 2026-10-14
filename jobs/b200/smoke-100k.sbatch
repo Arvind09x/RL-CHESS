@@ -3,7 +3,7 @@
 #SBATCH --account=student
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=24G
-#SBATCH --time=00:40:00
+#SBATCH --time=01:30:00
 #SBATCH --job-name=smoke-100k
 #SBATCH --output=artifacts/slurm/%x-%j.out
 # Pipeline shakedown on bundle-100k: 300 updates, then a resume to 400 in a fresh directory with

@@ -2,7 +2,7 @@
 #SBATCH --partition=gpu-small
 #SBATCH --account=student
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=64G
+#SBATCH --mem=50G
 #SBATCH --time=2-00:00:00
 #SBATCH --job-name=resume
 #SBATCH --output=artifacts/slurm/%x-%j.out

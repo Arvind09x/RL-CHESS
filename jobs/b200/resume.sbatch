@@ -6,13 +6,19 @@
 #SBATCH --time=2-00:00:00
 #SBATCH --job-name=resume
 #SBATCH --output=artifacts/slurm/%x-%j.out
-# Usage: sbatch [--mem=.. --time=..] jobs/b200/resume.sbatch <original run dir> <checkpoint> <new output dir> <data config>
+# The guarded sbatch takes no job arguments. Write artifacts/resume.conf first, then submit:
+#   ORIG=artifacts/p-1m            original run directory (its config.json is read)
+#   CKPT=artifacts/p-1m/step-030000.pt
+#   OUT=artifacts/p-1m-r1          fresh output directory
+#   DATA=configs/data-d09-1m.json  the data config the original run used (not in config.json)
 # Rebuilds every training flag from the original run's config.json (seed, batch, optimizer,
 # schedule horizon, threads, validation cadence) so the runner's exact provenance comparison
-# passes. The target step count is the original run's target_steps. The data config is not
-# recorded in config.json and must be the same one the original run used.
+# passes. The target step count is the original run's target_steps. --mem/--time above must
+# already suit the run; they cannot be overridden at submission.
 source jobs/b200/common.sh
-orig=${1:?original run dir}; ckpt=${2:?checkpoint}; out=${3:?new output dir}; data=${4:?data config}
+test -f artifacts/resume.conf || { echo "write artifacts/resume.conf (ORIG, CKPT, OUT, DATA)" >&2; exit 1; }
+source artifacts/resume.conf
+orig=${ORIG:?}; ckpt=${CKPT:?}; out=${OUT:?}; data=${DATA:?}
 test -f "$orig/config.json" -a -f "$ckpt" -a -f "$data" || { echo "missing input" >&2; exit 1; }
 test ! -e "$out" || { echo "output exists: $out" >&2; exit 1; }
 job_banner

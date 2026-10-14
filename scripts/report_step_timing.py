@@ -1,7 +1,8 @@
 """Per-update timing from a supervised run's metrics.jsonl.
 
-The runner stamps elapsed_seconds before a step's validation and checkpoint run, so the interval
-into the following record carries that cost. Steady-state update time uses only intervals whose
+The runner stamps an update's elapsed_seconds before its validation and checkpoint run, so the
+interval into the following update carries that cost. Only intervals between consecutive update
+records are used; the baseline record is stamped after its own validation. Steady-state update time uses only intervals whose
 previous record has no validation; the validation+checkpoint overhead is estimated as the excess of
 the other intervals over the median update and is labelled an estimate. Explicit timers in the
 runner would be needed for an exact split.
@@ -21,7 +22,8 @@ def main():
     records = [json.loads(line) for line in (args.run / "metrics.jsonl").read_text().splitlines() if line]
     steady, after_validation = [], []
     for previous, current in zip(records, records[1:]):
-        if current["event"] != "update":
+        # The baseline record is stamped after its validation, so its interval is not comparable.
+        if previous["event"] != "update" or current["event"] != "update":
             continue
         dt = current["elapsed_seconds"] - previous["elapsed_seconds"]
         (after_validation if "validation" in previous else steady).append(dt)

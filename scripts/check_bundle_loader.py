@@ -69,7 +69,7 @@ def main():
     summary = json.loads(summary_path.read_text())
     import torch
     result = dict(bundle=str(bundle.resolve()), data_config=str(args.data_config.resolve()),
-        summary_identity=file_identity(summary_path), bundle_identities=summary["output_identities"],
+        summary_identity_before=file_identity(summary_path), bundle_identities=summary["output_identities"],
         code_revision=git_revision(Path(__file__).resolve().parents[1]),
         host=platform.node(), slurm_job_id=os.environ.get("SLURM_JOB_ID"),
         python=platform.python_version(), torch=torch.__version__, splits={})
@@ -89,18 +89,24 @@ def main():
     result["matches_summary_by_split"] = counts == expected
     if counts != expected:
         raise SystemExit(f"loaded counts {counts} differ from summary by_split {expected}")
-    output = args.output or bundle / "loader-acceptance.json"
-    output.write_text(json.dumps(result, indent=2) + "\n")
+    result["summary_written"] = False
     if args.write_summary:
         current = summary.get("loader_acceptance")
         if current is None:
             summary["loader_acceptance"] = counts
-            summary_path.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n")
+            # Same serialisation and atomic replace as expand_labels.save_json.
+            tmp = summary_path.with_name(summary_path.name + ".tmp")
+            tmp.write_text(json.dumps(summary, indent=2, sort_keys=True, allow_nan=False) + "\n")
+            os.replace(tmp, summary_path)
             result["summary_written"] = True
         elif current != counts:
             raise SystemExit(f"summary already records loader_acceptance {current}; refusing to overwrite")
+    # Training's source_identity includes summary.json as it is now, so record the final bytes.
+    result["summary_identity"] = file_identity(summary_path)
+    output = args.output or bundle / "loader-acceptance.json"
+    output.write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps({k: result[k] for k in ("loader_acceptance", "total_seconds", "maxrss_bytes",
-                                              "memory_peak_bytes", "cgroup", "matches_summary_by_split")}, indent=2))
+                                              "memory_peak_bytes", "cgroup", "matches_summary_by_split", "summary_written")}, indent=2))
 
 
 if __name__ == "__main__":

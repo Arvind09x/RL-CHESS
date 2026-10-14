@@ -24,10 +24,19 @@ sampler=$!
 kill "$sampler" 2>/dev/null || true
 "$PY" scripts/report_step_timing.py "$run/a" --project-steps 62500 --project-validation-every 500
 "$PY" scripts/report_step_timing.py "$run/b"
+# nvidia-smi reports utilization.gpu as N/A on MIG instances; memory.used is still available.
 "$PY" - "$run" <<'PYEOF'
 import csv, statistics, sys
 rows = list(csv.DictReader(open(sys.argv[1] + "/gpu-util.csv")))
-util = [float(r[" utilization.gpu [%]"].strip().rstrip(" %")) for r in rows]
-print(f"gpu utilisation samples={len(util)} mean={statistics.fmean(util):.1f}% max={max(util):.0f}%")
+def numbers(column):
+    out = []
+    for r in rows:
+        token = r.get(column, "").strip().split(" ")[0]
+        try: out.append(float(token))
+        except ValueError: pass
+    return out
+util, mem = numbers(" utilization.gpu [%]"), numbers(" memory.used [MiB]")
+print(f"gpu samples={len(rows)} utilisation=" + (f"mean {statistics.fmean(util):.1f}% max {max(util):.0f}%" if util
+      else "unavailable (N/A on MIG)") + (f" memory.used max {max(mem):.0f} MiB" if mem else ""))
 PYEOF
 report_cgroup_peak

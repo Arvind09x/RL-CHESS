@@ -1,0 +1,11 @@
+{
+  "version": "cuda-portable-data-v1",
+  "paths": {
+    "bundle": "../../artifacts/data/bundle",
+    "manifest_path": "../../artifacts/data/manifest.json",
+    "games_path": "../../artifacts/data/games.jsonl",
+    "split_audit_path": "../../artifacts/data/split-audit.json",
+    "prepared": "../../artifacts/data/prepared",
+    "teacher_evidence": "../../artifacts/data/teacher-evidence.json"
+  }
+}

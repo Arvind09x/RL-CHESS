@@ -23,7 +23,7 @@ During implementation, run the affected tests. Run the full suite once at integr
 
 First follow [backup, restoration and CPU artifact verification](docs/artifact-restoration.md), including exact source acquisition. This works before college GPU access is available. A local tar rehearsal establishes local reproducibility only; off-laptop backup and college restoration are still pending.
 
-Follow [the GPU guide](docs/gpu-setup.md). The supported first target is Linux x86-64 with one visible NVIDIA GPU, PyTorch 2.8.0 / CUDA 12.6, float32, deterministic operations, and grouped AdamW (historical checkpoints with standard Adam still load). Driver compatibility and real CUDA execution must be checked on the machine.
+Follow [the GPU guide](docs/gpu-setup.md). The supported first target is Linux x86-64 with one visible NVIDIA GPU, PyTorch 2.8.0 / CUDA 12.6 (or CUDA 12.8 via `runtime/cuda-cu128/` on Blackwell GPUs), float32, deterministic operations, and grouped AdamW (historical checkpoints with standard Adam still load). Driver compatibility and real CUDA execution must be checked on the machine.
 
 Data and weights travel separately from Git. Copy the verified portable data folder, preserving all protected split and provenance files. Paths resolve relative to the configuration file. New runs belong under ignored `artifacts/`.
 

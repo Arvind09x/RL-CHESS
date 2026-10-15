@@ -508,17 +508,44 @@ class SupervisedDataset:
             yield self.batch(group)
 
 
-def open_dataset(*, bundle: Path, manifest_path: Path, games_path: Path,
-                 split_audit_path: Path, prepared: Path, teacher_evidence: Path,
-                 split: str) -> SupervisedDataset:
-    """Verify a complete D05 bundle and audits, then select train/validation/test.
+class VerifiedBundle:
+    """Snapshot of one complete verification of a labelled bundle and its audits.
+
+    Every label of every split has passed before any is exposed. select() returns the split
+    datasets without re-reading or re-verifying anything; they share the verified records, so
+    each split's admission fingerprint is fixed here, at verification, and freeze() compares
+    against it. A later change on disk is not seen: verify again for a new snapshot.
+    """
+    def __init__(self, *, labels, refs, games, fingerprints, dataset_id, identities,
+                 bundle_identities, summary, evidence_identity):
+        self._labels, self._refs, self._games, self._fingerprints = labels, refs, games, fingerprints
+        self._identity = dict(dataset_id=dataset_id, identities=identities,
+                              bundle_identities=bundle_identities, summary=summary,
+                              evidence_identity=evidence_identity)
+
+    def select(self, split: str) -> SupervisedDataset:
+        if split not in SPLITS:
+            raise ValueError("Explicit split must be train, validation or test")
+        return self._dataset(split, self._fingerprints[split])
+
+    def _dataset(self, split, fingerprint):
+        ident = self._identity
+        dataset = SupervisedDataset(split, [r for r in self._labels if r["split"] == split], self._refs,
+            self._games, source_identity=dict(schema="d07-source-identity-v1", dataset_id=ident["dataset_id"],
+                split=split, authoritative=ident["identities"], bundle=ident["bundle_identities"],
+                summary=ident["summary"], teacher_evidence=ident["evidence_identity"]))
+        dataset._admission_fingerprint = fingerprint
+        return dataset
+
+
+def verify_bundle(*, bundle: Path, manifest_path: Path, games_path: Path,
+                  split_audit_path: Path, prepared: Path, teacher_evidence: Path) -> VerifiedBundle:
+    """Verify a complete D05 bundle and audits once; select splits from the result.
 
     teacher_evidence is the accepted build attestation named by the manifest;
-    no executable/assets are opened or engine processes started. No split default
-    exists. All labels (including other splits) must pass before any are exposed.
+    no executable/assets are opened or engine processes started. All labels
+    (including every split) must pass before any are exposed.
     """
-    if split not in SPLITS:
-        raise ValueError("Explicit split must be train, validation or test")
     try:
         manifest = DatasetManifest.load(manifest_path)
         identities = verify_artifacts(manifest, manifest_path, games_path, split_audit_path, prepared)
@@ -587,11 +614,27 @@ def open_dataset(*, bundle: Path, manifest_path: Path, games_path: Path,
                "Bundle changed while loading")
         _equal(_read(bundle / "summary.json"), summary, "Summary changed while loading")
         _equal(file_identity(teacher_evidence), evidence_identity, "Teacher evidence changed while loading")
-        dataset = SupervisedDataset(split, [r for r in labels if r["split"] == split], refs, games,
-            source_identity=dict(schema="d07-source-identity-v1", dataset_id=manifest.dataset_id,
-                split=split, authoritative=identities, bundle=bundle_identities,
-                summary=summary, teacher_evidence=evidence_identity))
-        dataset._admission_fingerprint = dataset._metadata_fingerprint()
-        return dataset
+        verified = VerifiedBundle(labels=labels, refs=refs, games=games, fingerprints={},
+            dataset_id=manifest.dataset_id, identities=identities, bundle_identities=bundle_identities,
+            summary=summary, evidence_identity=evidence_identity)
+        # Fingerprints are fixed now, over the records as verified; selections only install them.
+        verified._fingerprints.update(
+            (split, verified._dataset(split, None)._metadata_fingerprint()) for split in SPLITS)
+        return verified
     except (OSError, KeyError, TypeError, IndexError, ValueError) as error:
         raise ValueError(f"Cannot load supervised bundle {bundle}: {error}") from error
+
+
+def open_dataset(*, bundle: Path, manifest_path: Path, games_path: Path,
+                 split_audit_path: Path, prepared: Path, teacher_evidence: Path,
+                 split: str) -> SupervisedDataset:
+    """Verify a complete D05 bundle and audits, then select train/validation/test.
+
+    Equivalent to verify_bundle(...).select(split); callers that need several splits should
+    verify once and select each. No split default exists.
+    """
+    if split not in SPLITS:
+        raise ValueError("Explicit split must be train, validation or test")
+    return verify_bundle(bundle=bundle, manifest_path=manifest_path, games_path=games_path,
+                         split_audit_path=split_audit_path, prepared=prepared,
+                         teacher_evidence=teacher_evidence).select(split)

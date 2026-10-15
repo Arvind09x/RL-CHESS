@@ -471,3 +471,56 @@ def test_malformed_shapes_raise_value_error(bundle,mutation):
     write_rows(out/'labels.jsonl',labels);write_rows(out/'attempts.jsonl',attempts);seal_bundle(out)
     with pytest.raises(ValueError,match='Malformed|Unfinished|mismatch'):
         open_dataset(**bundle,split='train')
+
+
+def test_verify_once_select_matches_open_dataset(tmp_path):
+    from chess_rl.supervised import verify_bundle
+    paths = fixture_bundle(tmp_path)
+    verified = verify_bundle(**paths)
+    for split in ("train", "validation", "test"):
+        a, b = open_dataset(**paths, split=split), verified.select(split)
+        assert len(a) == len(b) and a.split == b.split == split
+        assert a.source_identity == b.source_identity
+        assert a._admission_fingerprint == b._admission_fingerprint == b.freeze()._admission_fingerprint
+        assert [a.reference(i) for i in range(len(a))] == [b.reference(i) for i in range(len(b))]
+        for i in range(len(a)):
+            x, y = a[i], b[i]
+            assert np.array_equal(x.features, y.features) and np.array_equal(x.legal_mask, y.legal_mask)
+            assert x.policy_class == y.policy_class and np.array_equal(x.wdl, y.wdl)
+    with pytest.raises(ValueError, match="Explicit split"):
+        verified.select("dev")
+
+
+def test_verify_once_reads_files_exactly_once_for_three_selections(tmp_path, monkeypatch):
+    import chess_rl.supervised as S
+    paths = fixture_bundle(tmp_path)
+    calls = {"rows": 0, "identity": 0}
+    rows, identity = S._rows, S.file_identity
+    def counted_rows(path):
+        calls["rows"] += 1
+        return rows(path)
+    def counted_identity(path):
+        calls["identity"] += 1
+        return identity(path)
+    monkeypatch.setattr(S, "_rows", counted_rows)
+    monkeypatch.setattr(S, "file_identity", counted_identity)
+    verified = S.verify_bundle(**paths)
+    after_verify = dict(calls)
+    assert after_verify["rows"] > 0 and after_verify["identity"] > 0
+    for split in ("train", "validation", "test", "train"):
+        verified.select(split)
+    assert calls == after_verify
+
+
+def test_mutating_one_selection_cannot_validate_another(tmp_path):
+    from chess_rl.supervised import verify_bundle
+    paths = fixture_bundle(tmp_path)
+    verified = verify_bundle(**paths)
+    first = verified.select("train")
+    first._labels[0]["teacher_wdl"] = [0.5, 0.25, 0.25]   # shared verified record, altered after verification
+    second = verified.select("train")
+    with pytest.raises(ValueError, match="metadata changed after source validation"):
+        second.freeze()
+    with pytest.raises(ValueError, match="metadata changed after source validation"):
+        first.freeze()
+    assert verified.select("validation").freeze()   # untouched split still freezes against its own fingerprint

@@ -1,8 +1,10 @@
 """Loader acceptance for a labelled bundle: open every split through the production loader.
 
 Repeats the acceptance step of ``expand_labels.py finalize`` on another machine and records
-the evidence in a sidecar next to the bundle (``loader-acceptance.json``): per-split counts and
-timings, peak RSS, the job cgroup's ``memory.peak``, bundle byte identities and the code revision.
+the evidence in a sidecar next to the bundle (``loader-acceptance.json``): verification time,
+per-split counts and fingerprints, peak RSS, the job cgroup's ``memory.peak``, bundle byte
+identities and the code revision. The bundle is verified once and each split selected from that
+snapshot; the snapshot is discarded before ``--write-summary`` changes ``summary.json``.
 
 ``summary.json`` is part of every dataset's ``source_identity`` and therefore of every training
 checkpoint's provenance. ``--write-summary`` fills ``loader_acceptance`` there exactly as finalize
@@ -20,7 +22,7 @@ import subprocess
 import time
 
 from chess_rl.runtime import data_paths
-from chess_rl.supervised import open_dataset
+from chess_rl.supervised import verify_bundle
 
 SPLITS = ("train", "validation", "test")
 
@@ -75,14 +77,19 @@ def main():
         python=platform.python_version(), torch=torch.__version__, splits={})
     counts = {}
     start = time.perf_counter()
+    # One verification pass covers every label of every split; selections only slice it.
+    verified = verify_bundle(**paths)
+    result["verification_seconds"] = round(time.perf_counter() - start, 3)
+    result["verification_maxrss_bytes"] = maxrss_bytes()
     for split in SPLITS:
         t0 = time.perf_counter()
-        data = open_dataset(**paths, split=split)
+        data = verified.select(split)
         counts[split] = len(data)
-        result["splits"][split] = dict(positions=len(data), seconds=round(time.perf_counter() - t0, 3),
-                                       maxrss_bytes_after=maxrss_bytes())
+        result["splits"][split] = dict(positions=len(data), fingerprint=data._admission_fingerprint,
+                                       select_seconds=round(time.perf_counter() - t0, 3))
         del data
-        gc.collect()
+    del verified
+    gc.collect()
     result.update(loader_acceptance=counts, total_seconds=round(time.perf_counter() - start, 3),
                   maxrss_bytes=maxrss_bytes(), **cgroup_memory_peak())
     expected = summary["by_split"]
@@ -105,7 +112,7 @@ def main():
     result["summary_identity"] = file_identity(summary_path)
     output = args.output or bundle / "loader-acceptance.json"
     output.write_text(json.dumps(result, indent=2) + "\n")
-    print(json.dumps({k: result[k] for k in ("loader_acceptance", "total_seconds", "maxrss_bytes",
+    print(json.dumps({k: result[k] for k in ("loader_acceptance", "verification_seconds", "total_seconds", "maxrss_bytes",
                                               "memory_peak_bytes", "cgroup", "matches_summary_by_split", "summary_written")}, indent=2))
 
 

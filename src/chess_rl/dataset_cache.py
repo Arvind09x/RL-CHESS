@@ -124,7 +124,6 @@ class _Writer:
             handle.write(header.getvalue())
             self._handles[name], self._digests[name] = handle, hashlib.sha256(header.getvalue())
         self._references = []
-        self.row_digests = []
 
     def write(self, index, sample):
         if index != self._next:
@@ -140,7 +139,6 @@ class _Writer:
             self._handles[name].write(data)
             self._digests[name].update(data)
         self._references.append(list(sample.reference))
-        self.row_digests.append(_row_digest(sample.reference, sample.features, sample.legal_mask, sample.policy_class, sample.wdl))
         self._next += 1
 
     def close(self):
@@ -156,8 +154,8 @@ class _Writer:
 def build_split_cache(verified: VerifiedBundle, split, *, bundle, data_paths, sample_check=1000, seed=20261015):
     """Write one split's cache from a verified snapshot; returns the manifest dict.
 
-    Rows are written during freeze()'s own decode pass, which also records a digest of every
-    decoded sample. Afterwards every array file is re-read and hashed (the bytes equal what was
+    Rows are written during freeze()'s own decode pass; a digest of every decoded sample is taken
+    before the writer receives it. Afterwards every array file is re-read and hashed (the bytes equal what was
     written), every row is read back through the cache reader and its digest must equal the one
     recorded at decode time (reader equivalence for all rows, without a second replay), and
     ``sample_check`` randomly chosen rows plus the first and last are additionally decoded afresh
@@ -176,7 +174,16 @@ def build_split_cache(verified: VerifiedBundle, split, *, bundle, data_paths, sa
     tmp = Path(tempfile.mkdtemp(prefix=f"{split}.tmp-", dir=final.parent))
     try:
         writer = _Writer(tmp, count)
-        frozen = dataset.freeze(on_sample=writer.write)
+        expected_digests = []
+
+        def observe(index, sample):
+            # Expected digest is taken from the decoded sample before the writer sees it, so a
+            # writer fault cannot influence what the read-back must reproduce.
+            expected_digests.append(_row_digest(sample.reference, sample.features, sample.legal_mask,
+                                                sample.policy_class, sample.wdl))
+            writer.write(index, sample)
+
+        frozen = dataset.freeze(on_sample=observe)
         references = writer.close()
         (tmp / "references.json").write_text(json.dumps(references, separators=(",", ":")) + "\n")
         _fsync_path(tmp / "references.json")
@@ -201,7 +208,7 @@ def build_split_cache(verified: VerifiedBundle, split, *, bundle, data_paths, sa
         reader = CachedSupervisedDataset._open_directory(tmp, manifest)
         for i in range(count):
             row = reader[i]
-            if _row_digest(row.reference, row.features, row.legal_mask, row.policy_class, row.wdl) != writer.row_digests[i]:
+            if _row_digest(row.reference, row.features, row.legal_mask, row.policy_class, row.wdl) != expected_digests[i]:
                 raise ValueError(f"cache read-back digest mismatch at index {i}")
         rng = np.random.default_rng(seed)
         picks = sorted({0, count - 1, *map(int, rng.choice(count, size=min(sample_check, count), replace=False))})

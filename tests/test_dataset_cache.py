@@ -153,19 +153,15 @@ def test_build_refuses_to_overwrite_and_leaves_no_partial_directory(accepted):
 
 
 def test_build_detects_a_writer_fault_in_any_row(accepted, monkeypatch):
-    """Digests are taken from the decoded sample; a writer that stores different bytes must fail."""
+    """Expected digests come from the decoded sample; a writer that stores different bytes must fail."""
     original = DC._Writer.write
 
     def faulty(self, index, sample):
         if index == 1:   # a row the random fresh-decode spot check need not pick
             bad = sample.features.copy()
             bad[3, 7] += 1.0
-            stored = type(sample)(sample.reference, sample.split, sample.state, bad, sample.legal_mask,
+            sample = type(sample)(sample.reference, sample.split, sample.state, bad, sample.legal_mask,
                                   sample.policy_class, sample.wdl)
-            original(self, index, stored)
-            self.row_digests[-1] = DC._row_digest(sample.reference, sample.features, sample.legal_mask,
-                                                  sample.policy_class, sample.wdl)
-            return
         original(self, index, sample)
 
     monkeypatch.setattr(DC._Writer, "write", faulty)

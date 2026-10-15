@@ -124,58 +124,82 @@ def _provenance(manifest, identities, settings, teacher_evidence):
     return result
 
 
-def _ledger(refs, labels, attempts, exclusions, summary, manifest, max_attempts):
-    if type(max_attempts) is not int or not 1 <= max_attempts <= 3:
-        raise ValueError("Invalid bundle retry limit")
-    if summary.get("status") != "complete" or summary.get("pending_references") != []:
-        raise ValueError("Unfinished annotation bundle")
-    by_key = {key: [] for key in refs}
-    for attempt in attempts:
+class _Ledger:
+    """Streaming equivalent of the former _ledger(): the same checks, one attempt at a time.
+
+    Attempt rows are not retained; per reference only the attempt count, the last status and
+    whether every attempt failed are kept. observe() returns the label whose successful attempt
+    just arrived so the caller can load it while the row is still in hand; finish() performs the
+    whole-bundle membership and summary-count checks.
+    """
+    def __init__(self, refs, labels, exclusions, summary, manifest, max_attempts):
+        if type(max_attempts) is not int or not 1 <= max_attempts <= 3:
+            raise ValueError("Invalid bundle retry limit")
+        if summary.get("status") != "complete" or summary.get("pending_references") != []:
+            raise ValueError("Unfinished annotation bundle")
+        self._refs, self._summary, self._max = refs, summary, max_attempts
+        self._settings = asdict(manifest.teacher)
+        self._count, self._last, self._all_failed = {}, {}, {}
+        self._labels = {}
+        for number, label in enumerate(labels, 1):
+            key = _key(label)
+            if key in self._labels or key not in refs:
+                raise ValueError("Duplicate/unselected label")
+            _equal({k: label[k] for k in REFERENCE_FIELDS - {"record_version"}},
+                   {k: v for k, v in refs[key].items() if k != "record_version"}, "Label reference")
+            self._labels[key] = (number, label)
+        self._exclusions = list(exclusions)
+        self._loaded, self._attempts, self._failed = set(), 0, 0
+
+    def observe(self, attempt):
         key = _key(attempt["reference"])
-        if key not in refs:
+        if key not in self._refs:
             raise ValueError("Attempt is outside selected membership")
-        _equal(attempt["reference"], refs[key], "Attempt reference")
-        _equal(attempt["requested_settings"], asdict(manifest.teacher), "Attempt settings")
-        rows = by_key[key]
-        if type(attempt["attempt"]) is not int or attempt["attempt"] != len(rows) + 1 or len(rows) >= max_attempts:
+        _equal(attempt["reference"], self._refs[key], "Attempt reference")
+        _equal(attempt["requested_settings"], self._settings, "Attempt settings")
+        count = self._count.get(key, 0)
+        if type(attempt["attempt"]) is not int or attempt["attempt"] != count + 1 or count >= self._max:
             raise ValueError("Attempt sequence/retry limit mismatch")
-        if attempt["status"] not in ("failed", "success") or rows and rows[-1]["status"] == "success":
+        if attempt["status"] not in ("failed", "success") or self._last.get(key) == "success":
             raise ValueError("Interrupted or post-success attempt")
         start, end = (datetime.fromisoformat(attempt[k]) for k in ("started_at_utc", "finished_at_utc"))
         if start.utcoffset() is None or end.utcoffset() is None or end < start:
             raise ValueError("Unfinished/invalid attempt timestamps")
-        rows.append(attempt)
-    labeled = {}
-    for label in labels:
-        key = _key(label)
-        if key in labeled or key not in refs:
-            raise ValueError("Duplicate/unselected label")
-        _equal({k: label[k] for k in REFERENCE_FIELDS - {"record_version"}},
-               {k: v for k, v in refs[key].items() if k != "record_version"}, "Label reference")
-        rows = by_key[key]
-        if (not rows or rows[-1]["status"] != "success"
-                or type(label["successful_attempt"]) is not int
-                or label["successful_attempt"] != rows[-1]["attempt"]):
+        self._count[key], self._last[key] = count + 1, attempt["status"]
+        self._all_failed[key] = self._all_failed.get(key, True) and attempt["status"] == "failed"
+        self._attempts += 1
+        if attempt["status"] == "failed":
+            self._failed += 1
+            return None
+        entry = self._labels.get(key)
+        if entry is None:
+            return None
+        number, label = entry
+        if type(label["successful_attempt"]) is not int or label["successful_attempt"] != attempt["attempt"]:
             raise ValueError("Missing successful-attempt linkage")
-        labeled[key] = rows[-1]
-    excluded = set()
-    for row in exclusions:
-        key = _key(row["reference"])
-        if key not in refs or key in excluded or key in labeled:
-            raise ValueError("Invalid/duplicate exclusion membership")
-        _equal(row["reference"], refs[key], "Exclusion reference")
-        if (row.get("reason") != "attempts_exhausted" or type(row.get("attempts")) is not int
-                or row["attempts"] != max_attempts or len(by_key[key]) != max_attempts
-                or any(a["status"] != "failed" for a in by_key[key])):
-            raise ValueError("Unfinished exclusion linkage")
-        excluded.add(key)
-    if set(refs) != set(labeled) | excluded:
-        raise ValueError("Unfinished selected membership")
-    for field, count in (("selected", len(refs)), ("successful_labels", len(labels)),
-                         ("attempts", len(attempts)), ("excluded", len(exclusions)),
-                         ("failed_attempts", sum(a["status"] == "failed" for a in attempts))):
-        _equal(summary.get(field), count, f"Summary {field}")
-    return labeled
+        self._loaded.add(key)
+        return number, label
+
+    def finish(self):
+        if set(self._labels) != self._loaded:
+            raise ValueError("Missing successful-attempt linkage")
+        excluded = set()
+        for row in self._exclusions:
+            key = _key(row["reference"])
+            if key not in self._refs or key in excluded or key in self._labels:
+                raise ValueError("Invalid/duplicate exclusion membership")
+            _equal(row["reference"], self._refs[key], "Exclusion reference")
+            if (row.get("reason") != "attempts_exhausted" or type(row.get("attempts")) is not int
+                    or row["attempts"] != self._max or self._count.get(key, 0) != self._max
+                    or not self._all_failed.get(key, False)):
+                raise ValueError("Unfinished exclusion linkage")
+            excluded.add(key)
+        if set(self._refs) != set(self._labels) | excluded:
+            raise ValueError("Unfinished selected membership")
+        for field, count in (("selected", len(self._refs)), ("successful_labels", len(self._labels)),
+                             ("attempts", self._attempts), ("excluded", len(self._exclusions)),
+                             ("failed_attempts", self._failed)):
+            _equal(self._summary.get(field), count, f"Summary {field}")
 
 
 def _response(state, saved, best_uci):
@@ -202,15 +226,18 @@ def _response(state, saved, best_uci):
     return validate_response(state, info, chess.Move.from_uci(best_uci))
 
 
-def _load_record(label, ref, game, manifest, provenance, attempt):
+def _load_record(label, ref, game, manifest, provenance, attempt, teacher_settings):
     if set(label) != LABEL_FIELDS or label["record_version"] != LABEL_VERSION:
         raise ValueError("Label schema/version mismatch")
     for field in ("dataset_id", "encoding_version", "move_vocab_version", "ending_policy", "wdl_order"):
         expected = getattr(manifest, field)
         _equal(label[field], list(expected) if field == "wdl_order" else expected, f"Label {field}")
     _equal(label["teacher_config_id"], manifest.teacher.config_id, "Teacher configuration ID")
-    _equal(label["requested_settings"], asdict(manifest.teacher), "Label teacher settings")
+    _equal(label["requested_settings"], teacher_settings, "Label teacher settings")
     _equal(label["target_provenance"], provenance, "Label target provenance")
+    # Verified equal to the shared copies: point at them so a million labels hold one
+    # instance of each instead of a million (canonical JSON, hence fingerprints, unchanged).
+    label["requested_settings"], label["target_provenance"] = teacher_settings, provenance
     validate_game(game, manifest)
     if ref["split"] != game["split"] or not 0 <= ref["sample_ply"] <= len(game["moves_uci"]):
         raise ValueError("Canonical game split/ply mismatch")
@@ -307,11 +334,16 @@ class SupervisedBatch:
                 ("features", "legal_mask", "policy_classes", "wdl")}
 
 
-def _freeze_metadata(value):
+def _freeze_metadata(value, _memo=None):
+    # Objects shared between records (interned constant sub-dicts) stay shared once frozen.
+    memo = {} if _memo is None else _memo
     if isinstance(value, Mapping):
-        return MappingProxyType({k: _freeze_metadata(v) for k, v in value.items()})
+        frozen = memo.get(id(value))
+        if frozen is None:
+            frozen = memo[id(value)] = MappingProxyType({k: _freeze_metadata(v, memo) for k, v in value.items()})
+        return frozen
     if isinstance(value, (list, tuple)):
-        return tuple(_freeze_metadata(v) for v in value)
+        return tuple(_freeze_metadata(v, memo) for v in value)
     if type(value) not in (str, int, float, bool, type(None)):
         raise ValueError("metadata must contain immutable JSON values")
     return value
@@ -500,8 +532,7 @@ def open_dataset(*, bundle: Path, manifest_path: Path, games_path: Path,
         provenance = _provenance(manifest, identities, settings, teacher_evidence)
         refs = _references(_rows(bundle / "selected.jsonl"))
         labels = list(_rows(bundle / "labels.jsonl"))
-        attempts, exclusions = list(_rows(bundle / "attempts.jsonl")), list(_rows(bundle / "exclusions.jsonl"))
-        successes = _ledger(refs, labels, attempts, exclusions, summary, manifest, settings["max_attempts"])
+        ledger = _Ledger(refs, labels, _rows(bundle / "exclusions.jsonl"), summary, manifest, settings["max_attempts"])
         # Join only requested game/ply keys, but scan entire verified tables so
         # duplicates and missing membership cannot hide behind an early break.
         audited = {}
@@ -535,12 +566,20 @@ def open_dataset(*, bundle: Path, manifest_path: Path, games_path: Path,
                 games[game["game_id"]] = game
         if set(games) != wanted:
             raise ValueError("Missing canonical game")
-        for number, label in enumerate(labels, 1):
+        # Attempts stream last: each successful row is checked against its label and then
+        # dropped, so the ~12 KB attempt records are never all resident at once.
+        teacher_settings = asdict(manifest.teacher)
+        for attempt in _rows(bundle / "attempts.jsonl"):
+            entry = ledger.observe(attempt)
+            if entry is None:
+                continue
+            number, label = entry
             try:
                 key = _key(label)
-                _load_record(label, refs[key], games[key[0]], manifest, provenance, successes[key])
+                _load_record(label, refs[key], games[key[0]], manifest, provenance, attempt, teacher_settings)
             except (ValueError, TypeError, KeyError, IndexError) as error:
                 raise ValueError(f"labels.jsonl:{number} ({_key(label)}): {error}") from error
+        ledger.finish()
         # Check that no file changed between its identity check and consumption.
         _equal(verify_artifacts(manifest, manifest_path, games_path, split_audit_path, prepared), identities,
                "Authoritative inputs changed while loading")

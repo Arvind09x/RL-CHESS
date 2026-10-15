@@ -90,6 +90,12 @@ def require_legal_move(board: chess.Board, move: chess.Move) -> None:
             fields += (move.promotion,)
         if any(isinstance(value, bool) or not isinstance(value, Integral) for value in fields):
             raise ValueError("Move squares and promotion must be integer chess fields")
+    # board.is_legal is python-chess's own legal_moves membership test without generating the
+    # list, with one difference: it also accepts the king-onto-own-rook castling alias
+    # (e.g. e1h1), which it normalises to e1g1. No standard legal move lands on an own piece,
+    # so rejecting those restores exact generate_legal_moves membership.
     if (not isinstance(move, chess.Move) or not move or move.drop is not None
-            or not any(move == legal for legal in board.generate_legal_moves())):
+            or not (0 <= move.from_square < 64 and 0 <= move.to_square < 64)
+            or board.occupied_co[board.turn] & chess.BB_SQUARES[move.to_square]
+            or not board.is_legal(move)):
         raise ValueError(f"Illegal or noncanonical standard chess move: {move!r}")

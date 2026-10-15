@@ -98,8 +98,10 @@ def main():
         p.error("output must be a fresh directory; resume into a new directory")
     configure(args.device, threads=args.threads)
     paths = data_paths(args.data_config)
-    train = open_dataset(**paths, split="train").freeze()
+    # Validation first: the small frozen split is what stays resident while the large train
+    # split is opened, so peak memory is one full open plus a little rather than two.
     validation = open_dataset(**paths, split="validation").freeze()
+    train = open_dataset(**paths, split="train").freeze()
     source = hashlib.sha256(json.dumps(train.source_identity, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     config = ModelConfig(device=args.device)
     # Resume compares provenance exactly, so optimizer and schedule settings must repeat.

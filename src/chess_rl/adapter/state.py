@@ -91,11 +91,22 @@ def require_legal_move(board: chess.Board, move: chess.Move) -> None:
         if any(isinstance(value, bool) or not isinstance(value, Integral) for value in fields):
             raise ValueError("Move squares and promotion must be integer chess fields")
     # board.is_legal is python-chess's own legal_moves membership test without generating the
-    # list, with one difference: it also accepts the king-onto-own-rook castling alias
-    # (e.g. e1h1), which it normalises to e1g1. No standard legal move lands on an own piece,
-    # so rejecting those restores exact generate_legal_moves membership.
+    # list, with two differences that must be closed to keep exact generate_legal_moves
+    # membership: it accepts the king-onto-own-rook castling alias (e1h1, normalised to e1g1),
+    # and it treats a falsy promotion value (0) as no promotion. No standard legal move lands on
+    # an own piece, and generated promotions are exactly knight..queen (2..5).
     if (not isinstance(move, chess.Move) or not move or move.drop is not None
             or not (0 <= move.from_square < 64 and 0 <= move.to_square < 64)
+            or (move.promotion is not None and not 2 <= move.promotion <= 5)
             or board.occupied_co[board.turn] & chess.BB_SQUARES[move.to_square]
             or not board.is_legal(move)):
-        raise ValueError(f"Illegal or noncanonical standard chess move: {move!r}")
+        raise ValueError(f"Illegal or noncanonical standard chess move: {_describe_move(move)}")
+
+
+def _describe_move(move):
+    # Move.__repr__ indexes square/piece tables and raises on out-of-range fields.
+    try:
+        return repr(move)
+    except Exception:
+        return (f"Move(from_square={getattr(move, 'from_square', None)!r}, "
+                f"to_square={getattr(move, 'to_square', None)!r}, promotion={getattr(move, 'promotion', None)!r})")

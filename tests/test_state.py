@@ -3,6 +3,7 @@ import chess.variant
 import pytest
 
 from chess_rl.adapter import ChessState, make_state
+from chess_rl.adapter.state import require_legal_move
 
 
 def test_initial_provenance_and_replay():
@@ -65,3 +66,27 @@ def test_direct_state_rejects_unrecorded_board_edits():
     board.halfmove_clock = 42
     with pytest.raises(ValueError, match="retained legal history"):
         ChessState(board, chess.STARTING_FEN, True)
+
+
+def test_require_legal_move_matches_generated_membership_on_edge_cases():
+    """is_legal-based check must stay exactly generate_legal_moves membership (fc902dd follow-up)."""
+    cases = [
+        (chess.STARTING_FEN, chess.Move(chess.E2, chess.E4, promotion=0), False),      # falsy promotion is not "no promotion"
+        (chess.STARTING_FEN, chess.Move(chess.E2, chess.E4), True),
+        ("8/P6k/8/8/8/8/6K1/8 w - - 0 1", chess.Move(chess.A7, chess.A8, promotion=chess.QUEEN), True),
+        ("8/P6k/8/8/8/8/6K1/8 w - - 0 1", chess.Move(chess.A7, chess.A8), False),      # promotion required
+        ("8/P6k/8/8/8/8/6K1/8 w - - 0 1", chess.Move(chess.A7, chess.A8, promotion=chess.KING), False),
+        ("8/P6k/8/8/8/8/6K1/8 w - - 0 1", chess.Move(chess.A7, chess.A8, promotion=7), False),
+        ("r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1", chess.Move.from_uci("e1g1"), True),
+        ("r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1", chess.Move.from_uci("e1h1"), False),   # python-chess castling alias
+        (chess.STARTING_FEN, chess.Move(12, 99), False),
+        (chess.STARTING_FEN, chess.Move(-1, 12), False),
+    ]
+    for fen, move, legal in cases:
+        board = chess.Board(fen)
+        assert (move in set(board.generate_legal_moves())) == legal
+        if legal:
+            require_legal_move(board, move)
+        else:
+            with pytest.raises(ValueError, match="Illegal or noncanonical"):
+                require_legal_move(board, move)

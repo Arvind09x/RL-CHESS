@@ -85,7 +85,10 @@ def main():
         t0 = time.perf_counter()
         data = verified.select(split)
         counts[split] = len(data)
-        result["splits"][split] = dict(positions=len(data), fingerprint=data._admission_fingerprint,
+        # Fingerprints cover source_identity, which includes summary.json as it was when this
+        # snapshot was verified. If --write-summary changes the summary below, these values belong
+        # to the pre-update summary and will not match a later verification of the bundle.
+        result["splits"][split] = dict(positions=len(data), fingerprint_at_verification=data._admission_fingerprint,
                                        select_seconds=round(time.perf_counter() - t0, 3))
         del data
     del verified
@@ -110,6 +113,7 @@ def main():
             raise SystemExit(f"summary already records loader_acceptance {current}; refusing to overwrite")
     # Training's source_identity includes summary.json as it is now, so record the final bytes.
     result["summary_identity"] = file_identity(summary_path)
+    result["fingerprints_match_final_summary"] = not result["summary_written"]
     output = args.output or bundle / "loader-acceptance.json"
     output.write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps({k: result[k] for k in ("loader_acceptance", "verification_seconds", "total_seconds", "maxrss_bytes",

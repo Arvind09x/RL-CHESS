@@ -32,7 +32,8 @@ for flag, value in [("--seed", pr["seed"]), ("--batch-size", pr["batch_size"]),
         ("--max-gradient-norm", o["max_gradient_norm"] if o["max_gradient_norm"] is not None else 0),
         ("--warmup-steps", s["warmup_steps"]), ("--schedule-total-steps", s["total_steps"]),
         ("--final-lr-fraction", s["final_fraction"]), ("--threads", c["runtime"]["threads"]),
-        ("--validation-every", c["validation_every"]), ("--steps", c["target_steps"])]:
+        ("--validation-every", c["validation_every"]), ("--steps", c["target_steps"]),
+        ("--data-cache", c.get("data_cache", {}).get("mode", "off"))]:
     print(flag); print(repr(value) if isinstance(value, float) else value)
 PYEOF
 )

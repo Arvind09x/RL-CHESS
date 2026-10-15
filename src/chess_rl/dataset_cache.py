@@ -17,6 +17,7 @@ match the manifest; shapes and counts agree. Any mismatch raises; nothing falls 
 Cached samples carry ``state=None``: the board is not reconstructed from the cache.
 """
 from dataclasses import asdict
+import importlib.metadata
 from datetime import datetime, timezone
 import hashlib
 import io
@@ -27,7 +28,9 @@ import platform
 import shutil
 import subprocess
 import tempfile
+from types import MappingProxyType
 
+import chess
 import numpy as np
 
 from chess_rl.canonical_games import SPLITS, canonical_json
@@ -40,6 +43,9 @@ from chess_rl.supervised import (BUNDLE_FILES, SupervisedBatch, SupervisedDatase
 
 CACHE_FORMAT_VERSION = "d07-sample-cache-v1"
 MASK_BYTES = MOVE_COUNT // 8
+# The same pinned replay/encoding dependencies the fresh loader enforces (supervised._provenance).
+PINNED_RUNTIME = {"python-chess": "1.999", "chess": "1.11.2"}
+EXPECTED_ENTRIES = ("features", "legal_mask", "policy", "wdl", "references")
 ARRAYS = {  # name: (dtype, trailing shape)
     "features": ("float32", FEATURE_SHAPE),
     "legal_mask": ("uint8", (MASK_BYTES,)),
@@ -62,6 +68,29 @@ def _sha256(path):
         for chunk in iter(lambda: handle.read(1 << 22), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _row_digest(reference, features, legal_mask, policy_class, wdl):
+    """Digest of one decoded sample as the reader must reproduce it."""
+    digest = hashlib.sha256()
+    digest.update(json.dumps([reference[0], int(reference[1])]).encode())
+    digest.update(np.ascontiguousarray(features, dtype=np.float32).tobytes())
+    digest.update(np.packbits(np.asarray(legal_mask, dtype=np.bool_)).tobytes())
+    digest.update(int(policy_class).to_bytes(4, "little", signed=True))
+    digest.update(np.ascontiguousarray(wdl, dtype=np.float32).tobytes())
+    return digest.digest()
+
+
+def _installed_runtime():
+    return {"python-chess": importlib.metadata.version("python-chess"), "chess": chess.__version__}
+
+
+def _fsync_path(path):
+    fd = os.open(path, os.O_RDONLY)
+    try:
+        os.fsync(fd)
+    finally:
+        os.close(fd)
 
 
 def _git_revision():
@@ -95,6 +124,7 @@ class _Writer:
             handle.write(header.getvalue())
             self._handles[name], self._digests[name] = handle, hashlib.sha256(header.getvalue())
         self._references = []
+        self.row_digests = []
 
     def write(self, index, sample):
         if index != self._next:
@@ -110,6 +140,7 @@ class _Writer:
             self._handles[name].write(data)
             self._digests[name].update(data)
         self._references.append(list(sample.reference))
+        self.row_digests.append(_row_digest(sample.reference, sample.features, sample.legal_mask, sample.policy_class, sample.wdl))
         self._next += 1
 
     def close(self):
@@ -125,10 +156,12 @@ class _Writer:
 def build_split_cache(verified: VerifiedBundle, split, *, bundle, data_paths, sample_check=1000, seed=20261015):
     """Write one split's cache from a verified snapshot; returns the manifest dict.
 
-    Rows are written during freeze()'s own decode pass. Afterwards every array file is re-read and
-    hashed (the file bytes equal what was written), and ``sample_check`` randomly chosen samples
-    plus the first and last are decoded afresh and compared bit-for-bit through the cache reader.
-    The directory is published atomically by rename once everything has passed.
+    Rows are written during freeze()'s own decode pass, which also records a digest of every
+    decoded sample. Afterwards every array file is re-read and hashed (the bytes equal what was
+    written), every row is read back through the cache reader and its digest must equal the one
+    recorded at decode time (reader equivalence for all rows, without a second replay), and
+    ``sample_check`` randomly chosen rows plus the first and last are additionally decoded afresh
+    and compared field by field. The directory is published atomically by rename.
     """
     bundle = Path(bundle)
     final = cache_dir(bundle, split)
@@ -146,6 +179,7 @@ def build_split_cache(verified: VerifiedBundle, split, *, bundle, data_paths, sa
         frozen = dataset.freeze(on_sample=writer.write)
         references = writer.close()
         (tmp / "references.json").write_text(json.dumps(references, separators=(",", ":")) + "\n")
+        _fsync_path(tmp / "references.json")
         files = {}
         for name in ARRAYS:
             path = tmp / f"{name}.npy"
@@ -160,10 +194,15 @@ def build_split_cache(verified: VerifiedBundle, split, *, bundle, data_paths, sa
             encoding_version=ENCODING_VERSION, move_vocab_version=MOVE_VOCAB_VERSION,
             source_identity=frozen.source_identity, admission_fingerprint=frozen._admission_fingerprint,
             arrays=files, built_at_utc=datetime.now(timezone.utc).isoformat(), code_revision=_git_revision(),
+            pinned_runtime=_installed_runtime(),
             builder_runtime=dict(python=platform.python_version(), numpy=np.__version__, host=platform.node()))
         (tmp / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
-        # Read back through the real reader and compare against fresh decodes.
+        # Every row read back through the real reader must reproduce the digest taken at decode time.
         reader = CachedSupervisedDataset._open_directory(tmp, manifest)
+        for i in range(count):
+            row = reader[i]
+            if _row_digest(row.reference, row.features, row.legal_mask, row.policy_class, row.wdl) != writer.row_digests[i]:
+                raise ValueError(f"cache read-back digest mismatch at index {i}")
         rng = np.random.default_rng(seed)
         picks = sorted({0, count - 1, *map(int, rng.choice(count, size=min(sample_check, count), replace=False))})
         for i in picks:
@@ -172,14 +211,13 @@ def build_split_cache(verified: VerifiedBundle, split, *, bundle, data_paths, sa
                     or not np.array_equal(fresh.features, cached.features) or fresh.features.dtype != cached.features.dtype
                     or not np.array_equal(fresh.legal_mask, cached.legal_mask) or not np.array_equal(fresh.wdl, cached.wdl)):
                 raise ValueError(f"cache read-back mismatch at index {i}")
-        manifest["verified_samples"] = picks if len(picks) <= 16 else dict(count=len(picks), seed=seed)
+        manifest["verification"] = dict(all_rows_digest_checked=count,
+                                        fresh_decode_compared=picks if len(picks) <= 16 else dict(count=len(picks), seed=seed))
         (tmp / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
-        fd = os.open(tmp, os.O_RDONLY)
-        try:
-            os.fsync(fd)
-        finally:
-            os.close(fd)
+        _fsync_path(tmp / "manifest.json")
+        _fsync_path(tmp)
         os.rename(tmp, final)
+        _fsync_path(final.parent)
         return manifest
     except BaseException:
         shutil.rmtree(tmp, ignore_errors=True)
@@ -190,8 +228,10 @@ class CachedSupervisedDataset(SupervisedDataset):
     """Memory-mapped, verified, read-only view of a cached split; same interface as a frozen dataset."""
     def __init__(self, directory, manifest, arrays, references):
         object.__setattr__(self, "_sealed", False)
-        self._directory, self._manifest, self._arrays = Path(directory), manifest, arrays
-        self._references = references
+        self._directory = Path(directory)
+        self._manifest = _freeze_metadata(manifest)
+        self._arrays = MappingProxyType(dict(arrays))
+        self._references = tuple(references)
         self._split = manifest["split"]
         self._source_identity = _freeze_metadata(manifest["source_identity"])
         self._admission_fingerprint = manifest["admission_fingerprint"]
@@ -211,7 +251,7 @@ class CachedSupervisedDataset(SupervisedDataset):
         references = json.loads((directory / "references.json").read_text())
         if len(references) != manifest["count"] or any(len(r) != 2 for r in references):
             raise ValueError("references.json does not match the cached count")
-        return cls(directory, manifest, arrays, [(r[0], int(r[1])) for r in references])
+        return cls(directory, manifest, arrays, tuple((r[0], int(r[1])) for r in references))
 
     @classmethod
     def open(cls, *, split, **data_paths):
@@ -227,10 +267,26 @@ class CachedSupervisedDataset(SupervisedDataset):
                                 ("move_vocab_version", MOVE_VOCAB_VERSION), ("split", split)):
             if manifest.get(field) != expected:
                 raise ValueError(f"cache {field} {manifest.get(field)!r} is not {expected!r}")
+        if manifest.get("pinned_runtime") != PINNED_RUNTIME or _installed_runtime() != PINNED_RUNTIME:
+            raise ValueError(f"cache or environment replay dependencies differ from the pinned {PINNED_RUNTIME}")
+        arrays = manifest.get("arrays")
+        if not isinstance(arrays, dict) or set(arrays) != set(EXPECTED_ENTRIES):
+            raise ValueError(f"cache manifest must describe exactly {EXPECTED_ENTRIES}")
+        count = manifest.get("count")
+        if type(count) is not int or count < 0:
+            raise ValueError("cache manifest count must be a nonnegative integer")
+        for name, record in arrays.items():
+            expected_file = f"{name}.npy" if name in ARRAYS else "references.json"
+            if record.get("file") != expected_file:
+                raise ValueError(f"cache manifest entry {name} must name {expected_file}")
+            if name in ARRAYS and (record.get("dtype") != ARRAYS[name][0]
+                                   or list(record.get("shape", [])) != [count, *ARRAYS[name][1]]):
+                raise ValueError(f"cache manifest entry {name} declares unexpected dtype/shape")
         current = current_source_identity(split=split, **data_paths)
         if canonical_json(current) != canonical_json(manifest["source_identity"]):
             raise ValueError("cache source identity does not match the bundle and inputs on disk; rebuild the cache")
-        for name, record in manifest["arrays"].items():
+        for name in EXPECTED_ENTRIES:
+            record = arrays[name]
             path = directory / record["file"]
             if not path.exists() or path.stat().st_size != record["bytes"] or _sha256(path) != record["sha256"]:
                 raise ValueError(f"cache file {record['file']} is missing, truncated or altered")
@@ -238,7 +294,7 @@ class CachedSupervisedDataset(SupervisedDataset):
 
     @property
     def manifest(self):
-        return json.loads(json.dumps(self._manifest))
+        return _thaw_metadata(self._manifest)
 
     def freeze(self, *, cache_bytes=64 * 1024 * 1024, on_sample=None):
         """Already immutable and fully decoded; returns itself."""

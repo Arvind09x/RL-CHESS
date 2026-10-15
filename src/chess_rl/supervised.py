@@ -392,14 +392,18 @@ class SupervisedDataset:
             raise ValueError("frozen training dataset cannot be modified; reopen sources")
         object.__delattr__(self, name)
 
-    def freeze(self, *, cache_bytes=64 * 1024 * 1024):
+    def freeze(self, *, cache_bytes=64 * 1024 * 1024, on_sample=None):
         """Own an immutable training view; bounded decoded-sample LRU, no rescans.
 
         Only referenced metadata is retained. Each returned sample still owns
         its board and arrays. External artifacts are audited on source opening.
+        on_sample(index, sample), if given, observes every sample during the
+        single admission decode pass (used to write the on-disk sample cache).
         """
         if type(cache_bytes) is not int or cache_bytes < 0:
             raise ValueError("cache_bytes must be nonnegative")
+        if on_sample is not None and not callable(on_sample):
+            raise ValueError("on_sample must be callable")
         if (self._admission_fingerprint is not None
                 and self._metadata_fingerprint() != self._admission_fingerprint):
             raise ValueError("dataset metadata changed after source validation; reopen sources")
@@ -417,6 +421,8 @@ class SupervisedDataset:
                     or sample.wdl.shape != (3,) or not np.isfinite(sample.wdl).all()
                     or np.any(sample.wdl < 0) or not np.isclose(sample.wdl.sum(), 1)):
                 raise ValueError("invalid frozen sample target")
+            if on_sample is not None:
+                on_sample(i, sample)
         _decoded_caches[result] = [OrderedDict(), cache_bytes, 0]
         result._admission_fingerprint = result._metadata_fingerprint()
         result._sealed = True

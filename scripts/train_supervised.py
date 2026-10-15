@@ -15,6 +15,7 @@ import numpy as np
 import torch
 
 from chess_rl.runtime import configure, data_paths
+from chess_rl.dataset_cache import CachedSupervisedDataset
 from chess_rl.supervised import open_dataset
 from chess_rl.training.checkpoints import (DataOrder, ModelConfig, Progress,
     restore_training, runtime_config, save_checkpoint)
@@ -83,6 +84,8 @@ def main():
     p.add_argument("--validation-every", type=int, default=100)
     p.add_argument("--seed", type=int, default=20261010)
     p.add_argument("--resume", type=Path)
+    p.add_argument("--data-cache", choices=("off", "use"), default="off",
+                   help="use: read both splits from the verified sample cache inside the bundle, failing if absent or stale")
     args = p.parse_args()
     if min(args.steps, args.batch_size, args.validation_every, args.threads) < 1 or not np.isfinite(args.learning_rate) or args.learning_rate <= 0:
         p.error("steps/batch-size/validation-every/threads and learning-rate must be positive")
@@ -98,10 +101,16 @@ def main():
         p.error("output must be a fresh directory; resume into a new directory")
     configure(args.device, threads=args.threads)
     paths = data_paths(args.data_config)
-    # Validation first: the small frozen split is what stays resident while the large train
-    # split is opened, so peak memory is one full open plus a little rather than two.
-    validation = open_dataset(**paths, split="validation").freeze()
-    train = open_dataset(**paths, split="train").freeze()
+    if args.data_cache == "use":
+        validation = CachedSupervisedDataset.open(split="validation", **paths)
+        train = CachedSupervisedDataset.open(split="train", **paths)
+        data_cache = dict(mode="use", manifests={s: d.manifest["arrays"] for s, d in (("train", train), ("validation", validation))})
+    else:
+        # Validation first: the small frozen split is what stays resident while the large train
+        # split is opened, so peak memory is one full open plus a little rather than two.
+        validation = open_dataset(**paths, split="validation").freeze()
+        train = open_dataset(**paths, split="train").freeze()
+        data_cache = dict(mode="off")
     source = hashlib.sha256(json.dumps(train.source_identity, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     config = ModelConfig(device=args.device)
     # Resume compares provenance exactly, so optimizer and schedule settings must repeat.
@@ -128,7 +137,7 @@ def main():
     (args.output / "config.json").write_text(json.dumps(dict(model=asdict(config), provenance=provenance,
         runtime=runtime_config(), target_steps=args.steps, validation_every=args.validation_every,
         training_positions=len(train), validation_positions=len(validation),
-        resume_checkpoint=str(args.resume.resolve()) if args.resume else None), indent=2) + "\n")
+        resume_checkpoint=str(args.resume.resolve()) if args.resume else None, data_cache=data_cache), indent=2) + "\n")
     start = time.perf_counter()
     starting_samples = progress.samples_seen
     best = None

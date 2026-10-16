@@ -264,6 +264,28 @@ class ReplayBuffer:
         self._validated_signature = None if signature is None else (version, *signature[1:])
         return receipt
 
+    def summary(self):
+        """export()["summary"] without materializing sources or samples (large campaigns)."""
+        connection = self._connect()
+        with connection:
+            connection.execute("BEGIN")
+            self._validate_if_changed(connection)
+            counts = dict(connection.execute(
+                "SELECT disposition, COUNT(*) FROM sources GROUP BY disposition").fetchall())
+            positions = connection.execute("SELECT COUNT(*) FROM samples").fetchone()[0]
+        return dict(source_counts={name: counts.get(name, 0) for name in
+                                   ("admitted", "duplicate", "excluded-truncated", "excluded-interrupted")},
+                    training_positions=positions)
+
+    def iter_samples(self):
+        """export()["samples"] one at a time, from one read snapshot; consume fully before other calls."""
+        connection = self._connect()
+        with connection:
+            connection.execute("BEGIN")
+            self._validate_if_changed(connection)
+            for (payload,) in connection.execute("SELECT payload FROM samples ORDER BY sample_id"):
+                yield json.loads(payload)
+
     def export(self):
         connection = self._connect()
         with connection:

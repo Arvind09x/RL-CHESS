@@ -6,10 +6,9 @@
 #SBATCH --time=1-00:00:00
 #SBATCH --job-name=selfplay-round1-ext
 #SBATCH --output=artifacts/slurm/%x-%j.out
-#SBATCH --dependency=afterany:554
 # Round-1 extension (amendment A2.1; deadline moved to 11:00 on 16 Oct, before any c/d game):
 # halves c and d, 200 games each, seeds 20261019 and 20261020, same settings as a and b.
-# Runs after job 554 however it ended, then:
+# Submit after job 554 has ended, however it ended (the cluster refuses a second submitted job), then:
 #   1. Requires the core choice (round1.sbatch's CHOICE) and finishes the core buffer
 #      idempotently (no-ops if job 554 did it). No core choice: exit with an error, no pointer.
 #   2. Core choice a alone: no extension; writes the training pointer for a.

@@ -9,7 +9,7 @@ per JSONL line for scripts/run_r02.py. Game directories are the source of
 truth; events.jsonl is a diagnostic log only.
 """
 from collections import Counter
-from concurrent.futures import ProcessPoolExecutor, as_completed
+from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
 from concurrent.futures.process import BrokenProcessPool
 from contextlib import ExitStack, contextmanager
 from dataclasses import asdict
@@ -150,9 +150,11 @@ class _Events:
         return events
 
 
-def _init_worker(device):
+def _init_worker(device, pid_directory):
     # The parent owns stopping; a terminated worker loses at most its uncommitted search.
     signal.signal(signal.SIGINT, signal.SIG_IGN)
+    # Each worker announces its pid, so it can be found without process listing tools.
+    (Path(pid_directory) / str(os.getpid())).touch()
     from chess_rl.runtime import configure
     configure(device, threads=1)
 
@@ -201,12 +203,17 @@ def _raise_interrupt(signum, frame):
     raise KeyboardInterrupt(signal.Signals(signum).name)
 
 
-def run(directory, *, workers, heavy_lock=None, log=print):
+def _log(message):
+    print(message, flush=True)
+
+
+def run(directory, *, workers, heavy_lock=None, deadline=None, log=_log):
     """Play or resume every unfinished game in up to MAX_PASSES passes; leftovers are reported.
 
     A worker that dies (killed, crashed, out of memory) breaks its pass: the other
     workers are stopped, every game keeps its committed moves, and the next pass
-    resumes all unfinished games.
+    resumes all unfinished games. With a deadline (epoch seconds), no pass starts after it and
+    running games are stopped at it; their committed moves stay and a later run resumes them.
     """
     if type(workers) is not int or workers < 1:
         raise ValueError("workers must be a positive integer")
@@ -224,6 +231,8 @@ def run(directory, *, workers, heavy_lock=None, log=print):
         events = _Events(directory / "events.jsonl")
         events.write("run-start", workers=workers, device=plan["device"], host=platform.node(), pid=os.getpid())
         context = multiprocessing.get_context("spawn")
+        pid_directory = directory / ".workers"
+        pid_directory.mkdir(exist_ok=True)
         for attempt in range(1, MAX_PASSES + 1):
             tasks = [dict(index=g["index"], directory=str(directory / g["directory"]), seed=g["seed"],
                           checkpoint=str(checkpoint), opening=plan["opening"], settings=plan["settings"],
@@ -231,20 +240,32 @@ def run(directory, *, workers, heavy_lock=None, log=print):
                      for g in plan["games"] if not _finished(directory / g["directory"])]
             if not tasks:
                 break
+            if deadline is not None and time.time() >= deadline:
+                events.write("deadline-reached", attempt=attempt, unfinished=len(tasks))
+                log(f"deadline reached; {len(tasks)} games left unfinished")
+                break
             log(f"pass {attempt}: {len(tasks)} unfinished games, {min(workers, len(tasks))} workers")
             executor = ProcessPoolExecutor(min(workers, len(tasks)), mp_context=context,
-                                           initializer=_init_worker, initargs=(plan["device"],))
-            broken, clean = None, False
+                                           initializer=_init_worker,
+                                           initargs=(plan["device"], str(pid_directory)))
+            broken, clean, stopped = None, False, False
             try:
-                for future in as_completed([executor.submit(_play, task) for task in tasks]):
-                    try:
-                        result = future.result()
-                    except BrokenProcessPool as error:
-                        broken = error
-                        continue
-                    events.write("game-end", attempt=attempt, **result)
-                    log(json.dumps(result, sort_keys=True))
-                clean = broken is None
+                pending = {executor.submit(_play, task) for task in tasks}
+                while pending:
+                    timeout = None if deadline is None else max(0.0, deadline - time.time())
+                    done, pending = wait(pending, timeout=timeout, return_when=FIRST_COMPLETED)
+                    for future in done:
+                        try:
+                            result = future.result()
+                        except BrokenProcessPool as error:
+                            broken = error
+                            continue
+                        events.write("game-end", attempt=attempt, **result)
+                        log(json.dumps(result, sort_keys=True))
+                    if pending and deadline is not None and time.time() >= deadline:
+                        stopped = True
+                        break
+                clean = broken is None and not stopped
             except KeyboardInterrupt as stop:
                 events.write("run-stopped", reason=str(stop) or "SIGINT")
                 raise
@@ -252,6 +273,10 @@ def run(directory, *, workers, heavy_lock=None, log=print):
                 if not clean:
                     _kill_workers(executor)
                 executor.shutdown(wait=True, cancel_futures=True)
+            if stopped:
+                events.write("deadline-reached", attempt=attempt, unfinished=len(pending))
+                log(f"deadline reached; stopped {len(pending)} running or queued games")
+                break
             if broken is not None:
                 events.write("pool-broken", attempt=attempt, error=str(broken))
                 log(f"pass {attempt}: a worker died ({broken}); unfinished games resume next pass")
@@ -274,7 +299,7 @@ def status(directory):
     directory = Path(directory)
     plan = load(directory)
     counts = dict(completed=0, truncated=0, interrupted=0, not_started=0)
-    plies, reasons, outcomes, timing = [], Counter(), Counter(), []
+    plies, reasons, outcomes, timing, finished = [], Counter(), Counter(), [], []
     opening_plies = len(plan["opening"]["moves_uci"])
     for game in plan["games"]:
         path = directory / game["directory"]
@@ -288,6 +313,11 @@ def status(directory):
             plies.append(len(header["moves_uci"]))
             reasons[header["ending_reason"]] += 1
             outcomes[header["outcome"] or "none"] += 1
+            finished.append(((path / "boundary.json").stat().st_mtime, header["outcome"]))
+    decisive = [o for _, o in sorted(finished) if o in ("1-0", "0-1")]
+    balance = dict(decisive_games=len(decisive), white_wins=decisive.count("1-0"),
+                   black_wins=decisive.count("0-1"),
+                   first_30_decisive=dict(games=min(30, len(decisive)), white_wins=decisive[:30].count("1-0")))
     per_move = {}
     for name, low, high in PHASES:
         values = [s for ply, s in timing if ply >= low and (high is None or ply < high)]
@@ -310,7 +340,8 @@ def status(directory):
                           remaining_hours=remaining / rate if rate else None)
     return dict(games=len(plan["games"]), status_counts=counts,
                 plies=dict(mean=statistics.mean(plies), median=statistics.median(plies), max=max(plies)) if plies else None,
-                ending_reasons=dict(reasons), outcomes=dict(outcomes), per_move=per_move, projection=projection)
+                ending_reasons=dict(reasons), outcomes=dict(outcomes), colour_balance=balance,
+                per_move=per_move, projection=projection)
 
 
 def archive(directory, output=None):
@@ -381,3 +412,41 @@ def _publish_text(path, text):
     finally:
         if pending.exists():
             pending.unlink()
+
+
+def finished_by(directory, deadline):
+    """True if every game of the campaign is finished and the last finished at or before deadline."""
+    directory = Path(directory)
+    if not (directory / "campaign.json").exists():
+        return False
+    times = []
+    for game in load(directory)["games"]:
+        path = directory / game["directory"]
+        header = _header(path)
+        if header is None or header["status"] not in FINAL:
+            return False
+        times.append((path / "boundary.json").stat().st_mtime)
+    return max(times) <= deadline
+
+
+def choose_round(output, *, first, second, deadline, first_buffer, both_buffer, now=None):
+    """Record, once, which halves form the round: both if the second half's games all finished by
+    the deadline, else the first alone. The first half must be finished; before the deadline an
+    unfinished second half leaves the choice open. An existing record is returned unchanged.
+    """
+    output = Path(output)
+    if output.exists():
+        return json.loads(output.read_text())
+    if not finished_by(first, float("inf")):
+        raise ValueError(f"first half {first} is unfinished; no round can be chosen yet")
+    both = finished_by(second, deadline)
+    if not both and (time.time() if now is None else now) < deadline:
+        raise ValueError("second half can still finish before the deadline; choice stays open")
+    halves = [str(first), str(second)] if both else [str(first)]
+    choice = dict(schema="selfplay-round-choice-v1", decided_utc=_now(),
+                  deadline_utc=datetime.fromtimestamp(deadline, timezone.utc).isoformat(),
+                  rule="both halves if every second-half game finished by the deadline, else the first half",
+                  halves=halves, games=sum(len(load(h)["games"]) for h in halves),
+                  buffer=str(both_buffer if both else first_buffer))
+    _publish_text(output, json.dumps(choice, indent=2, sort_keys=True) + "\n")
+    return choice

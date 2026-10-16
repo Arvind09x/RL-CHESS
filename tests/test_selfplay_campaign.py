@@ -228,11 +228,10 @@ def test_one_dead_worker_does_not_stall_the_campaign(tmp_path, saved):
         while not any((directory / "games").glob("*/moves/000000.json")):
             assert time.time() < deadline and parent.poll() is None
             time.sleep(0.05)
-        # Kill one pool worker only (not the parent, not the resource tracker).
-        workers = subprocess.run(["pgrep", "-P", str(parent.pid), "-f", "spawn_main"],
-                                 capture_output=True, text=True).stdout.split()
-        assert workers, "no worker processes found"
-        os.kill(int(workers[0]), signal.SIGKILL)
+        # Kill one pool worker only, found through the pid files workers write at start.
+        workers = sorted(int(p.name) for p in (directory / ".workers").iterdir())
+        assert workers, "no worker pid files"
+        os.kill(workers[0], signal.SIGKILL)
         _, stderr = parent.communicate(timeout=900)
         assert parent.returncode == 0, stderr.decode()
     finally:
@@ -242,3 +241,80 @@ def test_one_dead_worker_does_not_stall_the_campaign(tmp_path, saved):
     assert any(e["event"] == "pool-broken" for e in events)
     assert all(campaign._finished(directory / g["directory"]) for g in plan["games"])
     assert campaign.archive(directory)["games"] == 4
+
+
+def test_ingest_archives_builds_one_buffer_from_several_campaigns_and_resumes(tmp_path, saved):
+    halves = []
+    for name, seed in (("a", 21), ("b", 22)):
+        directory = tmp_path / name
+        campaign.create(directory, saved["path"], games=2, seed=seed, settings=SMALL, opening=FIFTY, purpose="half")
+        campaign.run(directory, workers=2, log=lambda *_: None)
+        campaign.archive(directory)
+        halves.append(directory)
+    env = dict(os.environ, PY=sys.executable, PYTHONPATH=f"{ROOT / 'src'}{os.pathsep}{ROOT}",
+               PYTHONDONTWRITEBYTECODE="1")
+    def ingest():
+        return subprocess.run(["bash", "-euo", "pipefail", "-c",
+            'source jobs/b200-selfplay/finish.sh; ingest_archives "$@"', "_", str(tmp_path / "union"),
+            *map(str, halves)], cwd=ROOT, env=env, capture_output=True, text=True, timeout=300)
+    result = ingest()
+    assert result.returncode == 0, result.stderr
+    control = ReplayBuffer.create(tmp_path / "control.sqlite")
+    for directory in halves:
+        for line in (directory / "games.jsonl").read_text().splitlines():
+            control.ingest(json.loads(line))
+    union = tmp_path / "union"
+    assert ReplayBuffer(union / "replay.sqlite").export()["samples"] == control.export()["samples"]
+    reports = sorted(p.name for p in union.glob("ingest-*.json"))
+    assert reports == ["ingest-a.json", "ingest-b.json"]
+    before = {p.name: p.read_bytes() for p in union.iterdir()}
+    assert ingest().returncode == 0
+    assert {p.name: p.read_bytes() for p in union.iterdir()} == before
+    (union / "ingest-b.json").write_text("{")
+    assert ingest().returncode == 0
+    assert json.loads((union / "ingest-b.json").read_text())["summary"] == control.export()["summary"]
+    assert len(list(union.glob(".ingest-b.json.invalid-*"))) == 1
+
+
+def test_deadline_stops_running_games_and_keeps_their_moves(tmp_path, saved):
+    directory, plan = make(tmp_path, saved, "deadline", games=2,
+                           settings=Settings(2, 200, phases=(Phase(0, 1.0, 0.25), Phase(4, 0.0, 0.25))))
+    # A deadline already past starts nothing.
+    report = campaign.run(directory, workers=2, deadline=time.time() - 1, log=lambda *_: None)
+    assert report["status_counts"]["not_started"] == 2
+    # Lengthen the window until it closes while games are running (machine speeds differ).
+    for seconds in (3, 6, 12, 24, 48, 96):
+        report = campaign.run(directory, workers=2, deadline=time.time() + seconds, log=lambda *_: None)
+        if report["status_counts"]["interrupted"]:
+            break
+    assert report["status_counts"]["interrupted"] >= 1  # stopped mid-game, not at a game boundary
+    events = [json.loads(l) for l in (directory / "events.jsonl").read_text().splitlines()]
+    assert sum(e["event"] == "deadline-reached" for e in events) >= 2
+    kept = {k: v for k, v in tree(directory).items() if "/moves/" in k}
+    campaign.run(directory, workers=2, deadline=time.time() + 5, log=lambda *_: None)
+    after = tree(directory)
+    assert all(after[k] == v for k, v in kept.items())  # committed moves survive and are resumed from
+
+
+def test_choose_round_follows_the_deadline_rule_and_is_final(tmp_path, saved):
+    first, _ = make(tmp_path, saved, "a", games=2, opening=FIFTY)
+    second, _ = make(tmp_path, saved, "b", games=2, opening=FIFTY)
+    kwargs = dict(first=first, second=second, first_buffer=tmp_path / "buf-a", both_buffer=tmp_path / "buf-ab")
+    with pytest.raises(ValueError, match="first half"):
+        campaign.choose_round(tmp_path / "c0.json", deadline=time.time() + 3600, **kwargs)
+    campaign.run(first, workers=2, log=lambda *_: None)
+    future, past = time.time() + 3600, time.time() - 3600
+    # Second half unfinished: open before the deadline, first half alone after it.
+    with pytest.raises(ValueError, match="still finish"):
+        campaign.choose_round(tmp_path / "c1.json", deadline=future, **kwargs)
+    alone = campaign.choose_round(tmp_path / "c2.json", deadline=past, **kwargs)
+    assert alone["halves"] == [str(first)] and alone["buffer"] == str(tmp_path / "buf-a") and alone["games"] == 2
+    campaign.run(second, workers=2, log=lambda *_: None)
+    both = campaign.choose_round(tmp_path / "c3.json", deadline=time.time() + 60, **kwargs)
+    assert both["halves"] == [str(first), str(second)] and both["games"] == 4
+    # Finished only after the deadline: still the first half alone.
+    late = campaign.choose_round(tmp_path / "c4.json", deadline=past, **kwargs)
+    assert late["halves"] == [str(first)]
+    # A recorded choice is final, even when the halves would now qualify.
+    assert campaign.choose_round(tmp_path / "c2.json", deadline=future, **kwargs) == alone
+    assert campaign.status(first)["colour_balance"]["decisive_games"] == 0  # fifty-move draws

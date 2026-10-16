@@ -12,6 +12,7 @@
 # Decide the round-1 budget from status: 200 games / 5 workers x mean plies x seconds per move.
 source jobs/b200/common.sh
 source jobs/b200-selfplay/finish.sh
+export PYTHONUNBUFFERED=1
 job_banner
 assert_gpu
 P=artifacts/p-1m/step-090000.pt

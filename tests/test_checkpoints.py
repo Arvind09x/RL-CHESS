@@ -339,3 +339,24 @@ def test_unsupported_save_settings_fail(saved, tmp_path, bad):
     with pytest.raises(CheckpointError): save_checkpoint(path, **kwargs)
     assert_rng_equal(before, rng_snapshot())
     assert not path.exists()
+
+
+def test_data_order_validates_each_permutation_once_not_per_cursor_advance(monkeypatch):
+    """Advancing the cursor via replace() must not re-sort the permutation (it cost 0.36 s/step at 1M)."""
+    import chess_rl.training.checkpoints as C
+    from dataclasses import replace
+    calls = []
+    real_sorted = sorted
+    monkeypatch.setattr(C, "sorted", lambda seq: calls.append(len(seq)) or real_sorted(seq), raising=False)
+    order = tuple(range(640))
+    first = C.DataOrder("source", "0" * 64, order, 0, 32, False, 0)
+    assert calls == [640]
+    advanced = first
+    for _ in range(5):
+        advanced = replace(advanced, cursor=advanced.cursor + 32)
+    assert calls == [640] and advanced.cursor == 160
+    # an equal but distinct tuple object is validated again; a tampered one is rejected
+    C.DataOrder("source", "0" * 64, tuple(range(640)), 0, 32, False, 0)
+    assert calls == [640, 640]
+    with pytest.raises(ValueError, match="complete permutation"):
+        C.DataOrder("source", "0" * 64, order[:-1] + (0,), 0, 32, False, 0)

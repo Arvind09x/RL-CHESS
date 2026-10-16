@@ -163,6 +163,10 @@ class Progress:
                  "progress must contain nonnegative integer counts")
 
 
+# Permutations already verified, keyed by tuple identity; the stored tuple keeps the id live.
+_validated_orders: dict = {}
+
+
 @dataclass(frozen=True)
 class DataOrder:
     """Current D07 permutation; cursor counts already consumed sample indices.
@@ -185,9 +189,15 @@ class DataOrder:
         _require(type(self.source_id) is str and bool(self.source_id), "data source identity is required")
         _require(type(self.references_sha256) is str and len(self.references_sha256) == 64
                  and all(c in "0123456789abcdef" for c in self.references_sha256), "invalid reference hash")
-        _require(type(self.order) is tuple and len(self.order) > 0
-                 and all(type(i) is int for i in self.order)
-                 and sorted(self.order) == list(range(len(self.order))), "data order must be a complete permutation")
+        _require(type(self.order) is tuple and len(self.order) > 0, "data order must be a complete permutation")
+        # The permutation check is O(n log n); the training loop rebuilds this record every step
+        # with the same tuple object and a new cursor, so each distinct tuple is checked once.
+        if _validated_orders.get(id(self.order)) is not self.order:
+            _require(all(type(i) is int for i in self.order)
+                     and sorted(self.order) == list(range(len(self.order))), "data order must be a complete permutation")
+            if len(_validated_orders) >= 8:
+                _validated_orders.pop(next(iter(_validated_orders)))
+            _validated_orders[id(self.order)] = self.order
         _require(type(self.batch_size) is int and self.batch_size > 0 and type(self.drop_last) is bool,
                  "invalid data batch settings")
         _require(type(self.cursor) is int and 0 <= self.cursor <= len(self.order)

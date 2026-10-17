@@ -271,7 +271,7 @@ def command_baseline(args):
 
 
 def run_provenance(recipe, *, p, p_sha, data, supervised, validation, total, every, batch_size,
-                   hard_stop=True, amendment=None):
+                   hard_stop=True, amendment=None, passes=None):
     source_id, membership = R.supervised_identity(supervised)
     record = dict(schema=R.RUN_VERSION, purpose="round-1 training from P on the round-1 self-play replay buffer",
         recipe=recipe, recipe_details=R.recipe_provenance(recipe),
@@ -288,8 +288,12 @@ def run_provenance(recipe, *, p, p_sha, data, supervised, validation, total, eve
         thresholds=dict(flag=R.FLAG_DELTA, stop=R.STOP_DELTA,
                         delta="checkpoint validation total loss minus P's, P measured fresh in the same job"),
         evaluation=dict(batch_size=batch_size, bootstrap=dict(resamples=R.BOOTSTRAP_RESAMPLES, seed=R.BOOTSTRAP_SEED)))
+    # Amendment keys appear only when used, so runs under the original plan keep their provenance unchanged.
+    if passes is not None:
+        record["passes_over_selfplay"] = passes
+    if amendment is not None and hard_stop:
+        record["amendment"] = amendment
     if not hard_stop:
-        # Only exploratory runs carry these keys, so original-rule runs keep their provenance unchanged.
         record["thresholds"]["hard_stop_enforced"] = False
         record["exploratory"] = dict(amendment=amendment, rule=(
             "every breach of the stop threshold is recorded but training continues; the candidate is the "
@@ -318,7 +322,7 @@ def command_train(args):
     check(data.manifest["checkpoint_sha256"] == p_sha, "round data was built for another P")
     check(data.manifest["supervised_source_id"] == digest(supervised.source_identity),
           "round data was filtered against another Stockfish source")
-    total = args.updates or math.ceil(len(data.train) / R.SETTINGS.selfplay_batch_size)
+    total = args.updates or math.ceil((args.passes or 1) * len(data.train) / R.SETTINGS.selfplay_batch_size)
     every = args.checkpoint_every
     stops = checkpoint_updates(total, every)
     check(args.stop_after is None or args.stop_after in stops, f"--stop-after must be a checkpoint update: {stops}")
@@ -326,7 +330,7 @@ def command_train(args):
     config = replace(p.config, device=args.device)
     provenance = run_provenance(args.recipe, p=p, p_sha=p_sha, data=data, supervised=supervised,
                                 validation=validation, total=total, every=every, batch_size=args.eval_batch_size,
-                                hard_stop=not args.no_hard_stop, amendment=args.amendment_note)
+                                hard_stop=not args.no_hard_stop, amendment=args.amendment_note, passes=args.passes)
     run_config = dict(version=R.RUN_VERSION, provenance=provenance, model_config=asdict(config), device=args.device,
                       threads=args.threads, runtime=runtime_config(),
                       cuda_runtime=cuda_runtime_config() if args.device == "cuda:0" else None,
@@ -651,11 +655,13 @@ def main(argv=None):
     train.add_argument("--device", choices=("cpu", "cuda:0"), default="cuda:0")
     train.add_argument("--threads", type=int, default=1)
     train.add_argument("--updates", type=int, help="total updates (default ceil(training positions / 24)); dry runs only")
+    train.add_argument("--passes", type=int, help="amended runs only: ceil(passes x training positions / 24) updates "
+                       "(needs --amendment-note)")
     train.add_argument("--checkpoint-every", type=int, default=R.CHECKPOINT_EVERY)
     train.add_argument("--stop-after", type=int, help="exit after the checkpoint at this update (resume tests)")
     train.add_argument("--no-hard-stop", action="store_true",
                        help="exploratory runs only: record stop-threshold breaches but keep training (needs --amendment-note)")
-    train.add_argument("--amendment-note", help="the approved amendment allowing --no-hard-stop, recorded in the provenance")
+    train.add_argument("--amendment-note", help="the approved amendment behind --no-hard-stop or --passes, recorded in the provenance")
     train.add_argument("--eval-batch-size", type=int, default=32)
     train.add_argument("--expect-p-total", type=float, help="P's recorded validation total loss to reproduce")
     train.add_argument("--p-tolerance", type=float, default=0.001)
@@ -689,8 +695,12 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.command == "train" and (args.checkpoint_every < 1 or (args.updates is not None and args.updates < 1)):
         parser.error("--checkpoint-every and --updates must be positive")
-    if args.command == "train" and bool(args.no_hard_stop) != bool(args.amendment_note):
-        parser.error("--no-hard-stop and --amendment-note go together")
+    if args.command == "train" and (args.no_hard_stop or args.passes is not None) and not args.amendment_note:
+        parser.error("--no-hard-stop and --passes need --amendment-note")
+    if args.command == "train" and args.amendment_note and not (args.no_hard_stop or args.passes is not None):
+        parser.error("--amendment-note records the amendment behind --no-hard-stop or --passes; give one of them")
+    if args.command == "train" and args.passes is not None and (args.passes < 1 or args.updates is not None):
+        parser.error("--passes must be positive and cannot be combined with --updates")
     handler = dict(data=command_data, baseline=command_baseline, train=command_train, compare=command_compare,
                    inference=command_inference, timings=command_timings)[args.command]
     try:

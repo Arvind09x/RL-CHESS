@@ -2,6 +2,7 @@
 from dataclasses import asdict, replace
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import shutil
@@ -595,4 +596,38 @@ def test_exploratory_run_records_breaches_without_stopping_and_matches_the_stopp
     refused = patched_cli(-10.0, *train_args(world, data, other), check=False)
     assert refused.returncode == 2 and "other settings" in refused.stderr
     lone = cli(*train_args(world, data, world["tmp"] / "lone", "--no-hard-stop"), check=False)
-    assert lone.returncode == 2 and "go together" in lone.stderr
+    assert lone.returncode == 2 and "need --amendment-note" in lone.stderr
+
+
+def passes_args(world, data, output, passes, *extra):
+    args = train_args(world, data, output)
+    at = args.index("--updates")
+    del args[at:at + 2]
+    return [*args, "--passes", passes, *extra]
+
+
+def test_multi_pass_run_records_its_amendment_and_matches_one_pass_up_to_a_common_checkpoint(world):
+    data = round_data(world, holdout=None)
+    note = "A7 test amendment: second pass, diagnostic only"
+    two = world["tmp"] / "two"
+    cli(*passes_args(world, data, two, 2, "--amendment-note", note))
+    s = json.loads((two / "summary.json").read_text())
+    assert s["total_updates"] == math.ceil(2 * len(data.train) / 24) and s["completed"] and not s["exploratory"]
+    provenance = load_inference(two / f"update-{s['total_updates']:06d}.pt").provenance
+    assert provenance["passes_over_selfplay"] == 2 and provenance["amendment"] == note
+    assert "hard_stop_enforced" not in provenance["thresholds"] and "exploratory" not in provenance
+    # A run with a longer planned length trains identically up to a checkpoint both runs share.
+    one, longer = world["tmp"] / "one", world["tmp"] / "longer"
+    cli(*train_args(world, data, one))
+    cli(*passes_args(world, data, longer, 30, "--amendment-note", note))
+    total = json.loads((longer / "summary.json").read_text())["total_updates"]
+    assert total == math.ceil(30 * len(data.train) / 24) > 6
+    assert "amendment" not in load_inference(one / "update-000006.pt").provenance
+    assert json.loads(cli("compare", one, longer, "--update", 6, "--state-only").stdout)["identical"]
+    assert cli("compare", one, longer, "--update", 6, check=False).returncode == 1
+    bad = cli(*train_args(world, data, world["tmp"] / "bad"), "--passes", 2, "--amendment-note", note, check=False)
+    assert bad.returncode == 2 and "cannot be combined" in bad.stderr
+    alone = cli(*train_args(world, data, world["tmp"] / "alone"), "--amendment-note", note, check=False)
+    assert alone.returncode == 2 and "give one of them" in alone.stderr
+    missing = cli(*passes_args(world, data, world["tmp"] / "missing", 2), check=False)
+    assert missing.returncode == 2 and "need --amendment-note" in missing.stderr

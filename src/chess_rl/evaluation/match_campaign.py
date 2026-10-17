@@ -76,9 +76,11 @@ OPENING_RULE = (
     "replayed root must equal the row's rule_position, be nonterminal, appear in the registry under this "
     "split only, and differ from every smoke opening; at most one root per game; 64 per split in rank order")
 INCOMPLETE_RULE = (
-    "a failed or interrupted game blocks selection until diagnosed and is never replaced or replayed under "
+    "a failed or interrupted game in a selectable candidate's match blocks selection until diagnosed; no game "
+    "is ever replaced or replayed under "
     "a different plan; a truncation at the ply cap is an unscored outcome; candidates are compared only on "
-    "the openings whose pairs are complete (both legs scored) in every validation match; at least 48 common "
+    "the openings whose pairs are complete (both legs scored) in every selectable candidate's validation "
+    "match (a report-only match never blocks, shrinks or changes the selection); at least 48 common "
     "complete pairs are needed for a provisional report and all 64 for the final selection; matches are "
     "never stopped on observed scores")
 SELECTION_RULE = (
@@ -975,13 +977,23 @@ def match_report(directory, root):
     if len(values) != plan["planned_games"]:
         raise ValueError(f"{plan['match_id']}: {plan['planned_games'] - len(values)} games pending; scores are "
                          "reported only for a finished schedule (use status)")
+    comparison = None
     if plan["kind"] == "validation":
         candidates = load_candidates(directory.parent / "candidates.json")
-        for name in candidates["by_name"]:
+        selectable = [n for n, c in candidates["by_name"].items() if c["eligibility"] == "selectable"]
+        matches = {}
+        for name in selectable:
             sibling = directory.parent / f"validation-P-vs-{name}"
             if not (sibling / "plan.json").exists() or not status(sibling, root)["finished"]:
                 raise ValueError(f"validation-P-vs-{name} is not finished; validation scores are reported only "
-                                 "when every candidate's validation match is finished")
+                                 "when every selectable candidate's validation match is finished")
+            sibling_plan = load_plan(sibling, root)
+            stored = read_results(sibling / "results.sqlite3", sibling_plan)
+            matches[name] = (sibling_plan, [stored[j["game_id"]]["record"] for j in sibling_plan["schedule"]])
+        own_name = plan["score_player_id"]
+        if own_name not in matches:
+            matches[own_name] = (plan, [values[j["game_id"]]["record"] for j in plan["schedule"]])
+            comparison = compare_on_common_pairs(selectable + [own_name], matches)
     games = [values[j["game_id"]]["record"] for j in plan["schedule"]]
     summary = summarize(games, plan["score_player_id"], seed=plan["statistics"]["seed"],
                         bootstrap_samples=plan["statistics"]["samples"])
@@ -991,6 +1003,9 @@ def match_report(directory, root):
                   failures=summary["status_counts"]["failed"] + summary["status_counts"]["interrupted"],
                   timing=timing_report(plan, values))
     if plan["kind"] == "validation":
+        report["eligibility"] = candidates["by_name"][plan["score_player_id"]]["eligibility"]
+        if comparison is not None:
+            report["comparison_with_selectable_on_common_pairs"] = comparison
         report["note"] = ("validation picks among candidates; the selection biases the selected candidate's "
                           "interval upward, so validation never supports an improvement claim")
     if plan["kind"] == "test":
@@ -1016,16 +1031,10 @@ def restricted_score(games, player_id, openings, statistics_):
     return summarize(chosen, player_id, seed=statistics_["seed"], bootstrap_samples=statistics_["samples"])
 
 
-def decide(candidates, matches):
-    """Pure selection rule. ``matches`` maps candidate name to (plan, games in schedule order)."""
-    record = candidates["record"]
-    names = [c["name"] for c in record["candidates"]]
-    if sorted(matches) != sorted(names):
-        raise ValueError("selection needs one finished validation match per frozen candidate")
-    plans = {n: matches[n][0] for n in names}
-    first = plans[names[0]]
-    for n in names:
-        plan = plans[n]
+def _check_validation_plans(candidates, plans):
+    """Every validation plan present must follow one frozen protocol."""
+    first = next(iter(plans.values()))
+    for n, plan in plans.items():
         if (plan["kind"] != "validation" or plan["candidates_file"] != candidates["file"]
                 or plan["opening_ids"] != first["opening_ids"] or plan["openings_set_sha256"] != first["openings_set_sha256"]
                 or plan["settings"] != first["settings"] or plan["ply_cap"] != first["ply_cap"]
@@ -1034,25 +1043,69 @@ def decide(candidates, matches):
                 or plan["device"] != first["device"] or plan["workers"] != first["workers"]
                 or plan["score_player_id"] != n or plan["players"][1]["sha256"] != candidates["by_name"][n]["sha256"]):
             raise ValueError(f"{n}: validation plan differs from the frozen protocol")
-        if len(matches[n][1]) != plan["planned_games"]:
-            raise ValueError(f"{n}: validation schedule unfinished; selection refuses")
-    failures = {n: sum(g["status"] in ("failed", "interrupted") for g in matches[n][1]) for n in names}
+    return first
+
+
+def _thresholds(plan):
+    planned = plan["planned_pairs"]
+    if plan["protocol"] == "production":
+        return FINAL_PAIRS, PROVISIONAL_MIN_PAIRS
+    return planned, math.ceil(0.75 * planned)
+
+
+def _own(plan, games, name):
+    return summarize(games, name, seed=plan["statistics"]["seed"], bootstrap_samples=plan["statistics"]["samples"],
+                     allow_partial=len(games) != plan["planned_games"])
+
+
+def compare_on_common_pairs(names, matches):
+    """Each named candidate's score on the openings complete in all of their matches (the same pairs)."""
     common = common_pairs([matches[n][1] for n in names])
+    first = matches[names[0]][0]
+    _, provisional_min = _thresholds(first)
+    out = dict(candidates=list(names), common_count=len(common),
+               common_complete_pairs=sorted(common, key=first["opening_ids"].index), scores=None)
+    if len(common) >= provisional_min:
+        out["scores"] = {n: restricted_score(matches[n][1], n, common, matches[n][0]["statistics"]) for n in names}
+    else:
+        out["note"] = f"fewer than {provisional_min} common complete pairs; no comparison"
+    return out
+
+
+def decide(candidates, matches):
+    """Pure selection rule. ``matches`` maps candidate name to (plan, recorded games in schedule order).
+
+    Only the selectable candidates' validation matches decide: they must be present and finished, their
+    failures block, and their common complete pairs set the thresholds. A report-only match never blocks,
+    shrinks or changes the selection; it is reported beside it (finished or not)."""
+    record, by_name = candidates["record"], candidates["by_name"]
+    if set(matches) - set(by_name):
+        raise ValueError("a validation match names a candidate that is not frozen")
+    selectable = [c["name"] for c in record["candidates"] if c["eligibility"] == "selectable"]
+    report_only = [c["name"] for c in record["candidates"] if c["eligibility"] == "report-only"]
+    if [n for n in selectable if n not in matches]:
+        raise ValueError("selection needs every selectable candidate's validation match")
+    plans = {n: matches[n][0] for n in matches}
+    first = _check_validation_plans(candidates, plans)
+    for n in selectable:
+        if len(matches[n][1]) != plans[n]["planned_games"]:
+            raise ValueError(f"{n}: validation schedule unfinished; selection refuses")
+    failures = {n: sum(g["status"] in ("failed", "interrupted") for g in matches[n][1]) for n in selectable}
+    common = common_pairs([matches[n][1] for n in selectable])
     planned = first["planned_pairs"]
-    final_needed = FINAL_PAIRS if first["protocol"] == "production" else planned
-    provisional_min = PROVISIONAL_MIN_PAIRS if first["protocol"] == "production" else math.ceil(0.75 * planned)
-    own = {n: summarize(matches[n][1], n, seed=plans[n]["statistics"]["seed"],
-                        bootstrap_samples=plans[n]["statistics"]["samples"]) for n in names}
+    final_needed, provisional_min = _thresholds(first)
+    own = {n: _own(plans[n], matches[n][1], n) for n in selectable}
     attrition = {n: dict(status_counts=own[n]["status_counts"], complete_pairs=own[n]["complete_pairs"])
-                 for n in names}
+                 for n in selectable}
     out = dict(schema=SELECTION_SCHEMA, protocol=first["protocol"], candidates_file=candidates["file"],
-               validation_plans={n: dict(match_id=plans[n]["match_id"], plan_sha256=plans[n]["sha256"]) for n in names},
-               failures=failures, common_complete_pairs=sorted(common, key=first["opening_ids"].index),
+               validation_plans={n: dict(match_id=plans[n]["match_id"], plan_sha256=plans[n]["sha256"]) for n in plans},
+               decided_by=selectable, failures=failures,
+               common_complete_pairs=sorted(common, key=first["opening_ids"].index),
                common_count=len(common), planned_pairs=planned, final_pairs_required=final_needed,
-               provisional_min_pairs=provisional_min, attrition=attrition, own_match=None, eligibility={
-                   n: candidates["by_name"][n]["eligibility"] for n in names},
-               tie_order=record["tie_order"], rules=record["rules"], final=False, selected=None,
-               demo=None, scores_on_common_set=None)
+               provisional_min_pairs=provisional_min, attrition=attrition, own_match=None,
+               eligibility={n: by_name[n]["eligibility"] for n in by_name}, tie_order=record["tie_order"],
+               rules=record["rules"], final=False, selected=None, demo=None, scores_on_common_set=None,
+               report_only=None)
     if any(failures.values()):
         out["status"] = "blocked: failed or interrupted games must be diagnosed; nothing is replaced"
         return out
@@ -1060,24 +1113,32 @@ def decide(candidates, matches):
         out["status"] = (f"insufficient: {len(common)} common complete pairs, below the {provisional_min} needed "
                          "for a provisional report; no comparison; Arvind decides")
         return out
-    scores = {n: restricted_score(matches[n][1], n, common, plans[n]["statistics"]) for n in names}
+    scores = {n: restricted_score(matches[n][1], n, common, plans[n]["statistics"]) for n in selectable}
     out["scores_on_common_set"] = scores
     out["own_match"] = own
+    # Report-only candidates: reported beside the selection, never part of it.
+    side = {}
+    for n in report_only:
+        if n not in matches or len(matches[n][1]) != plans[n]["planned_games"]:
+            side[n] = dict(status="pending: match not finished; it does not affect the selection")
+            continue
+        games = matches[n][1]
+        side[n] = dict(status="finished", failures=sum(g["status"] in ("failed", "interrupted") for g in games),
+                       own_match=_own(plans[n], games, n),
+                       comparison=compare_on_common_pairs(selectable + [n], matches))
+    out["report_only"] = side
     if len(common) < final_needed:
         out["status"] = (f"provisional: {len(common)} of {planned} common complete pairs (final selection needs "
                          f"{final_needed}); no automatic selection; Arvind decides")
         return out
-    selectable = [n for n in names if candidates["by_name"][n]["eligibility"] == "selectable"]
     best = max(scores[n]["complete_pair_score"] for n in selectable)
     tied = [n for n in selectable if scores[n]["complete_pair_score"] == best]
     order = record["tie_order"] + [n for n in selectable if n not in record["tie_order"]]
     chosen = next(n for n in order if n in tied)
-    spec = candidates["by_name"][chosen]
+    spec = by_name[chosen]
     out.update(final=True, status="final", selected=dict(name=chosen, path=spec["path"], sha256=spec["sha256"],
                checkpoint_id=spec["checkpoint_id"], validation_score=best, tied_with=[n for n in tied if n != chosen]),
                demo=dict(player=chosen if best > 0.5 else "P", rule=DEMO_RULE),
-               report_only={n: scores[n]["complete_pair_score"] for n in names
-                            if candidates["by_name"][n]["eligibility"] == "report-only"},
                note=("the selected candidate's validation interval is biased upward by the selection; only the "
                      "test match supports a claim"))
     return out
@@ -1093,10 +1154,12 @@ def select(matches_root, root, *, candidates_path, log=print):
         raise ValueError(f"{output} already exists; the selection is recorded once")
     candidates = load_candidates(candidates_path)
     matches = {}
-    for n in candidates["by_name"]:
+    for n, spec in candidates["by_name"].items():
         directory = matches_root / f"validation-P-vs-{n}"
         if not (directory / "plan.json").exists():
-            raise ValueError(f"{n}: no validation match planned; selection refuses")
+            if spec["eligibility"] == "selectable":
+                raise ValueError(f"{n}: no validation match planned; selection refuses")
+            continue  # a report-only match never holds up the selection
         plan = load_plan(directory, root)
         values = read_results(directory / "results.sqlite3", plan)
         matches[n] = (plan, [values[j["game_id"]]["record"] for j in plan["schedule"] if j["game_id"] in values])

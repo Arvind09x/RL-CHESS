@@ -361,9 +361,8 @@ def test_killed_run_resumes_without_replaying_and_matches_an_uninterrupted_run(w
     assert sorted(resumed) == sorted(reference) == sorted(j["game_id"] for j in p["schedule"])
     for game_id in resumed:
         assert resumed[game_id]["record"] == reference[game_id]["record"]
-    # The other candidate's validation match is not finished here, so no validation score is reported.
-    with pytest.raises(ValueError, match="not finished"):
-        M.match_report(matches / p["match_id"], world["root"])
+    # The selectable candidate's match is finished, so its report is available without the report-only match.
+    assert M.match_report(matches / p["match_id"], world["root"])["eligibility"] == "selectable"
 
 
 def test_stored_game_validation_rejects_tampering(world, played):
@@ -431,6 +430,10 @@ def test_report_numbers_equal_summarize(world, played):
     assert report["summary"] == summarize(games, "R1-mix", seed=p["statistics"]["seed"],
                                           bootstrap_samples=p["statistics"]["samples"])
     assert report["score_player_id"] == "R1-mix" and report["timing"]["games"] == 4
+    pure = played["plans"]["R1-pure-full"]
+    side = M.match_report(played["matches"] / pure["match_id"], world["root"])
+    assert side["eligibility"] == "report-only" and side["score_player_id"] == "R1-pure-full"
+    assert side["comparison_with_selectable_on_common_pairs"]["candidates"] == ["R1-mix", "R1-pure-full"]
 
 
 def test_smoke_report_shows_only_statuses_lengths_and_timing(world, runtime):
@@ -511,12 +514,13 @@ def test_report_only_candidates_are_never_selected():
     cands = fake_candidates({"R1-mix": "selectable", "R1-pure-full": "report-only"}, ["R1-mix"])
     out = M.decide(cands, {"R1-mix": fake_match("R1-mix", [("P", "P")] * 4),
                            "R1-pure-full": fake_match("R1-pure-full", [("R", "R")] * 4)})
-    assert out["selected"]["name"] == "R1-mix" and out["report_only"] == {"R1-pure-full": 1.0}
+    assert out["selected"]["name"] == "R1-mix"
+    assert out["report_only"]["R1-pure-full"]["own_match"]["complete_pair_score"] == 1.0
     assert out["demo"]["player"] == "P"
 
 
-def test_selection_uses_only_pairs_complete_in_both_matches_and_the_thresholds():
-    cands = fake_candidates(dict(A="selectable", B="report-only"), ["A"])
+def test_selection_uses_only_pairs_complete_in_every_selectable_match_and_the_thresholds():
+    cands = fake_candidates(dict(A="selectable", B="selectable"), ["A"])
     # Eight pairs; fixture thresholds: provisional at ceil(0.75 x 8) = 6, final needs all 8.
     a = [("R", "R")] * 7 + [("T", "R")]
     b = [("R", "R")] * 6 + [("T", "P"), ("P", "P")]
@@ -527,6 +531,7 @@ def test_selection_uses_only_pairs_complete_in_both_matches_and_the_thresholds()
     b = [("R", "R")] * 5 + [("T", "P"), ("T", "P"), ("P", "P")]
     out = M.decide(cands, dict(A=fake_match("A", a), B=fake_match("B", b)))
     assert out["status"].startswith("insufficient") and out["scores_on_common_set"] is None
+    assert out["own_match"] is None
     f = [("R", "R")] * 7 + [("F", "R")]
     out = M.decide(cands, dict(A=fake_match("A", [("R", "R")] * 8), B=fake_match("B", f)))
     assert out["status"].startswith("blocked") and out["selected"] is None
@@ -536,19 +541,37 @@ def test_selection_uses_only_pairs_complete_in_both_matches_and_the_thresholds()
     other = fake_match("B", [("R", "R")] * 8, ids=[f"x{i}" for i in range(8)])
     with pytest.raises(ValueError, match="frozen protocol"):
         M.decide(cands, dict(A=fake_match("A", a), B=other))
+    with pytest.raises(ValueError, match="every selectable"):
+        M.decide(cands, dict(A=fake_match("A", a)))
+
+
+def test_a_report_only_match_never_blocks_shrinks_or_changes_the_selection():
+    cands = fake_candidates({"R1-mix": "selectable", "R1-pure-full": "report-only"}, ["R1-mix"])
+    mix = fake_match("R1-mix", [("R", "P")] * 8)
+    # Failures and truncations in the report-only match.
+    pure = fake_match("R1-pure-full", [("F", "R"), ("T", "T")] + [("R", "R")] * 6)
+    out = M.decide(cands, {"R1-mix": mix, "R1-pure-full": pure})
+    assert out["final"] and out["selected"]["name"] == "R1-mix" and out["common_count"] == 8
+    assert out["decided_by"] == ["R1-mix"] and "R1-pure-full" not in out["failures"]
+    side = out["report_only"]["R1-pure-full"]
+    assert side["failures"] == 1 and side["comparison"]["common_count"] == 6
+    assert set(side["comparison"]["scores"]) == {"R1-mix", "R1-pure-full"}
+    # Unfinished or absent: still the same selection.
+    for matches in ({"R1-mix": mix, "R1-pure-full": (pure[0], pure[1][:-3])}, {"R1-mix": mix}):
+        out = M.decide(cands, matches)
+        assert out["final"] and out["selected"]["name"] == "R1-mix"
+        assert out["report_only"]["R1-pure-full"]["status"].startswith("pending")
 
 
 def test_production_thresholds_are_48_and_64():
     cands = fake_candidates(dict(A="selectable", B="report-only"), ["A"])
-    a = [("R", "P")] * 64
-    b = [("R", "P")] * 50 + [("T", "R")] * 14
-    out = M.decide(cands, dict(A=fake_match("A", a, protocol="production"), B=fake_match("B", b, protocol="production")))
-    assert out["common_count"] == 50 and out["status"].startswith("provisional")
-    b = [("R", "P")] * 47 + [("T", "R")] * 17
-    out = M.decide(cands, dict(A=fake_match("A", a, protocol="production"), B=fake_match("B", b, protocol="production")))
-    assert out["status"].startswith("insufficient")
-    out = M.decide(cands, dict(A=fake_match("A", a, protocol="production"), B=fake_match("B", a, protocol="production")))
-    assert out["final"] and out["selected"]["name"] == "A"
+    b = [("T", "T")] * 64  # a report-only match with no complete pair changes nothing
+    for complete, status in ((64, "final"), (50, "provisional"), (48, "provisional"), (47, "insufficient")):
+        a = [("R", "P")] * complete + [("T", "R")] * (64 - complete)
+        out = M.decide(cands, dict(A=fake_match("A", a, protocol="production"),
+                                   B=fake_match("B", b, protocol="production")))
+        assert out["common_count"] == complete and out["status"].startswith(status)
+        assert out["final"] == (status == "final")
 
 
 def test_select_and_test_plan_rules_end_to_end(world, runtime, played):

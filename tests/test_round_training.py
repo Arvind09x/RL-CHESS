@@ -538,3 +538,61 @@ def test_baseline_measures_p_only_prints_its_report_and_must_reproduce(world):
     refused = cli(*args[:-4], "--output", world["tmp"] / "p-baseline-2", "--device", "cpu",
                   "--expect-p-total", 99.0, check=False)
     assert refused.returncode == 2 and "NO (training refuses to start)" in refused.stdout
+
+
+def test_exploratory_candidate_keeps_the_original_rule_result_alongside():
+    e = lambda u, d: dict(update=u, checkpoint=f"update-{u:06d}.pt", delta_total=d)
+    evaluations = [e(250, 0.4957), e(500, 0.3), e(750, 0.2)]
+    exploratory = R.exploratory_candidate(evaluations, completed=True)
+    assert exploratory["candidate"] == "update-000750.pt" and exploratory["exploratory"]
+    assert exploratory["threshold_breaches"] == [250, 500] and exploratory["final_flag"]
+    original = R.select_candidate(evaluations, completed=True)
+    assert original["stopped"] and original["stopped_at"] == 250 and original["candidate"] == "P"
+    with pytest.raises(ValueError):
+        R.exploratory_candidate(evaluations, completed=False)
+    assert R.stopped_training(dict(hard_stop=True)) and not R.stopped_training(dict(hard_stop=True, training_stopped=False))
+
+
+def patched_cli(stop, *args, check=True):
+    """The command line with the stop threshold lowered so that every checkpoint breaches it."""
+    env = dict(os.environ, PYTHONPATH=f"{ROOT / 'src'}:{ROOT}", PYTHONDONTWRITEBYTECODE="1")
+    code = ("import sys; from chess_rl.training import round_training as R; R.STOP_DELTA = float(sys.argv[1]); "
+            "from scripts import train_mixed as T; sys.exit(T.main(sys.argv[2:]))")
+    result = subprocess.run([sys.executable, "-c", code, str(stop), *map(str, args)],
+                            capture_output=True, text=True, env=env, cwd=ROOT)
+    if check:
+        assert result.returncode == 0, result.stdout + result.stderr
+    return result
+
+
+def test_exploratory_run_records_breaches_without_stopping_and_matches_the_stopped_run(world):
+    data = round_data(world, holdout=None)
+    stopped, full = world["tmp"] / "stopped", world["tmp"] / "full"
+    note = "A6 test amendment"
+    patched_cli(-10.0, *train_args(world, data, stopped))
+    s = json.loads((stopped / "summary.json").read_text())
+    assert not s["completed"] and s["selection"]["stopped_at"] == 2 and s["candidate"]["checkpoint"] == "P"
+    assert s["hard_stop_enforced"] and not s["exploratory"] and s["threshold_breaches"] == [2]
+    patched_cli(-10.0, *train_args(world, data, full, "--no-hard-stop", "--amendment-note", note, "--stop-after", 2))
+    assert json.loads(cli("compare", stopped, full, "--update", 2, "--state-only").stdout)["identical"]
+    plain = cli("compare", stopped, full, "--update", 2, check=False)
+    assert plain.returncode == 1 and json.loads(plain.stdout)["differences"]["everything else"]
+    patched_cli(-10.0, *train_args(world, data, full, "--no-hard-stop", "--amendment-note", note))
+    f = json.loads((full / "summary.json").read_text())
+    assert f["completed"] and f["exploratory"] and not f["hard_stop_enforced"] and f["updates"] == 6
+    assert f["candidate"]["checkpoint"] == "update-000006.pt" and f["selection"]["threshold_breaches"] == [2, 4, 6]
+    assert f["threshold_breaches"] == [2, 4, 6]
+    assert f["original_rule_selection"]["candidate"] == "P" and f["original_rule_selection"]["stopped_at"] == 2
+    for u in (2, 4, 6):
+        sidecar = json.loads((full / f"update-{u:06d}.json").read_text())
+        assert sidecar["hard_stop"] and not sidecar["training_stopped"]
+    provenance = load_inference(full / "update-000006.pt").provenance
+    assert provenance["exploratory"]["amendment"] == note and provenance["thresholds"]["hard_stop_enforced"] is False
+    assert "exploratory" not in load_inference(stopped / "update-000002.pt").provenance
+    # The stop setting is part of the run: resuming without it, or switching it on later, is refused.
+    other = world["tmp"] / "other"
+    patched_cli(-10.0, *train_args(world, data, other, "--no-hard-stop", "--amendment-note", note, "--stop-after", 2))
+    refused = patched_cli(-10.0, *train_args(world, data, other), check=False)
+    assert refused.returncode == 2 and "other settings" in refused.stderr
+    lone = cli(*train_args(world, data, world["tmp"] / "lone", "--no-hard-stop"), check=False)
+    assert lone.returncode == 2 and "go together" in lone.stderr

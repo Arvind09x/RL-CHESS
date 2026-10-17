@@ -270,9 +270,10 @@ def command_baseline(args):
     return 0
 
 
-def run_provenance(recipe, *, p, p_sha, data, supervised, validation, total, every, batch_size):
+def run_provenance(recipe, *, p, p_sha, data, supervised, validation, total, every, batch_size,
+                   hard_stop=True, amendment=None):
     source_id, membership = R.supervised_identity(supervised)
-    return dict(schema=R.RUN_VERSION, purpose="round-1 training from P on the round-1 self-play replay buffer",
+    record = dict(schema=R.RUN_VERSION, purpose="round-1 training from P on the round-1 self-play replay buffer",
         recipe=recipe, recipe_details=R.recipe_provenance(recipe),
         initial_checkpoint=dict(sha256=p_sha, checkpoint_id=p.checkpoint_id),
         round_data=dict(replay_id=data.replay_id, training_positions=len(data.train),
@@ -287,6 +288,13 @@ def run_provenance(recipe, *, p, p_sha, data, supervised, validation, total, eve
         thresholds=dict(flag=R.FLAG_DELTA, stop=R.STOP_DELTA,
                         delta="checkpoint validation total loss minus P's, P measured fresh in the same job"),
         evaluation=dict(batch_size=batch_size, bootstrap=dict(resamples=R.BOOTSTRAP_RESAMPLES, seed=R.BOOTSTRAP_SEED)))
+    if not hard_stop:
+        # Only exploratory runs carry these keys, so original-rule runs keep their provenance unchanged.
+        record["thresholds"]["hard_stop_enforced"] = False
+        record["exploratory"] = dict(amendment=amendment, rule=(
+            "every breach of the stop threshold is recorded but training continues; the candidate is the "
+            "final checkpoint; the original rule's candidate is reported alongside and is not changed"))
+    return record
 
 
 def command_train(args):
@@ -317,7 +325,8 @@ def command_train(args):
     p = load_inference(args.p_checkpoint, device=args.device)
     config = replace(p.config, device=args.device)
     provenance = run_provenance(args.recipe, p=p, p_sha=p_sha, data=data, supervised=supervised,
-                                validation=validation, total=total, every=every, batch_size=args.eval_batch_size)
+                                validation=validation, total=total, every=every, batch_size=args.eval_batch_size,
+                                hard_stop=not args.no_hard_stop, amendment=args.amendment_note)
     run_config = dict(version=R.RUN_VERSION, provenance=provenance, model_config=asdict(config), device=args.device,
                       threads=args.threads, runtime=runtime_config(),
                       cuda_runtime=cuda_runtime_config() if args.device == "cuda:0" else None,
@@ -388,7 +397,7 @@ def command_train(args):
     print(json.dumps(header), flush=True)
     if args.device == "cuda:0":
         torch.cuda.reset_peak_memory_stats(0)
-    finished = latest is not None and (start == total or latest[1]["hard_stop"])
+    finished = latest is not None and (start == total or R.stopped_training(latest[1]))
     with segment.open("x") as log:
         log.write(json.dumps(header, allow_nan=False) + "\n")
         log.flush()
@@ -410,11 +419,11 @@ def command_train(args):
                 if update in stops:
                     sidecar = write_pair(output, update, model=model, optimizer=optimizer, state=state,
                                          provenance=provenance, recipe=args.recipe, records=records, log=log,
-                                         evaluator=evaluator, reference=reference)
+                                         evaluator=evaluator, reference=reference, enforce_stop=not args.no_hard_stop)
                     print(json.dumps(dict(event="checkpoint", update=update, delta=sidecar["evaluation"]["delta"],
                                           validation=sidecar["evaluation"]["validation"],
                                           timings=sidecar["timings"])), flush=True)
-                    if sidecar["hard_stop"] or update == args.stop_after:
+                    if sidecar["training_stopped"] or update == args.stop_after:
                         break
     if done(output, total):
         return finalize(output, args, total=total, data=data, provenance=provenance)
@@ -424,10 +433,11 @@ def command_train(args):
 
 def done(output, total):
     latest, _ = R.resume_point(output)
-    return latest is not None and (latest[0] == total or latest[1]["hard_stop"])
+    return latest is not None and (latest[0] == total or R.stopped_training(latest[1]))
 
 
-def write_pair(output, update, *, model, optimizer, state, provenance, recipe, records, log, evaluator, reference):
+def write_pair(output, update, *, model, optimizer, state, provenance, recipe, records, log, evaluator, reference,
+               enforce_stop=True):
     """Evaluate, make the metrics durable, then publish the checkpoint and after it the sidecar."""
     official, rows, hold, measure_timings = evaluator.measure(model)
     delta, paired = evaluator.compare(official, rows, hold, reference)
@@ -448,7 +458,9 @@ def write_pair(output, update, *, model, optimizer, state, provenance, recipe, r
                                    validation_rows_sha256=R.rows_digest(rows),
                                    holdout=evaluator.holdout_summary(hold), holdout_rows_sha256=R.rows_digest(hold)),
                    delta_total=delta["total_loss"], flag=bool(delta["total_loss"] > R.FLAG_DELTA),
+                   # hard_stop records the breach; training_stopped whether training ended here.
                    hard_stop=bool(delta["total_loss"] > R.STOP_DELTA),
+                   training_stopped=bool(enforce_stop and delta["total_loss"] > R.STOP_DELTA),
                    sampler=dict(selfplay_epoch=state.selfplay.epoch, selfplay_cursor=state.selfplay.cursor,
                                 selfplay_samples_drawn=state.selfplay.samples_seen),
                    timings=dict(measure_timings, checkpoint_save_seconds=save_seconds), written_utc=R._now())
@@ -466,9 +478,13 @@ def finalize(output, args, *, total, data, provenance):
     evaluations = [dict(update=s["update"], checkpoint=s["checkpoint"], delta_total=s["delta_total"],
                         flag=s["flag"], hard_stop=s["hard_stop"], paired_labels=s["evaluation"]["paired_labels"])
                    for s in sidecars]
-    completed = latest[0] == total and not latest[1]["hard_stop"]
-    check(completed or latest[1]["hard_stop"], "run is neither complete nor stopped")
-    choice = R.select_candidate(evaluations, completed=completed)
+    stopped = R.stopped_training(latest[1])
+    completed = latest[0] == total and not stopped
+    check(completed or stopped, "run is neither complete nor stopped")
+    original = R.select_candidate(evaluations, completed=completed, flag=R.FLAG_DELTA, stop=R.STOP_DELTA)
+    enforced = not args.no_hard_stop
+    choice = original if enforced else R.exploratory_candidate(evaluations, completed=completed,
+                                                                flag=R.FLAG_DELTA, stop=R.STOP_DELTA)
     records, superseded, partial = R.read_metrics(output)
     updates = len(records)
     n = len(data.train)
@@ -478,7 +494,9 @@ def finalize(output, args, *, total, data, provenance):
     seconds = [r["update_seconds"] for r in records]
     candidate = choice["candidate"]
     summary = dict(version=R.RUN_VERSION, recipe=provenance["recipe"], name=details["name"], completed=completed,
-        updates=updates, total_updates=total, selection=choice,
+        updates=updates, total_updates=total, hard_stop_enforced=enforced, exploratory=not enforced,
+        selection=choice, original_rule_selection=original,
+        threshold_breaches=[e["update"] for e in evaluations if e["hard_stop"]],
         candidate=dict(checkpoint=candidate, sha256=None if candidate == "P" else sha256(output / candidate),
                        update=choice["candidate_update"]),
         final_delta_total=latest[1]["delta_total"], final_flag_over_0_05=bool(latest[1]["delta_total"] > R.FLAG_DELTA),
@@ -494,7 +512,8 @@ def finalize(output, args, *, total, data, provenance):
         peak_gpu_allocated_bytes=torch.cuda.max_memory_allocated(0) if args.device == "cuda:0" else None,
         test_split_used=False)
     R.publish_json(output / "summary.json", summary)
-    print(json.dumps(dict(event="summary", selection=choice, final_delta_total=summary["final_delta_total"])), flush=True)
+    print(json.dumps(dict(event="summary", exploratory=not enforced, selection=choice, original_rule_selection=original,
+                          final_delta_total=summary["final_delta_total"])), flush=True)
     return 0
 
 
@@ -537,8 +556,9 @@ def command_compare(args):
         for key in path:
             x, y = x[key], y[key]
         if not path:
-            x = {k: v for k, v in pa.items() if k not in ("model_state", "training")}
-            y = {k: v for k, v in pb.items() if k not in ("model_state", "training")}
+            skip = ("model_state", "training") + (("provenance",) if args.state_only else ())
+            x = {k: v for k, v in pa.items() if k not in skip}
+            y = {k: v for k, v in pb.items() if k not in skip}
             x["training"] = {k: v for k, v in pa["training"].items() if k not in ("optimizer", "mixed_state", "rng", "progress")}
             y["training"] = {k: v for k, v in pb["training"].items() if k not in ("optimizer", "mixed_state", "rng", "progress")}
         report[part] = tree_differences(x, y, part, [])
@@ -549,11 +569,19 @@ def command_compare(args):
     ignore = {"metrics_sha256", "checkpoint_sha256", "checkpoint_bytes"}
     sa = {k: v for k, v in R.strip_timing(R.read_json(a / R.sidecar_name(update))).items() if k not in ignore}
     sb = {k: v for k, v in R.strip_timing(R.read_json(b / R.sidecar_name(update))).items() if k not in ignore}
+    if args.state_only:
+        # The stop setting differs by design; compare what was computed, not how the run is labelled.
+        keep = ("update", "recipe", "checkpoint", "metrics_records", "evaluation", "delta_total", "flag", "sampler")
+        sa, sb = ({k: v.get(k) for k in keep} for v in (sa, sb))
     report["sidecar evaluation"] = tree_differences(sa, sb, "sidecar", [])
     identical = not any(report.values())
+    extra = {}
+    if args.state_only:
+        extra["provenance_differences_not_compared"] = tree_differences(pa["provenance"], pb["provenance"], "provenance", [])
     print(json.dumps(dict(event="compare", a=str(a), b=str(b), update=update, identical=identical,
+                          state_only=args.state_only,
                           checkpoint_files_byte_identical=sha256(a / name) == sha256(b / name),
-                          differences=report)), flush=True)
+                          differences=report, **extra)), flush=True)
     return 0 if identical else 1
 
 
@@ -625,6 +653,9 @@ def main(argv=None):
     train.add_argument("--updates", type=int, help="total updates (default ceil(training positions / 24)); dry runs only")
     train.add_argument("--checkpoint-every", type=int, default=R.CHECKPOINT_EVERY)
     train.add_argument("--stop-after", type=int, help="exit after the checkpoint at this update (resume tests)")
+    train.add_argument("--no-hard-stop", action="store_true",
+                       help="exploratory runs only: record stop-threshold breaches but keep training (needs --amendment-note)")
+    train.add_argument("--amendment-note", help="the approved amendment allowing --no-hard-stop, recorded in the provenance")
     train.add_argument("--eval-batch-size", type=int, default=32)
     train.add_argument("--expect-p-total", type=float, help="P's recorded validation total loss to reproduce")
     train.add_argument("--p-tolerance", type=float, default=0.001)
@@ -633,6 +664,8 @@ def main(argv=None):
     compare.add_argument("a", type=Path)
     compare.add_argument("b", type=Path)
     compare.add_argument("--update", type=int, required=True)
+    compare.add_argument("--state-only", action="store_true",
+                         help="compare training state, metrics and evaluation but not provenance or run labels")
     inference = commands.add_parser("inference", help="load a checkpoint for inference and recheck its validation")
     inference.add_argument("checkpoint", type=Path)
     inference.add_argument("--data-config", type=Path, required=True)
@@ -656,6 +689,8 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.command == "train" and (args.checkpoint_every < 1 or (args.updates is not None and args.updates < 1)):
         parser.error("--checkpoint-every and --updates must be positive")
+    if args.command == "train" and bool(args.no_hard_stop) != bool(args.amendment_note):
+        parser.error("--no-hard-stop and --amendment-note go together")
     handler = dict(data=command_data, baseline=command_baseline, train=command_train, compare=command_compare,
                    inference=command_inference, timings=command_timings)[args.command]
     try:

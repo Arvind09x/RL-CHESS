@@ -808,6 +808,27 @@ def select_candidate(evaluations, *, completed, flag=FLAG_DELTA, stop=STOP_DELTA
                 final_flag=bool(previous["delta_total"] > flag))
 
 
+def exploratory_candidate(evaluations, *, completed, flag=FLAG_DELTA, stop=STOP_DELTA):
+    """Candidate of a run trained without the hard stop: its final checkpoint, with every breach listed.
+
+    The original rule's candidate (select_candidate on the same evaluations) is reported alongside it;
+    finishing the run tests a new hypothesis and does not change that result.
+    """
+    require(completed and evaluations, "an exploratory run has a candidate only once it completes")
+    final = evaluations[-1]
+    breaches = [e["update"] for e in evaluations if e["delta_total"] > stop]
+    return dict(stopped=False, stopped_at=None, stop_delta=None, candidate=final["checkpoint"],
+                candidate_update=final["update"], exploratory=True, threshold_breaches=breaches,
+                reason=("exploratory run without the hard stop: final checkpoint; "
+                        f"{len(breaches)} checkpoint(s) exceeded +{stop}"),
+                final_flag=bool(final["delta_total"] > flag))
+
+
+def stopped_training(sidecar):
+    """Whether training ended at this checkpoint; older sidecars only record the breach."""
+    return sidecar.get("training_stopped", sidecar["hard_stop"])
+
+
 # Run directory: checkpoint/sidecar pairs and metrics segments.
 
 def checkpoint_name(update):

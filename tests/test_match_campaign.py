@@ -305,6 +305,9 @@ def test_plan_refuses_changed_source_and_checkpoint_bytes(world, runtime, tmp_pa
     source.write_text(source.read_text() + "\n")
     with pytest.raises(ValueError, match="evaluation source differs"):
         M.load_plan(matches / p["match_id"], root)
+    with pytest.raises(ValueError, match="evaluation source differs"):
+        M.run(matches / p["match_id"], root, log=lambda _: None)
+    assert M.status(matches / p["match_id"], root)["recorded_games"] == 0  # reading is still allowed
     source.write_text(source.read_text()[:-1])
     original = (matches / "openings.json").read_bytes()
     (matches / "openings.json").write_bytes(original + b"\n")
@@ -640,3 +643,37 @@ def test_claim_rule_and_attrition():
     assert provisional["result"] == "R improves over P" and provisional["provisional"]
     assert M.test_claim(summary([0.52, 0.7], 47), 64, "production", 0)["result"] == "none"
     assert M.test_claim(summary([0.52, 0.7], 64), 64, "production", 1)["result"] == "none"
+
+
+def test_one_simulation_plays_the_raw_policy_top_move(world):
+    from chess_rl.adapter import move_to_id
+    from chess_rl.search.real_evaluator import RealEvaluator
+    path = world["root"] / world["spec"]["candidates"][0]["path"]
+    evaluator = RealEvaluator(path)
+    player = M.search_player(dict(name="R1-mix", path=world["spec"]["candidates"][0]["path"],
+                                  sha256=world["spec"]["candidates"][0]["sha256"], checkpoint_id="x", kind="rl-R"),
+                             world["root"], SearchSettings(M.POLICY_SIMULATIONS), evaluator)
+    for moves in ([], ["e2e4"], ["e2e4", "e7e5", "g1f3", "b8c6"], _game(7)[:15]):
+        state = make_state(moves_uci=moves)
+        priors = evaluator([state])[0].priors
+        legal = sorted(move_to_id(state, m) for m in state.board.legal_moves)
+        best = max(legal, key=lambda i: (priors[i], -i))
+        assert player.choose(state.copy(), seed=0).move_id == best
+
+
+def test_no_search_diagnostic_plan_is_report_only(world, runtime):
+    matches = setup_matches(world, "policy")
+    with pytest.raises(ValueError, match="1 simulation"):
+        M._check_protocol("production", "policy", 128, M.PLY_CAP, 4, None)
+    M._check_protocol("production", "policy", 1, M.PLY_CAP, 4, None)  # any worker count (Mac CPU)
+    with pytest.raises(ValueError, match="128 simulations"):
+        M._check_protocol("production", "validation", 1, M.PLY_CAP, 5, None)
+    p = plan(world, matches, runtime, kind="policy", simulations=1, count=1)
+    assert p["match_id"] == "policy-P-vs-R1-mix" and p["split"] == "validation"
+    assert p["settings"]["simulation_budget"] == 1 and p["rules"]["policy"] == M.POLICY_RULE
+    M.run(matches / p["match_id"], world["root"], log=lambda _: None)
+    report = M.match_report(matches / p["match_id"], world["root"])
+    assert report["note"] == M.POLICY_RULE and report["score_player_id"] == "R1-mix"
+    # Selection never reads a no-search match.
+    with pytest.raises(ValueError, match="no validation match planned"):
+        M.select(matches, world["root"], candidates_path=matches / "candidates.json", log=lambda _: None)

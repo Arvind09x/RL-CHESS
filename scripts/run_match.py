@@ -3,6 +3,7 @@
 openings    freeze the 64 validation + 64 test openings from the protected registry (once)
 candidates  freeze P, the validation candidates and their eligibility, and the selection rules (once)
 plan        freeze one match (players, openings, seeds, settings, runtime, sources); plays nothing
+            (--kind policy: the no-search diagnostic, 1 simulation = the raw policy's top move)
 run         play or resume every game without a stored record
 status      counts only, no scores
 report      smoke: statuses, lengths and timing; other matches: scores of a finished schedule only
@@ -54,7 +55,8 @@ def main():
         result = M.create_plan(matches, root=root, kind=args.kind, candidate=args.candidate, opponent=args.opponent,
                                openings_path=openings_path, candidates_path=candidates_path, device=args.device,
                                workers=args.workers, selection_path=matches / "selection.json",
-                               stockfish=args.stockfish)
+                               stockfish=args.stockfish,
+                               simulations=M.POLICY_SIMULATIONS if args.kind == "policy" else M.SIMULATIONS)
         result = {k: v for k, v in result.items() if k not in ("schedule", "openings", "sources")}
     elif args.command == "run":
         result = M.run(matches / args.match_id, root)

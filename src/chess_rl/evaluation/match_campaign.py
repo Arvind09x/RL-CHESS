@@ -51,11 +51,13 @@ OPENINGS_SCHEMA = "match-openings-v1"
 CANDIDATES_SCHEMA = "match-candidates-v1"
 PLAN_SCHEMA = "match-plan-v1"
 SELECTION_SCHEMA = "match-selection-v1"
-KINDS = ("smoke", "validation", "rung", "test")
+# "policy": the no-search diagnostic (1 simulation = the raw policy's top move); never selection or claims.
+KINDS = ("smoke", "validation", "rung", "test", "policy")
 FIELDS = ("opening_id", "initial_fen", "moves_uci", "history_complete", "source")
 
 # Frozen evaluation protocol (match-driver plan, decisions 1-8 approved 17 Oct 2026).
 SIMULATIONS = 128
+POLICY_SIMULATIONS = 1
 PLY_CAP = 512
 WORKERS = 5
 OPENINGS_PER_SPLIT = 64
@@ -64,8 +66,13 @@ SMOKE_OPENING_IDS = ("italian-1", "italian-2")
 RUNG_PAIRS = 16
 PROVISIONAL_MIN_PAIRS = 48
 FINAL_PAIRS = 64
-SEEDS = dict(smoke=2026101801, validation=2026101802, rung=2026101803, test=2026101804)
+SEEDS = dict(smoke=2026101801, validation=2026101802, rung=2026101803, test=2026101804, policy=2026101806)
 BOOTSTRAP = dict(samples=10000, seed=2026101805)
+POLICY_RULE = ("no-search diagnostic: 1 simulation per move; with no visits every move scores c_puct x prior "
+               "(unvisited value 0), so the single visit and the move played are the highest-prior legal move "
+               "(ties: smallest move id), i.e. the raw policy's top move; the value head never chooses a move; "
+               "both players identical settings; validation openings only; report-only: never read by "
+               "selection, never used for a claim")
 OPENING_RANK = ("rank = sha256 of compact sorted JSON [\"match-openings-v1\", split, game_id, sample_ply]; "
                 "ascending; first row per distinct rule position kept")
 OPENING_RULE = (
@@ -493,9 +500,12 @@ def _check_protocol(protocol, kind, simulations, ply_cap, workers, count):
     if protocol not in ("production", "fixture"):
         raise ValueError("protocol must be production or fixture")
     if protocol == "production":
-        if simulations != SIMULATIONS or ply_cap != PLY_CAP:
+        if kind == "policy":
+            if simulations != POLICY_SIMULATIONS or ply_cap != PLY_CAP:
+                raise ValueError("production no-search matches use 1 simulation and the 512-ply cap")
+        elif simulations != SIMULATIONS or ply_cap != PLY_CAP:
             raise ValueError("production matches use 128 simulations and the 512-ply cap")
-        if kind != "rung" and workers != WORKERS:
+        if kind not in ("rung", "policy") and workers != WORKERS:
             raise ValueError("production B200 matches use 5 workers")
         if count is not None:
             raise ValueError("production matches play their frozen opening count")
@@ -601,7 +611,8 @@ def create_plan(matches_root, *, root, kind, candidate=None, opponent=None, open
                 ply_cap=ply_cap, workers=workers, device=device,
                 runtime=runtime if runtime is not None else worker_runtime(device),
                 sources=source_hashes(root), statistics=dict(BOOTSTRAP, confidence=0.95, unit="opening-pair"),
-                rules=dict(incomplete=INCOMPLETE_RULE, claim=CLAIM_RULE if kind == "test" else None),
+                rules=dict(incomplete=INCOMPLETE_RULE, claim=CLAIM_RULE if kind == "test" else None,
+                           policy=POLICY_RULE if kind == "policy" else None),
                 report_policy=("statuses, lengths and timing only" if kind == "smoke"
                                else "scores only for a finished schedule"),
                 selection_file=None if selection is None else identity(selection_path),
@@ -617,6 +628,8 @@ def create_plan(matches_root, *, root, kind, candidate=None, opponent=None, open
 
 
 def load_plan(directory, root, *, check_sources=True):
+    """check_sources is enforced for playing and resuming; reading a finished store re-validates every game
+    by replay with the current code and reports whether the sources still match."""
     plan = read_sealed(Path(directory) / "plan.json", PLAN_SCHEMA)
     if plan["schedule"] != snapshot(list(jobs(plan))):
         raise ValueError("frozen schedule differs from the plan's openings and seeds")
@@ -866,7 +879,7 @@ def run(directory, root, *, log=print):
 
 def status(directory, root):
     """Counts only; no scores."""
-    plan = load_plan(directory, root)
+    plan = load_plan(directory, root, check_sources=False)
     values = read_results(Path(directory) / "results.sqlite3", plan)
     counts = {k: 0 for k in ("completed", "truncated", "failed", "interrupted")}
     for value in values.values():
@@ -970,7 +983,7 @@ def match_report(directory, root):
     """Full report of a finished schedule (smoke: statuses, lengths and timing only). A validation report
     also waits until every frozen candidate's validation match is finished."""
     directory = Path(directory)
-    plan = load_plan(directory, root)
+    plan = load_plan(directory, root, check_sources=False)
     values = read_results(directory / "results.sqlite3", plan)
     if plan["kind"] == "smoke":
         return smoke_report(plan, values)
@@ -987,7 +1000,7 @@ def match_report(directory, root):
             if not (sibling / "plan.json").exists() or not status(sibling, root)["finished"]:
                 raise ValueError(f"validation-P-vs-{name} is not finished; validation scores are reported only "
                                  "when every selectable candidate's validation match is finished")
-            sibling_plan = load_plan(sibling, root)
+            sibling_plan = load_plan(sibling, root, check_sources=False)
             stored = read_results(sibling / "results.sqlite3", sibling_plan)
             matches[name] = (sibling_plan, [stored[j["game_id"]]["record"] for j in sibling_plan["schedule"]])
         own_name = plan["score_player_id"]
@@ -1001,13 +1014,16 @@ def match_report(directory, root):
                   score_player_id=plan["score_player_id"], score_orientation=plan["score_orientation"],
                   summary=summary, wdl_by_colour=colour_wdl(games, plan["score_player_id"]),
                   failures=summary["status_counts"]["failed"] + summary["status_counts"]["interrupted"],
-                  timing=timing_report(plan, values))
+                  timing=timing_report(plan, values),
+                  sources_match_plan=plan["sources"] == source_hashes(root, sorted(plan["sources"])))
     if plan["kind"] == "validation":
         report["eligibility"] = candidates["by_name"][plan["score_player_id"]]["eligibility"]
         if comparison is not None:
             report["comparison_with_selectable_on_common_pairs"] = comparison
         report["note"] = ("validation picks among candidates; the selection biases the selected candidate's "
                           "interval upward, so validation never supports an improvement claim")
+    if plan["kind"] == "policy":
+        report["note"] = POLICY_RULE
     if plan["kind"] == "test":
         report["claim"] = test_claim(summary, plan["planned_pairs"], plan["protocol"], report["failures"])
     return report
@@ -1160,10 +1176,11 @@ def select(matches_root, root, *, candidates_path, log=print):
             if spec["eligibility"] == "selectable":
                 raise ValueError(f"{n}: no validation match planned; selection refuses")
             continue  # a report-only match never holds up the selection
-        plan = load_plan(directory, root)
+        plan = load_plan(directory, root, check_sources=False)
         values = read_results(directory / "results.sqlite3", plan)
         matches[n] = (plan, [values[j["game_id"]]["record"] for j in plan["schedule"] if j["game_id"] in values])
-    record = sealed(dict(decide(candidates, matches), created_utc=_now()))
+    current = {n: m[0]["sources"] == source_hashes(root, sorted(m[0]["sources"])) for n, m in matches.items()}
+    record = sealed(dict(decide(candidates, matches), sources_match_plans=current, created_utc=_now()))
     if record["final"]:
         publish_once(output, record)
     else:

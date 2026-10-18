@@ -70,7 +70,7 @@ def _source():
 
 
 def create(directory, checkpoint, *, games, seed, purpose, simulations=None, settings=None,
-           device="cpu", opening=STANDARD_OPENING):
+           device="cpu", opening=STANDARD_OPENING, execution=None, acceptance=None):
     """Freeze a new campaign; plays nothing. Tests pass small settings; the CLI passes simulations."""
     if (simulations is None) == (settings is None):
         raise ValueError("give exactly one of simulations or settings")
@@ -90,6 +90,19 @@ def create(directory, checkpoint, *, games, seed, purpose, simulations=None, set
         device=device, settings=asdict(settings), opening=asdict(opening), seed=seed,
         games=[dict(index=i, directory=f"games/{i:04d}", seed=game_seed(seed, i)) for i in range(games)],
         note="Game records carry the fixed checkpoint role text from selfplay._checkpoint; purpose here is authoritative.")
+    if execution is not None:
+        from chess_rl.selfplay_execution import Execution, source_identity
+        if not isinstance(execution, Execution):
+            raise ValueError("execution must be a selfplay Execution")
+        plan.update(execution=execution.to_dict(), execution_source=source_identity())
+        if device == "cuda:0" and execution.mode == "batched" and acceptance is None:
+            raise ValueError("CUDA batching requires a numerical acceptance record")
+        if acceptance is not None:
+            from chess_rl.selfplay_batching import validate_acceptance
+            validate_acceptance(acceptance, plan)
+            plan["numerical_acceptance"] = acceptance
+    elif acceptance is not None:
+        raise ValueError("acceptance requires explicit execution")
     plan = json.loads(json.dumps(plan))
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=False)
@@ -166,19 +179,28 @@ def _set_aside(path):
     return target
 
 
-def _play(task):
+def _play(task, *, evaluator=None, execution=None):
     started = time.monotonic()
     path = Path(task["directory"])
     result = {}
     try:
         if (path / "boundary.json").exists():
-            session = Session.load(path, checkpoint_path=task["checkpoint"])
+            session = Session.load(path, checkpoint_path=task["checkpoint"], evaluator=evaluator, execution=execution)
         else:
             if path.exists():
                 result["set_aside"] = str(_set_aside(path))
             session = Session.create(path, task["checkpoint"], Opening(**task["opening"]),
                 settings=Settings.from_dict(task["settings"]), seed=task["seed"],
-                opening_selection_seed=task["campaign_seed"], device=task["device"], journal=True)
+                opening_selection_seed=task["campaign_seed"], device=task["device"], journal=True,
+                evaluator=evaluator, execution=execution)
+        if (session.configuration["seed"] != task["seed"]
+                or session.configuration["settings"] != task["settings"]
+                or session.configuration["opening_selection_seed"] != task["campaign_seed"]
+                or digest(session.configuration["opening"]) != digest(Opening(**task["opening"]).to_dict())):
+            raise ValueError("game configuration differs from frozen campaign")
+        expected_sha = execution["checkpoint_sha256"] if execution is not None else task.get("checkpoint_sha256")
+        if expected_sha is not None and session.configuration["checkpoint"]["sha256"] != expected_sha:
+            raise ValueError("game checkpoint differs from frozen campaign")
         before = len(session.record["positions"])
         game = session.run()["game"]
         result.update(status=game["status"], ending_reason=game["ending_reason"], outcome=game["outcome"],
@@ -207,7 +229,7 @@ def _log(message):
     print(message, flush=True)
 
 
-def run(directory, *, workers, heavy_lock=None, deadline=None, log=_log):
+def run(directory, *, workers, heavy_lock=None, deadline=None, log=_log, execution=None):
     """Play or resume every unfinished game in up to MAX_PASSES passes; leftovers are reported.
 
     A worker that dies (killed, crashed, out of memory) breaks its pass: the other
@@ -219,6 +241,15 @@ def run(directory, *, workers, heavy_lock=None, deadline=None, log=_log):
         raise ValueError("workers must be a positive integer")
     directory = Path(directory).resolve()
     plan = load(directory)
+    from chess_rl.selfplay_execution import Execution, source_identity
+    frozen = Execution.from_dict(plan["execution"]) if "execution" in plan else None
+    if execution is not None and (frozen is None or execution != frozen):
+        raise ValueError("execution differs from frozen campaign; create a new campaign")
+    if frozen is not None:
+        if workers != frozen.workers:
+            raise ValueError("worker count differs from frozen execution")
+        if source_identity() != plan["execution_source"]:
+            raise ValueError("execution source differs from frozen campaign")
     checkpoint = Path(plan["checkpoint"]["path"])
     if _sha256(checkpoint) != plan["checkpoint"]["sha256"]:
         raise ValueError(f"checkpoint bytes differ from the frozen campaign plan: {checkpoint}")
@@ -235,7 +266,8 @@ def run(directory, *, workers, heavy_lock=None, deadline=None, log=_log):
         pid_directory.mkdir(exist_ok=True)
         for attempt in range(1, MAX_PASSES + 1):
             tasks = [dict(index=g["index"], directory=str(directory / g["directory"]), seed=g["seed"],
-                          checkpoint=str(checkpoint), opening=plan["opening"], settings=plan["settings"],
+                          checkpoint=str(checkpoint), checkpoint_sha256=plan["checkpoint"]["sha256"],
+                          opening=plan["opening"], settings=plan["settings"],
                           campaign_seed=plan["seed"], device=plan["device"])
                      for g in plan["games"] if not _finished(directory / g["directory"])]
             if not tasks:
@@ -250,7 +282,12 @@ def run(directory, *, workers, heavy_lock=None, deadline=None, log=_log):
                                            initargs=(plan["device"], str(pid_directory)))
             broken, clean, stopped = None, False, False
             try:
-                pending = {executor.submit(_play, task) for task in tasks}
+                if frozen is not None and frozen.mode == "batched":
+                    from chess_rl.selfplay_batching import play_group
+                    pending = {executor.submit(play_group, tasks[i::workers], plan, str(directory))
+                               for i in range(min(workers, len(tasks)))}
+                else:
+                    pending = {executor.submit(_play, task) for task in tasks}
                 while pending:
                     timeout = None if deadline is None else max(0.0, deadline - time.time())
                     done, pending = wait(pending, timeout=timeout, return_when=FIRST_COMPLETED)
@@ -260,8 +297,15 @@ def run(directory, *, workers, heavy_lock=None, deadline=None, log=_log):
                         except BrokenProcessPool as error:
                             broken = error
                             continue
-                        events.write("game-end", attempt=attempt, **result)
-                        log(json.dumps(result, sort_keys=True))
+                        if "game_results" in result:
+                            events.write("batch-worker", attempt=attempt,
+                                         **{k: v for k, v in result.items() if k != "game_results"})
+                            results = result["game_results"]
+                        else:
+                            results = [result]
+                        for item in results:
+                            events.write("game-end", attempt=attempt, **item)
+                            log(json.dumps(item, sort_keys=True))
                     if pending and deadline is not None and time.time() >= deadline:
                         stopped = True
                         break
@@ -376,6 +420,10 @@ def archive(directory, output=None):
                 if (configuration["checkpoint"]["sha256"] != plan["checkpoint"]["sha256"]
                         or configuration["settings"] != plan["settings"] or configuration["seed"] != game["seed"]):
                     raise ValueError(f"game {game['index']} does not match the campaign plan")
+                if "execution" in plan and plan["execution"]["mode"] == "batched":
+                    from chess_rl.selfplay_execution import binding
+                    if configuration["execution"] != binding(plan):
+                        raise ValueError("game execution differs from campaign")
                 stream.write(json.dumps(snapshot, sort_keys=True, separators=(",", ":"), allow_nan=False) + "\n")
                 counts[record["status"]] += 1
                 reasons[record["ending_reason"]] += 1

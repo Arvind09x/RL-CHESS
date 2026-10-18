@@ -245,17 +245,22 @@ class Session:
 
     @classmethod
     def create(cls, directory, checkpoint_path, opening: Opening, *, settings: Settings,
-               seed: int, opening_selection_seed: int, device="cpu", journal=False):
+               seed: int, opening_selection_seed: int, device="cpu", journal=False,
+               evaluator=None, execution=None):
         _integer(seed, "seed")
         _integer(opening_selection_seed, "opening_selection_seed")
         if not isinstance(opening, Opening) or not opening.history_complete:
             raise ValueError("self-play requires a complete Opening")
         if not isinstance(settings, Settings):
             raise ValueError("settings must be Settings")
-        current_runtime = runtime(device)
+        from chess_rl.selfplay_execution import session_runtime, execution_text
+        if (execution is None) != (evaluator is None):
+            raise ValueError("external evaluator requires explicit execution provenance")
+        current_runtime = session_runtime(device, execution)
         if not current_runtime["deterministic"] or current_runtime["deterministic_warn_only"]:
             raise ValueError("enable strict deterministic CPU algorithms before creation")
-        evaluator = RealEvaluator(checkpoint_path) if device == "cpu" else RealEvaluator(checkpoint_path, device=device)
+        if evaluator is None:
+            evaluator = RealEvaluator(checkpoint_path) if device == "cpu" else RealEvaluator(checkpoint_path, device=device)
         checkpoint = _checkpoint(checkpoint_path, evaluator)
         rng = np.random.Generator(np.random.PCG64(seed))
         configuration = json.loads(_json(dict(schema="r01-config-v1", checkpoint=checkpoint,
@@ -264,7 +269,7 @@ class Session:
             rng=dict(algorithm="numpy-PCG64", seed=seed, initial_state=rng.bit_generator.state,
                      python_global="unused", numpy_global="unused",
                      torch_cpu="unused by eval/inference; dropout disabled"),
-            execution=f"sequential {'CPU' if device == 'cpu' else device}; batch-of-one; fresh tree per move",
+            execution=execution_text(device, execution),
             boundary=("immutable-move-journal-v2" if journal else "atomic full-history + committed search/move + post-move PCG64 state"))))
         record = dict(schema="r01-game-v1", configuration_sha256=digest(configuration),
                       positions=[], interruptions=[], rng_state=rng.bit_generator.state)
@@ -282,18 +287,24 @@ class Session:
         return session
 
     @classmethod
-    def load(cls, directory, *, checkpoint_path=None):
+    def load(cls, directory, *, checkpoint_path=None, evaluator=None, execution=None):
         directory = Path(directory)
         configuration = _read(directory / "configuration.json")
         record = read_game_record(directory)
         audit(configuration, record)
-        if configuration["runtime"] != runtime(configuration["runtime"]["device"]):
+        from chess_rl.selfplay_execution import session_runtime, execution_text
+        if (execution is None) != (evaluator is None):
+            raise ValueError("external evaluator requires explicit execution provenance")
+        if configuration["execution"] != execution_text(configuration["runtime"]["device"], execution):
+            raise ValueError("resume execution differs from frozen game")
+        if configuration["runtime"] != session_runtime(configuration["runtime"]["device"], execution):
             raise ValueError("resume runtime differs from recorded CPU runtime")
         path = checkpoint_path or configuration["checkpoint"]["path"]
         if hashlib.sha256(Path(path).read_bytes()).hexdigest() != configuration["checkpoint"]["sha256"]:
             raise ValueError("checkpoint bytes changed")
         device = configuration["runtime"]["device"]
-        evaluator = RealEvaluator(path) if device == "cpu" else RealEvaluator(path, device=device)
+        if evaluator is None:
+            evaluator = RealEvaluator(path) if device == "cpu" else RealEvaluator(path, device=device)
         actual = json.loads(_json(_checkpoint(path, evaluator)))
         actual["path"] = configuration["checkpoint"]["path"]
         if actual != configuration["checkpoint"]:
@@ -346,7 +357,9 @@ class Session:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
             if _read(self.directory / "configuration.json") != self.configuration or read_game_record(self.directory) != self.record:
                 raise ValueError("stale session; reload durable boundary")
-            if runtime(self.configuration["runtime"]["device"]) != self.configuration["runtime"]:
+            from chess_rl.selfplay_execution import session_runtime
+            execution = self.configuration["execution"] if isinstance(self.configuration["execution"], dict) else None
+            if session_runtime(self.configuration["runtime"]["device"], execution) != self.configuration["runtime"]:
                 raise ValueError("execution runtime changed")
             settings = Settings.from_dict(self.configuration["settings"])
             state = audit(self.configuration, self.record)

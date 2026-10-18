@@ -35,6 +35,13 @@ def main():
     create.add_argument("--seed", type=int, required=True)
     create.add_argument("--device", choices=("cpu", "cuda:0"), default="cpu")
     create.add_argument("--purpose", required=True, help="e.g. 'self-play round 1 from P (1M step 90000)'")
+    create.add_argument("--execution", choices=("serial", "batched"), default="serial")
+    create.add_argument("--workers", type=int, help="required for batched creation; frozen worker count")
+    create.add_argument("--games-per-worker", type=int, default=1)
+    create.add_argument("--batch-size", type=int, default=1)
+    create.add_argument("--max-wait-ms", type=float, default=20.0)
+    create.add_argument("--timeout-seconds", type=float, default=120.0)
+    create.add_argument("--acceptance", type=Path, help="numerical acceptance JSON (required for CUDA batching)")
     run = commands.add_parser("run", help="play or resume every unfinished game")
     run.add_argument("--directory", type=Path, required=True)
     run.add_argument("--workers", type=int, required=True)
@@ -51,8 +58,20 @@ def main():
     choose.add_argument("--deadline", type=epoch, required=True)
     args = parser.parse_args()
     if args.command == "create":
+        from chess_rl.selfplay_execution import Execution
+        execution = None
+        if args.execution == "batched" or args.workers is not None:
+            if args.workers is None:
+                parser.error("batched creation requires --workers")
+            execution = Execution(mode=args.execution, workers=args.workers,
+                                  games_per_worker=args.games_per_worker, batch_size=args.batch_size,
+                                  max_wait_ms=args.max_wait_ms, timeout_seconds=args.timeout_seconds)
+        elif args.games_per_worker != 1 or args.batch_size != 1 or args.acceptance is not None:
+            parser.error("batch settings require explicit --execution batched and --workers")
+        acceptance = json.loads(args.acceptance.read_text()) if args.acceptance else None
         result = campaign.create(args.directory, args.checkpoint, games=args.games, simulations=args.simulations,
-                                 seed=args.seed, device=args.device, purpose=args.purpose)
+                                 seed=args.seed, device=args.device, purpose=args.purpose,
+                                 execution=execution, acceptance=acceptance)
         result = {k: v for k, v in result.items() if k != "games"} | {"games": len(result["games"])}
     elif args.command == "run":
         result = campaign.run(args.directory, workers=args.workers, heavy_lock=args.heavy_lock,

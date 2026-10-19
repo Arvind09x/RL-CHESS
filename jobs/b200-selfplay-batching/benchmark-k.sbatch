@@ -17,7 +17,7 @@ assert_gpu
 trap report_cgroup_peak EXIT
 # Existing R1-mix artifact. Change BOTH path and SHA deliberately for another checkpoint.
 # Occupancy follow-up to job 590 (K = B gave 48% useful occupancy, every flush on the 20 ms deadline, no full batch):
-# more active games than batch slots, B32/K64, B32/K96, B16/K48, plus the serial baseline; same corpus, seeds,
+# twice as many active games as batch slots (K = 2B: B32/K64, B16/K32, B8/K16) plus the serial baseline; same corpus, seeds,
 # simulations, repeats and allocation as job 590 so the rates are directly comparable.
 CHECKPOINT=runs/train/r1-mix/update-002303.pt
 CHECKPOINT_SHA256=32045b10679e0b98a5a1dbbc08d05024b695c2efc0df16d565a3df13ffc3fbf2
@@ -27,5 +27,5 @@ timeout --signal=TERM --kill-after=30s 110m \
     --checkpoint "$CHECKPOINT" --checkpoint-sha256 "$CHECKPOINT_SHA256" \
     --source-record artifacts/batching-source.json --device cuda:0 \
     --output "artifacts/selfplay-batching-${SLURM_JOB_ID}" --mode search \
-    --batch-sizes 32 32 16 --active-games-per-worker 64 96 48 \
+    --batch-sizes 32 16 8 --active-games-per-worker 64 32 16 \
     --positions 160 --simulations 64 --repeats 2 --deadline-seconds 6500

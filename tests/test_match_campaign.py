@@ -677,3 +677,26 @@ def test_no_search_diagnostic_plan_is_report_only(world, runtime):
     # Selection never reads a no-search match.
     with pytest.raises(ValueError, match="no validation match planned"):
         M.select(matches, world["root"], candidates_path=matches / "candidates.json", log=lambda _: None)
+
+
+def test_head_to_head_between_candidates_is_report_only(world, runtime):
+    matches = setup_matches(world, "h2h")
+    for sims in (128, 1):
+        M._check_protocol("production", "head-to-head", sims, M.PLY_CAP, 4, None)
+    with pytest.raises(ValueError, match="128 or 1"):
+        M._check_protocol("production", "head-to-head", 64, M.PLY_CAP, 4, None)
+    with pytest.raises(ValueError, match="second, different"):
+        plan(world, matches, runtime, kind="head-to-head", opponent="R1-mix")
+    with pytest.raises(ValueError, match="second, different"):
+        plan(world, matches, runtime, kind="head-to-head", opponent="R1-mix-2pass")
+    p = plan(world, matches, runtime, kind="head-to-head", opponent="R1-pure-full", simulations=1, count=1)
+    assert p["match_id"] == "head-to-head-R1-mix-vs-R1-pure-full-sims1" and p["split"] == "validation"
+    assert [x["metadata"]["player_id"] for x in p["players"]] == ["R1-mix", "R1-pure-full"]
+    assert [x["sha256"] for x in p["players"]] == [world["spec"]["candidates"][0]["sha256"],
+                                                   world["spec"]["candidates"][1]["sha256"]]
+    assert p["score_player_id"] == "R1-mix" and p["score_orientation"] == "R1-mix's score against R1-pure-full"
+    M.run(matches / p["match_id"], world["root"], log=lambda _: None)
+    report = M.match_report(matches / p["match_id"], world["root"])
+    assert report["note"] == M.HEAD_TO_HEAD_RULE and report["summary"]["left_player_id"] == "R1-mix"
+    with pytest.raises(ValueError, match="no validation match planned"):
+        M.select(matches, world["root"], candidates_path=matches / "candidates.json", log=lambda _: None)

@@ -49,6 +49,7 @@ from .checkpoints import (CUDA_MIXED_CHECKPOINT_VERSION, MIXED_CHECKPOINT_VERSIO
 from .losses import (policy_distribution_cross_entropy, soft_wdl_cross_entropy,
                      validate_policy_classes, validate_policy_distribution)
 from .mixed import mixed_losses, validate_optimizer_settings
+from .round_sampling import RoundSamplingState
 from .mixed_state import MixedSettings, MixedState, SelfPlayBatch, _supervised_membership, require
 from .optimizers import OptimizerSettings, build_optimizer, clip_gradients
 from .trainer import finite_tensors
@@ -470,10 +471,13 @@ def sampler_sources(dataset, data):
 
 
 def sampler_identity(state):
-    return dict(supervised_source_id=state.supervised_source_id,
+    identity = dict(supervised_source_id=state.supervised_source_id,
                 supervised_membership_sha256=state.supervised_membership_sha256,
                 supervised_count=len(state.supervised.order), replay_id=state.replay_id,
                 replay_membership_sha256=digest(list(state.replay_membership)))
+    if type(state) is RoundSamplingState:
+        identity["round_sampling"] = state.config
+    return identity
 
 
 # One update.
@@ -481,12 +485,12 @@ def sampler_identity(state):
 def round_step(model, optimizer, *, recipe, supervised, rows, state, max_gradient_norm):
     """One optimizer update of either recipe; returns (metrics record, next sampler state).
 
-    Both recipes take the sampler's next selection, so their self-play order is the same. Input,
+    With the same sampler settings, seed and budget, both recipes take the same self-play order. Input,
     loss and gradient failures happen before optimizer.step() and do not advance the sampler; a
     failure in or after the step requires restoring the last checkpoint.
     """
     require(recipe in RECIPES, f"unknown recipe {recipe!r}")
-    require(type(state) is MixedState, "MixedState sampler required")
+    require(type(state) in (MixedState, RoundSamplingState), "MixedState sampler required")
     require(math.isfinite(max_gradient_norm) and max_gradient_norm > 0, "invalid max_gradient_norm")
     require(type(model) is ChessNetwork and all(layer.self_attn.relative is not None
             for layer in model.backbone.layers), "round training requires the combined M06 network")
@@ -569,6 +573,9 @@ def round_step(model, optimizer, *, recipe, supervised, rows, state, max_gradien
                   discarded_sampler_indices=0 if sup is not None else len(si),
                   selfplay_indices=[int(i) for i in ri], selfplay_epoch=next_state.selfplay.epoch)
     record["stockfish_indices" if sup is not None else "discarded_stockfish_indices"] = [int(i) for i in si]
+    if type(next_state) is RoundSamplingState:
+        record["round_sampling"] = next_state.report()
+        record["selfplay_epoch"] = None  # no natural weighted union epoch
     return record, next_state
 
 
@@ -634,7 +641,7 @@ def restore_round(path, *, expected_config, expected_provenance, expected_settin
                  "round checkpoints use the mixed checkpoint format")
         _same(payload.get("provenance"), expected_provenance, "round provenance")
         model, _, config, weights, progress, state, numpy_state = _validate_payload(payload, expected_config)
-        _require(type(state) is MixedState, "round checkpoint requires mixed sampler state")
+        _require(type(state) in (MixedState, RoundSamplingState), "round checkpoint requires mixed sampler state")
         _same(asdict(state.settings), asdict(expected_settings), "sampler settings")
         _same(asdict(weights), asdict(expected_settings.weights), "loss weights")
         _same({k: v for k, v in payload["training"]["optimizer"].items() if k != "state"},

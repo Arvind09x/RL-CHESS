@@ -40,6 +40,7 @@ from chess_rl.training import round_training as R
 from chess_rl.training.checkpoints import (Progress, cuda_runtime_config, load_inference, runtime_config,
                                            save_checkpoint)
 from chess_rl.training.mixed_state import MixedState
+from chess_rl.training import round_sampling as S
 from chess_rl.training.optimizers import describe
 from scripts.train_mixed import (GIB, Evaluator, Mismatch, check, check_verified, checkpoint_updates, disk_guard,
                                  reference_record, sha256)
@@ -157,7 +158,7 @@ class RoundEvaluator(Evaluator):
 
 
 def run_provenance(recipe, *, start, start_sha, p, p_sha, union, supervised, validation, total, every, batch_size,
-                   hard_stop=True, amendment=None):
+                   hard_stop=True, amendment=None, sampling=None):
     source_id, membership = R.supervised_identity(supervised)
     record = dict(schema=U.RUN_VERSION,
         purpose="round-2 training from the round-1 selection on the round-1 and round-2 self-play arrays",
@@ -180,6 +181,10 @@ def run_provenance(recipe, *, start, start_sha, p, p_sha, union, supervised, val
                         fallback=U.FALLBACK_RULE),
         evaluation=dict(batch_size=batch_size, bootstrap=dict(resamples=R.BOOTSTRAP_RESAMPLES, seed=R.BOOTSTRAP_SEED),
                         versus_start="paired intervals against the start checkpoint, report-only"))
+    if sampling is not None:
+        record["sampler"]["round_sampling"] = sampling
+        record["sampler"]["note"] = S.NOTE
+        record["passes_over_selfplay"] = None
     if not hard_stop:
         record["thresholds"]["hard_stop_enforced"] = False
         record["exploratory"] = dict(amendment=amendment, rule=(
@@ -207,11 +212,46 @@ def round_data_specs(values):
     return [(Path(directory), played_by) for directory, played_by in values]
 
 
+def resolve_sampling(args, saved):
+    """Resume saved settings when flags are omitted, never today's recipe defaults.
+
+    Return (requested weights or None for legacy, total budget or None for legacy
+    union-epoch inference). Full config equality below checks identities and runtime.
+    """
+    previous = saved["provenance"]["sampler"].get("round_sampling") if saved else None
+    explicit = args.sampling_mode is not None or args.round_weights is not None
+    check(not (args.sampling_mode == "legacy" and args.round_weights is not None),
+          "--sampling-mode legacy cannot be combined with --round-weights")
+    if saved and not explicit:
+        weights = previous["requested_weights"] if previous else None
+    elif args.sampling_mode == "legacy":
+        weights = None
+    else:
+        weights = args.round_weights
+        if weights is None:
+            check(len(args.round_data) == 2, "recipe defaults require ordered [R1, R2]; supply --round-weights")
+            weights = S.DEFAULT_WEIGHTS[args.recipe]
+    total = args.updates if args.updates is not None else (saved["provenance"]["total_updates"] if saved else None)
+    if weights is not None:
+        try:
+            S.weight_units(weights, len(args.round_data))
+        except ValueError as error:
+            raise Mismatch(str(error)) from error
+        check(total is not None and total > 0, "weighted sampling requires explicit positive --updates")
+    if saved:
+        check((weights is None) == (previous is None), "sampling mode differs from saved run; use a new output directory")
+        if previous:
+            check(list(weights) == previous["requested_weights"],
+                  "round weights differ from saved run; use a new output directory")
+        check(total == saved["provenance"]["total_updates"],
+              "update budget differs from saved run; use a new output directory")
+    return weights, total
+
+
 def command_train(args):
     output = Path(args.output)
-    if (output / "summary.json").exists():
-        print(json.dumps(dict(event="already-complete", summary=str(output / "summary.json"))), flush=True)
-        return 0
+    saved = R.read_json(output / "config.json") if (output / "config.json").exists() else None
+    weights, budget = resolve_sampling(args, saved)
     configure(args.device, threads=args.threads)
     timings = {}
     started = time.perf_counter()
@@ -235,7 +275,9 @@ def command_train(args):
     sidecar_path = Path(args.start_checkpoint).with_suffix(".json")
     start_sidecar = R.read_json(sidecar_path)
     check(start_sidecar["checkpoint_sha256"] == start_sha, f"{sidecar_path} is not the start checkpoint's sidecar")
-    total = args.updates or math.ceil(len(union.train) / R.SETTINGS.selfplay_batch_size)
+    total = budget or math.ceil(len(union.train) / R.SETTINGS.selfplay_batch_size)
+    sampling = (S.configuration(weights, [p.replay_id for p in union.parts],
+                                 [len(p.train) for p in union.parts], total) if weights is not None else None)
     every = args.checkpoint_every
     stops = checkpoint_updates(total, every)
     check(args.stop_after is None or args.stop_after in stops, f"--stop-after must be a checkpoint update: {stops}")
@@ -247,7 +289,8 @@ def command_train(args):
     enforced = not args.no_hard_stop
     provenance = run_provenance(args.recipe, start=start, start_sha=start_sha, p=p, p_sha=p_sha, union=union,
                                 supervised=supervised, validation=validation, total=total, every=every,
-                                batch_size=args.eval_batch_size, hard_stop=enforced, amendment=args.amendment_note)
+                                batch_size=args.eval_batch_size, hard_stop=enforced, amendment=args.amendment_note,
+                                sampling=sampling)
     run_config = dict(version=U.RUN_VERSION, provenance=provenance, model_config=asdict(config), device=args.device,
                       threads=args.threads, runtime=runtime_config(),
                       cuda_runtime=cuda_runtime_config() if args.device == "cuda:0" else None,
@@ -262,8 +305,13 @@ def command_train(args):
         check(not output.exists() or not any(output.iterdir()), f"{output} exists without config.json")
         output.mkdir(parents=True, exist_ok=True)
         R.publish_json(output / "config.json", run_config)
+    if (output / "summary.json").exists():
+        print(json.dumps(dict(event="already-complete", summary=str(output / "summary.json"))), flush=True)
+        return 0
     sources = R.sampler_sources(supervised, union)
     initial = MixedState.initial(sources, R.SETTINGS, seed=U.SAMPLING_SEED)
+    if sampling is not None:
+        initial = S.RoundSamplingState.initial(initial, sampling, seed=U.SAMPLING_SEED)
     identity = R.sampler_identity(initial)
     latest, orphans = R.resume_point(output)
     records, superseded, partial = R.read_metrics(output)
@@ -396,6 +444,10 @@ def write_pair(output, update, *, model, optimizer, state, provenance, recipe, r
                    sampler=dict(selfplay_epoch=state.selfplay.epoch, selfplay_cursor=state.selfplay.cursor,
                                 selfplay_samples_drawn=state.selfplay.samples_seen),
                    timings=dict(measure_timings, checkpoint_save_seconds=save_seconds), written_utc=R._now())
+    if type(state) is S.RoundSamplingState:
+        sidecar["sampler"]["round_sampling"] = state.report()
+        sidecar["sampler"]["selfplay_epoch"] = None
+        sidecar["sampler"]["selfplay_cursor"] = None
     R.publish_json(output / R.sidecar_name(update), sidecar)
     return sidecar
 
@@ -449,6 +501,12 @@ def finalize(output, args, *, total, union, provenance, start, start_sha):
                             p90=float(np.quantile(seconds, 0.9))) if seconds else None,
         peak_gpu_allocated_bytes=torch.cuda.max_memory_allocated(0) if args.device == "cuda:0" else None,
         test_split_used=False)
+    sampling = provenance["sampler"].get("round_sampling")
+    if sampling is not None:
+        report = latest[1]["sampler"]["round_sampling"]
+        summary["round_sampling"] = report
+        summary["selfplay"].update(seen_twice=None, epochs_started=None,
+                                   reused_draws=sum(r["reused_draws"] for r in report["by_round"]))
     R.publish_json(output / "summary.json", summary)
     print(json.dumps(dict(event="summary", name=summary["name"], role=summary["role"], selection=choice,
                           original_rule_selection=mapped, candidate=summary["candidate"],
@@ -491,7 +549,12 @@ def main(argv=None):
     train.add_argument("--output", type=Path, required=True)
     train.add_argument("--device", choices=("cpu", "cuda:0"), default="cuda:0")
     train.add_argument("--threads", type=int, default=1)
-    train.add_argument("--updates", type=int, help="total updates (default ceil(training positions / 24)); dry runs only")
+    train.add_argument("--updates", type=int,
+                       help="total update budget; required for new weighted runs; legacy default ceil(union positions / 24)")
+    train.add_argument("--sampling-mode", choices=("weighted", "legacy"),
+                       help="new runs default weighted: mix [0.2,0.8], pure [0,1]; resumes inherit saved mode")
+    train.add_argument("--round-weights", type=float, nargs="+",
+                       help="one nonnegative finite weight per ordered --round-data; normalized to sum one; needs --updates")
     train.add_argument("--checkpoint-every", type=int, default=R.CHECKPOINT_EVERY)
     train.add_argument("--stop-after", type=int, help="exit after the checkpoint at this update (resume tests)")
     train.add_argument("--no-hard-stop", action="store_true",

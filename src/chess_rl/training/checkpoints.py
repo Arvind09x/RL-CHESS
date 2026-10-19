@@ -494,9 +494,14 @@ def _validate_payload(payload, expected_config=None):
     _fields(training["weights"], LossWeights.__dataclass_fields__, "loss weights")
     weights = LossWeights(**training["weights"])
     if mixed:
-        from .mixed_state import MixedState
         from .mixed import validate_optimizer_settings
-        order = MixedState.from_dict(training["mixed_state"])
+        from .round_sampling import RoundSamplingState, sampling_state_from_dict
+        order = sampling_state_from_dict(training["mixed_state"])
+        sampling = payload["provenance"].get("sampler", {}).get("round_sampling")
+        if type(order) is RoundSamplingState:
+            _same(order.config, sampling, "round sampler provenance")
+        else:
+            _require(sampling is None, "weighted provenance requires weighted sampler state")
         _require(progress.step == order.updates and progress.epoch == 0
                  and progress.samples_seen == order.supervised.samples_seen + order.selfplay.samples_seen,
                  "mixed checkpoint progress mismatch")
@@ -536,10 +541,11 @@ def save_checkpoint(path, *, model, optimizer, checkpoint_id, provenance, weight
     temporary = None
     try:
         from .mixed_state import MixedState
+        from .round_sampling import RoundSamplingState
         _require(type(weights) is LossWeights and type(progress) is Progress,
                  "save requires LossWeights and Progress")
         _require((type(data_order) is DataOrder and mixed_state is None)
-                 or (data_order is None and type(mixed_state) is MixedState),
+                 or (data_order is None and type(mixed_state) in (MixedState, RoundSamplingState)),
                  "save requires exactly one DataOrder or MixedState")
         config = _model_config(model)
         history = getattr(model, "_resume_runtime_history", None)
@@ -643,6 +649,8 @@ def restore_training(path, *, expected_config, expected_provenance, dataset=None
             if saved_runtime != current_runtime:
                 warnings.warn("compatible resume across OS/Python patch changes; bitwise continuation is unverified", RuntimeWarning)
         from .mixed_state import MixedState, MixedSettings
+        from .round_sampling import RoundSamplingState
+        _require(type(order) is not RoundSamplingState, "per-round sampling requires restore_round")
         if type(order) is MixedState:
             _require(dataset is None and source_id is None and type(expected_mixed_settings) is MixedSettings,
                      "mixed resume requires explicit mixed settings and both sources; D07-only cursor is insufficient")

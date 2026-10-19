@@ -3,8 +3,9 @@
 The round-1 arrays (games played by P) and the round-2 arrays (games played by R1-mix) stay
 separate verified sets, each with its own manifest; RoundUnion presents them as one train set and
 one hold-out set in round order, with the interface round_step, sampler_sources and the evaluator
-use. The update step, checkpoint format, sampler, evaluation and candidate rules are
-round_training's, unchanged. Round 2 differs from round 1 in four recorded ways: the start weights
+use. The update step, checkpoint container, evaluation and candidate rules are
+round_training's, unchanged. round_sampling adds versioned proportional self-play sampling;
+the explicit legacy path retains the original union sampler. Round 2 differs from round 1 in four recorded ways: the start weights
 (R1-mix) are separate from the forgetting reference (P); new sampler and run seeds, so the
 Stockfish rows are not R1-mix's rows in the same order; a hard stop with no eligible checkpoint
 falls back to the start checkpoint, not to P; checkpoint ids start with r2-.

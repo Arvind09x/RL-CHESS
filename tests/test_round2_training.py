@@ -18,6 +18,7 @@ from chess_rl.replay import ReplayBuffer
 from chess_rl.selfplay import Phase
 from chess_rl.training import round2_training as U
 from chess_rl.training import round_training as R
+from chess_rl.training import round_sampling as S
 from chess_rl.training.checkpoints import load_inference
 from chess_rl.training.mixed_state import MixedState
 from scripts import train_round2 as T2
@@ -244,20 +245,23 @@ def test_data_command_refuses_a_sample_played_by_another_checkpoint(rounds, monk
 
 # Training.
 
-def test_runs_resume_exactly_load_for_inference_and_refuse_changes(rounds):
+@pytest.mark.parametrize("recipe,mode", [("mix", "weighted"), ("pure", "weighted"), ("mix", "legacy")])
+def test_runs_resume_exactly_load_for_inference_and_refuse_changes(rounds, recipe, mode):
+    def run_args(*a, **kw):
+        return train_args(*a, recipe=recipe, **kw) + ["--sampling-mode", mode]
     r2 = build_r2(rounds)
     tmp = rounds["tmp"]
     a, b = tmp / "a", tmp / "b"
-    cli2(*train_args(rounds, r2, a))
-    cli2(*train_args(rounds, r2, b, "--stop-after", 2))
+    cli2(*run_args(rounds, r2, a))
+    cli2(*run_args(rounds, r2, b, "--stop-after", 2))
     assert not (b / "summary.json").exists()
-    cli2(*train_args(rounds, r2, b))
+    cli2(*train_args(rounds, r2, b, recipe=recipe))  # omit mode: inherit saved settings
     assert json.loads(cli("compare", a, b, "--update", 4).stdout)["identical"]
     assert cli("inference", b / "update-000004.pt", "--data-config", rounds["config"], "--device", "cpu").returncode == 0
     loaded = load_inference(b / "update-000004.pt")
-    assert loaded.checkpoint_id == "r2-mix-update-000004"
+    assert loaded.checkpoint_id == f"r2-{recipe}-update-000004"
     provenance = loaded.provenance
-    assert provenance["schema"] == U.RUN_VERSION and provenance["recipe_details"]["name"] == "R2-mix"
+    assert provenance["schema"] == U.RUN_VERSION and provenance["recipe_details"]["name"] == U.NAMES[recipe]
     assert provenance["initial_checkpoint"]["sha256"] == rounds["start_sha"]
     assert provenance["forgetting_reference"]["sha256"] == rounds["p_sha"]
     assert provenance["sampler"]["seed"] == U.SAMPLING_SEED and provenance["run_seed"] == U.RUN_SEED
@@ -276,18 +280,50 @@ def test_runs_resume_exactly_load_for_inference_and_refuse_changes(rounds):
     by_round = sidecar["evaluation"]["holdout"]["by_round"]
     assert [x["round"] for x in by_round] == [1, 2]
     summary = json.loads((a / "summary.json").read_text())
-    assert summary["selectable"] and summary["role"] == "selectable" and summary["completed"]
+    assert summary["selectable"] == (recipe == "mix") and summary["completed"]
     assert summary["candidate"]["path"] == str(a / "update-000004.pt") and summary["candidate"]["source"] == "this run"
     assert summary["selfplay"]["by_round"] == [len(rounds["r1"].train), len(R.RoundData.open(r2).train)]
     # A changed seed or data set refuses to resume.
     c = tmp / "c"
-    cli2(*train_args(rounds, r2, c, "--stop-after", 2))
-    seed = cli2(*train_args(rounds, r2, c), patch="U.SAMPLING_SEED = 1", check=False)
+    cli2(*run_args(rounds, r2, c, "--stop-after", 2))
+    seed = cli2(*run_args(rounds, r2, c), patch="U.SAMPLING_SEED = 1", check=False)
     assert seed.returncode == 2 and "other settings" in seed.stderr
     r2b = tmp / "r2-copy"
     shutil.copytree(r2, r2b)
-    moved = cli2(*train_args(rounds, r2b, c), check=False)
+    moved = cli2(*run_args(rounds, r2b, c), check=False)
     assert moved.returncode == 2 and "other settings" in moved.stderr
+
+    records = R.read_metrics(a)[0]
+    if mode == "weighted":
+        report = summary["round_sampling"]
+        assert report["configuration"]["normalized_weights"] == S.DEFAULT_WEIGHTS[recipe]
+        assert report["configuration"] == provenance["sampler"]["round_sampling"]
+        payload = torch.load(b / "update-000004.pt", weights_only=True)
+        state = S.sampling_state_from_dict(payload["training"]["mixed_state"])
+        identity = R.sampler_identity(state)
+        changed_identity = json.loads(json.dumps(identity))
+        changed_identity["round_sampling"]["round_ids"][0] = "0" * 64
+        with pytest.raises(R.CheckpointError, match="sampler sources"):
+            R.restore_round(b / "update-000004.pt", expected_config=loaded.config,
+                            expected_provenance=provenance, expected_settings=R.SETTINGS,
+                            expected_identity=changed_identity)
+        assert sum(r["draws"] for r in report["by_round"]) == 96
+        if recipe == "pure":
+            assert report["by_round"][0]["draws"] == 0
+        assert summary["trained_positions"] == dict(selfplay=96, stockfish=32 if recipe == "mix" else 0)
+        for out in (a, c):  # completed outputs must also reject incompatible requests
+            changed = cli2(*run_args(rounds, r2, out, "--round-weights", .25, .75), check=False)
+            assert changed.returncode == 2 and "weights differ" in changed.stderr
+            changed = cli2(*run_args(rounds, r2, out, "--updates", 5), check=False)
+            assert changed.returncode == 2 and "budget differs" in changed.stderr
+    else:
+        assert "round_sampling" not in provenance["sampler"]
+        union = U.RoundUnion.open([(rounds["r1"].directory, rounds["p_sha"]), (r2, rounds["start_sha"])])
+        cached = CachedSupervisedDataset.open(split="train", **rounds["paths"])
+        state = MixedState.initial(R.sampler_sources(cached, union), R.SETTINGS, seed=U.SAMPLING_SEED)
+        for record in records:
+            si, ri, state = state.next_selection()
+            assert record["selfplay_indices"] == list(ri) and record["stockfish_indices"] == list(si)
 
 
 def test_start_checks_and_the_fallback_to_the_start_checkpoint(rounds):
@@ -348,3 +384,35 @@ def test_start_candidate_mapping_keeps_a_real_candidate():
                                  start_sha256="a" * 64, start_checkpoint_id="r1")
     assert fallback["candidate"] == "start" and fallback["start"]["sha256"] == "a" * 64
     assert U.candidate_record(fallback, output="x", sha256=None)["path"] == "s.pt"
+
+
+def test_weighted_equal_settings_share_draws_and_preserve_holdouts_and_losses(rounds):
+    from .test_round_training import training_model
+    r2 = build_r2(rounds)
+    union = U.RoundUnion.open([(rounds["r1"].directory, rounds["p_sha"]), (r2, rounds["start_sha"])])
+    cached = CachedSupervisedDataset.open(split="train", **rounds["paths"])
+    legacy = MixedState.initial(R.sampler_sources(cached, union), R.SETTINGS, seed=U.SAMPLING_SEED)
+    config = S.configuration([.25, .75], [p.replay_id for p in union.parts], [len(p.train) for p in union.parts], 3)
+    initial = S.RoundSamplingState.initial(legacy, config, seed=U.SAMPLING_SEED)
+    runs = {}
+    for recipe in R.RECIPES:
+        model, state = training_model(rounds), initial
+        optimizer = R.build_round_optimizer(model)
+        records = []
+        for _ in range(3):
+            record, state = R.round_step(model, optimizer, recipe=recipe, supervised=cached,
+                                        rows=union.train, state=state, max_gradient_norm=10.)
+            records.append(record)
+            ids = union.train.batch(record["selfplay_indices"]).sample_ids
+            assert not set(ids) & set(union.holdout.sample_ids)
+            losses = record["losses"]
+            sp = losses["selfplay"]["policy_loss"] + losses["selfplay"]["wdl_loss"]
+            expected = .75 * sp + .25 * losses["stockfish"]["total_loss"] if recipe == "mix" else sp
+            assert losses["total_loss"] == pytest.approx(expected)
+        runs[recipe] = (records, state)
+    mix, pure = runs["mix"][0], runs["pure"][0]
+    assert runs["mix"][1] == runs["pure"][1]
+    assert [r["selfplay_indices"] for r in mix] == [r["selfplay_indices"] for r in pure]
+    assert [r["stockfish_indices"] for r in mix] == [r["discarded_stockfish_indices"] for r in pure]
+    assert all(r["trained_positions"] == dict(selfplay=24, stockfish=8) for r in mix)
+    assert all(r["trained_positions"] == dict(selfplay=24, stockfish=0) for r in pure)

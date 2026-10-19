@@ -21,7 +21,7 @@
 #   4. Reopens r2-data (every file hash; record, selection and R1-mix checked; the buffer is not opened),
 #      checks the four round-2 archives against their summaries, then deletes the round-2 buffer
 #      runs/selfplay/round2-abcd-sims128 (approved B.1; it can be rebuilt from the archives).
-#   5. Dry run (R2-mix recipe, 4 updates, checkpoint every 2) uninterrupted and stopped after 2 then
+#   5. Dry run BOTH resolved recipes (4 updates, checkpoint every 2), uninterrupted and stopped after 2 then
 #      resumed in a new process; compare at update 4 and inference must both pass, else the job stops
 #      before the full runs. On a pass, writes passed.json and deletes the dry-run checkpoints (B.3).
 #   6. R2-mix (original rule: flag +0.05, hard stop +0.25, fallback R1-mix), then R2-pure (no hard
@@ -48,7 +48,35 @@ DRY_RECORD=runs/selfplay/round2-dryrun-sims128-buffer.json
 R1_DATA=runs/train/r1-data
 R2_DATA=runs/train/r2-data
 QUOTA_BYTES=100000000000
-DRY=runs/train/dryrun-r2-mix
+# New runs: mix 20% R1 / 80% R2; pure 0% R1 / 100% R2. Explicit equal budget.
+# Set R2_UPDATES to the reviewed total budget before submission. No job is submitted here.
+: "${R2_UPDATES:?Set an explicit positive total update budget for BOTH R2 recipes}"
+[[ "$R2_UPDATES" =~ ^[1-9][0-9]*$ ]] || { echo "invalid R2_UPDATES" >&2; exit 1; }
+R2_SAMPLING_MODE=${R2_SAMPLING_MODE:-weighted}
+read -r -a MIX_WEIGHTS <<< "${R2_MIX_WEIGHTS:-0.20 0.80}"
+read -r -a PURE_WEIGHTS <<< "${R2_PURE_WEIGHTS:-0.00 1.00}"
+# Validate before cleanup; isolate full runs and dry-run markers by sampling settings AND budget.
+TAG=$("$PY" - "$R2_SAMPLING_MODE" "$R2_UPDATES" "${MIX_WEIGHTS[*]}" "${PURE_WEIGHTS[*]}" <<'PYEOF'
+import sys
+from chess_rl.evaluation.matches import digest
+from chess_rl.training.round_sampling import VERSION, weight_units
+mode, budget, mix, pure = sys.argv[1:]
+assert mode in ("weighted", "legacy"), "invalid R2_SAMPLING_MODE"
+weights = [list(map(float, v.split())) for v in (mix, pure)] if mode == "weighted" else None
+if weights:
+    for w in weights:
+        weight_units(w, 2)
+print(digest([VERSION, mode, int(budget), weights])[:16])
+PYEOF
+) || { echo "invalid R2 sampling settings" >&2; exit 1; }
+MIX_SAMPLING=(--sampling-mode "$R2_SAMPLING_MODE")
+PURE_SAMPLING=(--sampling-mode "$R2_SAMPLING_MODE")
+if test "$R2_SAMPLING_MODE" = weighted; then
+  MIX_SAMPLING+=(--round-weights "${MIX_WEIGHTS[@]}")
+  PURE_SAMPLING+=(--round-weights "${PURE_WEIGHTS[@]}")
+fi
+MIX_RUN="runs/train/r2-mix-$TAG"
+PURE_RUN="runs/train/r2-pure-$TAG"
 AMENDMENT="Round-2 plan, approved decision 3 (Arvind, 18 Oct 2026, ~13:00 IST): R2-pure uses the pure recipe with no hard stop (every breach recorded, as amendment A6), candidate = final checkpoint, report-only, never selected."
 T2="$PY scripts/train_round2.py"
 TM="$PY scripts/train_mixed.py"
@@ -131,33 +159,62 @@ COMMON=(--data-config "$DATA_CONFIG" "${ROUNDS[@]}" --start-checkpoint "$START" 
         --p-checkpoint "$P" --p-sha256 "$P_SHA256" --device cuda:0 --threads 4 --expect-p-total "$EXPECT_P_TOTAL"
         --p-tolerance 0.001 --start-tolerance 0.001 --quota-bytes "$QUOTA_BYTES")
 
-echo "== 5. dry run (R2-mix recipe, 4 updates)"
-if test -e "$DRY/passed.json"; then
-  echo "dry run passed earlier:"; cat "$DRY/passed.json"
-else
-  DCOMMON=(--recipe mix "${COMMON[@]}" --updates 4 --checkpoint-every 2)
-  $T2 train "${DCOMMON[@]}" --output "$DRY/uninterrupted" || fail "dry run (uninterrupted) failed; no full run"
-  $T2 train "${DCOMMON[@]}" --output "$DRY/resumed" --stop-after 2 || fail "dry run (stop after 2) failed; no full run"
-  $T2 train "${DCOMMON[@]}" --output "$DRY/resumed" || fail "dry run (resume) failed; no full run"
-  $TM compare "$DRY/uninterrupted" "$DRY/resumed" --update 4 || fail "dry-run compare found a difference; no full run"
-  $TM inference "$DRY/resumed/update-000004.pt" --data-config "$DATA_CONFIG" --device cuda:0 --threads 4 \
-    || fail "dry-run inference check failed; no full run"
-  $TM timings "$DRY/uninterrupted" "$DRY/resumed" || true
-  "$PY" -c "import json, datetime; json.dump(dict(passed=['compare --update 4', 'inference'], utc=datetime.datetime.now(datetime.timezone.utc).isoformat()), open('$DRY/passed.json', 'x')); print(open('$DRY/passed.json').read())"
-  echo "dry run passed; deleting its checkpoints (approved B.3)"
-  for C in "$DRY"/uninterrupted/update-*.pt "$DRY"/resumed/update-*.pt; do remove "$C"; done
-  quota_now
-fi
+echo "== 5. dry runs (both resolved recipes, 4 updates)"
+for RECIPE in mix pure; do
+  DRY="runs/train/dryrun-r2-$RECIPE-$TAG"
+  if test "$RECIPE" = mix; then SAMPLING=("${MIX_SAMPLING[@]}"); else SAMPLING=("${PURE_SAMPLING[@]}"); fi
+  if test -e "$DRY/passed.json"; then
+    "$PY" - "$DRY" "$TAG" "$RECIPE" <<'PYEOF' || fail "dry-run marker/settings mismatch"
+import json, sys
+from pathlib import Path
+root, key, recipe = Path(sys.argv[1]), sys.argv[2], sys.argv[3]
+p = json.loads((root / "passed.json").read_text())
+assert p["validation_key"] == key and p["recipe"] == recipe
+for name in ("uninterrupted", "resumed"):
+    c = json.loads((root / name / "config.json").read_text())["provenance"]
+    s = json.loads((root / name / "summary.json").read_text())
+    assert c["sampler"] == p["sampler"] and c["total_updates"] == 4 and c["recipe"] == recipe
+    assert s["completed"] and s.get("round_sampling") == p["round_sampling"]
+print(json.dumps(p))
+PYEOF
+  else
+    DCOMMON=(--recipe "$RECIPE" "${COMMON[@]}" "${SAMPLING[@]}" --updates 4 --checkpoint-every 2)
+    if test "$RECIPE" = pure; then DCOMMON+=(--no-hard-stop --amendment-note "$AMENDMENT"); fi
+    $T2 train "${DCOMMON[@]}" --output "$DRY/uninterrupted" || fail "dry run (uninterrupted) failed; no full run"
+    $T2 train "${DCOMMON[@]}" --output "$DRY/resumed" --stop-after 2 || fail "dry run (stop after 2) failed; no full run"
+    $T2 train "${DCOMMON[@]}" --output "$DRY/resumed" || fail "dry run (resume) failed; no full run"
+    $TM compare "$DRY/uninterrupted" "$DRY/resumed" --update 4 || fail "dry-run compare found a difference; no full run"
+    $TM inference "$DRY/resumed/update-000004.pt" --data-config "$DATA_CONFIG" --device cuda:0 --threads 4 \
+      || fail "dry-run inference check failed; no full run"
+    $TM timings "$DRY/uninterrupted" "$DRY/resumed" || true
+    "$PY" - "$DRY" "$TAG" "$RECIPE" <<'PYEOF' || fail "dry-run report incomplete"
+import datetime, json, sys
+from pathlib import Path
+root, key, recipe = Path(sys.argv[1]), sys.argv[2], sys.argv[3]
+c = json.loads((root / "resumed/config.json").read_text())["provenance"]
+s = json.loads((root / "resumed/summary.json").read_text())
+assert s["completed"] and s["updates"] == 4
+p = dict(validation_key=key, recipe=recipe, sampler=c["sampler"], round_sampling=s.get("round_sampling"),
+         passed=["compare --update 4", "inference"], utc=datetime.datetime.now(datetime.timezone.utc).isoformat())
+with (root / "passed.json").open("x") as f:
+    json.dump(p, f)
+print(json.dumps(p))
+PYEOF
+    echo "dry run passed; deleting its checkpoints (approved B.3)"
+    for C in "$DRY"/uninterrupted/update-*.pt "$DRY"/resumed/update-*.pt; do remove "$C"; done
+    quota_now
+  fi
+done
 
 status=0
 echo "== 6a. R2-mix (selectable; hard stop at +0.25, fallback R1-mix)"
-$T2 train --recipe mix "${COMMON[@]}" --output runs/train/r2-mix || status=1
+$T2 train --recipe mix "${COMMON[@]}" "${MIX_SAMPLING[@]}" --updates "$R2_UPDATES" --output "$MIX_RUN" || status=1
 echo "== 6b. R2-pure (report-only; no hard stop)"
-$T2 train --recipe pure "${COMMON[@]}" --no-hard-stop --amendment-note "$AMENDMENT" --output runs/train/r2-pure || status=1
+$T2 train --recipe pure "${COMMON[@]}" "${PURE_SAMPLING[@]}" --updates "$R2_UPDATES" --no-hard-stop --amendment-note "$AMENDMENT" --output "$PURE_RUN" || status=1
 echo "== 7. timings and summaries"
-$TM timings --round-data "$R2_DATA" runs/train/r2-mix runs/train/r2-pure || status=1
-for RUN in runs/train/r2-mix runs/train/r2-pure; do
-  test -e "$RUN/summary.json" && "$PY" -c "import json; s = json.load(open('$RUN/summary.json')); print(json.dumps({k: s[k] for k in ('name', 'role', 'completed', 'updates', 'total_updates', 'candidate', 'final_delta_total', 'threshold_breaches')}, indent=2))"
+$TM timings --round-data "$R2_DATA" "$MIX_RUN" "$PURE_RUN" || status=1
+for RUN in "$MIX_RUN" "$PURE_RUN"; do
+  test -e "$RUN/summary.json" && "$PY" -c "import json; s = json.load(open('$RUN/summary.json')); print(json.dumps({k: s[k] for k in ('name', 'role', 'completed', 'updates', 'total_updates', 'candidate', 'final_delta_total', 'threshold_breaches')} | dict(round_sampling=s.get('round_sampling')), indent=2))"
 done
 quota_now
 report_cgroup_peak

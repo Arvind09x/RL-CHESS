@@ -48,35 +48,46 @@ DRY_RECORD=runs/selfplay/round2-dryrun-sims128-buffer.json
 R1_DATA=runs/train/r1-data
 R2_DATA=runs/train/r2-data
 QUOTA_BYTES=100000000000
-# New runs: mix 20% R1 / 80% R2; pure 0% R1 / 100% R2. Explicit equal budget.
-# Set R2_UPDATES to the reviewed total budget before submission. No job is submitted here.
-: "${R2_UPDATES:?Set an explicit positive total update budget for BOTH R2 recipes}"
-[[ "$R2_UPDATES" =~ ^[1-9][0-9]*$ ]] || { echo "invalid R2_UPDATES" >&2; exit 1; }
+# Settings come from jobs/b200-selfplay/round2.conf, committed with the job (the guarded sbatch takes no job
+# arguments). Keys:
+#   R2_SAMPLING_MODE  weighted (default) | legacy
+#   R2_UPDATES        positive integer; or "auto" = the smallest budget that gives one full pass over the
+#                     round-2 training positions at the mix recipe's round-2 share (computed from
+#                     runs/train/r2-data/manifest.json once the arrays exist, so it is exact and the same on a
+#                     resubmit); legacy mode may leave it unset for the original ceil(union / 24) budget.
+#                     Both recipes get the same budget.
+#   R2_MIX_WEIGHTS    default "0.20 0.80";  R2_PURE_WEIGHTS  default "0.00 1.00"  (ordered [round 1, round 2])
+CONF=jobs/b200-selfplay/round2.conf
+test -f "$CONF" || { echo "write $CONF first (R2_SAMPLING_MODE, R2_UPDATES, R2_MIX_WEIGHTS, R2_PURE_WEIGHTS)" >&2; exit 1; }
+echo "== settings ($CONF)"; cat "$CONF"
+source "$CONF"
 R2_SAMPLING_MODE=${R2_SAMPLING_MODE:-weighted}
+R2_UPDATES=${R2_UPDATES:-}
 read -r -a MIX_WEIGHTS <<< "${R2_MIX_WEIGHTS:-0.20 0.80}"
 read -r -a PURE_WEIGHTS <<< "${R2_PURE_WEIGHTS:-0.00 1.00}"
-# Validate before cleanup; isolate full runs and dry-run markers by sampling settings AND budget.
-TAG=$("$PY" - "$R2_SAMPLING_MODE" "$R2_UPDATES" "${MIX_WEIGHTS[*]}" "${PURE_WEIGHTS[*]}" <<'PYEOF'
+case "$R2_SAMPLING_MODE:$R2_UPDATES" in
+  weighted:auto) ;;
+  weighted:) echo "weighted sampling needs R2_UPDATES (an integer or auto)" >&2; exit 1 ;;
+  weighted:*|legacy:|legacy:*) ;;
+  *) echo "invalid R2_SAMPLING_MODE: $R2_SAMPLING_MODE" >&2; exit 1 ;;
+esac
+test -z "$R2_UPDATES" -o "$R2_UPDATES" = auto || [[ "$R2_UPDATES" =~ ^[1-9][0-9]*$ ]] || { echo "invalid R2_UPDATES: $R2_UPDATES" >&2; exit 1; }
+# Validate mode and weights before any cleanup; the budget and the settings tag are fixed after step 4.
+"$PY" - "$R2_SAMPLING_MODE" "${MIX_WEIGHTS[*]}" "${PURE_WEIGHTS[*]}" <<'PYEOF' || { echo "invalid R2 sampling settings" >&2; exit 1; }
 import sys
-from chess_rl.evaluation.matches import digest
-from chess_rl.training.round_sampling import VERSION, weight_units
-mode, budget, mix, pure = sys.argv[1:]
+from chess_rl.training.round_sampling import weight_units
+mode, mix, pure = sys.argv[1:]
 assert mode in ("weighted", "legacy"), "invalid R2_SAMPLING_MODE"
-weights = [list(map(float, v.split())) for v in (mix, pure)] if mode == "weighted" else None
-if weights:
-    for w in weights:
-        weight_units(w, 2)
-print(digest([VERSION, mode, int(budget), weights])[:16])
+if mode == "weighted":
+    for v in (mix, pure):
+        weight_units(list(map(float, v.split())), 2)
 PYEOF
-) || { echo "invalid R2 sampling settings" >&2; exit 1; }
 MIX_SAMPLING=(--sampling-mode "$R2_SAMPLING_MODE")
 PURE_SAMPLING=(--sampling-mode "$R2_SAMPLING_MODE")
 if test "$R2_SAMPLING_MODE" = weighted; then
   MIX_SAMPLING+=(--round-weights "${MIX_WEIGHTS[@]}")
   PURE_SAMPLING+=(--round-weights "${PURE_WEIGHTS[@]}")
 fi
-MIX_RUN="runs/train/r2-mix-$TAG"
-PURE_RUN="runs/train/r2-pure-$TAG"
 AMENDMENT="Round-2 plan, approved decision 3 (Arvind, 18 Oct 2026, ~13:00 IST): R2-pure uses the pure recipe with no hard stop (every breach recorded, as amendment A6), candidate = final checkpoint, report-only, never selected."
 T2="$PY scripts/train_round2.py"
 TM="$PY scripts/train_mixed.py"
@@ -154,6 +165,41 @@ else
   echo "already gone: $BUFFER"
 fi
 
+echo "== budget and settings tag"
+if test "$R2_UPDATES" = auto; then
+  R2_UPDATES=$("$PY" - "$R2_DATA/manifest.json" "${MIX_WEIGHTS[*]}" <<'PYEOF'
+import json, math, sys
+from chess_rl.training.round_sampling import weight_units
+counts = json.load(open(sys.argv[1]))["counts"]
+units = weight_units(list(map(float, sys.argv[2].split())), 2)
+share = units[1] / sum(units)  #the mix recipe's round-2 share of the 24 self-play draws per update
+# the deadline sampler keeps every round within one draw of 24 * share * N, so N = ceil(count / (24 share)) + 1
+# gives at least count round-2 draws: one full pass over round 2 for the mix recipe (round 1 gets the rest)
+n = math.ceil(counts["training_positions"] / (24 * share)) + 1
+print(json.dumps(dict(event="auto-budget", rule="smallest N with >= one full pass over round 2 at the mix round-2 share",
+                      round2_training_positions=counts["training_positions"], round2_share=share, updates=n)), file=sys.stderr)
+print(n)
+PYEOF
+  ) || fail "could not compute the automatic budget"
+  echo "R2_UPDATES=$R2_UPDATES (auto)"
+fi
+BUDGET=(); test -z "$R2_UPDATES" || BUDGET=(--updates "$R2_UPDATES")
+TAG=$("$PY" - "$R2_SAMPLING_MODE" "$R2_UPDATES" "${MIX_WEIGHTS[*]}" "${PURE_WEIGHTS[*]}" <<'PYEOF'
+import sys
+from chess_rl.evaluation.matches import digest
+from chess_rl.training.round_sampling import VERSION, weight_units
+mode, budget, mix, pure = sys.argv[1:]
+weights = [list(map(float, v.split())) for v in (mix, pure)] if mode == "weighted" else None
+if weights:
+    for w in weights:
+        weight_units(w, 2)
+print(digest([VERSION, mode, int(budget) if budget else None, weights])[:16])
+PYEOF
+) || fail "invalid R2 sampling settings"
+MIX_RUN="runs/train/r2-mix-$TAG"
+PURE_RUN="runs/train/r2-pure-$TAG"
+echo "mode=$R2_SAMPLING_MODE updates=${R2_UPDATES:-default} mix_weights=${MIX_WEIGHTS[*]} pure_weights=${PURE_WEIGHTS[*]} tag=$TAG"
+
 ROUNDS=(--round-data "$R1_DATA" "$P_SHA256" --round-data "$R2_DATA" "$START_SHA256")
 COMMON=(--data-config "$DATA_CONFIG" "${ROUNDS[@]}" --start-checkpoint "$START" --start-sha256 "$START_SHA256"
         --p-checkpoint "$P" --p-sha256 "$P_SHA256" --device cuda:0 --threads 4 --expect-p-total "$EXPECT_P_TOTAL"
@@ -208,9 +254,9 @@ done
 
 status=0
 echo "== 6a. R2-mix (selectable; hard stop at +0.25, fallback R1-mix)"
-$T2 train --recipe mix "${COMMON[@]}" "${MIX_SAMPLING[@]}" --updates "$R2_UPDATES" --output "$MIX_RUN" || status=1
+$T2 train --recipe mix "${COMMON[@]}" "${MIX_SAMPLING[@]}" ${BUDGET[@]+"${BUDGET[@]}"} --output "$MIX_RUN" || status=1
 echo "== 6b. R2-pure (report-only; no hard stop)"
-$T2 train --recipe pure "${COMMON[@]}" "${PURE_SAMPLING[@]}" --updates "$R2_UPDATES" --no-hard-stop --amendment-note "$AMENDMENT" --output "$PURE_RUN" || status=1
+$T2 train --recipe pure "${COMMON[@]}" "${PURE_SAMPLING[@]}" ${BUDGET[@]+"${BUDGET[@]}"} --no-hard-stop --amendment-note "$AMENDMENT" --output "$PURE_RUN" || status=1
 echo "== 7. timings and summaries"
 $TM timings --round-data "$R2_DATA" "$MIX_RUN" "$PURE_RUN" || status=1
 for RUN in "$MIX_RUN" "$PURE_RUN"; do
